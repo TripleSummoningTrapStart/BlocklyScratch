@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+
+	<head>
+		<title>"ScratchLookAlike"</title>
+		<script src="google-blockly/blockly_compressed.js"></script>
+		<script src="google-blockly/blocks_compressed.js"></script>
+		<script src="google-blockly/msg/js/en.js"></script>
+
+		<style>
+			html, body {
+			  height: 100%;
+			  margin: 0;
+			}
+			body {
+			  background-color: #fff;
+			  font-family: sans-serif;
+			  overflow: hidden;
+			}
+			h1 {
+			  font-weight: normal;
+			  font-size: 140%;
+			}
+			table {
+			  height: 100%;
+			  width: 100%;
+			}
+			#blocklyArea {
+			  height: 99%;
+			}
+		</style> 
+	</head>
+	<body>
+		<table>
+			<tbody>
+				<tr>
+				<td id = "blocklyArea">blocks go here</td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="blocklyDiv" style="position: absolute"></div>
+	</body>
+	<xml id="toolbox" style="display: none">
+	  <block type="controls_if"></block>
+	  <block type="controls_repeat_ext"></block>
+	  <block type="logic_compare"></block>
+	  <block type="math_number"></block>
+	  <block type="math_arithmetic"></block>
+	  <block type="text"></block>
+	  <block type="text_print"></block>
+	</xml>
+<script>
+  var blocklyArea = document.getElementById('blocklyArea');
+  var blocklyDiv = document.getElementById('blocklyDiv');
+  var workspace = Blockly.inject(blocklyDiv,
+      {toolbox: document.getElementById('toolbox')});
+  var onresize = function(e) {
+    // Compute the absolute coordinates and dimensions of blocklyArea.
+    var element = blocklyArea;
+    var x = 0;
+    var y = 0;
+    do {
+      x += element.offsetLeft;
+      y += element.offsetTop;
+      element = element.offsetParent;
+    } while (element);
+    // Position blocklyDiv over blocklyArea.
+    blocklyDiv.style.left = x + 'px';
+    blocklyDiv.style.top = y + 'px';
+    blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+    blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+  };
+  window.addEventListener('resize', onresize, false);
+  onresize();
+</script>
+</html>
