@@ -3,9 +3,10 @@
 
 	<head>
 		<title>"ScratchLookAlike"</title>
-		<script src="google-blockly/blockly_compressed.js"></script>
-		<script src="google-blockly/blocks_compressed.js"></script>
-		<script src="google-blockly/msg/js/en.js"></script>
+		<script src="google-blockly/blockly_compressed.js"></script> <!-- core blockly script -->
+		<script src="google-blockly/blocks_compressed.js"></script> <!-- core blocks set -->
+		<script src="google-blockly/msg/js/en.js"></script> <!--english message library -->
+		<script src="google-blockly/javascript_compressed.js"></script> <!-- Javascript code generator -->
 
 		<style>
 			html, body {
@@ -33,6 +34,7 @@
 	<body>
 		<table>
 			<tbody>
+				<tr><button type="button" onclick="runcode()">Run</button></tr>
 				<tr>
 				<td id = "blocklyArea">blocks go here</td>
 				</tr>
@@ -50,6 +52,16 @@
 	  <block type="text_print"></block>
 	</xml>
 <script>
+ var runcode = function()
+ {
+	Blockly.JavaScript.addReservedWords('code');
+	var code = Blockly.JavaScript.workspaceToCode(workspace);
+	try {
+	  eval(code);
+	} catch (e) {
+	  alert(e);
+	}
+ }
   var blocklyArea = document.getElementById('blocklyArea');
   var blocklyDiv = document.getElementById('blocklyDiv');
   var workspace = Blockly.inject(blocklyDiv,
