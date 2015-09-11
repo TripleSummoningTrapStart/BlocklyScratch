@@ -47,9 +47,16 @@
 		</style> 
 	</head>
 	<body>
-		<p><button type="button" onclick="runcode()">Run</button></p>
+		<table>
+ 			<tbody>
+				<tr><button type="button" onclick="runcode()">Run</button></tr>
+ 				<tr>
+ 				<td id = "blocklyArea">blocks go here</td>
+ 				</tr>
+ 			</tbody>
+ 		</table>
 
-		<div id="blocklyDiv" style="height: 600px; width: 800px; position: absolute"></div>
+		<div id="blocklyDiv"  style="position: absolute"></div>
 
 		<xml id="toolbox" style="display: none">
 			<category name="Logic">
@@ -83,7 +90,7 @@
   var blocklyArea = document.getElementById('blocklyArea');
   var blocklyDiv = document.getElementById('blocklyDiv');
   var workspace = Blockly.inject('blocklyDiv',
-      {media: 'blockly/media/',
+      {//media: 'blockly/media/',
 		  toolbox: document.getElementById('toolbox')});
   var onresize = function(e) {
     // Compute the absolute coordinates and dimensions of blocklyArea.
