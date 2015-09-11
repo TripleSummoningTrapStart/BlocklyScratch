@@ -110,5 +110,50 @@
   };
   window.addEventListener('resize', onresize, false);
   onresize();
+  
+   //JavaScript Interpreter
+  var code = Blockly.JavaScript.workspaceToCode(workspace);
+  var myInterpreter = new Interpreter(code, initApi);
+  myInterpreter.run();
+  
+  function nextStep()
+  {
+	if(myInterpreter.step())
+	{
+		window.setTimeout(nextStep, 10);
+	}
+  }
+  nextStep();
+  
+  //Creation of API for javasScript Interpreter
+  function initApi(interpreter, scope)
+  {
+	//Add an API function for the alert() block
+	var wrapper = function(text)
+	{
+		text = text ? text.toString() : '';
+		return interpreter.createPrimitive(alert(text));
+	}
+	interpreter.setProperty(scope, 'alert', interpreter.createNativeFunction(wrapper));
+	//Add an API function for the prompt() block
+	wrapper = function(text){
+		text = text ? text.toString() : '';
+		return interpreter.createPrimitive(prompt(text));
+	};
+  }
+  //highlight blocks set up and API
+  Blockly.JavaScript.STATMENT_PREFIX = 'highlightBlock(%1); \n';
+  Blockly.JavaScript.addReservedWords('highlightBlock');
+	
+  function initApi(interpreter, scope)
+  {
+	//Add an API function for highlighting blocks
+	var wrapper = function(id)
+	{
+		id = id ? id.toString() : '';
+		return interpreter.createPrimitive(workspace.highlightBlock(id));
+	}
+	interpreter.setProperty(scope, 'highlightBlock', interpreter.createNativeFunction(wrapper));
+  }
 </script>
 </html>
