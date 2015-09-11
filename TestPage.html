@@ -1,12 +1,27 @@
 <!doctype html>
 <html>
-
+	<meta charset="utf-8">
 	<head>
 		<title>"ScratchLookAlike"</title>
-		<script src="google-blockly/blockly_compressed.js"></script> <!-- core blockly script -->
-		<script src="google-blockly/blocks_compressed.js"></script> <!-- core blocks set -->
-		<script src="google-blockly/msg/js/en.js"></script> <!--english message library -->
-		<script src="google-blockly/javascript_compressed.js"></script> <!-- Javascript code generator -->
+		<script src="blockly/blockly_uncompressed.js"></script> <!-- core blockly script -->
+		<script src="blockly/blocks/logic.js"></script>
+		<script src="blockly/blocks/loops.js"></script>
+		<script src="blockly/blocks/math.js"></script>
+		<script src="blockly/blocks/text.js"></script>
+		<script src="blockly/blocks/lists.js"></script>
+		<script src="blockly/blocks/colour.js"></script>
+		<script src="blockly/blocks/variables.js"></script>
+		<script src="blockly/blocks/procedures.js"></script>
+		<script src="blockly/msg/messages.js"></script> <!--english message library -->
+		<script src="blockly/generators/javascript.js"></script>
+		<script src="blockly/generators/javascript/logic.js"></script>
+		<script src="blockly/generators/javascript/loops.js"></script>
+		<script src="blockly/generators/javascript/math.js"></script>
+		<script src="blockly/generators/javascript/text.js"></script>
+		<script src="blockly/generators/javascript/lists.js"></script>
+		<script src="blockly/generators/javascript/colour.js"></script>
+		<script src="blockly/generators/javascript/variables.js"></script>
+		<script src="blockly/generators/javascript/procedures.js"></script>
 
 		<style>
 			html, body {
@@ -32,25 +47,28 @@
 		</style> 
 	</head>
 	<body>
-		<table>
-			<tbody>
-				<tr><button type="button" onclick="runcode()">Run</button></tr>
-				<tr>
-				<td id = "blocklyArea">blocks go here</td>
-				</tr>
-			</tbody>
-		</table>
-		<div id="blocklyDiv" style="position: absolute"></div>
+		<p><button type="button" onclick="runcode()">Run</button></p>
+
+		<div id="blocklyDiv" style="height: 600px; width: 800px; position: absolute"></div>
+
+		<xml id="toolbox" style="display: none">
+			<category name="Logic">
+				<block type="controls_if"></block>
+				<block type="controls_if">
+					<mutation else="1"></mutation>
+				</block>
+				<block type="controls_repeat_ext"></block>
+				<block type="logic_compare"></block>
+			</category>
+			<category name="Misc">
+				<block type="math_number"></block>
+				<block type="math_arithmetic"></block>
+				<block type="text"></block>
+				<block type="text_print"></block>
+			</category>
+		</xml>
+
 	</body>
-	<xml id="toolbox" style="display: none">
-	  <block type="controls_if"></block>
-	  <block type="controls_repeat_ext"></block>
-	  <block type="logic_compare"></block>
-	  <block type="math_number"></block>
-	  <block type="math_arithmetic"></block>
-	  <block type="text"></block>
-	  <block type="text_print"></block>
-	</xml>
 <script>
  var runcode = function()
  {
@@ -64,8 +82,9 @@
  }
   var blocklyArea = document.getElementById('blocklyArea');
   var blocklyDiv = document.getElementById('blocklyDiv');
-  var workspace = Blockly.inject(blocklyDiv,
-      {toolbox: document.getElementById('toolbox')});
+  var workspace = Blockly.inject('blocklyDiv',
+      {media: 'blockly/media/',
+		  toolbox: document.getElementById('toolbox')});
   var onresize = function(e) {
     // Compute the absolute coordinates and dimensions of blocklyArea.
     var element = blocklyArea;
