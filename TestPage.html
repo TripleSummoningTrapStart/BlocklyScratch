@@ -22,6 +22,7 @@
 		<script src="blockly/generators/javascript/colour.js"></script>
 		<script src="blockly/generators/javascript/variables.js"></script>
 		<script src="blockly/generators/javascript/procedures.js"></script>
+		<script src="JS-Interpreter/acorn_interpreter.js"></script>
 
 		<style>
 			html, body {
@@ -43,8 +44,6 @@
 			}
 			#blocklyArea {
 			  height: 99%;
-			}
-			#blocklyDiv {
 			}
 		</style> 
 	</head>
@@ -79,17 +78,7 @@
 
 	</body>
 <script>
- var runcode = function()
- {
-	Blockly.JavaScript.addReservedWords('code');
-	var code = Blockly.JavaScript.workspaceToCode(workspace);
-	try {
-	  eval(code);
-	} catch (e) {
-	  alert(e);
-	}
- }
-  var blocklyArea = document.getElementById('blocklyArea');
+ var blocklyArea = document.getElementById('blocklyArea');
   var blocklyDiv = document.getElementById('blocklyDiv');
   var workspace = Blockly.inject('blocklyDiv',
       {media: 'blockly/media/',
@@ -112,20 +101,46 @@
   };
   window.addEventListener('resize', onresize, false);
   onresize();
-  
-   //JavaScript Interpreter
-  var code = Blockly.JavaScript.workspaceToCode(workspace);
+ var runcode = function()
+ {
+    /*Blockly.JavaScript.STATMENT_PREFIX = 'highlightBlock(%1);\n';
+    Blockly.JavaScript.addReservedWords('highlightBlock');
+	Blockly.JavaScript.addReservedWords('code');
+	var code = Blockly.JavaScript.workspaceToCode(workspace);
+	try {
+	  eval(code);
+	} catch (e) {
+	  alert(e);
+	}*/
+	 Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+    Blockly.JavaScript.addReservedWords('highlightBlock');
+	Blockly.JavaScript.addReservedWords('code');
+	var code = Blockly.JavaScript.workspaceToCode(workspace);
   var myInterpreter = new Interpreter(code, initApi);
-  myInterpreter.run();
-  
+   var highlightPause = false;
+    workspace.traceOn(true);
+   workspace.highlightBlock(null);
+  //myInterpreter.run();
+    nextStep();
+   
+    
   function nextStep()
   {
-	if(myInterpreter.step())
-	{
-		window.setTimeout(nextStep, 10);
-	}
+	 try {
+        var ok = myInterpreter.step();
+      } finally {
+        if (!ok) {
+          // Program complete, no more code to execute.
+        
+          return;
+        }
+      }
+      
+        nextStep();
+      
   }
-  nextStep();
+
+
   
   //Creation of API for javasScript Interpreter
   function initApi(interpreter, scope)
@@ -142,20 +157,26 @@
 		text = text ? text.toString() : '';
 		return interpreter.createPrimitive(prompt(text));
 	};
-  }
-  //highlight blocks set up and API
-  Blockly.JavaScript.STATMENT_PREFIX = 'highlightBlock(%1); \n';
-  Blockly.JavaScript.addReservedWords('highlightBlock');
-	
-  function initApi(interpreter, scope)
-  {
-	//Add an API function for highlighting blocks
 	var wrapper = function(id)
 	{
 		id = id ? id.toString() : '';
-		return interpreter.createPrimitive(workspace.highlightBlock(id));
+		return interpreter.createPrimitive(highlightBlock(id));
 	}
 	interpreter.setProperty(scope, 'highlightBlock', interpreter.createNativeFunction(wrapper));
   }
+  //highlight blocks set up and API
+ }
+ function highlightBlock(id) {
+	while(true)
+	{
+      workspace.highlightBlock(id);
+	  }
+      highlightPause = true;
+    }
+  
+   //JavaScript Interpreter
+
+
+
 </script>
 </html>
