@@ -21,6 +21,7 @@
 /**
  * @fileoverview English strings.
  * @author fraser@google.com (Neil Fraser)
+ * @modified dominikh@ksu.edu (Dominik Haeflinger)
  *
  * After modifying this file, either run "build.py" from the parent directory,
  * or run (from this directory):
@@ -1096,3 +1097,7 @@ Blockly.Msg.PROCEDURES_CREATE_DO = 'Create "%1"';
 Blockly.Msg.PROCEDURES_IFRETURN_TOOLTIP = 'If a value is true, then return a second value.';
 /// warning - This appears if the user tries to use this block outside of a function definition.
 Blockly.Msg.PROCEDURES_IFRETURN_WARNING = 'Warning: This block may be used only within a function definition.';
+
+// Custom Control Block - Wait block
+/// tooltip
+Blockly.Msg.CONTROL_WAIT_TOOLTIP = 'Pauses the program for the given number of seconds.';

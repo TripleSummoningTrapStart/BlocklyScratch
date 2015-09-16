@@ -61,6 +61,7 @@ Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL = "تکرار تا زمانی ک�
 Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE = "تکرار در حالی که";
 Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL = "تا زمانی که یک مقدار ناصحیح است، چند عبارت را انجام بده.";
 Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE = "تا زمانی که یک مقدار صحیح است، چند عبارت را انجام بده.";
+Blockly.Msg.CONTROL_WAIT_TOOLTIP = "Pauses the program for the given number of seconds.";  // untranslated
 Blockly.Msg.DELETE_BLOCK = "حذف بلوک";
 Blockly.Msg.DELETE_X_BLOCKS = "حذف بلوک‌های %1";
 Blockly.Msg.DISABLE_BLOCK = "غیرفعال‌سازی بلوک";
@@ -359,6 +360,7 @@ Blockly.Msg.VARIABLES_SET = "مجموعه %1 به %2";
 Blockly.Msg.VARIABLES_SET_CREATE_GET = "درست‌کردن «گرفتن %1»";
 Blockly.Msg.VARIABLES_SET_HELPURL = "https://github.com/google/blockly/wiki/Variables#set";  // untranslated
 Blockly.Msg.VARIABLES_SET_TOOLTIP = "متغیر برابر با خروجی را مشخص می‌کند.";
+Blockly.Msg.MATH_CHANGE_TITLE_ITEM = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 Blockly.Msg.PROCEDURES_DEFRETURN_TITLE = Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE;
 Blockly.Msg.CONTROLS_IF_IF_TITLE_IF = Blockly.Msg.CONTROLS_IF_MSG_IF;
 Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
@@ -368,7 +370,6 @@ Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE = Blockly.Msg.CONTROLS_IF_MSG_ELSE;
 Blockly.Msg.PROCEDURES_CALLRETURN_CALL = Blockly.Msg.PROCEDURES_CALLNORETURN_CALL;
 Blockly.Msg.LISTS_GET_SUBLIST_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
 Blockly.Msg.LISTS_GET_INDEX_INPUT_IN_LIST = Blockly.Msg.LISTS_INLIST;
-Blockly.Msg.MATH_CHANGE_TITLE_ITEM = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 Blockly.Msg.PROCEDURES_DEFRETURN_DO = Blockly.Msg.PROCEDURES_DEFNORETURN_DO;
 Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF = Blockly.Msg.CONTROLS_IF_MSG_ELSEIF;
 Blockly.Msg.LISTS_GET_INDEX_HELPURL = Blockly.Msg.LISTS_INDEX_OF_HELPURL;

@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"author": "Ellen Spertus <ellen.spertus@gmail.com>",
-		"lastupdated": "2015-06-10 18:37:24.926409",
+		"lastupdated": "2015-09-13 19:04:15.942000",
 		"locale": "en",
 		"messagedocumentation" : "qqq"
 	},
@@ -357,5 +357,6 @@
 	"PROCEDURES_HIGHLIGHT_DEF": "Highlight function definition",
 	"PROCEDURES_CREATE_DO": "Create '%1'",
 	"PROCEDURES_IFRETURN_TOOLTIP": "If a value is true, then return a second value.",
-	"PROCEDURES_IFRETURN_WARNING": "Warning: This block may be used only within a function definition."
+	"PROCEDURES_IFRETURN_WARNING": "Warning: This block may be used only within a function definition.",
+	"CONTROL_WAIT_TOOLTIP": "Pauses the program for the given number of seconds."
 }

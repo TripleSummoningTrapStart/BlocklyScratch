@@ -317,3 +317,21 @@ Blockly.Blocks['controls_flow_statements'] = {
     }
   }
 };
+
+Blockly.Blocks['controls_repeat_forever'] = {
+  /**
+   * Block for repeat infinitely.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.appendDummyInput()
+        .appendField("repeat forever");
+    this.appendStatementInput("STATEMENT")
+        .setCheck(null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip(''); //TODO Add tooltip to messages.js
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
