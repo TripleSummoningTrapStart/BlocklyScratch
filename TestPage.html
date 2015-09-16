@@ -51,6 +51,8 @@
 		<table>
  			<tbody>
 				<tr><button type="button" onclick="runcode()">Run</button></tr>
+				<tr><a id="btnExportXML" href="" class="btn btn-info" download="blocks.xml"><button type="button" onclick="exportXML()">Download XML</button></a></tr>
+				<tr><a id="btnImportXML" class="btn btn-info">Upload XML: <input type="file" id="files" name="files[]"></a></tr> <!--- reference: http://www.html5rocks.com/en/tutorials/file/dndfiles/ -->
  				<tr>
  				<td id = "blocklyArea">blocks go here</td>
  				</tr>
@@ -78,7 +80,8 @@
 
 	</body>
 <script>
- var blocklyArea = document.getElementById('blocklyArea');
+ 
+  var blocklyArea = document.getElementById('blocklyArea');
   var blocklyDiv = document.getElementById('blocklyDiv');
   var workspace = Blockly.inject('blocklyDiv',
       {media: 'blockly/media/',
@@ -101,80 +104,80 @@
   };
   window.addEventListener('resize', onresize, false);
   onresize();
+ 
+ var exportXML = function()
+ {
+	var xml = Blockly.Xml.workspaceToDom(workspace);
+	var xml_text = Blockly.Xml.domToText(xml);
+	
+	document.getElementById('btnExportXML').href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(xml_text);
+ }
+ var importXML = function(evt)
+ {
+	if (window.File && window.FileReader && window.FileList) {
+		var files = evt.target.files;
+		var file = files[0];
+		if (file) {
+			var reader = new FileReader();
+			reader.onload = function(e) { 
+				var contents = e.target.result;
+				var xml = Blockly.Xml.textToDom(contents);
+				Blockly.Xml.domToWorkspace(workspace, xml);
+	    	};
+     		reader.readAsText(file);
+     	}
+	} else {
+		alert('The File APIs are not fully supported by your browser.');
+	}
+ } 
  var runcode = function()
  {
-    /*Blockly.JavaScript.STATMENT_PREFIX = 'highlightBlock(%1);\n';
+	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
     Blockly.JavaScript.addReservedWords('highlightBlock');
 	Blockly.JavaScript.addReservedWords('code');
 	var code = Blockly.JavaScript.workspaceToCode(workspace);
-	try {
-	  eval(code);
-	} catch (e) {
-	  alert(e);
-	}*/
-	 Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-    Blockly.JavaScript.addReservedWords('highlightBlock');
-	Blockly.JavaScript.addReservedWords('code');
-	var code = Blockly.JavaScript.workspaceToCode(workspace);
-  var myInterpreter = new Interpreter(code, initApi);
-   var highlightPause = false;
+	var myInterpreter = new Interpreter(code, initApi);
     workspace.traceOn(true);
-   workspace.highlightBlock(null);
-  //myInterpreter.run();
-    nextStep();
-   
-    
-  function nextStep()
-  {
-	 try {
-        var ok = myInterpreter.step();
-      } finally {
-        if (!ok) {
-          // Program complete, no more code to execute.
-        
-          return;
-        }
-      }
-      
-        nextStep();
-      
-  }
+    workspace.highlightBlock(null);
+	
+	//steps through and executes code, the timeout is for the highlighting
+    function nextStep() {
+		if (myInterpreter.step()) {
+		window.setTimeout(nextStep, 1);
+		}
+	}
+	nextStep();
 
 
   
-  //Creation of API for javasScript Interpreter
+  //JavaScript Interpreter API
   function initApi(interpreter, scope)
   {
-	//Add an API function for the alert() block
+	//Adds an API function for the alert() block
 	var wrapper = function(text)
 	{
 		text = text ? text.toString() : '';
 		return interpreter.createPrimitive(alert(text));
 	}
 	interpreter.setProperty(scope, 'alert', interpreter.createNativeFunction(wrapper));
-	//Add an API function for the prompt() block
+	//Adds an API function for the prompt() block
 	wrapper = function(text){
 		text = text ? text.toString() : '';
 		return interpreter.createPrimitive(prompt(text));
 	};
+	//highlight blocks set up and API
 	var wrapper = function(id)
 	{
 		id = id ? id.toString() : '';
-		return interpreter.createPrimitive(highlightBlock(id));
+		return interpreter.createPrimitive(workspace.highlightBlock(id));
 	}
 	interpreter.setProperty(scope, 'highlightBlock', interpreter.createNativeFunction(wrapper));
   }
-  //highlight blocks set up and API
- }
- function highlightBlock(id) {
-	while(true)
-	{
-      workspace.highlightBlock(id);
-	  }
-      highlightPause = true;
-    }
   
-   //JavaScript Interpreter
+ }
+  document.getElementById('files').addEventListener('change', importXML, false);
+  
+   
 
 
 
