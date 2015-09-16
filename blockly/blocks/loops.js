@@ -331,7 +331,7 @@ Blockly.Blocks['controls_repeat_forever'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(120);
-    this.setTooltip(''); //TODO Add tooltip to messages.js
+    this.setTooltip(''); // TODO Add tooltip to messages.js
     this.setHelpUrl('http://www.example.com/');
   }
 };

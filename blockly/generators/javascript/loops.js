@@ -176,8 +176,6 @@ Blockly.JavaScript['controls_flow_statements'] = function(block) {
 
 Blockly.JavaScript['controls_repeat_forever'] = function(block) {
     var statements_statement = Blockly.JavaScript.statementToCode(block, 'STATEMENT');
-    var branch = Blockly.JavaScript.statementToCode(block,'DO');
-    branch = Blockly.JavaScript.addLoopTrap(branch, block.id);
-    var code = 'while (true) {\n ' + branch + ' \n}\n';
+    var code = 'while (true) {\n ' + statements_statement + ' \n}\n';
     return code;
 };
