@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>"ScratchLookAlike"</title>
 		 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-		<script src="blockly/blockly_uncompressed.js"></script> <!-- core blockly script -->
+		 <link href="resources/assets/css/testpage.css" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="blockly/blockly_uncompressed.js"></script> 
 		<script src="blockly/blocks/logic.js"></script>
 		<script src="blockly/blocks/loops.js"></script>
 		<script src="blockly/blocks/math.js"></script>
@@ -20,7 +20,7 @@
 		<script src="blockly/blocks/colour.js"></script>
 		<script src="blockly/blocks/variables.js"></script>
 		<script src="blockly/blocks/procedures.js"></script>
-		<script src="blockly/msg/messages.js"></script> <!--english message library -->
+		<script src="blockly/msg/messages.js"></script>
 		<script src="blockly/generators/javascript.js"></script>
 		<script src="blockly/generators/javascript/logic.js"></script>
 		<script src="blockly/generators/javascript/loops.js"></script>
@@ -30,36 +30,18 @@
 		<script src="blockly/generators/javascript/colour.js"></script>
 		<script src="blockly/generators/javascript/variables.js"></script>
 		<script src="blockly/generators/javascript/procedures.js"></script>
+		<script src="blockly/appengine/storage.js"></script>
 		<script src="JS-Interpreter/acorn_interpreter.js"></script>
+		 <script src="resources/assets/js/javascript_functions.js"></script>
 
-		<style>
-			html, body {
-			  height: 100%;
-			  margin: 0;
-			}
-			body {
-			  background-color: #fff;
-			  font-family: sans-serif;
-			  overflow: hidden;
-			}
-			h1 {
-			  font-weight: normal;
-			  font-size: 140%;
-			}
-			table {
-			  height: 100%;
-			  width: 100%;
-			}
-			#blocklyArea {
-			  height: 99%;
-			}
-		</style> 
+		
 	</head>
 	<body>
 		<table>
  			<tbody>
-				<tr><button type="button" class="btn btn-success" onclick="runcode()">Run</button></tr>
-				<tr><a id="btnExportXML" href=""  download="blocks.xml"><button type="button" class="btn btn-info" onclick="exportXML()">Download XML</button></a></tr>
+				<tr><button type="button" class="btn btn-success" id ="btnRun">Run</button></tr>
+				<a id="btnCode" href="" class="btn btn-info" download="code.js">Download Code</a>
+				<tr><a id="btnExportXML" href=""  download="blocks.xml"><button type="button" class="btn btn-info" id="btnExportXML" onclick="exportXML()">Download XML</button></a></tr>
 				<tr><a id="btnImportXML" class="btn btn-info">Upload XML: <input type="file" style="display:inline" style="visibility: hidden" id="files" name="files[]"></a></tr> <!--- reference: http://www.html5rocks.com/en/tutorials/file/dndfiles/ -->
  				<tr>
  				<td id = "blocklyArea">blocks go here</td>
@@ -68,7 +50,6 @@
  		</table>
 
 		<div id="blocklyDiv"  style="position: absolute"></div>
-
 		<xml id="toolbox" style="display: none">
 			<category name="Logic" id="catLogic">
 				<block type="controls_if"></block>
@@ -286,107 +267,4 @@
 		</xml>
 
 	</body>
-<script>
- 
-  var blocklyArea = document.getElementById('blocklyArea');
-  var blocklyDiv = document.getElementById('blocklyDiv');
-  var workspace = Blockly.inject('blocklyDiv',
-      {media: 'blockly/media/',
-		  toolbox: document.getElementById('toolbox')});
-  var onresize = function(e) {
-    // Compute the absolute coordinates and dimensions of blocklyArea.
-    var element = blocklyArea;
-    var x = 0;
-    var y = 0;
-    do {
-      x += element.offsetLeft;
-      y += element.offsetTop;
-      element = element.offsetParent;
-    } while (element);
-    // Position blocklyDiv over blocklyArea.
-    blocklyDiv.style.left = x + 'px';
-    blocklyDiv.style.top = y + 'px';
-    blocklyDiv.style.width = (blocklyArea.offsetWidth - x) + 'px';
-    blocklyDiv.style.height = (blocklyArea.offsetHeight - y) + 'px';
-  };
-  window.addEventListener('resize', onresize, false);
-  onresize();
- 
- var exportXML = function()
- {
-	var xml = Blockly.Xml.workspaceToDom(workspace);
-	var xml_text = Blockly.Xml.domToText(xml);
-	
-	document.getElementById('btnExportXML').href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(xml_text);
- }
- var importXML = function(evt)
- {
-	if (window.File && window.FileReader && window.FileList) {
-		var files = evt.target.files;
-		var file = files[0];
-		if (file) {
-			var reader = new FileReader();
-			reader.onload = function(e) { 
-				var contents = e.target.result;
-				var xml = Blockly.Xml.textToDom(contents);
-				Blockly.Xml.domToWorkspace(workspace, xml);
-	    	};
-     		reader.readAsText(file);
-     	}
-	} else {
-		alert('The File APIs are not fully supported by your browser.');
-	}
- } 
- var runcode = function()
- {
-	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-    Blockly.JavaScript.addReservedWords('highlightBlock');
-	Blockly.JavaScript.addReservedWords('code');
-	var code = Blockly.JavaScript.workspaceToCode(workspace);
-	var myInterpreter = new Interpreter(code, initApi);
-    workspace.traceOn(true);
-    workspace.highlightBlock(null);
-	
-	//steps through and executes code, the timeout is for the highlighting
-    function nextStep() {
-		if (myInterpreter.step()) {
-		window.setTimeout(nextStep, 1);
-		}
-	}
-	nextStep();
-
-
-  
-  //JavaScript Interpreter API
-  function initApi(interpreter, scope)
-  {
-	//Adds an API function for the alert() block
-	var wrapper = function(text)
-	{
-		text = text ? text.toString() : '';
-		return interpreter.createPrimitive(alert(text));
-	}
-	interpreter.setProperty(scope, 'alert', interpreter.createNativeFunction(wrapper));
-	//Adds an API function for the prompt() block
-	wrapper = function(text){
-		text = text ? text.toString() : '';
-		return interpreter.createPrimitive(prompt(text));
-	};
-	//highlight blocks set up and API
-	var wrapper = function(id)
-	{
-		id = id ? id.toString() : '';
-		return interpreter.createPrimitive(workspace.highlightBlock(id));
-	}
-	interpreter.setProperty(scope, 'highlightBlock', interpreter.createNativeFunction(wrapper));
-  }
-  
- }
-  document.getElementById('files').addEventListener('change', importXML, false);
-  
-   
-
-
-
-</script>
 </html>
