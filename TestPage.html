@@ -20,6 +20,7 @@
 		<script src="blockly/blocks/colour.js"></script>
 		<script src="blockly/blocks/variables.js"></script>
 		<script src="blockly/blocks/procedures.js"></script>
+		<script src="blockly/blocks/control.js"></script>
 		<script src="blockly/msg/messages.js"></script>
 		<script src="blockly/generators/javascript.js"></script>
 		<script src="blockly/generators/javascript/logic.js"></script>
@@ -30,20 +31,22 @@
 		<script src="blockly/generators/javascript/colour.js"></script>
 		<script src="blockly/generators/javascript/variables.js"></script>
 		<script src="blockly/generators/javascript/procedures.js"></script>
+		<script src="blockly/generators/javascript/control.js"></script>
 		<script src="blockly/appengine/storage.js"></script>
 		<script src="JS-Interpreter/acorn_interpreter.js"></script>
-		 <script src="resources/assets/js/javascript_functions.js"></script>
+		<script src="resources/assets/js/javascript_functions.js"></script>
 
 		
 	</head>
 	<body>
 		<table>
  			<tbody>
-				<tr><button type="button" class="btn btn-success" id ="btnRun">Run</button></tr>
+				<tr>
+				<button type="button" class="btn btn-success" id ="btnRun">Run</button>
 				<a id="btnCode" href="" class="btn btn-info" download="code.js">Download Code</a>
-				<tr><a id="btnExportXML" href=""  download="blocks.xml"><button type="button" class="btn btn-info" id="btnExportXML" onclick="exportXML()">Download XML</button></a></tr>
-				<tr><a id="btnImportXML" class="btn btn-info">Upload XML: <input type="file" style="display:inline" style="visibility: hidden" id="files" name="files[]"></a></tr> <!--- reference: http://www.html5rocks.com/en/tutorials/file/dndfiles/ -->
- 				<tr>
+				<a id="btnExportXML" href=""  download="blocks.xml"><button type="button" class="btn btn-info" id="btnExportXML" onclick="exportXML()">Download XML</button></a>
+				<a id="btnImportXML" class="btn btn-info">Upload XML: <input type="file" style="display:inline" style="visibility: hidden" id="files" name="files[]"></a><!--- reference: http://www.html5rocks.com/en/tutorials/file/dndfiles/ -->
+ 				
  				<td id = "blocklyArea">blocks go here</td>
  				</tr>
  			</tbody>
