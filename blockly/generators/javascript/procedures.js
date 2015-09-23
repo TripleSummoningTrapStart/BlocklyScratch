@@ -109,6 +109,6 @@ Blockly.JavaScript['procedures_ifreturn'] = function(block) {
 
 Blockly.JavaScript['procedures_hat'] = function(block) {
     // TODO Assemble JavaScript into code variable.
-    var code = 'var hatcode = "This is where hat block code goes";';
+    var code = '// Code starts here';
     return code;
 };
