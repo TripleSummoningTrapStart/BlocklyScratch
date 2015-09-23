@@ -786,5 +786,6 @@ Blockly.Blocks['procedures_hat'] = {
     this.setColour(290);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
+
   }
 };
