@@ -1,6 +1,9 @@
 var blocklyArea;
 var blocklyDiv;
 var workspace;
+var highlightPause = false;
+var interpreter;
+var code;
 
  var resizeBlockly = function(e) {
     // Compute the absolute coordinates and dimensions of blocklyArea.
@@ -28,8 +31,12 @@ var injectBlockly = function()
    window.setTimeout(BlocklyStorage.restoreBlocks, 0);
   BlocklyStorage.backupOnUnload();
   window.LoopTrap = 1000;
+  Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+    Blockly.JavaScript.addReservedWords('highlightBlock');
+	Blockly.JavaScript.addReservedWords('code');
   Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
   window.addEventListener('resize', resizeBlockly, false);
+  workspace.addChangeListener(compileCode);
   resizeBlockly();
  }
  var downloadCode = function()
@@ -66,27 +73,65 @@ var injectBlockly = function()
 		alert('The File APIs are not fully supported by your browser.');
 	}
  } 
- var runcode = function()
+var highlightBlock = function(id) {
+	workspace.highlightBlock(id);
+	highlightPause = true;
+};
+ var compileCode = function()
  {
-	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-    Blockly.JavaScript.addReservedWords('highlightBlock');
-	Blockly.JavaScript.addReservedWords('code');
-	var code = Blockly.JavaScript.workspaceToCode(workspace);
-	var myInterpreter = new Interpreter(code, initApi);
-    workspace.traceOn(true);
-    workspace.highlightBlock(null);
+	 code = Blockly.JavaScript.workspaceToCode(workspace);
+	 interpreter = null;
+ }
+ var runCode = function()
+ {
 	
-	//steps through and executes code, the timeout is for the highlighting
-    function nextStep() {
-		if (myInterpreter.step()) {
-		window.setTimeout(nextStep, 1);
-		}
-	}
+	code = Blockly.JavaScript.workspaceToCode(workspace);
+	interpreter = new Interpreter(code, initApi);
+    workspace.traceOn(true);
+
 	nextStep();
 }
-
-  function initApi(interpreter, scope)
-  {
+var stepCode = function ()
+{
+	if(interpreter == null)
+	{
+		interpreter = new Interpreter(code, initApi);
+		workspace.traceOn(true);
+		highlightPause = false;
+	}
+	try {
+		var ok = interpreter.step();
+	} finally {
+		if (!ok) {
+			// Program complete, no more code to execute.
+			interpreter = null;
+			return;
+		}
+	}
+	if (highlightPause) {
+		// A block has been highlighted.  Pause execution here.
+		highlightPause = false;
+	} else {
+		// Keep executing until a highlight statement is reached.
+		stepCode();
+	}
+    
+}
+function nextStep() {
+	if (interpreter.step()) {
+		window.setTimeout(nextStep, 1);
+	}
+	else
+	{
+		interpreter = null;
+	}
+}
+var stopCode = function(){
+	workspace.highlightBlock(null);
+	interpreter = null;
+};
+function initApi(interpreter, scope)
+{
 	var wrapper = function(text)
 	{
 		text = text ? text.toString() : '';
@@ -100,18 +145,22 @@ var injectBlockly = function()
 	var wrapper = function(id)
 	{
 		id = id ? id.toString() : '';
-		return interpreter.createPrimitive(workspace.highlightBlock(id));
+		return interpreter.createPrimitive(highlightBlock(id));
 	}
 	interpreter.setProperty(scope, 'highlightBlock', interpreter.createNativeFunction(wrapper));
-  }
+}
+
   var registerButtons = function()
   {
 	document.getElementById('files').addEventListener('change', importXML, false);
-	document.getElementById('btnRun').addEventListener('click', runcode, false);
+	document.getElementById('btnRun').addEventListener('click', runCode, false);
+	document.getElementById('btnStep').addEventListener('click', stepCode, false);
+	document.getElementById('btnStop').addEventListener('click', stopCode, false);
 	document.getElementById('btnCode').addEventListener('click', downloadCode, false);
 	document.getElementById('btnExportXML').addEventListener('click', exportXML, false);
   }
-   window.onload = function()
+  
+ window.onload = function()
  {
 	injectBlockly();
 	registerButtons();
