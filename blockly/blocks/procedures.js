@@ -774,7 +774,7 @@ Blockly.Blocks['procedures_ifreturn'] = {
   }
 };
 
-Blockly.Blocks['procedures_hat'] = {
+Blockly.Blocks['procedures_hat_when_run_clicked'] = {
   /**
    * Block for determining the beginning of code to be run
    * @this Blockly.Block
