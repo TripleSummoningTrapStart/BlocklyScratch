@@ -773,3 +773,19 @@ Blockly.Blocks['procedures_ifreturn'] = {
     }
   }
 };
+
+Blockly.Blocks['procedures_hat_when_run_clicked'] = {
+  /**
+   * Block for determining the beginning of code to be run
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.appendDummyInput()
+        .appendField("when 'Run' clicked");
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+
+  }
+};

@@ -985,6 +985,12 @@ Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_LTR =
     (Blockly.BlockSvg.CORNER_RADIUS -
     Blockly.BlockSvg.DISTANCE_45_OUTSIDE) + ',' +
     (Blockly.BlockSvg.DISTANCE_45_OUTSIDE + 0.5);
+/**
+ * SVG path for drawing curve on hat block
+ * input in LTR.
+ * @const
+ */
+
 
 /**
  * Dispose of this block.

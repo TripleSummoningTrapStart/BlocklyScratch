@@ -86,7 +86,8 @@ var highlightBlock = function(id) {
  {
 	
 	code = Blockly.JavaScript.workspaceToCode(workspace);
-	interpreter = new Interpreter(code, initApi);
+	var test = generateInterpreterCode(code);
+	interpreter = new Interpreter(test, initApi);
     workspace.traceOn(true);
 
 	nextStep();
@@ -130,6 +131,71 @@ var stopCode = function(){
 	workspace.highlightBlock(null);
 	interpreter = null;
 };
+
+var generateInterpreterCode = function(codeToParse)
+{
+	var values = cleanValues(codeToParse);
+	var numHats = values.length - 1;
+	var code = '';
+
+	code = 'var queue = [];\n';
+
+	// Start at 1 to skip empty first element
+	for(var i = 1; i < values.length; i++)
+	{
+		code += 'var function' + i + ' = function() {\n' + values[i] + '\n};\n';
+		code += 'queue.push(function' + i + ');\n';
+	}
+
+	code += 'while (queue.length > 0) {\n var func = queue.shift();\n func(); \n}';
+
+	return code;
+};
+
+var cleanValues = function(codeToParse)
+{
+	var values = codeToParse.split('// hat');
+	var code = '';
+
+	for(var i = 0; i < values.length - 1; i++)
+	{
+		var pos = values[i].lastIndexOf("highlightBlock");
+		var sub = values[i].substr(pos);
+		values[i + 1] = sub + values[i + 1];
+		values[i] = values[i].replace(sub, "");
+
+		/*if(values[i].search('loop'))
+		{
+			var loopCode = S.lines(values[i]).s;
+
+		}*/
+	}
+
+	return values;
+};
+
+/**
+ * @loopCode array
+ */
+var parseLoop = function (loopCode, recurMod) {
+	var code = "";
+	var loopHead;
+	var loopGuard;
+	if(loopCode[0].search('loop') > 0)
+	{
+		loopHead = loopCode.shift();
+		loopGuard = loopCode.shift();
+		loopCode.pop();
+		code = 'var functionLoop' + recurMod + ' = function() {\n' + parseLoop(loopCode, recurMod++) + '\n};';
+		// TODO queuing
+	}
+	else
+	{
+		code = S(loopCode.toString()).strip(',').s;
+	}
+ 	return code;
+ };
+
 function initApi(interpreter, scope)
 {
 	var wrapper = function(text)
@@ -164,4 +230,6 @@ function initApi(interpreter, scope)
  {
 	injectBlockly();
 	registerButtons();
+	var arr = ["// loop\n", "while (true) {\n", "if (0 == 0) {\n", "window.alert('hello');\n", "}\n", "}\n"];
+	 console.log(parseLoop(arr, 0));
  }
