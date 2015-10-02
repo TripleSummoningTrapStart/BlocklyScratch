@@ -40,7 +40,7 @@ function test(n, y)
 //research
 //good tutorial -  http://evanhahn.com/how-do-i-jasmine/
 //http://www.htmlgoodies.com/beyond/javascript/test-asynchronous-methods-using-the-jasmine-runs-and-waitfor-methods.html#fbid=1pKOkzADmER
-it("should simulate an asynchronous call", function () {
+/*it("should simulate an asynchronous call", function () {
   runs(function() {
     flag = false;
     value = 0;
@@ -55,7 +55,7 @@ it("should simulate an asynchronous call", function () {
   waitsFor(function() {
     return flag;
   }, "The Value should be incremented", 5000); 
-});
+});*/
 
 //https://blog.codeship.com/jasmine-async-testing/
 
