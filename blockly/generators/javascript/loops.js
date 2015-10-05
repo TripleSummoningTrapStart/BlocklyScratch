@@ -41,7 +41,7 @@ Blockly.JavaScript['controls_repeat_ext'] = function(block) {
   }
   var branch = Blockly.JavaScript.statementToCode(block, 'DO');
   branch = Blockly.JavaScript.addLoopTrap(branch, block.id);
-  var code = '';
+  var code = '// repeat loop\n';
   var loopVar = Blockly.JavaScript.variableDB_.getDistinctName(
       'count', Blockly.Variables.NAME_TYPE);
   var endVar = repeats;
@@ -71,7 +71,7 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
   if (until) {
     argument0 = '!' + argument0;
   }
-  return 'while (' + argument0 + ') {\n' + branch + '}\n';
+  return '// while loop \nwhile (' + argument0 + ') {\n' + branch + '}\n';
 };
 
 Blockly.JavaScript['controls_for'] = function(block) {
@@ -176,6 +176,6 @@ Blockly.JavaScript['controls_flow_statements'] = function(block) {
 
 Blockly.JavaScript['controls_repeat_forever'] = function(block) {
     var statements_statement = Blockly.JavaScript.statementToCode(block, 'STATEMENT');
-    var code = '// loop\nwhile (true) {\n ' + statements_statement + ' \n}\n';
+    var code = '// forever loop\nwhile (true) {\n ' + statements_statement + ' \n}\n';
     return code;
 };
