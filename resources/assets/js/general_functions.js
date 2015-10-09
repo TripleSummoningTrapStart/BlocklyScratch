@@ -143,7 +143,7 @@ var generateInterpreterCode = function(codeToParse)
 	// Start at 1 to skip empty first element
 	for(var i = 1; i < values.length; i++)
 	{
-		code += 'var function' + i + ' = function() {\n' + values[i] + '\n};\n';
+		code += 'var function' + i + ' = function() {\n' + values[i] + '};\n';
 		code += 'queue.push(function' + i + ');\n';
 	}
 
@@ -209,6 +209,6 @@ function initApi(interpreter, scope)
  {
 	injectBlockly();
 	registerButtons();
-	var arr = ["// loop\n", "while (true) {\n", "if (0 == 0) {\n", "window.alert('hello');\n", "}\n", "}\n"];
-	 console.log(parseLoop(arr, 0));
+	 var arr = ["// loop\n", "while (true) {\n", "if (0 == 0) {\n", "// forever loop\n", "while (true) {\n", "window.alert('hello');\n", "}\n", "}\n", "}\n"];
+	 console.log(parseForeverLoop(arr, 0));
  }
