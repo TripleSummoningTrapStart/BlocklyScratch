@@ -40,15 +40,15 @@ var parseForeverLoop = function (lines, loopCount)
 		}
 		if(S(lines[i]).contains('//') && S(lines[i]).contains('loop')) {
 			var loopType = lines[i];
-			var innerArr = getInnerCodeArray(lines, i);
+			/*var innerArr = getInnerLoopArray(lines, i);
 			var innerLength = innerArr.length;
 
 			if(innerLength + i < lines.length - 1)
 			{
 				remaining = true;
-			}
+			}*/
 
-			lines[i] = determineLoop(innerArr, loopType, loopCount + 1, remaining);
+			lines[i] = determineLoop(innerArr, loopType, loopCount + 1, i);
 			lines.splice(i + 1, innerLength);
 		}
 		i++;
@@ -110,31 +110,63 @@ var parseRemaining = function(lines)
 
 };
 
-var determineLoop = function (lines, loopType, loopCount, remaining)
+var determineLoop = function (lines, loopType, loopCount, start)
 {
 	// Standard loop parse: (lines, loopCount)
+	var looparr = getInnerLoopArray(line, start)
+	var remaining = checkForRemainingCode(looparr.length, lines.length);
 
 	switch (loopType)
 	{
 		case '// repeat loop':
-
+			return parseRepeatLoop(looparr, loopCount, remaining);
 		case '// while loop':
-
+			return parseWhileLoop(looparr, loopCount, remaining);
 		case '// forever loop':
+			return parseForeverLoop(looparr, loopCount);
 			
 	}
 };
-
+var checkForRemainingCode = function(arrLength1, arrLength2)
+{
+	if(arrLength1 == arrLength2)
+	{
+		return false;
+	}
+	return true;
+}
+//Depreciated
 var injectCode = function (lines, start, end, code)
 {
 	lines[start] = code;
 	lines.splice(start + 1, end - start);
 };
 
-var getInnerCodeArray = function (lines, start) {
+var getInnerLoopArray = function (lines, start) {
 	return ["// forever loop\n", "while (true) {\n", "window.alert('hello');\n", "}\n"];
+	var numLoopStarts = 0; //parsed out first hat when method is called, starts at one to prevent break case;
+	var numLoopEnd = 0;
+	var loopEndPosition;
+	for(var i = start; i < lines.length; i++)
+	{
+		if(S(lines[i]).contains('//') && S(lines[i]).contains('loop'))
+		{
+			numLoopStarts++;
+		}
+		else if(S(lines[i]).contains('//end loop'))
+		{
+			numLoopEnd++;
+			if(numLoopStarts == numLoopEnd)
+			{
+				loopEndPosition = i + 1; // used to include last element
+				break;
+			}
+		}
+	}
+	return lines.slice(start, loopEndPosition);
 };
 
+//Depreciated
 var getInnerCode = function (lines, start, end) {
 	return lines.slice(start, end).join('\n');
 };
