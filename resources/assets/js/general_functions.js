@@ -139,6 +139,11 @@ var generateInterpreterCode = function(codeToParse)
 	var code = '';
 
 	code = 'var queue = [];\n';
+	// Gets all global values
+	if(S(values[0]).contains('var'))
+	{
+		code += values[0];
+	}
 
 	// Start at 1 to skip empty first element
 	for(var i = 1; i < values.length; i++)
@@ -155,7 +160,6 @@ var generateInterpreterCode = function(codeToParse)
 var cleanValues = function(codeToParse)
 {
 	var values = codeToParse.split('// hat');
-	var code = '';
 
 	for(var i = 0; i < values.length - 1; i++)
 	{

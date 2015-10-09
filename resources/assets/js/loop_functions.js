@@ -1,3 +1,5 @@
+var remainingLoopNum = 0;
+
 /**
  * @loopCode array
  */
@@ -32,6 +34,10 @@ var parseForeverLoop = function (lines, loopCount)
 
 	while (i < lines.length)
 	{
+		if(remaining)
+		{
+
+		}
 		if(S(lines[i]).contains('//') && S(lines[i]).contains('loop')) {
 			var loopType = lines[i];
 			var innerArr = getInnerCodeArray(lines, i);
@@ -44,10 +50,6 @@ var parseForeverLoop = function (lines, loopCount)
 
 			lines[i] = determineLoop(innerArr, loopType, loopCount + 1, remaining);
 			lines.splice(i + 1, innerLength);
-		}
-		if(remaining)
-		{
-
 		}
 		i++;
 	}
@@ -103,14 +105,15 @@ var parseForeverLoop = function (lines, loopCount)
 	return code;
 };
 
-var parseRemaining = function(lines, funcNum)
+var parseRemaining = function(lines)
 {
 
-}
+};
+
 var determineLoop = function (lines, loopType, loopCount, remaining)
 {
-	// Standard loop parse: (lines, start, end, loopCount)
-	return parseForeverLoop(lines, loopCount);
+	// Standard loop parse: (lines, loopCount)
+
 	switch (loopType)
 	{
 		case '// repeat loop':
@@ -135,4 +138,3 @@ var getInnerCodeArray = function (lines, start) {
 var getInnerCode = function (lines, start, end) {
 	return lines.slice(start, end).join('\n');
 };
-
