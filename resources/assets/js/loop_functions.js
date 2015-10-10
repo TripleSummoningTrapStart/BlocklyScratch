@@ -23,6 +23,14 @@ var parseLoop = function (loopCode, recurMod)
  	return code;
  };
 
+var parseWhileLoop = function (lines, loopCount, remaining) {
+
+};
+
+var parseRepeatLoop = function (lines, loopCount, remaining) {
+
+};
+
 var parseForeverLoop = function (lines, loopCount)
 {
 	var code = '';
@@ -30,17 +38,19 @@ var parseForeverLoop = function (lines, loopCount)
 	lines.shift(); // Removes 'while (true) {'
 	lines.pop(); // Removes '} //end loop'
 	var i = 0;
-	var remaining = false;
 
 	while (i < lines.length)
 	{
-		if(remaining)
+		/*if(remaining)
 		{
-
+			var remainLinesLength = lines.length - i;
+			lines[i] = parseRemaining(lines.slice(i), loopCount);
+			lines[i].splice(i + 1, remainLinesLength);
+			break;
 		}
 		if(S(lines[i]).contains('//') && S(lines[i]).contains('loop')) {
 			var loopType = lines[i];
-			var innerArr = getInnerCodeArray(lines, i);
+			var innerArr = getInnerLoopArray(lines, i);
 			var innerLength = innerArr.length;
 
 			if(innerLength + i < lines.length - 1)
@@ -50,7 +60,8 @@ var parseForeverLoop = function (lines, loopCount)
 
 			lines[i] = determineLoop(innerArr, loopType, loopCount + 1, remaining);
 			lines.splice(i + 1, innerLength);
-		}
+		}*/
+		lookForInnerLoop(lines, i, loopCount);
 		i++;
 	}
 
@@ -72,7 +83,6 @@ var parseForeverLoop = function (lines, loopCount)
 			break;
 		}
 	}*/
-
 
 	code += 'var functionLoop' + loopCount + ' = function() { \n';
 	code += lines.join('\n');
@@ -105,14 +115,49 @@ var parseForeverLoop = function (lines, loopCount)
 	return code;
 };
 
-var parseRemaining = function(lines)
+var parseRemaining = function(lines, loopCount)
 {
+	var code = 'var remainFunction' + remainingLoopNum++ + ' = function() {\n';
 
+	/*if(remaining)
+		{
+			var remainLinesLength = lines.length - i;
+			lines[i] = parseRemaining(lines.slice(i));
+			lines[i].splice(i + 1, remainLinesLength);
+			break;
+		}*/
+
+	// if LoopCount == 0, don't call outer loop
+	if(loopCount > 0)
+	{
+		code += 'queue.push(loopFunction' + loopCount + ');';
+	}
+
+	code += '};\n';
+	return code;
+};
+
+//If inner loop, parses and returns true
+var lookForInnerLoop = function (lines, loopCount) {
+	var i = 0;
+
+	while (i < lines.length) {
+		if (S(lines[i]).contains('//') && S(lines[i]).contains('loop')) {
+			var loopType = lines[i];
+
+			lines[i] = determineLoop(lines, loopType, loopCount + 1, i);
+			//lines.splice(index + 1, innerLength);
+			return true;
+		}
+		i++;
+	}
+	return false;
 };
 
 var determineLoop = function (lines, loopType, loopCount, remaining)
 {
 	// Standard loop parse: (lines, loopCount)
+
 
 	switch (loopType)
 	{
@@ -121,7 +166,7 @@ var determineLoop = function (lines, loopType, loopCount, remaining)
 		case '// while loop':
 
 		case '// forever loop':
-			
+
 	}
 };
 
@@ -131,7 +176,7 @@ var injectCode = function (lines, start, end, code)
 	lines.splice(start + 1, end - start);
 };
 
-var getInnerCodeArray = function (lines, start) {
+var getInnerLoopArray = function (lines, start) {
 	return ["// forever loop\n", "while (true) {\n", "window.alert('hello');\n", "}\n"];
 };
 

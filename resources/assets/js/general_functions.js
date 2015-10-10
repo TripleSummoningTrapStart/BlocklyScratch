@@ -136,16 +136,15 @@ var generateInterpreterCode = function(codeToParse)
 {
 	var values = cleanValues(codeToParse);
 	var numHats = values.length - 1;
-	var code = '';
+	var code = 'var queue = [];\n';
 
-	code = 'var queue = [];\n';
 	// Gets all global values
 	if(S(values[0]).contains('var'))
 	{
 		code += values[0];
 	}
 
-	// Start at 1 to skip empty first element
+	// Start at 1 to skip first element which contains global values or is empty
 	for(var i = 1; i < values.length; i++)
 	{
 		code += 'var function' + i + ' = function() {\n' + values[i] + '};\n';
