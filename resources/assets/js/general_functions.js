@@ -84,7 +84,7 @@ var highlightBlock = function(id) {
  }
  var runCode = function()
  {
-	
+	//Blockly.JavaScript.STATEMENT_PREFIX = null;
 	code = Blockly.JavaScript.workspaceToCode(workspace);
 	var test = generateInterpreterCode(code);
 	interpreter = new Interpreter(test, initApi);
@@ -162,16 +162,23 @@ var cleanValues = function(codeToParse)
 
 	for(var i = 1; i < values.length; i++)
 	{
+		
 		/*var pos = values[i].lastIndexOf("highlightBlock");
 		var sub = values[i].substr(pos);
 		values[i + 1] = sub + values[i + 1];
 		values[i] = values[i].replace(sub, "");*/
-
+		
 		var lines = S(values[i]).lines();
+		for(var k = 0; k < lines.length; k++)
+		{
+			lines[k]= lines[k].trim();
+		}
+		lines.shift();
+		lines.pop();
 		if(lookForLoop(lines, 0))
 		{
 			values[i] = lines.join('\n');
-			values[i] += 'queue.push(functionLoop0);';
+			values[i] += 'queue.push(functionLoop1);';
 		}
 	}
 

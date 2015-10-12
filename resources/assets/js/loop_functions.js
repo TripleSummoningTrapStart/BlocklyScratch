@@ -39,9 +39,6 @@ var parseForeverLoop = function (lines, loopCount)
 	lines.pop(); // Removes '} //end loop'
 	var i = 0;
 	var hasInnerLoop = false;
-
-	while (i < lines.length)
-	{
 		/*if(remaining)
 		{
 			var remainLinesLength = lines.length - i;
@@ -62,9 +59,7 @@ var parseForeverLoop = function (lines, loopCount)
 			lines[i] = determineLoop(innerArr, loopType, loopCount + 1, i);
 			lines.splice(i + 1, innerLength);
 		}*/
-		hasInnerLoop = lookForLoop(lines, i, loopCount);
-		i++;
-	}
+		hasInnerLoop = lookForLoop(lines, loopCount);
 
 	/* Old inner loop logic
 	var loopGuard = '';
@@ -146,11 +141,11 @@ var lookForLoop = function (lines, loopCount) {
 	var i = 0;
 
 	while (i < lines.length) {
-		if (S(lines[i]).contains('//') && S(lines[i]).contains('loop')) {
+	if (!S(lines[i]).contains('}') && S(lines[i]).contains('//') && S(lines[i]).contains('loop')) {
 			var loopType = lines[i];
 
 			lines[i] = determineLoop(lines, loopType, loopCount + 1, i);
-			//lines.splice(index + 1, innerLength);
+			lines.splice(i + 1, (lines.length - i));
 			return true;
 		}
 		i++;
@@ -162,8 +157,8 @@ var determineLoop = function (lines, loopType, loopCount, start)
 {
 	// Standard loop parse: (lines, loopCount)
 	var looparr = getInnerLoopArray(lines, start);
+	lines.splice(start, looparr);
 	var remaining = checkForRemainingCode(looparr.length, lines.length);
-	lines.splice(start + 1, looparr);
 
 	if(remaining)
 	{
@@ -205,11 +200,11 @@ var getInnerLoopArray = function (lines, start) {
 	var loopEndPosition = 0;
 	for(var i = start; i < lines.length; i++)
 	{
-		if(S(lines[i]).contains('//') && S(lines[i]).contains('loop'))
+		if(!S(lines[i]).contains('}') && S(lines[i]).contains('//') && S(lines[i]).contains('loop'))
 		{
 			numLoopStarts++;
 		}
-		else if(S(lines[i]).contains('//end loop'))
+		else if(S(lines[i]).contains('} //end loop'))
 		{
 			numLoopEnd++;
 			if(numLoopStarts == numLoopEnd)
