@@ -145,7 +145,7 @@ var lookForLoop = function (lines, loopCount) {
 			var loopType = lines[i];
 
 			lines[i] = determineLoop(lines, loopType, loopCount + 1, i);
-			lines.splice(i + 1, (lines.length - i));
+			lines.splice(i + 1, (lines.length - i -1));
 			return true;
 		}
 		i++;

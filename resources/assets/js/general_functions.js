@@ -159,7 +159,7 @@ var generateInterpreterCode = function(codeToParse)
 var cleanValues = function(codeToParse)
 {
 	var values = codeToParse.split('// hat');
-
+	var numOfLoops = 0;
 	for(var i = 1; i < values.length; i++)
 	{
 		
@@ -169,16 +169,22 @@ var cleanValues = function(codeToParse)
 		values[i] = values[i].replace(sub, "");*/
 		
 		var lines = S(values[i]).lines();
+		
 		for(var k = 0; k < lines.length; k++)
 		{
+			if(!S(lines[i]).contains('}') && S(lines[i]).contains('//') && S(lines[i]).contains('loop'))
+			{
+				numOfLoops++;
+			}
 			lines[k]= lines[k].trim();
 		}
 		lines.shift();
 		lines.pop();
-		if(lookForLoop(lines, 0))
+		var startingLoopNumber = (numOfLoops*(i-1)) - 1;
+		if(lookForLoop(lines, startingLoopNumber))
 		{
 			values[i] = lines.join('\n');
-			values[i] += 'queue.push(functionLoop1);';
+			values[i] += 'queue.push(functionLoop' + (startingLoopNumber + 1) + ');';
 		}
 	}
 
