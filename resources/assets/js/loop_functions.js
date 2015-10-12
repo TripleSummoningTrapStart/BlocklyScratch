@@ -38,6 +38,7 @@ var parseForeverLoop = function (lines, loopCount)
 	lines.shift(); // Removes 'while (true) {'
 	lines.pop(); // Removes '} //end loop'
 	var i = 0;
+	var hasInnerLoop = false;
 
 	while (i < lines.length)
 	{
@@ -61,7 +62,7 @@ var parseForeverLoop = function (lines, loopCount)
 			lines[i] = determineLoop(innerArr, loopType, loopCount + 1, i);
 			lines.splice(i + 1, innerLength);
 		}*/
-		lookForInnerLoop(lines, i, loopCount);
+		hasInnerLoop = lookForLoop(lines, i, loopCount);
 		i++;
 	}
 
@@ -87,7 +88,7 @@ var parseForeverLoop = function (lines, loopCount)
 	code += 'var functionLoop' + loopCount + ' = function() { \n';
 	code += lines.join('\n');
 
-	// TODO add queueing
+	code += 'queue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');';
 
 	code += '};\n';
 
@@ -127,7 +128,7 @@ var parseRemaining = function(lines, loopCount)
 			break;
 		}*/
 
-	lookForInnerLoop(lines, loopCount);
+	lookForLoop(lines, loopCount);
 	code += lines.join("\n");
 
 	// if LoopCount == 0, don't call outer loop
@@ -141,7 +142,7 @@ var parseRemaining = function(lines, loopCount)
 };
 
 //If inner loop, parses and returns true
-var lookForInnerLoop = function (lines, loopCount) {
+var lookForLoop = function (lines, loopCount) {
 	var i = 0;
 
 	while (i < lines.length) {
@@ -160,8 +161,14 @@ var lookForInnerLoop = function (lines, loopCount) {
 var determineLoop = function (lines, loopType, loopCount, start)
 {
 	// Standard loop parse: (lines, loopCount)
-	var looparr = getInnerLoopArray(line, start);
+	var looparr = getInnerLoopArray(lines, start);
 	var remaining = checkForRemainingCode(looparr.length, lines.length);
+	lines.splice(start + 1, looparr);
+
+	if(remaining)
+	{
+
+	}
 
 
 	switch (loopType)
@@ -174,6 +181,7 @@ var determineLoop = function (lines, loopType, loopCount, start)
 			return parseForeverLoop(looparr, loopCount);
 	}
 };
+
 var checkForRemainingCode = function(arrLength1, arrLength2)
 {
 	if(arrLength1 == arrLength2)
@@ -194,7 +202,7 @@ var getInnerLoopArray = function (lines, start) {
 	//return ["// forever loop\n", "while (true) {\n", "window.alert('hello');\n", "}\n"];
 	var numLoopStarts = 0; //parsed out first hat when method is called, starts at one to prevent break case;
 	var numLoopEnd = 0;
-	var loopEndPosition;
+	var loopEndPosition = 0;
 	for(var i = start; i < lines.length; i++)
 	{
 		if(S(lines[i]).contains('//') && S(lines[i]).contains('loop'))

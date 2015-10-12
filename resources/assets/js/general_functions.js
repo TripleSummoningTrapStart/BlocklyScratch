@@ -160,18 +160,19 @@ var cleanValues = function(codeToParse)
 {
 	var values = codeToParse.split('// hat');
 
-	for(var i = 0; i < values.length - 1; i++)
+	for(var i = 1; i < values.length; i++)
 	{
-		var pos = values[i].lastIndexOf("highlightBlock");
+		/*var pos = values[i].lastIndexOf("highlightBlock");
 		var sub = values[i].substr(pos);
 		values[i + 1] = sub + values[i + 1];
-		values[i] = values[i].replace(sub, "");
+		values[i] = values[i].replace(sub, "");*/
 
-		/*if(values[i].search('loop'))
+		var lines = S(values[i]).lines();
+		if(lookForLoop(lines, 0))
 		{
-			var loopCode = S.lines(values[i]).s;
-
-		}*/
+			values[i] = lines.join('\n');
+			values[i] += 'queue.push(functionLoop0);';
+		}
 	}
 
 	return values;
@@ -212,6 +213,6 @@ function initApi(interpreter, scope)
  {
 	injectBlockly();
 	registerButtons();
-	 var arr = ["// loop\n", "while (true) {\n", "if (0 == 0) {\n", "// forever loop\n", "while (true) {\n", "window.alert('hello');\n", "}\n", "}\n", "}\n"];
-	 console.log(parseForeverLoop(arr, 0));
+	 //var arr = ["// loop\n", "while (true) {\n", "if (0 == 0) {\n", "// forever loop\n", "while (true) {\n", "window.alert('hello');\n", "}\n", "}\n", "}\n"];
+	 //console.log(parseForeverLoop(arr, 0));
  }

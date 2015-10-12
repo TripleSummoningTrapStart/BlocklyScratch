@@ -53,7 +53,7 @@ Blockly.JavaScript['controls_repeat_ext'] = function(block) {
   code += 'for (var ' + loopVar + ' = 0; ' +
       loopVar + ' < ' + endVar + '; ' +
       loopVar + '++) {\n' +
-      branch + '}\n';
+      branch + '} //end loop\n';
   return code;
 };
 
@@ -71,7 +71,7 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
   if (until) {
     argument0 = '!' + argument0;
   }
-  return '// while loop \nwhile (' + argument0 + ') {\n' + branch + '}\n';
+  return '// while loop \nwhile (' + argument0 + ') {\n' + branch + '} //end loop\n';
 };
 
 Blockly.JavaScript['controls_for'] = function(block) {
@@ -176,6 +176,6 @@ Blockly.JavaScript['controls_flow_statements'] = function(block) {
 
 Blockly.JavaScript['controls_repeat_forever'] = function(block) {
     var statements_statement = Blockly.JavaScript.statementToCode(block, 'STATEMENT');
-    var code = '// forever loop\nwhile (true) {\n ' + statements_statement + '}\n';
+    var code = '// forever loop\nwhile (true) {\n ' + statements_statement + '} //end loop\n';
     return code;
 };
