@@ -180,8 +180,8 @@ var cleanValues = function(codeToParse)
 		}
 		lines.shift();
 		lines.pop();
-		var startingLoopNumber = (numOfLoops*(i-1)) - 1;
-		if(lookForLoop(lines, startingLoopNumber))
+		var startingLoopNumber = (numOfLoops*(i-1));
+		if(lookForLoop(lines, startingLoopNumber, 0))
 		{
 			values[i] = lines.join('\n');
 			values[i] += 'queue.push(functionLoop' + (startingLoopNumber + 1) + ');';
