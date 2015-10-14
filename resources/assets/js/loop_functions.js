@@ -24,8 +24,31 @@ var parseWhileLoop = function (lines, loopCount, remaining, numRecursion) {
 	return code;
 };
 
-var parseRepeatLoop = function (lines, loopCount, remaining) {
-
+var parseRepeatLoop = function (lines, loopCount, remaining, numRecursion) {
+	var remainingCode = '';
+	var code = '';
+	lines.shift(); // Removes '// forever loop'
+	var loopGuard = lines.shift(); // Removes 'while (true) {'
+	loopGuard = S(loopGuard).chompLeft('for (').chompRight(') {').s;
+	var forLoopParts = loopGuard.split(';') //gets the 3 parts of a for loop
+	if(remaining)
+	{
+		remainingCode = lines.pop(); //gets the remaining code
+	}
+	lines.pop(); // Removes '} //end loop'
+	var hasInnerLoop = false;
+	hasInnerLoop = lookForLoop(lines, loopCount, numRecursion + 1);
+	code += forLoopParts[0] + ';\n';
+	code += 'var functionLoop' + loopCount + ' = function() { \n';
+	code += 'if(' + forLoopParts[1] + '){\n' + lines.join('\n') + forLoopParts[2] + '\nqueue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
+	if(remaining){
+		code += 'else{\nqueue.push(remainingCodeForLoop' + loopCount + ');\n}\n';
+	}
+	else if(numRecursion > 0){
+		code += 'else{\nqueue.push(functionLoop' + (loopCount-1) + ');\n}\n';
+	}
+	code += '};\n' + remainingCode;
+	return code;
 };
 
 var parseForeverLoop = function (lines, loopCount)
