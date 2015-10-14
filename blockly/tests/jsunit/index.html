@@ -4,13 +4,42 @@
     <meta charset="utf-8">
     <title>Unit Tests for Blockly</title>
     <script src="../../blockly_uncompressed.js"></script>
-    <script>goog.require('goog.testing.jsunit');</script>
+	<!to access the parseloop method>
+	<script src="../../../resources/assets/js/loop_functions.js"></script>
+	<script src="../../../resources/assets/js/general_functions.js"></script>
+	
+	<script src="../../../blockly/appengine/storage.js"></script>
+    <script src="../../../blockly/generators/javascript.js"></script>
+	
+	<script>goog.require('goog.testing.jsunit');</script>
   </head>
   <body>
+    <div style="display: none">
+		<table>
+			<tbody>
+			<tr>
+				<button type="button" class="btn btn-success" id ="btnRun">Run</button>
+				<button type="button" class="btn btn-warning" id ="btnStep">Step</button>
+				<button type="button" class="btn btn-danger" id ="btnStop">Stop</button>
+				<a id="btnCode" href="" class="btn btn-info" download="code.js">Download Code</a>
+				<a id="btnExportXML" href=""  download="blocks.xml"><button type="button" class="btn btn-info" id="btnExportXML" onclick="exportXML()">Download XML</button></a>
+				<a id="btnImportXML" class="btn btn-info">Upload XML: <input type="file" style="display:inline" style="visibility: hidden" id="files" name="files[blocks.xml]"></a><!--- reference: http://www.html5rocks.com/en/tutorials/file/dndfiles/ -->
+						
+				<td id = "blocklyArea">blocks go here</td>
+			</tr>
+		</tbody>
+		</table>
+		<div id="blocklyDiv"  style="position: absolute"></div>
+	</div>
     <script src="blockly_test.js"></script>
     <script src="generator_test.js"></script>
     <script src="names_test.js"></script>
     <script src="workspace_test.js"></script>
     <script src="xml_test.js"></script>
+
+	<script src="loops_test.js"></script>
+	<script src="general_test.js"></script>
+
+	
   </body>
 </html>

@@ -54,25 +54,30 @@ var injectBlockly = function()
 	var xml_text = Blockly.Xml.domToText(xml);
 	
 	document.getElementById('btnExportXML').href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(xml_text);
- }
- var importXML = function(evt)
+ } 
+ var importXML = function(contents)
  {
+	var xml = Blockly.Xml.textToDom(contents);
+	Blockly.Xml.domToWorkspace(workspace, xml);
+ }
+var openImportFile = function(evt) 
+{
 	if (window.File && window.FileReader && window.FileList) {
 		var files = evt.target.files;
 		var file = files[0];
 		if (file) {
 			var reader = new FileReader();
-			reader.onload = function(e) { 
-				var contents = e.target.result;
-				var xml = Blockly.Xml.textToDom(contents);
-				Blockly.Xml.domToWorkspace(workspace, xml);
-	    	};
-     		reader.readAsText(file);
-     	}
+			reader.onload = function(e)
+			{
+				importXML(e.target.result);
+			};
+			reader.readAsText(file);
+		}
 	} else {
 		alert('The File APIs are not fully supported by your browser.');
 	}
- } 
+	
+} 
 var highlightBlock = function(id) {
 	workspace.highlightBlock(id);
 	highlightPause = true;
@@ -214,7 +219,7 @@ function initApi(interpreter, scope)
 
   var registerButtons = function()
   {
-	document.getElementById('files').addEventListener('change', importXML, false);
+	document.getElementById('files').addEventListener('change', openImportFile, false);
 	document.getElementById('btnRun').addEventListener('click', runCode, false);
 	document.getElementById('btnStep').addEventListener('click', stepCode, false);
 	document.getElementById('btnStop').addEventListener('click', stopCode, false);
