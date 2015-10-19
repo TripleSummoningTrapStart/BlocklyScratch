@@ -55,8 +55,7 @@ Blockly.Blocks['controls_repeat_ext'] = {
       "tooltip": Blockly.Msg.CONTROLS_REPEAT_TOOLTIP,
       "helpUrl": Blockly.Msg.CONTROLS_REPEAT_HELPURL
     });
-    this.appendStatementInput('DO')
-        .appendField(Blockly.Msg.CONTROLS_REPEAT_INPUT_DO);
+    this.appendStatementInput('DO');
   }
 };
 
@@ -82,8 +81,7 @@ Blockly.Blocks['controls_repeat'] = {
       "tooltip": Blockly.Msg.CONTROLS_REPEAT_TOOLTIP,
       "helpUrl": Blockly.Msg.CONTROLS_REPEAT_HELPURL
     });
-    this.appendStatementInput('DO')
-        .appendField(Blockly.Msg.CONTROLS_REPEAT_INPUT_DO);
+    this.appendStatementInput('DO');
     this.getField('TIMES').setChangeHandler(
         Blockly.FieldTextInput.nonnegativeIntegerValidator);
   }
@@ -103,8 +101,7 @@ Blockly.Blocks['controls_whileUntil'] = {
     this.appendValueInput('BOOL')
         .setCheck('Boolean')
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
-    this.appendStatementInput('DO')
-        .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
+    this.appendStatementInput('DO');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
@@ -159,8 +156,7 @@ Blockly.Blocks['controls_for'] = {
       "colour": Blockly.Blocks.loops.HUE,
       "helpUrl": Blockly.Msg.CONTROLS_FOR_HELPURL
     });
-    this.appendStatementInput('DO')
-        .appendField(Blockly.Msg.CONTROLS_FOR_INPUT_DO);
+    this.appendStatementInput('DO');
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
@@ -233,8 +229,7 @@ Blockly.Blocks['controls_forEach'] = {
       "colour": Blockly.Blocks.loops.HUE,
       "helpUrl": Blockly.Msg.CONTROLS_FOREACH_HELPURL
     });
-    this.appendStatementInput('DO')
-        .appendField(Blockly.Msg.CONTROLS_FOREACH_INPUT_DO);
+    this.appendStatementInput('DO');
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
