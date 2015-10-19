@@ -19,7 +19,7 @@ var parseWhileLoop = function (lines, loopCount, remaining, numRecursion) {
 		funcCode += 'else{\nqueue.push(remainingCodeForLoop' + loopCount + ');\n}\n';
 	}
 	else if(numRecursion > 0){
-		funcCode += 'else{\nqueue.push(functionLoop' + (loopCount-1) + ');\n}\n';
+		funcCode += 'else{\nqueue.push(functionLoop' + (loopCount - 1) + ');\n}\n';
 	}
 	funcCode += '};\n';
 };
@@ -40,13 +40,15 @@ var parseRepeatLoop = function (lines, loopCount, remaining, numRecursion) {
 	hasInnerLoop = lookForLoop(lines, loopCount, numRecursion + 1);
 	funcCode += forLoopParts[0] + ';\n' + 'var functionLoop' + loopCount
 			+ ' = function() { \nif(' + forLoopParts[1] + '){\n'
-			+ lines.join("\n") + forLoopParts[2] + '\nqueue.push(functionLoop'
+			+ lines.join("\n") + '\n' + forLoopParts[2] + ';\nqueue.push(functionLoop'
 			+ (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
 	if(remaining){
-		funcCode += 'else{\nqueue.push(remainingCodeForLoop' + loopCount + ');\n}\n';
+		funcCode += 'else{\nqueue.push(remainingCodeForLoop' + loopCount + ');\n'
+		+ S(forLoopParts[2]).replace('++', ' = 0;').s + '\n}\n';
 	}
 	else if(numRecursion > 0){
-		funcCode += 'else{\nqueue.push(functionLoop' + (loopCount-1) + ');\n}\n';
+		funcCode += 'else{\nqueue.push(functionLoop' + (loopCount - 1) + ');\n'
+			+ S(forLoopParts[2]).replace('++', ' = 0;').s + '\n}\n';
 	}
 	funcCode += '};\n';
 };
