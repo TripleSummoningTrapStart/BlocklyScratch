@@ -142,6 +142,7 @@ var stopCode = function(){
 
 var generateInterpreterCode = function(codeToParse)
 {
+	funcCode = '';
 	var values = cleanValues(codeToParse);
 	var numHats = values.length - 1;
 	var code = 'var queue = [];\n';
@@ -191,8 +192,9 @@ var cleanValues = function(codeToParse)
 		var startingLoopNumber = (numOfLoops*(i-1));
 		if(lookForLoop(lines, startingLoopNumber, 0))
 		{
-			values[i] = lines.join('\n');
-			values[i] += 'queue.push(functionLoop' + (startingLoopNumber + 1) + ');';
+			//values[i] = lines.join('\n');
+			values[i] = getCode();
+			values[i] += 'queue.push(functionLoop' + (startingLoopNumber + 1) + ');\n';
 		}
 	}
 

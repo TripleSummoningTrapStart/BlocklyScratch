@@ -1,88 +1,87 @@
-var startingLoopNum = 0;
+var funcCode = '';
+
 var parseWhileLoop = function (lines, loopCount, remaining, numRecursion) {
-	var remainingCode = '';
-	var code = '';
+	//var remainingCode = '';
 	lines.shift(); // Removes '// forever loop'
 	var loopGuard = lines.shift(); // Removes 'while (true) {'
 	loopGuard = S(loopGuard).chompLeft('while ').chompRight(' {').s;
-	if(remaining)
+	/*if(remaining)
 	{
 		remainingCode = lines.pop(); //gets the remaining code
-	}
+	}*/
 	lines.pop(); // Removes '} //end loop'
 	var hasInnerLoop = false;
 	hasInnerLoop = lookForLoop(lines, loopCount, numRecursion + 1);
-	code += 'var functionLoop' + loopCount + ' = function() { \n';
-	code += 'if' + loopGuard + '{\n' + lines.join('\n') + '\nqueue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
+	funcCode += 'var functionLoop' + loopCount + ' = function() { \n'
+			+ 'if' + loopGuard + '{\n' + lines.join("\n")
+			+ '\nqueue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
 	if(remaining){
-		code += 'else{\nqueue.push(remainingCodeForLoop' + loopCount + ');\n}\n';
+		funcCode += 'else{\nqueue.push(remainingCodeForLoop' + loopCount + ');\n}\n';
 	}
 	else if(numRecursion > 0){
-		code += 'else{\nqueue.push(functionLoop' + (loopCount-1) + ');\n}\n';
+		funcCode += 'else{\nqueue.push(functionLoop' + (loopCount - 1) + ');\n}\n';
 	}
-	code += '};\n' + remainingCode;
-	return code;
+	funcCode += '};\n';
 };
 
 var parseRepeatLoop = function (lines, loopCount, remaining, numRecursion) {
-	var remainingCode = '';
-	var code = '';
+	//var remainingfuncCode = '';
+	//var funcCode = '';
 	lines.shift(); // Removes '// forever loop'
 	var loopGuard = lines.shift(); // Removes 'while (true) {'
 	loopGuard = S(loopGuard).chompLeft('for (').chompRight(') {').s;
-	var forLoopParts = loopGuard.split(';') //gets the 3 parts of a for loop
-	if(remaining)
+	var forLoopParts = loopGuard.split(';'); //gets the 3 parts of a for loop
+	/*if(remaining)
 	{
 		remainingCode = lines.pop(); //gets the remaining code
-	}
+	}*/
 	lines.pop(); // Removes '} //end loop'
 	var hasInnerLoop = false;
 	hasInnerLoop = lookForLoop(lines, loopCount, numRecursion + 1);
-	code += forLoopParts[0] + ';\n';
-	code += 'var functionLoop' + loopCount + ' = function() { \n';
-	code += 'if(' + forLoopParts[1] + '){\n' + lines.join('\n') + forLoopParts[2] + '\nqueue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
+	funcCode += forLoopParts[0] + ';\n' + 'var functionLoop' + loopCount
+			+ ' = function() { \nif(' + forLoopParts[1] + '){\n'
+			+ lines.join("\n") + '\n' + forLoopParts[2] + ';\nqueue.push(functionLoop'
+			+ (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
 	if(remaining){
-		code += 'else{\nqueue.push(remainingCodeForLoop' + loopCount + ');\n}\n';
+		funcCode += 'else{\nqueue.push(remainingCodeForLoop' + loopCount + ');\n'
+		+ S(forLoopParts[2]).replace('++', ' = 0;').s + '\n}\n';
 	}
 	else if(numRecursion > 0){
-		code += 'else{\nqueue.push(functionLoop' + (loopCount-1) + ');\n}\n';
+		funcCode += 'else{\nqueue.push(functionLoop' + (loopCount - 1) + ');\n'
+			+ S(forLoopParts[2]).replace('++', ' = 0;').s + '\n}\n';
 	}
-	code += '};\n' + remainingCode;
-	return code;
+	funcCode += '};\n';
 };
 
 var parseForeverLoop = function (lines, loopCount)
 {
-	var code = '';
+	//var funcCode = '';
 	lines.shift(); // Removes '// forever loop'
 	lines.shift(); // Removes 'while (true) {'
 	lines.pop(); // Removes '} //end loop'
 	var hasInnerLoop = false;
 	hasInnerLoop = lookForLoop(lines, loopCount, 0);
-	code += 'var functionLoop' + loopCount + ' = function() { \n';
-	code += lines.join('\n');
-	code += 'queue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');';
-	code += '};\n';
-	return code;
+	funcCode += 'var functionLoop' + loopCount + ' = function() { \n'
+			+ lines.join("\n") + '\nqueue.push(functionLoop'
+			+ (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n};\n';
 };
 
 var parseRemaining = function(lines, loopCount, numRecursion)
 {
-	var code = 'var remainingCodeForLoop' + loopCount + ' = function() {\n';
+	funcCode += 'var remainingCodeForLoop' + loopCount + ' = function() {\n';
 
 	var hasInnerLoop = false;
 	hasInnerLoop = lookForLoop(lines, loopCount, numRecursion);
-	code += lines.join("\n");
+	funcCode += lines.join("\n") + '\n';
 	// if LoopCount == 0, don't call outer loop.
 	if(numRecursion > 0)
 	{
-		code += 'queue.push(functionLoop' + (loopCount - 1) + ');\n';
+		funcCode += 'queue.push(functionLoop' + (loopCount - 1) + ');\n';
 	}
 	if(hasInnerLoop){
-		code += 'queue.push(functionLoop' + (loopCount + 1) + ');\n';
+		funcCode += 'queue.push(functionLoop' + (loopCount + 1) + ');\n';
 	}
-	code += '};//endparseremaining\n';
-	return code;
+	funcCode += '};//endRemaining\n';
 };
 
 //If inner loop, parses and returns true
@@ -92,8 +91,8 @@ var lookForLoop = function (lines, loopCount, numRecursion) {
 	if (!S(lines[i]).contains('}') && S(lines[i]).contains('//') && S(lines[i]).contains('loop')) {
 			var loopType = lines[i];
 
-			lines[i] = determineLoop(lines, loopType, loopCount + 1, i, numRecursion);
-			lines.splice(i + 1, (lines.length - i -1));
+			determineLoop(lines, loopType, loopCount + 1, i, numRecursion);
+			lines.splice(i, (lines.length - i -1));
 			return true;
 		}
 		i++;
@@ -108,7 +107,8 @@ var determineLoop = function (lines, loopType, loopCount, start, numRecursion)
 	var remaining = checkForRemainingCode(looparr.length + start, lines.length);
 	if(remaining)//what was this for?
 	{
-		looparr.push(parseRemaining(lines.slice(looparr.length + start, lines.length),loopCount,numRecursion));
+		//looparr.push(parseRemaining(lines.slice(looparr.length + start, lines.length),loopCount,numRecursion));
+		parseRemaining(lines.slice(looparr.length + start, lines.length),loopCount,numRecursion);
 	}
 	switch (loopType)
 	{
@@ -123,12 +123,9 @@ var determineLoop = function (lines, loopType, loopCount, start, numRecursion)
 
 var checkForRemainingCode = function(arrLength1, arrLength2)
 {
-	if(arrLength1 == arrLength2)
-	{
-		return false;
-	}
-	return true;
+	return !(arrLength1 == arrLength2);
 };
+
 var getInnerLoopArray = function (lines, start) {
 	//return ["// forever loop\n", "while (true) {\n", "window.alert('hello');\n", "}\n"];
 	var numLoopStarts = 0; //parsed out first hat when method is called, starts at one to prevent break case;
@@ -151,4 +148,8 @@ var getInnerLoopArray = function (lines, start) {
 		}
 	}
 	return lines.slice(start, loopEndPosition);
+};
+
+var getCode = function () {
+	return funcCode;
 };
