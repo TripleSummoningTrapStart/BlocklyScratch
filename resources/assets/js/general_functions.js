@@ -191,7 +191,7 @@ var cleanValues = function(codeToParse)
 		{
 			//values[i] = lines.join('\n');
 			values[i] = getCode();
-			values[i] += 'queue.push(functionLoop' + (startingLoopNumber + 1) + ');';
+			values[i] += 'queue.push(functionLoop' + (startingLoopNumber + 1) + ');\n';
 		}
 	}
 

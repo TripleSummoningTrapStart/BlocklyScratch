@@ -62,7 +62,7 @@ var parseForeverLoop = function (lines, loopCount)
 	var hasInnerLoop = false;
 	hasInnerLoop = lookForLoop(lines, loopCount, 0);
 	funcCode += 'var functionLoop' + loopCount + ' = function() { \n'
-			+ lines.join("\n") + 'queue.push(functionLoop'
+			+ lines.join("\n") + '\nqueue.push(functionLoop'
 			+ (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n};\n';
 };
 
@@ -72,7 +72,7 @@ var parseRemaining = function(lines, loopCount, numRecursion)
 
 	var hasInnerLoop = false;
 	hasInnerLoop = lookForLoop(lines, loopCount, numRecursion);
-	funcCode += lines.join("\n");
+	funcCode += lines.join("\n") + '\n';
 	// if LoopCount == 0, don't call outer loop.
 	if(numRecursion > 0)
 	{
