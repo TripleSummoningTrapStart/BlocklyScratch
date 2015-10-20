@@ -89,15 +89,15 @@ var highlightBlock = function(id) {
  }
  var runCode = function()
  {
-	Blockly.JavaScript.STATEMENT_PREFIX = null;
+	//Blockly.JavaScript.STATEMENT_PREFIX = null;
 	code = Blockly.JavaScript.workspaceToCode(workspace);
 	var test = generateInterpreterCode(code);
 	interpreter = new Interpreter(test, initApi);
     workspace.traceOn(true);
 
 	nextStep();
-	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-	code = Blockly.JavaScript.workspaceToCode(workspace);
+	//Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+	//code = Blockly.JavaScript.workspaceToCode(workspace);
 }
 var stepCode = function ()
 {
@@ -194,6 +194,7 @@ var cleanValues = function(codeToParse)
 		{
 			//values[i] = lines.join('\n');
 			values[i] = getCode();
+			funcCode = '';
 			values[i] += 'queue.push(functionLoop' + (startingLoopNumber + 1) + ');\n';
 		}
 	}

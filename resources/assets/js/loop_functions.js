@@ -90,9 +90,9 @@ var lookForLoop = function (lines, loopCount, numRecursion) {
 	while (i < lines.length) {
 	if (!S(lines[i]).contains('}') && S(lines[i]).contains('//') && S(lines[i]).contains('loop')) {
 			var loopType = lines[i];
-
+			funcCode += lines.slice(0, i).join('\n');
 			determineLoop(lines, loopType, loopCount + 1, i, numRecursion);
-			lines.splice(i, (lines.length - i -1));
+			lines.splice(i, (lines.length - i));
 			return true;
 		}
 		i++;
