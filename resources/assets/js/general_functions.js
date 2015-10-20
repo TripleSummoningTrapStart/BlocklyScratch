@@ -32,7 +32,7 @@ var injectBlockly = function()
   BlocklyStorage.backupOnUnload();
   window.LoopTrap = 1000;
   Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-    Blockly.JavaScript.addReservedWords('highlightBlock');
+		Blockly.JavaScript.addReservedWords('highlightBlock');
 	Blockly.JavaScript.addReservedWords('code');
   Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
   window.addEventListener('resize', resizeBlockly, false);
@@ -89,18 +89,21 @@ var highlightBlock = function(id) {
  }
  var runCode = function()
  {
-	//Blockly.JavaScript.STATEMENT_PREFIX = null;
+	Blockly.JavaScript.STATEMENT_PREFIX = null;
 	code = Blockly.JavaScript.workspaceToCode(workspace);
 	var test = generateInterpreterCode(code);
 	interpreter = new Interpreter(test, initApi);
     workspace.traceOn(true);
 
 	nextStep();
+	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+	code = Blockly.JavaScript.workspaceToCode(workspace);
 }
 var stepCode = function ()
 {
 	if(interpreter == null)
 	{
+		
 		interpreter = new Interpreter(code, initApi);
 		workspace.traceOn(true);
 		highlightPause = false;
