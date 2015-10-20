@@ -103,8 +103,8 @@ var stepCode = function ()
 {
 	if(interpreter == null)
 	{
-		
-		interpreter = new Interpreter(code, initApi);
+		var test = generateInterpreterCode(code);
+		interpreter = new Interpreter(test, initApi);
 		workspace.traceOn(true);
 		highlightPause = false;
 	}
