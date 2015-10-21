@@ -104,7 +104,7 @@ var determineLoop = function (lines, loopType, loopCount, start, numRecursion)
 {
 	var looparr = getInnerLoopArray(lines, start);
 	lines.splice(start, looparr);
-	var remaining = checkForRemainingCode(looparr.length + start, lines.length);
+	var remaining = checkForRemainingCode(looparr.length + start, lines.length - 1);
 	if(remaining)//what was this for?
 	{
 		//looparr.push(parseRemaining(lines.slice(looparr.length + start, lines.length),loopCount,numRecursion));
@@ -123,7 +123,7 @@ var determineLoop = function (lines, loopType, loopCount, start, numRecursion)
 
 var checkForRemainingCode = function(arrLength1, arrLength2)
 {
-	return !(arrLength1 == arrLength2);
+	return !(arrLength1 >= arrLength2);
 };
 
 var getInnerLoopArray = function (lines, start) {
