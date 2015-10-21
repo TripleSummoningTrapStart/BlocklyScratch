@@ -150,6 +150,9 @@ var getInnerLoopArray = function (lines, start) {
 	return lines.slice(start, loopEndPosition);
 };
 
-var getCode = function () {
+var getFuncCode = function () {
 	return funcCode;
 };
+var resetFuncCode = function(){
+	funcCode = 0;
+}

@@ -1,4 +1,4 @@
-function test_1parseWhileLoop = function()
+/*function test_1parseWhileLoop()
 {
 var loopcode = ['// while loop',
 				'while (item < 10) {',
@@ -16,9 +16,9 @@ var loopcode = ['// while loop',
 						}';
 	parseWhileLoop(loopcode, 0, false, 0);
 	var code = getCode();
-	asserts.equal(code == expectedCode);
-};
-function test_1parseForeverLoop = function()
+	assertEquals(code,expectedCode);
+};*/
+/*function test_1parseForeverLoop()
 {
 var loopcode = ['// forever loop',
 				'while (true) {',
@@ -30,24 +30,25 @@ var loopcode = ['// forever loop',
 						}';
 	parseForeverLoop(loopcode, 0);
 	var code = getCode();
-	asserts.equal(code == expectedCode);
-};
-function test_1parseRepeatLoop = function()
+	assertEquals(code,expectedCode);
+};*/
+function test_1parseRepeatLoop()
 {
 var loopcode = ['// repeat loop',
 				'for (var count = 0; count < 10; count++) {',
 				'if(--window.LoopTrap == 0) throw "Infinite loop.";',
-				  'window.alert('');'
+				  'window.alert('+');',
 				'} //end loop'];
-	var expectedCode = 'var count = 0;
-						var loopfunction0 = function(){
-							if(count < 10){
-								window.alert('');
-								count++;
-							}
-							queue.push(functionLoop0);
-						}';
+	var expectedCode = 'var count = 0;\n'
+						+'var functionLoop0 = function() { \n'
+							+'if( count < 10){\n'
+							+'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
+								+'window.alert('+');\n'
+								+'count++;\n'
+							+'queue.push(functionLoop0)}\n};\n';
 	parseRepeatLoop(loopcode, 0, false, 0);
-	var code = getCode();
-	asserts.equal(code == expectedCode);
+
+	var code = getFuncCode();
+	resetFuncCode();
+	assertEquals(code, expectedCode);
 }
