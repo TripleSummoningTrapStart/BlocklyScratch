@@ -1,5 +1,4 @@
-function test_1parseWhileLoop()
-{
+function test_1parseWhileLoop() {
 var loopcode = ['// while loop',
 				'while (item < 10) {',
 				'if(--window.LoopTrap == 0) throw "Infinite loop.";',
@@ -16,8 +15,7 @@ var loopcode = ['// while loop',
 	resetFuncCode();
 	assertEquals(code, expectedCode);
 };
-function test_1parseForeverLoop()
-{
+function test_1parseForeverLoop() {
 var loopcode = ['// forever loop',
 				'while (true) {',
 				  'window.alert('+');',
@@ -32,9 +30,8 @@ var loopcode = ['// forever loop',
 	resetFuncCode();
 	assertEquals(code, expectedCode);
 };
-function test_1parseRepeatLoop()
-{
-var loopcode = ['// repeat loop',
+function test_1parseRepeatLoop() {
+	var loopcode = ['// repeat loop',
 				'for (var count = 0; count < 10; count++) {',
 				'if(--window.LoopTrap == 0) throw "Infinite loop.";',
 				  'window.alert('+');',
