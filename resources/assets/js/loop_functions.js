@@ -155,5 +155,5 @@ var getFuncCode = function () {
 };
 
 var resetFuncCode = function(){
-	funcCode = 0;
+	funcCode = '';
 };
