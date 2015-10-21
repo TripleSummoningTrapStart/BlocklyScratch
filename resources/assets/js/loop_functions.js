@@ -149,6 +149,7 @@ var getInnerLoopArray = function (lines, start) {
 var getFuncCode = function () {
 	return funcCode;
 };
+
 var resetFuncCode = function() {
 	funcCode = '';
-}
+};

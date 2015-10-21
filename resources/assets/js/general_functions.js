@@ -153,6 +153,7 @@ var cleanValues = function(codeToParse) {
 	var numOfLoops = 0;
 	for(var i = 1; i < values.length; i++)
 	{
+		//values[i] = S(values[i]).trim().s;
 		var lines = S(values[i]).lines();
 		
 		for(var k = 0; k < lines.length; k++)
