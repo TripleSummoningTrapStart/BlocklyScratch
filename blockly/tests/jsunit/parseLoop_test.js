@@ -47,7 +47,7 @@ function test_1parseRepeatLoop() {
 
 	var code = getFuncCode();
 	resetFuncCode();
-	assertEquals(code, expectedCode);
+	assertEquals(expectedCode, code);
 }
 
 // Nested Loop Tests
@@ -63,7 +63,13 @@ function test_1parseNested_RepeatRepeat()
 							'window.alert('+');',
 						'} //end loop',
 					'} //end loop'];
-	var expectedCode = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
+	var expectedCode =  'var count2 = 0;\n'
+						+ 'var functionLoop0 = function() {\n'
+							+ 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
+							+ 'if( count2 < 10){\n'
+								+ 'count2++;\n'
+								+ 'queue.push(functionLoop1);\n'
+							+ '}\n};\n'
 						+ 'var count = 0;\n'
 						+ 'var functionLoop1 = function() {\n'
 							+ 'if( count < 10){\n'
@@ -75,14 +81,7 @@ function test_1parseNested_RepeatRepeat()
 							+ 'else{\n'
 								+ 'queue.push(functionLoop0);\n'
 							+ 'count = 0;\n'
-						+ '}\n};\n'
-						+ 'var count2 = 0;\n'
-						+ 'var functionLoop0 = function() {\n'
-							+ 'if( count2 < 10){\n'
-								+ 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
-								+ 'count2++;\n'
-								+ 'queue.push(functionLoop1);\n'
-							+ '}\n};\n';
+						+ '}\n};\n';
 	parseRepeatLoop(loopcode, 0, false, 0);
 
 	var code = getFuncCode();
