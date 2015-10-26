@@ -32,9 +32,9 @@ var parseRepeatLoop = function (lines, loopCount, remaining, numRecursion) {
 	funcCode += forLoopParts[0] + ';\n' + getLoopFunctionHeaderString(loopCount)
 			 	+ 'if(' + forLoopParts[1] + '){\n';
 
-	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);//lookForLoop(lines, loopCount, numRecursion + 1);
+	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);
 
-	funcCode +=  '\n' + S(forLoopParts[2]).trim().s
+	funcCode +=   S(forLoopParts[2]).trim().s
 				+ ';\nqueue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
 			
 	if(remaining){
@@ -56,12 +56,17 @@ var parseRepeatLoop = function (lines, loopCount, remaining, numRecursion) {
 var parseForeverLoop = function (lines, loopCount) {
 	trimAndGetLoopGuard(lines);
 	
-	var hasInnerLoop = false;
-	hasInnerLoop = lookForLoop(lines, loopCount, 0);
 	
-	funcCode += getLoopFunctionHeaderString(loopCount)
-			+ lines.join("\n") + '\nqueue.push(functionLoop'
+	
+	funcCode += getLoopFunctionHeaderString(loopCount);
+	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);
+	funcCode += 'queue.push(functionLoop'
 			+ (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n};\n';
+			
+	if(hasInnerLoop)
+	{
+		lookForLoop(lines, loopCount, numRecursion + 1);
+	}
 };
 
 var parseRemaining = function(lines, loopCount, numRecursion) {
