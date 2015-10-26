@@ -1,12 +1,10 @@
 var funcCode = '';
 
 var parseWhileLoop = function (lines, loopCount, remaining, numRecursion) {
-	lines.shift(); // Removes '// forever loop'
-	var loopGuard = lines.shift(); // Removes 'while (true) {'
+	var loopGuard = trimAndGetLoopGuard(lines);
 	loopGuard = S(loopGuard).chompLeft('while ').chompRight(' {').s;
-	lines.pop(); // Removes '} //end loop'
 
-	funcCode += 'var functionLoop' + loopCount + ' = function() {\n';
+	funcCode += getLoopFunctionHeaderString(loopCount);
 	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);//lookForLoop(lines, loopCount, numRecursion + 1);
 
 	funcCode += 'if' + loopGuard + '{\n'+ lines.join("\n")
@@ -27,13 +25,11 @@ var parseWhileLoop = function (lines, loopCount, remaining, numRecursion) {
 };
 
 var parseRepeatLoop = function (lines, loopCount, remaining, numRecursion) {
-	lines.shift(); // Removes '// forever loop'
-	var loopGuard = lines.shift(); // Removes 'while (true) {'
+	var loopGuard = trimAndGetLoopGuard(lines);
 	loopGuard = S(loopGuard).chompLeft('for (').chompRight(') {').s;
 	var forLoopParts = loopGuard.split(';'); //gets the 3 parts of a for loop
-	lines.pop(); // Removes '} //end loop'
 	
-	funcCode += forLoopParts[0] + ';\n' + 'var functionLoop' + loopCount + ' = function() {\n';
+	funcCode += forLoopParts[0] + ';\n' + getLoopFunctionHeaderString(loopCount);
 
 	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);//lookForLoop(lines, loopCount, numRecursion + 1);
 
@@ -57,14 +53,12 @@ var parseRepeatLoop = function (lines, loopCount, remaining, numRecursion) {
 };
 
 var parseForeverLoop = function (lines, loopCount) {
-	lines.shift(); // Removes '// forever loop'
-	lines.shift(); // Removes 'while (true) {'
-	lines.pop(); // Removes '} //end loop'
+	trimAndGetLoopGuard(lines);
 	
 	var hasInnerLoop = false;
 	hasInnerLoop = lookForLoop(lines, loopCount, 0);
 	
-	funcCode += 'var functionLoop' + loopCount + ' = function() {\n'
+	funcCode += getLoopFunctionHeaderString(loopCount)
 			+ lines.join("\n") + '\nqueue.push(functionLoop'
 			+ (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n};\n';
 };
@@ -91,10 +85,10 @@ var parseRemaining = function(lines, loopCount, numRecursion) {
 
 //If inner loop, parses and returns true
 var lookForLoop = function (lines, loopCount, numRecursion) {
-			getBeforeStartOfLoop(lines);
-			var loopType = lines[0];
-			determineLoop(lines, loopType, loopCount + 1, 0, numRecursion);
-			//lines.splice(start, (lines.length - start));
+	getBeforeStartOfLoop(lines);
+	var loopType = lines[0];
+	determineLoop(lines, loopType, loopCount + 1, 0, numRecursion);
+	//lines.splice(start, (lines.length - start));
 
 };
 
@@ -165,6 +159,17 @@ var getInnerLoopArray = function (lines, start) {
 		}
 	}
 	return lines.slice(start, loopEndPosition);
+};
+
+var getLoopFunctionHeaderString = function (loopCount) {
+	return 'var functionLoop' + loopCount + ' = function() {\n';
+};
+
+var trimAndGetLoopGuard = function (lines) {
+	lines.shift(); // Removes loop comment
+	var loopGuard = lines.shift(); // Removes loop header
+	lines.pop(); // Removes '} //end loop'
+	return loopGuard;
 };
 
 var getFuncCode = function () {
