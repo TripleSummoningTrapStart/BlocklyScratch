@@ -8,7 +8,7 @@ var parseWhileLoop = function (lines, loopCount, remaining, numRecursion) {
 			 	+'if' + loopGuard + '{\n';
 	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);//lookForLoop(lines, loopCount, numRecursion + 1);
 
-	funcCode += '\nqueue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
+	funcCode += 'queue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
 			
 	if(remaining){
 		funcCode += 'else{\nqueue.push(remainingCodeForLoop' + loopCount + ');\n}\n';
@@ -97,6 +97,10 @@ var getBeforeStartOfLoop = function (lines) {
 	if(start > 0) {
 		funcCode += lines.slice(0, start).join('\n') + '\n';
 		lines.splice(0, start);
+	}
+	else if (start == -1)
+	{
+		funcCode += lines.join('\n') + '\n';
 	}
 	return start
 		
