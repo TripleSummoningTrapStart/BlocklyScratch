@@ -6,11 +6,11 @@ var parseWhileLoop = function (lines, loopCount, remaining, numRecursion) {
 	loopGuard = S(loopGuard).chompLeft('while ').chompRight(' {').s;
 	lines.pop(); // Removes '} //end loop'
 
-	funcCode += 'var functionLoop' + loopCount + ' = function() {\n';
+	funcCode += 'var functionLoop' + loopCount + ' = function() {\n'
+			 +'if' + loopGuard + '{\n';
 	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);//lookForLoop(lines, loopCount, numRecursion + 1);
 
-	funcCode += 'if' + loopGuard + '{\n'+ lines.join("\n")
-				+'\nqueue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
+	funcCode += '\nqueue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
 			
 	if(remaining){
 		funcCode += 'else{\nqueue.push(remainingCodeForLoop' + loopCount + ');\n}\n';
@@ -33,11 +33,12 @@ var parseRepeatLoop = function (lines, loopCount, remaining, numRecursion) {
 	var forLoopParts = loopGuard.split(';'); //gets the 3 parts of a for loop
 	lines.pop(); // Removes '} //end loop'
 	
-	funcCode += forLoopParts[0] + ';\n' + 'var functionLoop' + loopCount + ' = function() {\n';
+	funcCode += forLoopParts[0] + ';\n' + 'var functionLoop' + loopCount + ' = function() {\n'
+			 + 'if(' + forLoopParts[1] + '){\n';
 
 	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);//lookForLoop(lines, loopCount, numRecursion + 1);
 
-	funcCode += 'if(' + forLoopParts[1] + '){\n' + lines.join("\n") + '\n' + S(forLoopParts[2]).trim().s
+	funcCode +=  '\n' + S(forLoopParts[2]).trim().s
 				+ ';\nqueue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
 			
 	if(remaining){
@@ -72,17 +73,16 @@ var parseForeverLoop = function (lines, loopCount) {
 var parseRemaining = function(lines, loopCount, numRecursion) {
 	funcCode += 'var remainingCodeForLoop' + loopCount + ' = function() {\n';
 
-	var hasInnerLoop = false;
-	hasInnerLoop = lookForLoop(lines, loopCount, numRecursion);
+	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);
 	
-	funcCode += lines.join("\n") + '\n';
+	//funcCode += lines.join("\n") + '\n';
 	
 	// if LoopCount == 0, don't call outer loop.
-	if(numRecursion > 0)
-	{
+	if(numRecursion > 0) {
 		funcCode += 'queue.push(functionLoop' + (loopCount - 1) + ');\n';
 	}
-	if(hasInnerLoop){
+	if(hasInnerLoop) {
+		lookForLoop(lines, loopCount, numRecursion);
 		funcCode += 'queue.push(functionLoop' + (loopCount + 1) + ');\n';
 	}
 	
@@ -100,7 +100,7 @@ var lookForLoop = function (lines, loopCount, numRecursion) {
 
 var getBeforeStartOfLoop = function (lines) {
 	var start = findStartOfLoop(lines);
-	if(start != -1) {
+	if(start > 0) {
 		funcCode += lines.slice(0, start).join('\n') + '\n';
 		lines.splice(0, start);
 	}
