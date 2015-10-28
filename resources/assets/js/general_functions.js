@@ -17,8 +17,8 @@ var resizeBlockly = function(e) {
     // Position blocklyDiv over blocklyArea.
     blocklyDiv.style.left = x + 'px';
     blocklyDiv.style.top = y + 'px';
-    blocklyDiv.style.width = (blocklyArea.offsetWidth - x) + 'px';
-    blocklyDiv.style.height = (blocklyArea.offsetHeight - y) + 'px';
+    blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+    blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
 };
 var injectBlockly = function() {
   blocklyArea = document.getElementById('blocklyArea');
@@ -167,12 +167,12 @@ var cleanValues = function(codeToParse) {
 		lines.shift();
 		lines.pop();
 		var startingLoopNumber = (numOfLoops*(i-1));
-		if(lookForLoop(lines, startingLoopNumber, 0))
-		{
+		
+			lookForLoop(lines, startingLoopNumber -1, 0)
 			values[i] = getFuncCode();
 			resetFuncCode();
-			values[i] += 'queue.push(functionLoop' + (startingLoopNumber + 1) + ');\n';
-		}
+			values[i] += 'queue.push(functionLoop' + startingLoopNumber + ');\n';
+		
 	}
 
 	return values;
