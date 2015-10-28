@@ -56,8 +56,6 @@ var parseRepeatLoop = function (lines, loopCount, remaining, numRecursion) {
 var parseForeverLoop = function (lines, loopCount) {
 	trimAndGetLoopGuard(lines);
 	
-	
-	
 	funcCode += getLoopFunctionHeaderString(loopCount);
 	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);
 	funcCode += 'queue.push(functionLoop'
@@ -65,7 +63,7 @@ var parseForeverLoop = function (lines, loopCount) {
 			
 	if(hasInnerLoop)
 	{
-		lookForLoop(lines, loopCount, numRecursion + 1);
+		lookForLoop(lines, loopCount, 1);
 	}
 };
 
