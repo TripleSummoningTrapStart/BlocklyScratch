@@ -43,6 +43,7 @@ var downloadCode = function() {
     document.getElementById('btnCode').href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(code);
     Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
     Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
+	return code;
 };
 var exportXML = function() {
 	var xml = Blockly.Xml.workspaceToDom(workspace);

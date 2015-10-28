@@ -9,7 +9,12 @@
   }
 function test_1downloadCode()
 {
-	//downloadCode();
+	var xml = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="procedures_hat_when_run_clicked" x="-1" y="-1"><next><block type="controls_if"><value name="IF0"><block type="logic_compare"><field name="OP">EQ</field><value name="A"><block type="math_number"><field name="NUM">0</field></block></value><value name="B"><block type="math_number"><field name="NUM">0</field></block></value></block></value></block></next></block></xml>';
+	var expected = '// hat\nif (0 == 0) {\n}\n';
+	Blockly.mainWorkspace.clear()
+	importXML(xml);
+	var code = downloadCode();
+	assertEquals(code, expected);
 }
 function test_1exportXML()
 {
