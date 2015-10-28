@@ -43,20 +43,21 @@
 		
 	</head>
 	<body>
-		<table>
- 			<tbody>
-				<tr>
-				<button type="button" class="btn btn-success" id ="btnRun">Run</button>
-				<button type="button" class="btn btn-warning" id ="btnStep">Step</button>
-				<button type="button" class="btn btn-danger" id ="btnStop">Stop</button>
-				<a id="btnCode" href="" class="btn btn-info" download="code.js">Download Code</a>
-				<a id="btnExportXML" href=""  download="blocks.xml"><button type="button" class="btn btn-info" id="btnExportXML" onclick="exportXML()">Download XML</button></a>
-				<a id="btnImportXML" class="btn btn-info">Upload XML: <input type="file" style="display:inline" style="visibility: hidden" id="files" name="files[]"></a><!--- reference: http://www.html5rocks.com/en/tutorials/file/dndfiles/ -->
- 				
- 				<td id = "blocklyArea">blocks go here</td>
- 				</tr>
- 			</tbody>
- 		</table>
+			<div class="row blockly-toolbox">
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<button id="btnRun" class="btn btn-success">Run</button>
+					<button id="btnStep" class="btn btn-warning">Step</button>
+					<button id="btnStop" class="btn btn-danger">Stop</button>
+					<a id="btnCode" href="" class="btn btn-info" download="code.js">Download Code</a>
+					<a id="btnExportXML" href="" class="btn btn-info" download="blocks.xml">Download XML</a>
+					<a id="btnImportXML" class="btn btn-info">Upload XML: <input type="file" style="display:inline" style="visibility: hidden" id="files" name="files[]"></a> <!--- reference: http://www.html5rocks.com/en/tutorials/file/dndfiles/ -->
+				</div>
+			</div>
+			<div class="row blockly-container">
+				<div id="blocklyArea" class="col-sm-12 col-md-12 col-lg-12 blockly-container">
+					<p>Blockly goes here</p>
+				</div>
+			</div>
 
 		<div id="blocklyDiv"  style="position: absolute"></div>
 		<xml id="toolbox" style="display: none">

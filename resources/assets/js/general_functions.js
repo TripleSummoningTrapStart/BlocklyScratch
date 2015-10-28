@@ -17,8 +17,8 @@ var resizeBlockly = function(e) {
     // Position blocklyDiv over blocklyArea.
     blocklyDiv.style.left = x + 'px';
     blocklyDiv.style.top = y + 'px';
-    blocklyDiv.style.width = (blocklyArea.offsetWidth - x) + 'px';
-    blocklyDiv.style.height = (blocklyArea.offsetHeight - y) + 'px';
+    blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+    blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
 };
 var injectBlockly = function() {
   blocklyArea = document.getElementById('blocklyArea');
