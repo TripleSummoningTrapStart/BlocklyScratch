@@ -319,6 +319,7 @@ function test_1parseNested_ForeverWhile() {
 	assertEquals(expectedCode, code);
 }
 
+// Stacked Loop Tests
 function test_1ParseStackedRepeatLoop() {
 		var loopcode = ['// repeat loop',
 						'for (var count = 0; count < 2; count++) {',
@@ -354,13 +355,14 @@ function test_1ParseStackedRepeatLoop() {
 								+'queue.push(remainingCodeForLoop1);\n'
 								+'count = 0;\n'
 							+'}\n'
-						+'};\n'
+						+'};\n';
 	lookForLoop(loopcode, 0, 0);
 
 	var code = getFuncCode();
 	resetFuncCode();
 	assertEquals(code, expectedCode);
 }
+
 function test_1ParseStackedWhileLoop() {
 	var loopcode = ['// while loop',
 					'while (i < 10) {',
@@ -394,13 +396,14 @@ function test_1ParseStackedWhileLoop() {
 							+'else{\n'
 								+'queue.push(remainingCodeForLoop1);\n'
 							+'}\n'
-						+'};\n'
+						+'};\n';
 	lookForLoop(loopcode, 0, 0);
 
 	var code = getFuncCode();
 	resetFuncCode();
 	assertEquals(code, expectedCode);
 }
+
 function test_1ParseStackedRepeat_WhileLoop() {
 	
 	var loopcode = ['// repeat loop',
@@ -444,6 +447,7 @@ function test_1ParseStackedRepeat_WhileLoop() {
 	assertEquals(code, expectedCode);
 
 }
+
 function test_1ParseStackedWhile_RepeatLoop() {
 		var loopcode = ['// while loop',
 					'while (i < 10) {',
@@ -476,13 +480,14 @@ function test_1ParseStackedWhile_RepeatLoop() {
 							+'else{\n'
 								+'queue.push(remainingCodeForLoop1);\n'
 							+'}\n'
-						+'};\n'
+						+'};\n';
 	lookForLoop(loopcode, 0, 0);
 
 	var code = getFuncCode();
 	resetFuncCode();
 	assertEquals(code, expectedCode);
 }
+
 function test_1ParseStackedRepeat_ForeverLoop() {
 		var loopcode = ['// repeat loop',
 					'for (var count = 0; count < 10; count++) {',
@@ -512,13 +517,14 @@ function test_1ParseStackedRepeat_ForeverLoop() {
 								+'queue.push(remainingCodeForLoop1);\n'
 								+'count = 0;\n'
 							+'}\n'
-						+'};\n'
+						+'};\n';
 	lookForLoop(loopcode, 0, 0);
 
 	var code = getFuncCode();
 	resetFuncCode();
 	assertEquals(code, expectedCode);
 }
+
 function test_1ParseStackedWhile_ForeverLoop() {
 	var loopcode = ['// while loop',
 					'while (i < 10) {',
@@ -545,7 +551,7 @@ function test_1ParseStackedWhile_ForeverLoop() {
 							+'else{\n'
 								+'queue.push(remainingCodeForLoop1);\n'
 							+'}\n'
-						+'};\n'
+						+'};\n';
 	lookForLoop(loopcode, 0, 0);
 
 	var code = getFuncCode();
