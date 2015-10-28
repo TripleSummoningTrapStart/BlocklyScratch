@@ -50,6 +50,7 @@ var exportXML = function() {
 	var xml_text = Blockly.Xml.domToText(xml);
 	
 	document.getElementById('btnExportXML').href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(xml_text);
+	return xml;
 };
 var importXML = function(contents) {
 	var xml = Blockly.Xml.textToDom(contents);
