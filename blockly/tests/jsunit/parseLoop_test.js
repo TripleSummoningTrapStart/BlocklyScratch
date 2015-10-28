@@ -319,7 +319,7 @@ function test_1parseNested_ForeverWhile() {
 	assertEquals(expectedCode, code);
 }
 
-/*function test_1ParseStackedRepeatLoop() {
+function test_1ParseStackedRepeatLoop() {
 		var loopcode = ['// repeat loop',
 						'for (var count = 0; count < 2; count++) {',
 						'if(--window.LoopTrap == 0) throw "Infinite loop.";',
@@ -330,53 +330,225 @@ function test_1parseNested_ForeverWhile() {
 						'if(--window.LoopTrap == 0) throw "Infinite loop.";',
 						'window.alert('+');',
 						'} //end loop'];
-	var expectedCode = 'var remainingCodeForLoop1 = function() {\n\n'
-
-						'var count2 = 0;\n'
-						'var functionLoop2 = function() {\n'
-						'if( count2 < 2){\n'
-						'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
-						'window.alert('+');\n'
-						'count2++;\n'
-						'queue.push(functionLoop2);\n'
-						'}\n'
-						'};\n'
-
-						'queue.push(functionLoop2);\n'
-						'};\n'
-						'var count = 0;'
-						'var functionLoop1 = function() {\n'
-						'if( count < 2){\n'
-						'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
-						'window.alert('+');\n'
-						'count++;\n'
-						'queue.push(functionLoop1);\n'
-						'}\n'
-						'else{\n'
-						'queue.push(remainingCodeForLoop1);\n'
-						'count = 0;\n'
-						'}\n'
-						'};\n'
-						'queue.push(functionLoop1);\n'
-						'};\n'
+	var expectedCode = 'var remainingCodeForLoop1 = function() {\n'
+							+'var count2 = 0;\n'
+							+'var functionLoop2 = function() {\n'
+								+'if( count2 < 2){\n'
+								+'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
+								+'window.alert('+');\n'
+								+'count2++;\n'
+								+'queue.push(functionLoop2);\n'
+								+'}\n'
+							+'};\n'
+							+'queue.push(functionLoop2);\n'
+						+'};\n'
+						+'var count = 0;\n'
+						+'var functionLoop1 = function() {\n'
+							+'if( count < 2){\n'
+								+'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
+								+'window.alert('+');\n'
+								+'count++;\n'
+								+'queue.push(functionLoop1);\n'
+							+'}\n'
+							+'else{\n'
+								+'queue.push(remainingCodeForLoop1);\n'
+								+'count = 0;\n'
+							+'}\n'
+						+'};\n'
 	lookForLoop(loopcode, 0, 0);
 
 	var code = getFuncCode();
 	resetFuncCode();
 	assertEquals(code, expectedCode);
-}*/
+}
 function test_1ParseStackedWhileLoop() {
-	
+	var loopcode = ['// while loop',
+					'while (i < 10) {',
+					'if(--window.LoopTrap == 0) throw "Infinite loop.";',
+					'i = (typeof i == '+ 'number' + ' ? i : 0) + 1;',
+					'} //end loop',
+					'window.alert('+');',
+					'// while loop',
+					'while (item < 10) {',
+					'if(--window.LoopTrap == 0) throw "Infinite loop.";',
+					  'item = (typeof item == '+ 'number' + ' ? item : 0) + 1;',
+					'} //end loop'];
+	var expectedCode = 'var remainingCodeForLoop1 = function() {\n'
+							+'window.alert('+');\n'
+							+'var functionLoop2 = function() {\n'
+								+'if(item < 10){\n'
+								+'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
+								+'item = (typeof item == '+ 'number' + ' ? item : 0) + 1;\n'
+								+'queue.push(functionLoop2);\n'
+								+'}\n'
+							+'};\n'
+
+							+'queue.push(functionLoop2);\n'
+						+'};\n'
+						+'var functionLoop1 = function() {\n'
+							+'if(i < 10){\n'
+								+'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
+								+'i = (typeof i == '+ 'number' + ' ? i : 0) + 1;\n'
+								+'queue.push(functionLoop1);\n'
+							+'}\n'
+							+'else{\n'
+								+'queue.push(remainingCodeForLoop1);\n'
+							+'}\n'
+						+'};\n'
+	lookForLoop(loopcode, 0, 0);
+
+	var code = getFuncCode();
+	resetFuncCode();
+	assertEquals(code, expectedCode);
 }
 function test_1ParseStackedRepeat_WhileLoop() {
 	
+	var loopcode = ['// repeat loop',
+					'for (var count = 0; count < 10; count++) {',
+					'if(--window.LoopTrap == 0) throw "Infinite loop.";',
+					  'window.alert('+');',
+					'} //end loop',
+					'// while loop',
+					'while (i < 10) {',
+					'if(--window.LoopTrap == 0) throw "Infinite loop.";',
+					  'i = (typeof i == '+'number'+' ? i : 0) + 1;',
+					'} //end loop'];
+	var expectedCode = 'var remainingCodeForLoop1 = function() {\n'
+							+'var functionLoop2 = function() {\n'
+								+'if(i < 10){\n'
+								+'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
+								+'i = (typeof i == '+ 'number' + ' ? i : 0) + 1;\n'
+								+'queue.push(functionLoop2);\n'
+								+'}\n'
+							+'};\n'
+
+							+'queue.push(functionLoop2);\n'
+						+'};\n'
+						+'var count = 0;\n'
+						+'var functionLoop1 = function() {\n'
+							+'if( count < 10){\n'
+								+'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
+								+'window.alert('+');\n'
+								+'count++;\n'
+								+'queue.push(functionLoop1);\n'
+							+'}\n'
+							+'else{\n'
+								+'queue.push(remainingCodeForLoop1);\n'
+								+'count = 0;\n'
+							+'}\n'
+						+'};\n'
+	lookForLoop(loopcode, 0, 0);
+
+	var code = getFuncCode();
+	resetFuncCode();
+	assertEquals(code, expectedCode);
+
 }
 function test_1ParseStackedWhile_RepeatLoop() {
-	
+		var loopcode = ['// while loop',
+					'while (i < 10) {',
+					'if(--window.LoopTrap == 0) throw "Infinite loop.";',
+					  'i = (typeof i == '+'number'+' ? i : 0) + 1;',
+					'} //end loop',
+					'// repeat loop',
+					'for (var count = 0; count < 10; count++) {',
+					'if(--window.LoopTrap == 0) throw "Infinite loop.";',
+					  'window.alert('+');',
+					'} //end loop'];
+	var expectedCode = 'var remainingCodeForLoop1 = function() {\n'
+							+'var count = 0;\n'
+							+'var functionLoop2 = function() {\n'
+								+'if( count < 10){\n'
+									+'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
+									+'window.alert('+');\n'
+									+'count++;\n'
+									+'queue.push(functionLoop2);\n'
+								+'}\n'
+							+'};\n'
+							+'queue.push(functionLoop2);\n'
+						+'};\n'
+						+'var functionLoop1 = function() {\n'
+							+'if(i < 10){\n'
+								+'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
+								+'i = (typeof i == '+ 'number' + ' ? i : 0) + 1;\n'
+								+'queue.push(functionLoop1);\n'
+							+'}\n'
+							+'else{\n'
+								+'queue.push(remainingCodeForLoop1);\n'
+							+'}\n'
+						+'};\n'
+	lookForLoop(loopcode, 0, 0);
+
+	var code = getFuncCode();
+	resetFuncCode();
+	assertEquals(code, expectedCode);
 }
 function test_1ParseStackedRepeat_ForeverLoop() {
-	
+		var loopcode = ['// repeat loop',
+					'for (var count = 0; count < 10; count++) {',
+					'if(--window.LoopTrap == 0) throw "Infinite loop.";',
+					  'window.alert('+');',
+					'} //end loop',
+					'// forever loop',
+					'while (true) {',
+					 'window.alert('+');',
+					'} //end loop'];
+	var expectedCode = 'var remainingCodeForLoop1 = function() {\n'
+							+'var functionLoop2 = function() {\n'
+								+'window.alert('+');\n'
+								+'queue.push(functionLoop2);\n'
+							+'};\n'
+							+'queue.push(functionLoop2);\n'
+						+'};\n'
+						+'var count = 0;\n'
+						+'var functionLoop1 = function() {\n'
+								+'if( count < 10){\n'
+									+'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
+									+'window.alert('+');\n'
+									+'count++;\n'
+									+'queue.push(functionLoop1);\n'
+								+'}\n'
+							+'else{\n'
+								+'queue.push(remainingCodeForLoop1);\n'
+								+'count = 0;\n'
+							+'}\n'
+						+'};\n'
+	lookForLoop(loopcode, 0, 0);
+
+	var code = getFuncCode();
+	resetFuncCode();
+	assertEquals(code, expectedCode);
 }
 function test_1ParseStackedWhile_ForeverLoop() {
+	var loopcode = ['// while loop',
+					'while (i < 10) {',
+					'if(--window.LoopTrap == 0) throw "Infinite loop.";',
+					  'i = (typeof i == '+'number'+' ? i : 0) + 1;',
+					'} //end loop',
+					'// forever loop',
+					'while (true) {',
+					 'window.alert('+');',
+					'} //end loop'];
+	var expectedCode = 'var remainingCodeForLoop1 = function() {\n'
+							+'var functionLoop2 = function() {\n'
+								+'window.alert('+');\n'
+								+'queue.push(functionLoop2);\n'
+							+'};\n'
+							+'queue.push(functionLoop2);\n'
+						+'};\n'
+						+'var functionLoop1 = function() {\n'
+							+'if(i < 10){\n'
+								+'if(--window.LoopTrap == 0) throw "Infinite loop.";\n'
+								+'i = (typeof i == '+ 'number' + ' ? i : 0) + 1;\n'
+								+'queue.push(functionLoop1);\n'
+							+'}\n'
+							+'else{\n'
+								+'queue.push(remainingCodeForLoop1);\n'
+							+'}\n'
+						+'};\n'
+	lookForLoop(loopcode, 0, 0);
 
+	var code = getFuncCode();
+	resetFuncCode();
+	assertEquals(code, expectedCode);
 }
