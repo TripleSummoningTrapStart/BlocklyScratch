@@ -131,18 +131,16 @@ var determineLoop = function (lines, loopType, loopCount, start, numRecursion) {
 	switch (loopType)
 	{
 		case '// repeat loop':
-			return parseRepeatLoop(looparr, loopCount, remaining, numRecursion);
+			parseRepeatLoop(looparr, loopCount, remaining, numRecursion);
+			break;
 		case '// while loop':
-			return parseWhileLoop(looparr, loopCount, remaining, numRecursion);
+			parseWhileLoop(looparr, loopCount, remaining, numRecursion);
+			break;
 		case '// forever loop':
-			return parseForeverLoop(looparr, loopCount);
+			parseForeverLoop(looparr, loopCount);
+			break;
 	}
 };
-
-var checkForRemainingCode = function(arrLength1, arrLength2) {
-	return !(arrLength1 >= arrLength2);
-};
-
 //to avoid issues with stacked loops which is why we don't use lines.reverse to find end of loop.
 var getInnerLoopArray = function (lines, start) {
 	var numLoopStarts = 0; //parsed out first hat when method is called, starts at one to prevent break case;

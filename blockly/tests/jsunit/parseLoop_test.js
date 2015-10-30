@@ -558,3 +558,70 @@ function test_1ParseStackedWhile_ForeverLoop() {
 	resetFuncCode();
 	assertEquals(code, expectedCode);
 }
+function test_1TrimAndGetLoopGuard() {
+	var loop = ['// while loop',
+				'while (i < 10) {',
+				'if(--window.LoopTrap == 0) throw "Infinite loop.";',
+				'i = (typeof i == '+'number'+' ? i : 0) + 1;',
+				'} //end loop'];
+	var loopGuard = trimAndGetLoopGuard(loop);
+	var expectedArray = ['if(--window.LoopTrap == 0) throw "Infinite loop.";',
+					  'i = (typeof i == '+'number'+' ? i : 0) + 1;'];
+	assertEquals('while (i < 10) {', loopGuard);
+	for(var i = 0; i < loop; i++) {
+		assertEquals(loop[i], expectedArray[i]);
+	}
+}
+function test_1GetLoopFunctionHeaderString() {
+	var header = getLoopFunctionHeaderString(0);
+	assertEquals('var functionLoop0 = function() {\n', header);
+}
+function test_1GetInnerLoopArray() {
+	var loop = ['// forever loop',
+					'while (true) {',
+						'// forever loop',
+						'while (true) {',
+							'window.alert('+');',
+						'} //end loop',
+					'} //end loop'];
+	var innerLoop = getInnerLoopArray(loop, 1);
+	var expectedInner = ['// forever loop',
+						'while (true) {',
+							'window.alert('+');',
+						'} //end loop'];
+		for(var i = 0; i < innerLoop; i++) {
+			assertEquals(innerLoop[i], expectedInner[i]);
+		}
+}
+function test_1DetermineLoop() {
+	var loop = ['// forever loop',
+					'while (true) {',
+					'} //end loop'];
+	determineLoop(loop, '// forever loop', 0,0,0);
+	var funcCode = getFuncCode();
+	var expected = 'var functionLoop0 = function() {\n\nqueue.push(functionLoop0);\n};\n';
+	resetFuncCode();
+	assertEquals(funcCode, expected);
+}
+function test_1findStartofLoop(){
+	var loop = ['asada','asadad','// forever loop',
+					'while (true) {',
+					'} //end loop'];
+	var start = findStartOfLoop(loop);
+	assertEquals(2, start);
+}
+function test_1GetBeforeStartOfLoop() {
+	var loop = ['asada','asadad','// forever loop',
+					'while (true) {',
+					'} //end loop'];
+	getBeforeStartOfLoop(loop);
+	var funcCode = getFuncCode();
+	var expectedLoop = ['// forever loop',
+					'while (true) {',
+					'} //end loop'];
+	resetFuncCode();
+	assertEquals('asada\nasadad\n', funcCode);
+	for(var i = 0; i < loop; i++) {
+		assertEquals(loop[i], expectedArray[i]);
+	}
+}
