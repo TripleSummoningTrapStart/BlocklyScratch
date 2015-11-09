@@ -85,7 +85,7 @@ Blockly.Flyout = function(workspaceOptions) {
  * Does the flyout automatically close when a block is created?
  * @type {boolean}
  */
-Blockly.Flyout.prototype.autoClose = true;
+Blockly.Flyout.prototype.autoClose = false;
 
 /**
  * Corner radius of the flyout background.

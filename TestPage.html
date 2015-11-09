@@ -10,6 +10,7 @@
 		 <link href="resources/assets/css/testpage.css" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="Snap.svg-0.4.1/dist/snap.svg-min.js"></script>
 
 		<script src="blockly/blockly_uncompressed.js"></script> 
 		<script src="blockly/blocks/logic.js"></script>
@@ -41,10 +42,14 @@
 		<script src="https://cdn.rawgit.com/jprichardson/string.js/master/dist/string.min.js"></script>
 		<script src="resources/assets/js/loop_functions.js"></script>
 		<script src="resources/assets/js/general_functions.js"></script>
+	
+	
 
 		
 	</head>
 	<body>
+		
+		
 			<div class="row blockly-toolbox">
 				<div class="col-sm-12 col-md-12 col-lg-12">
 					<button id="btnRun" class="btn btn-success">Run</button>
@@ -55,13 +60,31 @@
 					<a id="btnImportXML" class="btn btn-info">Upload XML: <input type="file" style="display:inline" style="visibility: hidden" id="files" name="files[]"></a> <!--- reference: http://www.html5rocks.com/en/tutorials/file/dndfiles/ -->
 				</div>
 			</div>
-			<div class="row blockly-container">
-				<div id="blocklyArea" class="col-sm-12 col-md-12 col-lg-12 blockly-container">
-					<p>Blockly goes here</p>
+			<div id="wrapper">
+			<div id="sidebar">
+				<svg id="svgArea">
+						<pattern id="pattern" patternUnits="userSpaceOnUse" x="0" y="0" width ="10" height = "10" viewbox="0 0 10 10">
+							<path d="M-5,0,10,15m0-5,15,10" stroke="white" stroke-width="5"/>
+						</pattern>
+				</svg>
 				</div>
-			</div>
+				<!--<div class="svgContainer" style="width: 50% float:left">
 
+				</div>-->
+				<div id="content">
+				<div class="blockly-container">
+					
+					<div id="blocklyArea" class="col-sm-12 col-md-12 col-lg-12">
+						<p>Blockly goes here</p>
+					</div>
+				</div>
+				
+				
+			
 		<div id="blocklyDiv"  style="position: absolute"></div>
+		</div>
+		<div id="cleared"></div>
+		</div>
 		<xml id="toolbox" style="display: none">
 			<category name="Logic" id="catLogic">
 				<block type="controls_if"></block>
@@ -279,6 +302,8 @@
 			<category name="Variables" id="catVariables" custom="VARIABLE"></category>
 			<category name="Functions" id="catFunctions" custom="PROCEDURE"></category>
 		</xml>
-
+<script src="resources/assets/js/snap.js"></script>
+		
+	
 	</body>
 </html>

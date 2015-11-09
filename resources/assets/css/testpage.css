@@ -15,7 +15,7 @@
 			  font-size: 140%;
 			}
 			.blockly-container{
-			  min-height: 100%;
+			  min-height: 70%;
 			  height: 100%;
 			  width:100%;
 			}
@@ -23,6 +23,32 @@
 			.blockly-toolbox{
 			  margin: 10px;
 			}
-			#blocklyArea {
-			  height: 99%;
+			#svgArea{
+				position: absolute;
+				height: 100%;
+				width: 40%;
 			}
+			#blocklyArea {
+			  height: 100%;
+			  width: 80%;
+			}
+			#wrapper{
+				margin-left:200px;
+				height: 100%;
+				width: 100%;
+			}
+			#content{
+				float:right;
+				width: 60%;
+				height:100%;
+				
+			}
+			#sidebar {
+				float: left;
+				width: 40%;
+				margin-left: -200px;
+			}
+			#cleared {
+				clear: both;
+			}
+
