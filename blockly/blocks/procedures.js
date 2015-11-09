@@ -782,6 +782,7 @@ Blockly.Blocks['procedures_hat_when_run_clicked'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("when 'Run' clicked");
+	Blockly.BlockSvg.START_HAT = true;
     this.setNextStatement(true, null);
     this.setColour(290);
     this.setTooltip('');
