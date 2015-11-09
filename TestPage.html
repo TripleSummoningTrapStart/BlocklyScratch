@@ -21,6 +21,7 @@
 		<script src="blockly/blocks/variables.js"></script>
 		<script src="blockly/blocks/procedures.js"></script>
 		<script src="blockly/blocks/control.js"></script>
+		<script src="blockly/blocks/events.js"></script>
 		<script src="blockly/msg/messages.js"></script>
 
 		<script src="blockly/generators/javascript.js"></script>
@@ -33,6 +34,7 @@
 		<script src="blockly/generators/javascript/variables.js"></script>
 		<script src="blockly/generators/javascript/procedures.js"></script>
 		<script src="blockly/generators/javascript/control.js"></script>
+		<script src="blockly/generators/javascript/events.js"></script>
 		<script src="blockly/appengine/storage.js"></script>
 
 		<script src="JS-Interpreter/acorn_interpreter.js"></script>
@@ -98,6 +100,8 @@
 				</block>
 				<block type="controls_forEach"></block>
 				<block type="controls_flow_statements"></block>
+				<block type="controls_repeat_forever"></block>
+				<block type="control_wait_until"></block>
 			</category>
 			<category name="Math" id="catMath">
 				<block type="math_number"></block>
@@ -268,10 +272,8 @@
 					</value>
 				</block>
 			</category>
-			<category name="Custom" id="catCustom">
-				<block type="controls_repeat_forever"></block>
-				<block type="control_wait_until"></block>
-				<block type="procedures_hat_when_run_clicked"></block>
+			<category name ="Events" id ="catEvents">
+				<block type ="procedures_hat_when_run_clicked"></block>
 			</category>
 			<sep></sep>
 			<category name="Variables" id="catVariables" custom="VARIABLE"></category>
