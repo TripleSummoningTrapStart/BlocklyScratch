@@ -34,9 +34,9 @@ goog.require('Blockly.Blocks');
  */
 Blockly.Blocks.texts.HUE = 160;
 
-Blockly.Blocks['text'] = {
+Blockly.Blocks['texts_text'] = {
   /**
-   * Block for text value.
+   * Block for texts_text value.
    * @this Blockly.Block
    */
   init: function() {
@@ -66,7 +66,7 @@ Blockly.Blocks['text'] = {
   }
 };
 
-Blockly.Blocks['text_join'] = {
+Blockly.Blocks['texts_join'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block
@@ -77,7 +77,7 @@ Blockly.Blocks['text_join'] = {
     this.itemCount_ = 2;
     this.updateShape_();
     this.setOutput(true, 'String');
-    this.setMutator(new Blockly.Mutator(['text_create_join_item']));
+    this.setMutator(new Blockly.Mutator(['texts_create_join_item']));
     this.setTooltip(Blockly.Msg.TEXT_JOIN_TOOLTIP);
   },
   /**
@@ -107,11 +107,11 @@ Blockly.Blocks['text_join'] = {
    */
   decompose: function(workspace) {
     var containerBlock = Blockly.Block.obtain(workspace,
-                                           'text_create_join_container');
+                                           'texts_create_join_container');
     containerBlock.initSvg();
     var connection = containerBlock.getInput('STACK').connection;
     for (var i = 0; i < this.itemCount_; i++) {
-      var itemBlock = Blockly.Block.obtain(workspace, 'text_create_join_item');
+      var itemBlock = Blockly.Block.obtain(workspace, 'texts_create_join_item');
       itemBlock.initSvg();
       connection.connect(itemBlock.previousConnection);
       connection = itemBlock.nextConnection;
@@ -187,10 +187,10 @@ Blockly.Blocks['text_join'] = {
       }
     }
   },
-  newQuote_: Blockly.Blocks['text'].newQuote_
+  newQuote_: Blockly.Blocks['texts_text'].newQuote_
 };
 
-Blockly.Blocks['text_create_join_container'] = {
+Blockly.Blocks['texts_create_join_container'] = {
   /**
    * Mutator block for container.
    * @this Blockly.Block
@@ -205,7 +205,7 @@ Blockly.Blocks['text_create_join_container'] = {
   }
 };
 
-Blockly.Blocks['text_create_join_item'] = {
+Blockly.Blocks['texts_create_join_item'] = {
   /**
    * Mutator block for add items.
    * @this Blockly.Block
@@ -221,7 +221,7 @@ Blockly.Blocks['text_create_join_item'] = {
   }
 };
 
-Blockly.Blocks['text_append'] = {
+Blockly.Blocks['texts_append'] = {
   /**
    * Block for appending to a variable in place.
    * @this Blockly.Block
@@ -265,7 +265,7 @@ Blockly.Blocks['text_append'] = {
   }
 };
 
-Blockly.Blocks['text_length'] = {
+Blockly.Blocks['texts_length'] = {
   /**
    * Block for string length.
    * @this Blockly.Block
@@ -288,7 +288,7 @@ Blockly.Blocks['text_length'] = {
   }
 };
 
-Blockly.Blocks['text_isEmpty'] = {
+Blockly.Blocks['texts_isEmpty'] = {
   /**
    * Block for is the string null?
    * @this Blockly.Block
@@ -311,7 +311,7 @@ Blockly.Blocks['text_isEmpty'] = {
   }
 };
 
-Blockly.Blocks['text_indexOf'] = {
+Blockly.Blocks['texts_indexOf'] = {
   /**
    * Block for finding a substring in the text.
    * @this Blockly.Block
@@ -337,7 +337,7 @@ Blockly.Blocks['text_indexOf'] = {
   }
 };
 
-Blockly.Blocks['text_charAt'] = {
+Blockly.Blocks['texts_charAt'] = {
   /**
    * Block for getting a character from the string.
    * @this Blockly.Block
@@ -423,7 +423,7 @@ Blockly.Blocks['text_charAt'] = {
   }
 };
 
-Blockly.Blocks['text_getSubstring'] = {
+Blockly.Blocks['texts_getSubstring'] = {
   /**
    * Block for getting substring.
    * @this Blockly.Block
@@ -528,7 +528,7 @@ Blockly.Blocks['text_getSubstring'] = {
   }
 };
 
-Blockly.Blocks['text_changeCase'] = {
+Blockly.Blocks['texts_changeCase'] = {
   /**
    * Block for changing capitalization.
    * @this Blockly.Block
@@ -548,7 +548,7 @@ Blockly.Blocks['text_changeCase'] = {
   }
 };
 
-Blockly.Blocks['text_trim'] = {
+Blockly.Blocks['texts_trim'] = {
   /**
    * Block for trimming spaces.
    * @this Blockly.Block
@@ -568,7 +568,7 @@ Blockly.Blocks['text_trim'] = {
   }
 };
 
-Blockly.Blocks['text_print'] = {
+Blockly.Blocks['texts_print'] = {
   /**
    * Block for print statement.
    * @this Blockly.Block
@@ -591,7 +591,7 @@ Blockly.Blocks['text_print'] = {
   }
 };
 
-Blockly.Blocks['text_prompt_ext'] = {
+Blockly.Blocks['texts_prompt_ext'] = {
   /**
    * Block for prompt function (external message).
    * @this Blockly.Block
@@ -649,10 +649,10 @@ Blockly.Blocks['text_prompt_ext'] = {
   }
 };
 
-Blockly.Blocks['text_prompt'] = {
+Blockly.Blocks['texts_prompt'] = {
   /**
    * Block for prompt function (internal message).
-   * The 'text_prompt_ext' block is preferred as it is more flexible.
+   * The 'texts_prompt_ext' block is preferred as it is more flexible.
    * @this Blockly.Block
    */
   init: function() {
@@ -680,8 +680,8 @@ Blockly.Blocks['text_prompt'] = {
           Blockly.Msg.TEXT_PROMPT_TOOLTIP_NUMBER;
     });
   },
-  newQuote_: Blockly.Blocks['text'].newQuote_,
-  updateType_: Blockly.Blocks['text_prompt_ext'].updateType_,
-  mutationToDom: Blockly.Blocks['text_prompt_ext'].mutationToDom,
-  domToMutation: Blockly.Blocks['text_prompt_ext'].domToMutation
+  newQuote_: Blockly.Blocks['texts_text'].newQuote_,
+  updateType_: Blockly.Blocks['texts_prompt_ext'].updateType_,
+  mutationToDom: Blockly.Blocks['texts_prompt_ext'].mutationToDom,
+  domToMutation: Blockly.Blocks['texts_prompt_ext'].domToMutation
 };

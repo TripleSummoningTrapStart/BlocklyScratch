@@ -17,12 +17,12 @@
       <block type="variables_set" inline="false">
         <field name="VAR">log</field>
         <value name="VALUE">
-          <block type="text">
+          <block type="texts_text">
             <field name="TEXT"></field>
           </block>
         </value>
         <next>
-          <block type="controls_for">
+          <block type="control_for">
             <field name="VAR">x</field>
             <value name="FROM">
               <block type="math_number">
@@ -40,7 +40,7 @@
               </block>
             </value>
             <statement name="DO">
-              <block type="text_append" inline="false">
+              <block type="texts_append" inline="false">
                 <field name="VAR">log</field>
                 <value name="TEXT">
                   <block type="variables_get">
@@ -58,7 +58,7 @@
                   </block>
                 </value>
                 <value name="EXPECTED">
-                  <block type="text">
+                  <block type="texts_text">
                     <field name="TEXT">1357</field>
                   </block>
                 </value>
@@ -66,12 +66,12 @@
                   <block type="variables_set" inline="false">
                     <field name="VAR">log</field>
                     <value name="VALUE">
-                      <block type="text">
+                      <block type="texts_text">
                         <field name="TEXT"></field>
                       </block>
                     </value>
                     <next>
-                      <block type="controls_for">
+                      <block type="control_for">
                         <field name="VAR">x</field>
                         <value name="FROM">
                           <block type="math_number">
@@ -89,7 +89,7 @@
                           </block>
                         </value>
                         <statement name="DO">
-                          <block type="text_append" inline="false">
+                          <block type="texts_append" inline="false">
                             <field name="VAR">log</field>
                             <value name="TEXT">
                               <block type="variables_get">
@@ -107,7 +107,7 @@
                               </block>
                             </value>
                             <value name="EXPECTED">
-                              <block type="text">
+                              <block type="texts_text">
                                 <field name="TEXT">8642</field>
                               </block>
                             </value>
@@ -118,7 +118,7 @@
                                   <block type="lists_create_empty"></block>
                                 </value>
                                 <next>
-                                  <block type="controls_for">
+                                  <block type="control_for">
                                     <field name="VAR">x</field>
                                     <value name="FROM">
                                       <block type="math_number">
@@ -197,7 +197,7 @@
                                               <block type="lists_create_empty"></block>
                                             </value>
                                             <next>
-                                              <block type="controls_for">
+                                              <block type="control_for">
                                                 <field name="VAR">x</field>
                                                 <value name="FROM">
                                                   <block type="math_arithmetic">
@@ -321,7 +321,7 @@
                                                           <block type="lists_create_empty"></block>
                                                         </value>
                                                         <next>
-                                                          <block type="controls_for">
+                                                          <block type="control_for">
                                                             <field name="VAR">x</field>
                                                             <value name="FROM">
                                                               <block type="math_arithmetic">
@@ -415,7 +415,7 @@
                                                                       <block type="lists_create_empty"></block>
                                                                     </value>
                                                                     <next>
-                                                                      <block type="controls_for">
+                                                                      <block type="control_for">
                                                                         <field name="VAR">x</field>
                                                                         <value name="FROM">
                                                                           <block type="math_arithmetic">
@@ -560,12 +560,12 @@
       <block type="variables_set" inline="false">
         <field name="VAR">log</field>
         <value name="VALUE">
-          <block type="text">
+          <block type="texts_text">
             <field name="TEXT"></field>
           </block>
         </value>
         <next>
-          <block type="controls_for">
+          <block type="control_for">
             <field name="VAR">x</field>
             <value name="FROM">
               <block type="math_number">
@@ -578,7 +578,7 @@
               </block>
             </value>
             <statement name="DO">
-              <block type="text_append" inline="false">
+              <block type="texts_append" inline="false">
                 <field name="VAR">log</field>
                 <value name="TEXT">
                   <block type="variables_get">
@@ -596,7 +596,7 @@
                   </block>
                 </value>
                 <value name="EXPECTED">
-                  <block type="text">
+                  <block type="texts_text">
                     <field name="TEXT">12345678</field>
                   </block>
                 </value>
@@ -604,12 +604,12 @@
                   <block type="variables_set" inline="false">
                     <field name="VAR">log</field>
                     <value name="VALUE">
-                      <block type="text">
+                      <block type="texts_text">
                         <field name="TEXT"></field>
                       </block>
                     </value>
                     <next>
-                      <block type="controls_for">
+                      <block type="control_for">
                         <field name="VAR">x</field>
                         <value name="FROM">
                           <block type="math_number">
@@ -622,7 +622,7 @@
                           </block>
                         </value>
                         <statement name="DO">
-                          <block type="text_append" inline="false">
+                          <block type="texts_append" inline="false">
                             <field name="VAR">log</field>
                             <value name="TEXT">
                               <block type="variables_get">
@@ -640,7 +640,7 @@
                               </block>
                             </value>
                             <value name="EXPECTED">
-                              <block type="text">
+                              <block type="texts_text">
                                 <field name="TEXT">87654321</field>
                               </block>
                             </value>
@@ -651,7 +651,7 @@
                                   <block type="lists_create_empty"></block>
                                 </value>
                                 <next>
-                                  <block type="controls_for">
+                                  <block type="control_for">
                                     <field name="VAR">x</field>
                                     <value name="FROM">
                                       <block type="math_arithmetic">
@@ -740,7 +740,7 @@
                                               <block type="lists_create_empty"></block>
                                             </value>
                                             <next>
-                                              <block type="controls_for">
+                                              <block type="control_for">
                                                 <field name="VAR">x</field>
                                                 <value name="FROM">
                                                   <block type="math_arithmetic">

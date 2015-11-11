@@ -26,7 +26,7 @@ var injectBlockly = function() {
   workspace = Blockly.inject('blocklyDiv',
       {media: 'blockly/media/',
 		  toolbox: document.getElementById('toolbox')});
-   window.setTimeout(BlocklyStorage.restoreBlocks, 0);
+	window.setTimeout(BlocklyStorage.restoreBlocks, 0);
   BlocklyStorage.backupOnUnload();
   window.LoopTrap = 1000;
   Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
@@ -210,6 +210,7 @@ var registerButtons = function() {
 };
   
 window.onload = function() {
+	loadAllBlocks();
 	injectBlockly();
 	registerButtons();
 };

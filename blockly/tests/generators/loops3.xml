@@ -17,7 +17,7 @@
       <block type="variables_set" inline="false">
         <field name="VAR">log</field>
         <value name="VALUE">
-          <block type="text">
+          <block type="texts_text">
             <field name="TEXT"></field>
           </block>
         </value>
@@ -30,7 +30,7 @@
               </block>
             </value>
             <next>
-              <block type="controls_whileUntil" inline="false">
+              <block type="control_whileUntil" inline="false">
                 <field name="MODE">WHILE</field>
                 <value name="BOOL">
                   <block type="logic_compare">
@@ -56,7 +56,7 @@
                       </block>
                     </value>
                     <next>
-                      <block type="controls_if" inline="false">
+                      <block type="control_if" inline="false">
                         <value name="IF0">
                           <block type="logic_compare">
                             <field name="OP">EQ</field>
@@ -73,12 +73,12 @@
                           </block>
                         </value>
                         <statement name="DO0">
-                          <block type="controls_flow_statements">
+                          <block type="control_flow_statements">
                             <field name="FLOW">CONTINUE</field>
                           </block>
                         </statement>
                         <next>
-                          <block type="text_append" inline="false">
+                          <block type="texts_append" inline="false">
                             <field name="VAR">log</field>
                             <value name="TEXT">
                               <block type="variables_get">
@@ -100,7 +100,7 @@
                       </block>
                     </value>
                     <value name="EXPECTED">
-                      <block type="text">
+                      <block type="texts_text">
                         <field name="TEXT">1234678</field>
                       </block>
                     </value>
@@ -108,7 +108,7 @@
                       <block type="variables_set" inline="false">
                         <field name="VAR">log</field>
                         <value name="VALUE">
-                          <block type="text">
+                          <block type="texts_text">
                             <field name="TEXT"></field>
                           </block>
                         </value>
@@ -121,7 +121,7 @@
                               </block>
                             </value>
                             <next>
-                              <block type="controls_whileUntil" inline="false">
+                              <block type="control_whileUntil" inline="false">
                                 <field name="MODE">UNTIL</field>
                                 <value name="BOOL">
                                   <block type="logic_compare">
@@ -147,7 +147,7 @@
                                       </block>
                                     </value>
                                     <next>
-                                      <block type="controls_if" inline="false">
+                                      <block type="control_if" inline="false">
                                         <value name="IF0">
                                           <block type="logic_compare">
                                             <field name="OP">EQ</field>
@@ -164,12 +164,12 @@
                                           </block>
                                         </value>
                                         <statement name="DO0">
-                                          <block type="controls_flow_statements">
+                                          <block type="control_flow_statements">
                                             <field name="FLOW">CONTINUE</field>
                                           </block>
                                         </statement>
                                         <next>
-                                          <block type="text_append" inline="false">
+                                          <block type="texts_append" inline="false">
                                             <field name="VAR">log</field>
                                             <value name="TEXT">
                                               <block type="variables_get">
@@ -191,7 +191,7 @@
                                       </block>
                                     </value>
                                     <value name="EXPECTED">
-                                      <block type="text">
+                                      <block type="texts_text">
                                         <field name="TEXT">1234678</field>
                                       </block>
                                     </value>
@@ -199,12 +199,12 @@
                                       <block type="variables_set" inline="false">
                                         <field name="VAR">log</field>
                                         <value name="VALUE">
-                                          <block type="text">
+                                          <block type="texts_text">
                                             <field name="TEXT"></field>
                                           </block>
                                         </value>
                                         <next>
-                                          <block type="controls_for">
+                                          <block type="control_for">
                                             <field name="VAR">x</field>
                                             <value name="FROM">
                                               <block type="math_number">
@@ -217,7 +217,7 @@
                                               </block>
                                             </value>
                                             <statement name="DO">
-                                              <block type="controls_if" inline="false">
+                                              <block type="control_if" inline="false">
                                                 <value name="IF0">
                                                   <block type="logic_compare">
                                                     <field name="OP">EQ</field>
@@ -234,12 +234,12 @@
                                                   </block>
                                                 </value>
                                                 <statement name="DO0">
-                                                  <block type="controls_flow_statements">
+                                                  <block type="control_flow_statements">
                                                     <field name="FLOW">CONTINUE</field>
                                                   </block>
                                                 </statement>
                                                 <next>
-                                                  <block type="text_append" inline="false">
+                                                  <block type="texts_append" inline="false">
                                                     <field name="VAR">log</field>
                                                     <value name="TEXT">
                                                       <block type="variables_get">
@@ -259,7 +259,7 @@
                                                   </block>
                                                 </value>
                                                 <value name="EXPECTED">
-                                                  <block type="text">
+                                                  <block type="texts_text">
                                                     <field name="TEXT">1234678</field>
                                                   </block>
                                                 </value>
@@ -267,40 +267,40 @@
                                                   <block type="variables_set" inline="false">
                                                     <field name="VAR">log</field>
                                                     <value name="VALUE">
-                                                      <block type="text">
+                                                      <block type="texts_text">
                                                         <field name="TEXT"></field>
                                                       </block>
                                                     </value>
                                                     <next>
-                                                      <block type="controls_forEach" inline="false">
+                                                      <block type="control_forEach" inline="false">
                                                         <field name="VAR">x</field>
                                                         <value name="LIST">
                                                           <block type="lists_create_with" inline="false">
                                                             <mutation items="4"></mutation>
                                                             <value name="ADD0">
-                                                              <block type="text">
+                                                              <block type="texts_text">
                                                                 <field name="TEXT">a</field>
                                                               </block>
                                                             </value>
                                                             <value name="ADD1">
-                                                              <block type="text">
+                                                              <block type="texts_text">
                                                                 <field name="TEXT">b</field>
                                                               </block>
                                                             </value>
                                                             <value name="ADD2">
-                                                              <block type="text">
+                                                              <block type="texts_text">
                                                                 <field name="TEXT">c</field>
                                                               </block>
                                                             </value>
                                                             <value name="ADD3">
-                                                              <block type="text">
+                                                              <block type="texts_text">
                                                                 <field name="TEXT">d</field>
                                                               </block>
                                                             </value>
                                                           </block>
                                                         </value>
                                                         <statement name="DO">
-                                                          <block type="controls_if" inline="false">
+                                                          <block type="control_if" inline="false">
                                                             <value name="IF0">
                                                               <block type="logic_compare">
                                                                 <field name="OP">EQ</field>
@@ -310,19 +310,19 @@
                                                                   </block>
                                                                 </value>
                                                                 <value name="B">
-                                                                  <block type="text">
+                                                                  <block type="texts_text">
                                                                     <field name="TEXT">c</field>
                                                                   </block>
                                                                 </value>
                                                               </block>
                                                             </value>
                                                             <statement name="DO0">
-                                                              <block type="controls_flow_statements">
+                                                              <block type="control_flow_statements">
                                                                 <field name="FLOW">CONTINUE</field>
                                                               </block>
                                                             </statement>
                                                             <next>
-                                                              <block type="text_append" inline="false">
+                                                              <block type="texts_append" inline="false">
                                                                 <field name="VAR">log</field>
                                                                 <value name="TEXT">
                                                                   <block type="variables_get">
@@ -342,7 +342,7 @@
                                                               </block>
                                                             </value>
                                                             <value name="EXPECTED">
-                                                              <block type="text">
+                                                              <block type="texts_text">
                                                                 <field name="TEXT">abd</field>
                                                               </block>
                                                             </value>
@@ -386,7 +386,7 @@
           </block>
         </value>
         <next>
-          <block type="controls_whileUntil" inline="false">
+          <block type="control_whileUntil" inline="false">
             <field name="MODE">WHILE</field>
             <value name="BOOL">
               <block type="logic_compare">
@@ -404,7 +404,7 @@
               </block>
             </value>
             <statement name="DO">
-              <block type="controls_if" inline="false">
+              <block type="control_if" inline="false">
                 <value name="IF0">
                   <block type="logic_compare">
                     <field name="OP">EQ</field>
@@ -421,7 +421,7 @@
                   </block>
                 </value>
                 <statement name="DO0">
-                  <block type="controls_flow_statements">
+                  <block type="control_flow_statements">
                     <field name="FLOW">BREAK</field>
                   </block>
                 </statement>
@@ -459,7 +459,7 @@
                       </block>
                     </value>
                     <next>
-                      <block type="controls_whileUntil" inline="false">
+                      <block type="control_whileUntil" inline="false">
                         <field name="MODE">UNTIL</field>
                         <value name="BOOL">
                           <block type="logic_compare">
@@ -477,7 +477,7 @@
                           </block>
                         </value>
                         <statement name="DO">
-                          <block type="controls_if" inline="false">
+                          <block type="control_if" inline="false">
                             <value name="IF0">
                               <block type="logic_compare">
                                 <field name="OP">EQ</field>
@@ -494,7 +494,7 @@
                               </block>
                             </value>
                             <statement name="DO0">
-                              <block type="controls_flow_statements">
+                              <block type="control_flow_statements">
                                 <field name="FLOW">BREAK</field>
                               </block>
                             </statement>
@@ -527,12 +527,12 @@
                               <block type="variables_set" inline="false">
                                 <field name="VAR">log</field>
                                 <value name="VALUE">
-                                  <block type="text">
+                                  <block type="texts_text">
                                     <field name="TEXT"></field>
                                   </block>
                                 </value>
                                 <next>
-                                  <block type="controls_for">
+                                  <block type="control_for">
                                     <field name="VAR">x</field>
                                     <value name="FROM">
                                       <block type="math_number">
@@ -545,7 +545,7 @@
                                       </block>
                                     </value>
                                     <statement name="DO">
-                                      <block type="controls_if" inline="false">
+                                      <block type="control_if" inline="false">
                                         <value name="IF0">
                                           <block type="logic_compare">
                                             <field name="OP">EQ</field>
@@ -562,12 +562,12 @@
                                           </block>
                                         </value>
                                         <statement name="DO0">
-                                          <block type="controls_flow_statements">
+                                          <block type="control_flow_statements">
                                             <field name="FLOW">BREAK</field>
                                           </block>
                                         </statement>
                                         <next>
-                                          <block type="text_append" inline="false">
+                                          <block type="texts_append" inline="false">
                                             <field name="VAR">log</field>
                                             <value name="TEXT">
                                               <block type="variables_get">
@@ -587,7 +587,7 @@
                                           </block>
                                         </value>
                                         <value name="EXPECTED">
-                                          <block type="text">
+                                          <block type="texts_text">
                                             <field name="TEXT">1234</field>
                                           </block>
                                         </value>
@@ -595,40 +595,40 @@
                                           <block type="variables_set" inline="false">
                                             <field name="VAR">log</field>
                                             <value name="VALUE">
-                                              <block type="text">
+                                              <block type="texts_text">
                                                 <field name="TEXT"></field>
                                               </block>
                                             </value>
                                             <next>
-                                              <block type="controls_forEach" inline="false">
+                                              <block type="control_forEach" inline="false">
                                                 <field name="VAR">x</field>
                                                 <value name="LIST">
                                                   <block type="lists_create_with" inline="false">
                                                     <mutation items="4"></mutation>
                                                     <value name="ADD0">
-                                                      <block type="text">
+                                                      <block type="texts_text">
                                                         <field name="TEXT">a</field>
                                                       </block>
                                                     </value>
                                                     <value name="ADD1">
-                                                      <block type="text">
+                                                      <block type="texts_text">
                                                         <field name="TEXT">b</field>
                                                       </block>
                                                     </value>
                                                     <value name="ADD2">
-                                                      <block type="text">
+                                                      <block type="texts_text">
                                                         <field name="TEXT">c</field>
                                                       </block>
                                                     </value>
                                                     <value name="ADD3">
-                                                      <block type="text">
+                                                      <block type="texts_text">
                                                         <field name="TEXT">d</field>
                                                       </block>
                                                     </value>
                                                   </block>
                                                 </value>
                                                 <statement name="DO">
-                                                  <block type="controls_if" inline="false">
+                                                  <block type="control_if" inline="false">
                                                     <value name="IF0">
                                                       <block type="logic_compare">
                                                         <field name="OP">EQ</field>
@@ -638,19 +638,19 @@
                                                           </block>
                                                         </value>
                                                         <value name="B">
-                                                          <block type="text">
+                                                          <block type="texts_text">
                                                             <field name="TEXT">c</field>
                                                           </block>
                                                         </value>
                                                       </block>
                                                     </value>
                                                     <statement name="DO0">
-                                                      <block type="controls_flow_statements">
+                                                      <block type="control_flow_statements">
                                                         <field name="FLOW">BREAK</field>
                                                       </block>
                                                     </statement>
                                                     <next>
-                                                      <block type="text_append" inline="false">
+                                                      <block type="texts_append" inline="false">
                                                         <field name="VAR">log</field>
                                                         <value name="TEXT">
                                                           <block type="variables_get">
@@ -670,7 +670,7 @@
                                                       </block>
                                                     </value>
                                                     <value name="EXPECTED">
-                                                      <block type="text">
+                                                      <block type="texts_text">
                                                         <field name="TEXT">ab</field>
                                                       </block>
                                                     </value>

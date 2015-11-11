@@ -29,13 +29,13 @@ goog.provide('Blockly.JavaScript.texts');
 goog.require('Blockly.JavaScript');
 
 
-Blockly.JavaScript['text'] = function(block) {
+Blockly.JavaScript['texts_text'] = function(block) {
   // Text value.
   var code = Blockly.JavaScript.quote_(block.getFieldValue('TEXT'));
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.JavaScript['text_join'] = function(block) {
+Blockly.JavaScript['texts_join'] = function(block) {
   // Create a string made up of any number of elements of any type.
   var code;
   if (block.itemCount_ == 0) {
@@ -63,7 +63,7 @@ Blockly.JavaScript['text_join'] = function(block) {
   }
 };
 
-Blockly.JavaScript['text_append'] = function(block) {
+Blockly.JavaScript['texts_append'] = function(block) {
   // Append to a variable in place.
   var varName = Blockly.JavaScript.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
@@ -72,21 +72,21 @@ Blockly.JavaScript['text_append'] = function(block) {
   return varName + ' = String(' + varName + ') + String(' + argument0 + ');\n';
 };
 
-Blockly.JavaScript['text_length'] = function(block) {
+Blockly.JavaScript['texts_length'] = function(block) {
   // String length.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
       Blockly.JavaScript.ORDER_FUNCTION_CALL) || '\'\'';
   return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];
 };
 
-Blockly.JavaScript['text_isEmpty'] = function(block) {
+Blockly.JavaScript['texts_isEmpty'] = function(block) {
   // Is the string null?
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
       Blockly.JavaScript.ORDER_MEMBER) || '\'\'';
   return ['!' + argument0, Blockly.JavaScript.ORDER_LOGICAL_NOT];
 };
 
-Blockly.JavaScript['text_indexOf'] = function(block) {
+Blockly.JavaScript['texts_indexOf'] = function(block) {
   // Search the text for a substring.
   var operator = block.getFieldValue('END') == 'FIRST' ?
       'indexOf' : 'lastIndexOf';
@@ -98,7 +98,7 @@ Blockly.JavaScript['text_indexOf'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_MEMBER];
 };
 
-Blockly.JavaScript['text_charAt'] = function(block) {
+Blockly.JavaScript['texts_charAt'] = function(block) {
   // Get letter at index.
   // Note: Until January 2013 this block did not have the WHERE input.
   var where = block.getFieldValue('WHERE') || 'FROM_START';
@@ -129,7 +129,7 @@ Blockly.JavaScript['text_charAt'] = function(block) {
       return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
     case 'RANDOM':
       var functionName = Blockly.JavaScript.provideFunction_(
-          'text_random_letter',
+          'texts_random_letter',
           [ 'function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
               '(text) {',
             '  var x = Math.floor(Math.random() * text.length);',
@@ -138,10 +138,10 @@ Blockly.JavaScript['text_charAt'] = function(block) {
       code = functionName + '(' + text + ')';
       return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
   }
-  throw 'Unhandled option (text_charAt).';
+  throw 'Unhandled option (texts_charAt).';
 };
 
-Blockly.JavaScript['text_getSubstring'] = function(block) {
+Blockly.JavaScript['texts_getSubstring'] = function(block) {
   // Get substring.
   var text = Blockly.JavaScript.valueToCode(block, 'STRING',
       Blockly.JavaScript.ORDER_MEMBER) || '\'\'';
@@ -155,7 +155,7 @@ Blockly.JavaScript['text_getSubstring'] = function(block) {
     var code = text;
   } else {
     var functionName = Blockly.JavaScript.provideFunction_(
-        'text_get_substring',
+        'texts_get_substring',
         [ 'function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
             '(text, where1, at1, where2, at2) {',
           '  function getAt(where, at) {',
@@ -168,7 +168,7 @@ Blockly.JavaScript['text_getSubstring'] = function(block) {
           '    } else if (where == \'LAST\') {',
           '      at = text.length - 1;',
           '    } else {',
-          '      throw \'Unhandled option (text_getSubstring).\';',
+          '      throw \'Unhandled option (texts_getSubstring).\';',
           '    }',
           '    return at;',
           '  }',
@@ -182,7 +182,7 @@ Blockly.JavaScript['text_getSubstring'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
-Blockly.JavaScript['text_changeCase'] = function(block) {
+Blockly.JavaScript['texts_changeCase'] = function(block) {
   // Change capitalization.
   var OPERATORS = {
     'UPPERCASE': '.toUpperCase()',
@@ -199,7 +199,7 @@ Blockly.JavaScript['text_changeCase'] = function(block) {
   } else {
     // Title case is not a native JavaScript function.  Define one.
     var functionName = Blockly.JavaScript.provideFunction_(
-        'text_toTitleCase',
+        'texts_toTitleCase',
         [ 'function ' +
             Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '(str) {',
           '  return str.replace(/\\S+/g,',
@@ -213,7 +213,7 @@ Blockly.JavaScript['text_changeCase'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
-Blockly.JavaScript['text_trim'] = function(block) {
+Blockly.JavaScript['texts_trim'] = function(block) {
   // Trim spaces.
   var OPERATORS = {
     'LEFT': ".replace(/^[\\s\\xa0]+/, '')",
@@ -226,14 +226,14 @@ Blockly.JavaScript['text_trim'] = function(block) {
   return [argument0 + operator, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
-Blockly.JavaScript['text_print'] = function(block) {
+Blockly.JavaScript['texts_print'] = function(block) {
   // Print statement.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
       Blockly.JavaScript.ORDER_NONE) || '\'\'';
   return 'window.alert(' + argument0 + ');\n';
 };
 
-Blockly.JavaScript['text_prompt_ext'] = function(block) {
+Blockly.JavaScript['texts_prompt_ext'] = function(block) {
   // Prompt function.
   if (block.getField('TEXT')) {
     // Internal message.
@@ -251,4 +251,4 @@ Blockly.JavaScript['text_prompt_ext'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
-Blockly.JavaScript['text_prompt'] = Blockly.JavaScript['text_prompt_ext'];
+Blockly.JavaScript['texts_prompt'] = Blockly.JavaScript['texts_prompt_ext'];

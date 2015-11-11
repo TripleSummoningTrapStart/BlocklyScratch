@@ -34,7 +34,7 @@ goog.require('Blockly.Blocks');
  */
 Blockly.Blocks.loops.HUE = 120;
 
-Blockly.Blocks['controls_repeat_ext'] = {
+Blockly.Blocks['control_repeat_ext'] = {
   /**
    * Block for repeat n times (external number).
    * @this Blockly.Block
@@ -59,10 +59,10 @@ Blockly.Blocks['controls_repeat_ext'] = {
   }
 };
 
-Blockly.Blocks['controls_repeat'] = {
+Blockly.Blocks['control_repeat'] = {
   /**
    * Block for repeat n times (internal number).
-   * The 'controls_repeat_ext' block is preferred as it is more flexible.
+   * The 'control_repeat_ext' block is preferred as it is more flexible.
    * @this Blockly.Block
    */
   init: function() {
@@ -87,7 +87,7 @@ Blockly.Blocks['controls_repeat'] = {
   }
 };
 
-Blockly.Blocks['controls_whileUntil'] = {
+Blockly.Blocks['control_whileUntil'] = {
   /**
    * Block for 'do while/until' loop.
    * @this Blockly.Block
@@ -117,7 +117,7 @@ Blockly.Blocks['controls_whileUntil'] = {
   }
 };
 
-Blockly.Blocks['controls_for'] = {
+Blockly.Blocks['control_for'] = {
   /**
    * Block for 'for' loop.
    * @this Blockly.Block
@@ -204,7 +204,7 @@ Blockly.Blocks['controls_for'] = {
   }
 };
 
-Blockly.Blocks['controls_forEach'] = {
+Blockly.Blocks['control_forEach'] = {
   /**
    * Block for 'for each' loop.
    * @this Blockly.Block
@@ -257,10 +257,10 @@ Blockly.Blocks['controls_forEach'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
-  customContextMenu: Blockly.Blocks['controls_for'].customContextMenu
+  customContextMenu: Blockly.Blocks['control_for'].customContextMenu
 };
 
-Blockly.Blocks['controls_flow_statements'] = {
+Blockly.Blocks['control_flow_statements'] = {
   /**
    * Block for flow statements: continue, break.
    * @this Blockly.Block
@@ -295,11 +295,11 @@ Blockly.Blocks['controls_flow_statements'] = {
     // Is the block nested in a loop?
     var block = this;
     do {
-      if (block.type == 'controls_repeat' ||
-          block.type == 'controls_repeat_ext' ||
-          block.type == 'controls_forEach' ||
-          block.type == 'controls_for' ||
-          block.type == 'controls_whileUntil') {
+      if (block.type == 'control_repeat' ||
+          block.type == 'control_repeat_ext' ||
+          block.type == 'control_forEach' ||
+          block.type == 'control_for' ||
+          block.type == 'control_whileUntil') {
         legal = true;
         break;
       }
@@ -313,7 +313,7 @@ Blockly.Blocks['controls_flow_statements'] = {
   }
 };
 
-Blockly.Blocks['controls_repeat_forever'] = {
+Blockly.Blocks['control_repeat_forever'] = {
   /**
    * Block for repeat infinitely.
    * @this Blockly.Block

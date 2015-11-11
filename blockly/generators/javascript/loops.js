@@ -29,7 +29,7 @@ goog.provide('Blockly.JavaScript.loops');
 goog.require('Blockly.JavaScript');
 
 
-Blockly.JavaScript['controls_repeat_ext'] = function(block) {
+Blockly.JavaScript['control_repeat_ext'] = function(block) {
   // Repeat n times.
   if (block.getField('TIMES')) {
     // Internal number.
@@ -57,10 +57,10 @@ Blockly.JavaScript['controls_repeat_ext'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['controls_repeat'] =
-    Blockly.JavaScript['controls_repeat_ext'];
+Blockly.JavaScript['control_repeat'] =
+    Blockly.JavaScript['control_repeat_ext'];
 
-Blockly.JavaScript['controls_whileUntil'] = function(block) {
+Blockly.JavaScript['control_whileUntil'] = function(block) {
   // Do while/until loop.
   var until = block.getFieldValue('MODE') == 'UNTIL';
   var argument0 = Blockly.JavaScript.valueToCode(block, 'BOOL',
@@ -74,7 +74,7 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
   return '// while loop \nwhile (' + argument0 + ') {\n' + branch + '} //end loop\n';
 };
 
-Blockly.JavaScript['controls_for'] = function(block) {
+Blockly.JavaScript['control_for'] = function(block) {
   // For loop.
   var variable0 = Blockly.JavaScript.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
@@ -139,7 +139,7 @@ Blockly.JavaScript['controls_for'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['controls_forEach'] = function(block) {
+Blockly.JavaScript['control_forEach'] = function(block) {
   // For each loop.
   var variable0 = Blockly.JavaScript.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
@@ -163,7 +163,7 @@ Blockly.JavaScript['controls_forEach'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['controls_flow_statements'] = function(block) {
+Blockly.JavaScript['control_flow_statements'] = function(block) {
   // Flow statements: continue, break.
   switch (block.getFieldValue('FLOW')) {
     case 'BREAK':
@@ -174,7 +174,7 @@ Blockly.JavaScript['controls_flow_statements'] = function(block) {
   throw 'Unknown flow statement.';
 };
 
-Blockly.JavaScript['controls_repeat_forever'] = function(block) {
+Blockly.JavaScript['control_repeat_forever'] = function(block) {
     var statements_statement = Blockly.JavaScript.statementToCode(block, 'STATEMENT');
     var code = '// forever loop\nwhile (true) {\n ' + statements_statement + '} //end loop\n';
     return code;

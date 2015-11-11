@@ -20,7 +20,7 @@
 'use strict';
 
 var XML_TEXT = ['<xml xmlns="http://www.w3.org/1999/xhtml">',
-  '  <block type="controls_repeat_ext" id="10" inline="true" x="21" y="23">',
+  '  <block type="control_repeat_ext" id="10" inline="true" x="21" y="23">',
   '    <value name="TIMES">',
   '      <block type="math_number" id="11">',
   '        <field name="NUM">10</field>',
