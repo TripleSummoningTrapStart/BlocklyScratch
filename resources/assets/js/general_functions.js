@@ -29,6 +29,7 @@ var injectBlockly = function() {
 	window.setTimeout(BlocklyStorage.restoreBlocks, 0);
   BlocklyStorage.backupOnUnload();
   window.LoopTrap = 1000;
+  Blockly.BlockSvg.START_HAT = true;
   Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
   Blockly.JavaScript.addReservedWords('highlightBlock');
 	Blockly.JavaScript.addReservedWords('code');
@@ -170,10 +171,13 @@ var cleanValues = function(codeToParse) {
 		lines.pop();
 		var startingLoopNumber = (numOfLoops*(i-1));
 		
-			lookForLoop(lines, startingLoopNumber -1, 0)
+			var hasLoop = lookForLoop(lines, startingLoopNumber -1, 0);
+			if(hasLoop > -1)
+			{
 			values[i] = getFuncCode();
 			resetFuncCode();
 			values[i] += 'queue.push(functionLoop' + startingLoopNumber + ');\n';
+			}
 		
 	}
 

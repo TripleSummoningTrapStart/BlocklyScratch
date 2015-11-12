@@ -88,10 +88,11 @@ var parseRemaining = function(lines, loopCount, numRecursion) {
 
 //If inner loop, parses and returns true
 var lookForLoop = function (lines, loopCount, numRecursion) {
-	getBeforeStartOfLoop(lines);
+	var hasLoop = getBeforeStartOfLoop(lines);
 	var loopType = lines[0];
 	determineLoop(lines, loopType, loopCount + 1, 0, numRecursion);
 	//lines.splice(start, (lines.length - start));
+	return hasLoop;
 
 };
 
