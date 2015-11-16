@@ -1,12 +1,12 @@
-/**
- * @fileoverview Procedure blocks for Blockly.
- * @author fraser@google.com (Neil Fraser)
- */
 'use strict';
 
-Blockly.Blocks.procedures.HUE = 20;
+goog.provide('Blockly.Blocks.events');
 
-Blockly.Blocks['procedures_hat_when_run_clicked'] = {
+goog.require('Blockly.Blocks');
+
+Blockly.Blocks.events.HUE = 20;
+
+Blockly.Blocks['events_when_run_clicked'] = {
   /**
    * Block for determining the beginning of code to be run
    * @this Blockly.Block
@@ -24,8 +24,9 @@ Blockly.Blocks['procedures_hat_when_run_clicked'] = {
 };
 /**
 *Block for determing what to do when a certian key is pressed.
-*@this Blockly.Block*/
-Blockly.Blocks['when_key_press'] = {
+*@this Blockly.Block
+ */
+Blockly.Blocks['events_when_key_press'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("when");
@@ -44,7 +45,7 @@ Blockly.Blocks['when_key_press'] = {
 /**
 *Block for determining actions when a sprite is clicked
 *@this Blockly.Block*/
-Blockly.Blocks['when_sprite_clicked'] = {
+Blockly.Blocks['events_when_sprite_clicked'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("when this sprite clicked");
@@ -59,7 +60,7 @@ Blockly.Blocks['when_sprite_clicked'] = {
 /**
 *Block for determing what to do when background is switched
 *@this Blockly.Block*/
-Blockly.Blocks['when_backdrop_switched'] = {
+Blockly.Blocks['events_when_backdrop_switched'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("when backdrop switches to");
@@ -76,7 +77,7 @@ Blockly.Blocks['when_backdrop_switched'] = {
 /**
 *Block for determing 
 *@this Blockly.Block*/
-Blockly.Blocks['when_compare'] = {
+Blockly.Blocks['events_when_compare'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("when");
@@ -97,10 +98,10 @@ Blockly.Blocks['when_compare'] = {
 /**
 *Block for determing what to do when a certian message is recived
 *@this Blockly.Block*/
-Blockly.Blocks['when_recive'] = {
+Blockly.Blocks['events_when_receive'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("when I recieve");
+        .appendField("when I receive");
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["message1", "default"], ["new message", "new"]]), "message");
     Blockly.BlockSvg.START_HAT = true;
@@ -112,7 +113,7 @@ Blockly.Blocks['when_recive'] = {
   }
 };
 
-Blockly.Blocks['brodcast'] = {
+Blockly.Blocks['events_broadcast'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("broadcast ")
@@ -125,7 +126,7 @@ Blockly.Blocks['brodcast'] = {
   }
 };
 
-Blockly.Blocks['brodcast_wait'] = {
+Blockly.Blocks['events_broadcast_wait'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("broadcast ")

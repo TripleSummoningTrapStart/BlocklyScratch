@@ -1,51 +1,55 @@
 'use strict';
 
-Blockly.JavaScript['procedures_hat_when_run_clicked'] = function(block) {
+goog.provide('Blockly.JavaScript.events');
+
+goog.require('Blockly.JavaScript');
+
+Blockly.JavaScript['events_when_run_clicked'] = function(block) {
     // TODO Assemble JavaScript into code variable.
     var code = '// hat\n';
     return code;
 };
 
-Blockly.JavaScript['when_key_press'] = function(block) {
+Blockly.JavaScript['events_when_key_press'] = function(block) {
     // TODO implement functionality
     var code = '// key press\n';
     return code;
 };
 
-Blockly.JavaScript['when_sprite_clicked'] = function(block) {
+Blockly.JavaScript['events_when_sprite_clicked'] = function(block) {
     // TODO implement functionality
-    var code = '// key press\n';
+    var code = '// sprite click\n';
     return code;
 };
 
-Blockly.JavaScript['when_backdrop_switched'] = function(block) {
+Blockly.JavaScript['events_when_backdrop_switched'] = function(block) {
     // TODO implement functionality
-    var code = '// key press\n';
+    var code = '// backdrop switch\n';
     return code;
 };
 
-Blockly.JavaScript['when_compared'] = function(block) {
+Blockly.JavaScript['events_when_compared'] = function(block) {
     // TODO implement functionality
-    var code = '// key press\n';
+    var code = '// compare\n';
     return code;
 };
 
 
-Blockly.JavaScript['when_recive'] = function(block) {
+Blockly.JavaScript['events_when_receive'] = function(block) {
     // TODO implement functionality
-    var code = '// key press\n';
+    var code = '// recieve\n';
     return code;
 };
 
 /*fix all the calls above*/
-Blockly.JavaScript['brodcast'] = function(block) {
+Blockly.JavaScript['events_broadcast'] = function(block) {
   var dropdown_messages = block.getFieldValue('messages');
   // TODO: Assemble JavaScript into code variable.
   var code = '...';
   return code;
 };
 
-Blockly.JavaScript['brodcast_wait'] = function(block) {
+Blockly.JavaScript['events_broadcast_wait'] = function(block) {
   var dropdown_messages = block.getFieldValue('messages');
   // TODO: Assemble JavaScript into code variable.
   var code = '...';

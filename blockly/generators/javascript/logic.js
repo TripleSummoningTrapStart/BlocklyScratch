@@ -29,7 +29,7 @@ goog.provide('Blockly.JavaScript.logic');
 goog.require('Blockly.JavaScript');
 
 
-Blockly.JavaScript['controls_if'] = function(block) {
+Blockly.JavaScript['control_if'] = function(block) {
   // If/elseif/else condition.
   var n = 0;
   var argument = Blockly.JavaScript.valueToCode(block, 'IF' + n,

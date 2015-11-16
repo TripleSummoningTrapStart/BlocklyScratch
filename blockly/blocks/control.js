@@ -12,10 +12,6 @@ goog.provide('Blockly.Blocks.control');
 
 goog.require('Blockly.Blocks');
 
-/**
- * Common HSV hue for all blocks in this category.
- */
-Blockly.Blocks.loops.HUE = 120;
 /*
 Blockly.Blocks['control_wait'] = {
     /**

@@ -27,9 +27,10 @@ var injectBlockly = function() {
   workspace = Blockly.inject('blocklyDiv',
       {media: 'blockly/media/',
 		  toolbox: document.getElementById('toolbox')});
-   window.setTimeout(BlocklyStorage.restoreBlocks, 0);
+	window.setTimeout(BlocklyStorage.restoreBlocks, 0);
   BlocklyStorage.backupOnUnload();
   window.LoopTrap = 1000;
+  Blockly.BlockSvg.START_HAT = true;
   Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
   Blockly.JavaScript.addReservedWords('highlightBlock');
 	Blockly.JavaScript.addReservedWords('code');
@@ -225,6 +226,7 @@ var registerButtons = function() {
 };
   
 window.onload = function() {
+	loadAllBlocks();
 	injectBlockly();
 	registerButtons();
 	textArea.style.top = svgArea.style.height;
