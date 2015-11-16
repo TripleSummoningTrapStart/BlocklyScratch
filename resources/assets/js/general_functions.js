@@ -19,6 +19,7 @@ var resizeBlockly = function(e) {
     blocklyDiv.style.top = y + 'px';
     blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
     blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+	//svgArea.style.height = blocklyArea.offsetHeight + 'px';
 };
 var injectBlockly = function() {
   blocklyArea = document.getElementById('blocklyArea');
@@ -128,6 +129,8 @@ var stopCode = function() {
 
 var generateInterpreterCode = function(codeToParse) {
 	resetFuncCode();
+	
+	var hasPrint = codeToParse.indexOf('addConsoleText') > -1;
 	var values = cleanValues(codeToParse);
 	var numHats = values.length - 1;
 	var code = 'var queue = [];\n';
@@ -201,8 +204,17 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(highlightBlock(id));
 	}
 	interpreter.setProperty(scope, 'highlightBlock', interpreter.createNativeFunction(wrapper));
+	var wrapper = function(text)
+	{
+		text = text ? text.toString() : '';
+		return interpreter.createPrimitive(addConsoleText(text));
+	}
+	interpreter.setProperty(scope, 'addConsoleText', interpreter.createNativeFunction(wrapper));
 };
-
+var addConsoleText = function(text)
+{
+	document.getElementById("textArea").innerHTML += text + '</br>';
+}
 var registerButtons = function() {
 	document.getElementById('files').addEventListener('change', openImportFile, false);
 	document.getElementById('btnRun').addEventListener('click', runCode, false);
@@ -215,4 +227,5 @@ var registerButtons = function() {
 window.onload = function() {
 	injectBlockly();
 	registerButtons();
+	textArea.style.top = svgArea.style.height;
 };
