@@ -230,7 +230,7 @@ Blockly.JavaScript['texts_print'] = function(block) {
   // Print statement.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
       Blockly.JavaScript.ORDER_NONE) || '\'\'';
-  return 'window.alert(' + argument0 + ');\n';
+  return 'addConsoleText(' + argument0 + ');\n';//'window.alert(' + argument0 + ');\n';
 };
 
 Blockly.JavaScript['texts_prompt_ext'] = function(block) {
