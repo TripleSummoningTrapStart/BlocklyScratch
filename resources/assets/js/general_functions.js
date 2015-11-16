@@ -130,8 +130,6 @@ var stopCode = function() {
 
 var generateInterpreterCode = function(codeToParse) {
 	resetFuncCode();
-	
-	var hasPrint = codeToParse.indexOf('addConsoleText') > -1;
 	var values = cleanValues(codeToParse);
 	var numHats = values.length - 1;
 	var code = 'var queue = [];\n';
@@ -214,7 +212,10 @@ function initApi(interpreter, scope) {
 };
 var addConsoleText = function(text)
 {
-	document.getElementById("textArea").innerHTML += text + '</br>';
+	var textarea = document.getElementById("textArea");
+	
+	textarea.innerHTML += text + '&#13;&#10;';
+	textarea.scrollTop = textarea.scrollHeight;
 }
 var registerButtons = function() {
 	document.getElementById('files').addEventListener('change', openImportFile, false);
@@ -229,5 +230,5 @@ window.onload = function() {
 	loadAllBlocks();
 	injectBlockly();
 	registerButtons();
-	textArea.style.top = svgArea.style.height;
+	
 };
