@@ -4,7 +4,7 @@ goog.provide('Blockly.Blocks.events');
 
 goog.require('Blockly.Blocks');
 
-Blockly.Blocks.events.HUE = 20;
+Blockly.Blocks.events.HUE = 33;
 
 Blockly.Blocks['events_when_run_clicked'] = {
   /**
