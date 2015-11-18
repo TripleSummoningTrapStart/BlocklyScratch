@@ -11,7 +11,7 @@ goog.require('Blockly.JavaScript');
 Blockly.JavaScript['motion_step'] = function(block) {
     var text_num_steps = block.getFieldValue('NUM_STEPS');
     // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code = 'moveStep(sprite, value_num_steps);';
     return code;
 };
 
