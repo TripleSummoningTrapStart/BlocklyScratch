@@ -75,58 +75,6 @@ var openImportFile = function(evt) {
 	}
 	
 }; 
-var highlightBlock = function(id) {
-	workspace.highlightBlock(id);
-	highlightPause = true;
-};
-var runCode = function() {
-	Blockly.JavaScript.STATEMENT_PREFIX = null;
-	var code = generateInterpreterCode(Blockly.JavaScript.workspaceToCode(workspace));
-	interpreter = new Interpreter(code, initApi);
-    workspace.traceOn(true);
-
-	nextStep();
-	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-};
-var stepCode = function () {
-	if(interpreter == null)
-	{
-		var code = generateInterpreterCode(Blockly.JavaScript.workspaceToCode(workspace));
-		interpreter = new Interpreter(code, initApi);
-		workspace.traceOn(true);
-		highlightPause = false;
-	}
-	try {
-		var ok = interpreter.step();
-	} finally {
-		if (!ok) {
-			// Program complete, no more code to execute.
-			interpreter = null;
-			return;
-		}
-	}
-	if (highlightPause) {
-		// A block has been highlighted.  Pause execution here.
-		highlightPause = false;
-	} else {
-		// Keep executing until a highlight statement is reached.
-		stepCode();
-	}
-    
-};
-function nextStep() {
-	if (interpreter.step()) {
-		window.setTimeout(nextStep, 1);
-	}
-	else
-	{
-		interpreter = null;
-	}
-};
-var stopCode = function() {
-	workspace.highlightBlock(null);
-	interpreter = null;
-};
 
 var generateInterpreterCode = function(codeToParse) {
 	resetFuncCode();
@@ -184,39 +132,54 @@ var cleanValues = function(codeToParse) {
 
 	return values;
 };
-
-
-function initApi(interpreter, scope) {
-	var wrapper = function(text)
+var stepCode = function () {
+	if(interpreter == null)
 	{
-		text = text ? text.toString() : '';
-		return interpreter.createPrimitive(alert(text));
+		var code = generateInterpreterCode(Blockly.JavaScript.workspaceToCode(workspace));
+		interpreter = new Interpreter(code, initApi);
+		workspace.traceOn(true);
+		highlightPause = false;
 	}
-	interpreter.setProperty(scope, 'alert', interpreter.createNativeFunction(wrapper));
-	wrapper = function(text){
-		text = text ? text.toString() : '';
-		return interpreter.createPrimitive(prompt(text));
-	};
-	var wrapper = function(id)
-	{
-		id = id ? id.toString() : '';
-		return interpreter.createPrimitive(highlightBlock(id));
+	try {
+		var ok = interpreter.step();
+	} finally {
+		if (!ok) {
+			// Program complete, no more code to execute.
+			interpreter = null;
+			return;
+		}
 	}
-	interpreter.setProperty(scope, 'highlightBlock', interpreter.createNativeFunction(wrapper));
-	var wrapper = function(text)
-	{
-		text = text ? text.toString() : '';
-		return interpreter.createPrimitive(addConsoleText(text));
+	if (highlightPause) {
+		// A block has been highlighted.  Pause execution here.
+		highlightPause = false;
+	} else {
+		// Keep executing until a highlight statement is reached.
+		stepCode();
 	}
-	interpreter.setProperty(scope, 'addConsoleText', interpreter.createNativeFunction(wrapper));
+    
 };
-var addConsoleText = function(text)
-{
-	var textarea = document.getElementById("textArea");
-	
-	textarea.innerHTML += text + '&#13;&#10;';
-	textarea.scrollTop = textarea.scrollHeight;
-}
+function nextStep() {
+	if (interpreter.step()) {
+		window.setTimeout(nextStep, 1);
+	}
+	else
+	{
+		interpreter = null;
+	}
+};
+var stopCode = function() {
+	workspace.highlightBlock(null);
+	interpreter = null;
+};
+var runCode = function() {
+	Blockly.JavaScript.STATEMENT_PREFIX = null;
+	var code = generateInterpreterCode(Blockly.JavaScript.workspaceToCode(workspace));
+	interpreter = new Interpreter(code, initApi);
+    workspace.traceOn(true);
+
+	nextStep();
+	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+};
 var registerButtons = function() {
 	document.getElementById('files').addEventListener('change', openImportFile, false);
 	document.getElementById('btnRun').addEventListener('click', runCode, false);
@@ -230,5 +193,4 @@ window.onload = function() {
 	loadAllBlocks();
 	injectBlockly();
 	registerButtons();
-	
 };
