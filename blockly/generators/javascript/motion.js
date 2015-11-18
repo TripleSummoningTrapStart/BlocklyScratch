@@ -69,14 +69,14 @@ Blockly.JavaScript['motion_changey'] = function(block) {
 Blockly.JavaScript['motion_setx'] = function(block) {
     var text_new_val = block.getFieldValue('NEW_VAL');
     // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code = 'bigCircle.attr("cx", ' + text_new_val + ');';
     return code;
 };
 
 Blockly.JavaScript['motion_sety'] = function(block) {
     var text_new_val = block.getFieldValue('NEW_VAL');
     // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code = 'bigCircle.attr("cy", ' + text_new_val + ');';
     return code;
 };
 
@@ -84,7 +84,7 @@ Blockly.JavaScript['motion_gotoxy'] = function(block) {
     var text_new_x_val = block.getFieldValue('NEW_X_VAL');
     var text_new_y_val = block.getFieldValue('NEW_Y_VAL');
     // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code = 'bigCircle.attr("cx", ' + text_new_x_val + ');\nbigCircle.attr("cy", ' + text_new_y_val + ');';
     return code;
 };
 
@@ -107,3 +107,12 @@ Blockly.JavaScript['motion_rotation_style'] = function(block) {
     var code = '...';
     return code;
 };
+
+/**
+console.log('moveCircle');
+bigCircle.transform('t10 0');
+bigCircle.attr('cy', 50);
+var t = new Snap.Matrix();
+ t.translate(50, -50);
+ bigCircle.transform(t);
+ */
