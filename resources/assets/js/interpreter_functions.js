@@ -13,3 +13,9 @@ var moveStep = function(obj, steps) {
 };
 // rotateclock
 // rotatecounterclock
+var setX = function (id, newVal) {
+	document.getElementById(id).attr("cx", newVal);
+};
+var setY = function (id, newVal) {
+	obj.attr("cy", newVal);
+};

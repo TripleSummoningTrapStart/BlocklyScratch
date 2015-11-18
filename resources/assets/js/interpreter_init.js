@@ -21,5 +21,16 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(addConsoleText(text));
 	}
 	interpreter.setProperty(scope, 'addConsoleText', interpreter.createNativeFunction(wrapper));
+	var wrapper = function(obj, xVal)
+	{
+		xVal = typeof xVal === 'number' ? xVal : 0;
+		return interpreter.createPrimitive(setX(obj, xVal));
+	}
+	interpreter.setProperty(scope, 'setX', interpreter.createNativeFunction(wrapper));
+	var wrapper = function(obj, yVal)
+	{
+		yVal = typeof yVal === 'number' ? yVal : 0;
+		return interpreter.createPrimitive(setY(obj, yVal));
+	}
+	interpreter.setProperty(scope, 'setY', interpreter.createNativeFunction(wrapper));
 };
-

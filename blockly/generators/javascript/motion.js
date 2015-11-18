@@ -11,7 +11,7 @@ goog.require('Blockly.JavaScript');
 Blockly.JavaScript['motion_step'] = function(block) {
     var value_num_steps = Blockly.JavaScript.valueToCode(block, 'NUM_STEPS', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = 'moveStep(sprite, value_num_steps);';
+    var code = 'moveStep(sprite, ' + value_num_steps + ');';
     return code;
 };
 
@@ -84,14 +84,14 @@ Blockly.JavaScript['motion_changey'] = function(block) {
 Blockly.JavaScript['motion_setx'] = function(block) {
     var value_change_num = Blockly.JavaScript.valueToCode(block, 'NEW_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = 'bigCircle.attr("cx", ' + text_new_val + ');';
+    var code = 'setX(sprite, ' + value_change_num + ');';
     return code;
 };
 
 Blockly.JavaScript['motion_sety'] = function(block) {
     var value_new_val = Blockly.JavaScript.valueToCode(block, 'NEW_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = 'bigCircle.attr("cy", ' + text_new_val + ');';
+    var code = 'setY(sprite, ' + value_change_num + ');';
     return code;
 };
 
