@@ -65,6 +65,7 @@ Blockly.JavaScript['motion_glideto'] = function(block) {
     // TODO: Assemble JavaScript into code variable.
     var code = '...';
     return code;
+};
 
 Blockly.JavaScript['motion_changex'] = function(block) {
     var value_change_num = Blockly.JavaScript.valueToCode(block, 'CHANGE_NUM', Blockly.JavaScript.ORDER_ATOMIC);
