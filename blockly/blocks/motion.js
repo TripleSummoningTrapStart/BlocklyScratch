@@ -16,11 +16,13 @@ Blockly.Blocks['motion_step'] = {
      * Block for moving sprite given number of steps
      * @this Blockly.Block
      */
-    init: function () {
+    init: function() {
+        this.appendValueInput("NUM_STEPS")
+            .setCheck("Number")
+            .appendField("move");
         this.appendDummyInput()
-            .appendField("move")
-            .appendField(new Blockly.FieldTextInput("10"), "NUM_STEPS")
             .appendField("steps");
+        this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Blocks.motion.HUE);
@@ -37,8 +39,7 @@ Blockly.Blocks['motion_turn_clockwise'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("turn clockwise")
-            .appendField(new Blockly.FieldAngle("15"), "TURN_ANGLE")
-            .appendField("degrees");
+            .appendField(new Blockly.FieldAngle("15"), "TURN_ANGLE");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Blocks.motion.HUE);
@@ -55,8 +56,7 @@ Blockly.Blocks['motion_turn_counterclockwise'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("turn counter-clockwise")
-            .appendField(new Blockly.FieldAngle("15"), "TURN_ANGLE")
-            .appendField("degrees");
+            .appendField(new Blockly.FieldAngle("15"), "TURN_ANGLE");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Blocks.motion.HUE);
@@ -69,7 +69,7 @@ Blockly.Blocks['motion_pointin'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("point in direction")
-            .appendField(new Blockly.FieldDropdown([["90 (right)", "RIGH"], ["-90 (left)", "LEFT"], ["0 (up)", "UP"], ["180 (down)", "DOWN"]]), "DIRECTIONS");
+            .appendField(new Blockly.FieldDropdown([["90 (right)", "RIGHT"], ["-90 (left)", "LEFT"], ["0 (up)", "UP"], ["180 (down)", "DOWN"]]), "DIRECTIONS");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Blocks.motion.HUE);
@@ -91,20 +91,22 @@ Blockly.Blocks['motion_pointtowards'] = {
     }
 };
 
-Blockly.Blocks['motion_gotoxy'] = {
+Blockly.Blocks['motion_gotoXY'] = {
     /**
      * Block for setting the x and y values of sprite
      * @this Blockly.Block
      */
     init: function() {
-        this.appendDummyInput()
-            .appendField("goto x:")
-            .appendField(new Blockly.FieldTextInput("0"), "NEW_X_VAL")
-            .appendField("y:")
-            .appendField(new Blockly.FieldTextInput("0"), "NEW_Y_VAL");
+        this.appendValueInput("NEW_X_VAL")
+            .setCheck("Number")
+            .appendField("go to x:");
+        this.appendValueInput("NEW_Y_VAL")
+            .setCheck("Number")
+            .appendField("y:");
+        this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(225);
+        this.setColour(Blockly.Blocks.motion.HUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -128,14 +130,20 @@ Blockly.Blocks['motion_goto'] = {
 };
 
 Blockly.Blocks['motion_glideto'] = {
+    /**
+     * Block for gliding the sprite to x and y values over given number of seconds
+     */
     init: function() {
-        this.appendDummyInput()
-            .appendField("glide")
-            .appendField(new Blockly.FieldTextInput("1"), "TIME")
-            .appendField("seconds to x:")
-            .appendField(new Blockly.FieldTextInput("0"), "X_VAL")
-            .appendField("y:")
-            .appendField(new Blockly.FieldTextInput("0"), "Y_VAL");
+        this.appendValueInput("TIME")
+            .setCheck("Number")
+            .appendField("glide");
+        this.appendValueInput("X_VAL")
+            .setCheck("Number")
+            .appendField("seconds to x:");
+        this.appendValueInput("Y_VAL")
+            .setCheck("Number")
+            .appendField("y:");
+        this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Blocks.motion.HUE);
@@ -150,9 +158,10 @@ Blockly.Blocks['motion_changex'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.appendDummyInput()
-            .appendField("change x by")
-            .appendField(new Blockly.FieldTextInput("10"), "CHANGE_NUM");
+        this.appendValueInput("CHANGE_NUM")
+            .setCheck("Number")
+            .appendField("change x by");
+        this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Blocks.motion.HUE);
@@ -167,9 +176,10 @@ Blockly.Blocks['motion_changey'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.appendDummyInput()
-            .appendField("change y by")
-            .appendField(new Blockly.FieldTextInput("10"), "CHANGE_NUM");
+        this.appendValueInput("CHANGE_NUM")
+            .setCheck("Number")
+            .appendField("change y by");
+        this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Blocks.motion.HUE);
@@ -184,9 +194,10 @@ Blockly.Blocks['motion_setx'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.appendDummyInput()
-            .appendField("set x to")
-            .appendField(new Blockly.FieldTextInput("0"), "NEW_VAL");
+        this.appendValueInput("NEW_VAL")
+            .setCheck("Number")
+            .appendField("set x to");
+        this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Blocks.motion.HUE);
@@ -201,9 +212,10 @@ Blockly.Blocks['motion_sety'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.appendDummyInput()
-            .appendField("set y to")
-            .appendField(new Blockly.FieldTextInput("0"), "NEW_VAL");
+        this.appendValueInput("NEW_VAL")
+            .setCheck("Number")
+            .appendField("set y to");
+        this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Blocks.motion.HUE);

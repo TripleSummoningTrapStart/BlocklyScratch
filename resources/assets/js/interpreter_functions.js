@@ -8,3 +8,8 @@ var highlightBlock = function(id) {
 	workspace.highlightBlock(id);
 	highlightPause = true;
 };
+var moveStep = function(obj, steps) {
+
+};
+// rotateclock
+// rotatecounterclock
