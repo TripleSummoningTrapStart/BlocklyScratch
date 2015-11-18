@@ -9,7 +9,7 @@ goog.provide('Blockly.JavaScript.motion');
 goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['motion_step'] = function(block) {
-    var text_num_steps = block.getFieldValue('NUM_STEPS');
+    var value_num_steps = Blockly.JavaScript.valueToCode(block, 'NUM_STEPS', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
     var code = 'moveStep(sprite, value_num_steps);';
     return code;
@@ -43,48 +43,11 @@ Blockly.JavaScript['motion_pointtowards'] = function(block) {
     return code;
 };
 
-Blockly.JavaScript['motion_glideto'] = function(block) {
-    var text_time = block.getFieldValue('TIME');
-    var text_x_val = block.getFieldValue('X_VAL');
-    var text_y_val = block.getFieldValue('Y_VAL');
+Blockly.JavaScript['motion_totoXY'] = function(block) {
+    var value_new_x_val = Blockly.JavaScript.valueToCode(block, 'NEW_X_VAL', Blockly.JavaScript.ORDER_ATOMIC);
+    var value_new_y_val = Blockly.JavaScript.valueToCode(block, 'NEW_Y_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
     var code = '...';
-    return code;
-};
-
-Blockly.JavaScript['motion_changex'] = function(block) {
-    var text_change_num = block.getFieldValue('CHANGE_NUM');
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...';
-    return code;
-};
-
-Blockly.JavaScript['motion_changey'] = function(block) {
-    var text_change_num = block.getFieldValue('CHANGE_NUM');
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...';
-    return code;
-};
-
-Blockly.JavaScript['motion_setx'] = function(block) {
-    var text_new_val = block.getFieldValue('NEW_VAL');
-    // TODO: Assemble JavaScript into code variable.
-    var code = 'bigCircle.attr("cx", ' + text_new_val + ');';
-    return code;
-};
-
-Blockly.JavaScript['motion_sety'] = function(block) {
-    var text_new_val = block.getFieldValue('NEW_VAL');
-    // TODO: Assemble JavaScript into code variable.
-    var code = 'bigCircle.attr("cy", ' + text_new_val + ');';
-    return code;
-};
-
-Blockly.JavaScript['motion_gotoxy'] = function(block) {
-    var text_new_x_val = block.getFieldValue('NEW_X_VAL');
-    var text_new_y_val = block.getFieldValue('NEW_Y_VAL');
-    // TODO: Assemble JavaScript into code variable.
-    var code = 'bigCircle.attr("cx", ' + text_new_x_val + ');\nbigCircle.attr("cy", ' + text_new_y_val + ');';
     return code;
 };
 
@@ -92,6 +55,42 @@ Blockly.JavaScript['motion_goto'] = function(block) {
     var dropdown_objects = block.getFieldValue('OBJECTS');
     // TODO: Assemble JavaScript into code variable.
     var code = '...';
+    return code;
+};
+
+Blockly.JavaScript['motion_glideto'] = function(block) {
+    var value_time = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_ATOMIC);
+    var value_x_val = Blockly.JavaScript.valueToCode(block, 'X_VAL', Blockly.JavaScript.ORDER_ATOMIC);
+    var value_y_val = Blockly.JavaScript.valueToCode(block, 'Y_VAL', Blockly.JavaScript.ORDER_ATOMIC);
+    // TODO: Assemble JavaScript into code variable.
+    var code = '...';
+    return code;
+
+Blockly.JavaScript['motion_changex'] = function(block) {
+    var value_change_num = Blockly.JavaScript.valueToCode(block, 'CHANGE_NUM', Blockly.JavaScript.ORDER_ATOMIC);
+    // TODO: Assemble JavaScript into code variable.
+    var code = '...';
+    return code;
+};
+
+Blockly.JavaScript['motion_changey'] = function(block) {
+    var value_change_num = Blockly.JavaScript.valueToCode(block, 'CHANGE_NUM', Blockly.JavaScript.ORDER_ATOMIC);
+    // TODO: Assemble JavaScript into code variable.
+    var code = '...';
+    return code;
+};
+
+Blockly.JavaScript['motion_setx'] = function(block) {
+    var value_change_num = Blockly.JavaScript.valueToCode(block, 'NEW_VAL', Blockly.JavaScript.ORDER_ATOMIC);
+    // TODO: Assemble JavaScript into code variable.
+    var code = 'bigCircle.attr("cx", ' + text_new_val + ');';
+    return code;
+};
+
+Blockly.JavaScript['motion_sety'] = function(block) {
+    var value_new_val = Blockly.JavaScript.valueToCode(block, 'NEW_VAL', Blockly.JavaScript.ORDER_ATOMIC);
+    // TODO: Assemble JavaScript into code variable.
+    var code = 'bigCircle.attr("cy", ' + text_new_val + ');';
     return code;
 };
 
