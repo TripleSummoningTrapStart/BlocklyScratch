@@ -40,4 +40,9 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(gotoXY(id, xVal, yVal));
 	}
 	interpreter.setProperty(scope, 'gotoXY', interpreter.createNativeFunction(wrapper));
+	var wrapper = function (id, steps) {
+		steps = steps ? steps.data : '';
+		return interpreter.createPrimitive(moveStep(id, steps));
+	}
+	interpreter.setProperty(scope, 'moveStep', interpreter.createNativeFunction(wrapper));
 };

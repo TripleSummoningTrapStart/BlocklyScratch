@@ -23,10 +23,7 @@
 			.blockly-toolbox{
 			  margin: 10px;
 			}
-			.nav-tabs{
-				margin-top: 500px;
-				
-			}
+
 			#svgArea{
 				/*position: absolute;*/
 				height: 48%;
@@ -48,7 +45,7 @@
 			}
 			#content{
 				float:right;
-				width: 71%;
+				width: 70%;
 				height: 95%;
 				
 			}

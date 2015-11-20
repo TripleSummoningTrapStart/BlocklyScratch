@@ -9,7 +9,13 @@ var highlightBlock = function(id) {
 	highlightPause = true;
 };
 var moveStep = function(id, steps) {
-	// TODO write code for this
+	var obj = document.getElementById(id);
+	var xVal = parseInt(obj.getAttribute("cx"));
+	for(var i = 0; i < steps; i++)
+	{
+		xVal += i;
+		obj.setAttribute("cx", xVal);
+	}
 };
 // rotateclock
 // rotatecounterclock
