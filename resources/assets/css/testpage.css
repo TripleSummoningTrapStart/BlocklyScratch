@@ -17,11 +17,15 @@
 			.blockly-container{
 			  min-height: 70%;
 			  height: 100%;
-			  width:100%;
+			  width:90%;
 			}
 
 			.blockly-toolbox{
 			  margin: 10px;
+			}
+			.nav-tabs{
+				margin-top: 500px;
+				
 			}
 			#svgArea{
 				position: absolute;
@@ -30,7 +34,6 @@
 			}
 			#textArea{
 				margin-top: 500px;
-				margin-left: 10px;
 			}
 			#blocklyArea {
 			  height: 100%;

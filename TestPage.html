@@ -73,9 +73,16 @@
 						</pattern>
 						
 				</svg>
-				<textarea rows="21" cols="105" id="textArea" readonly></textArea>
-				<!--<div id="textArea" class="row"></div> -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a href="#console" aria-controls="console" role="tab" data-toggle="tab">Console</a></li>
+					<li role="presentation"><a href="#sprites" aria-controls="sprites" role="tab" data-toggle="tab">sprites</a></li>
+				</ul>
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="console"><textarea rows="21" cols="105" id="textArea" readonly></textArea></div>
+					<div role="tabpanel" class="tab-pane" id="sprites">...</div>
 				</div>
+				<!--<div id="textArea" class="row"></div> -->
+			</div>
 				<!--<div class="svgContainer" style="width: 50% float:left">
 
 				</div>-->
