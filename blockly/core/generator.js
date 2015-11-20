@@ -78,7 +78,7 @@ Blockly.Generator.prototype.workspaceToCode = function(workspace) {
   this.init(workspace);
   var blocks = workspace.getTopBlocks(true);
   for (var x = 0, block; block = blocks[x]; x++) {
-	  if(block.type.indexOf('procedures_hat') == -1)
+	  if(block.type.indexOf('events_hat') == -1)
 	  {
 		  continue;
 	  }
