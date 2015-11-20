@@ -4,6 +4,7 @@ var workspace;
 var highlightPause = false;
 var interpreter;
 
+/* Method called when a change is detected in the page to resize the blockly area */
 var resizeBlockly = function(e) {
     // Compute the absolute coordinates and dimensions of blocklyArea.
     var element = blocklyArea;
@@ -21,23 +22,33 @@ var resizeBlockly = function(e) {
     blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
 	//svgArea.style.height = blocklyArea.offsetHeight + 'px';
 };
+/* Method to inject blockly over the blockly area from the blockly div */
 var injectBlockly = function() {
   blocklyArea = document.getElementById('blocklyArea');
   blocklyDiv = document.getElementById('blocklyDiv');
   workspace = Blockly.inject('blocklyDiv',
       {media: 'blockly/media/',
 		  toolbox: document.getElementById('toolbox')});
-	window.setTimeout(BlocklyStorage.restoreBlocks, 0);
+		  
+  //Local storage set up
+  window.setTimeout(BlocklyStorage.restoreBlocks, 0);
   BlocklyStorage.backupOnUnload();
+  //Some block initialization including setting the infinite loop trap, the highlight block prefix 
+  //and creating the hat curve
   window.LoopTrap = 1000;
   Blockly.BlockSvg.START_HAT = true;
   Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
   Blockly.JavaScript.addReservedWords('highlightBlock');
 	Blockly.JavaScript.addReservedWords('code');
   Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
+  
+  //Adds the listener for resizing
   window.addEventListener('resize', resizeBlockly, false);
   resizeBlockly();
 };
+
+/*Method to allow the user to download their blockly code as javascript
+  remove the prefixes to create clean javascript free of extra blockly code */
 var downloadCode = function() {
 	Blockly.JavaScript.STATEMENT_PREFIX = null;
 	Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
@@ -47,6 +58,8 @@ var downloadCode = function() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
 	return code;
 };
+/* Method to allow the user to export their blockly code into XML that can be imported later for 
+   continuous work */
 var exportXML = function() {
 	var xml = Blockly.Xml.workspaceToDom(workspace);
 	var xml_text = Blockly.Xml.domToText(xml);
@@ -54,10 +67,14 @@ var exportXML = function() {
 	document.getElementById('btnExportXML').href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(xml_text);
 	return xml;
 };
+
+/* Method to convert text into xml and add them to the workspace */
 var importXML = function(contents) {
 	var xml = Blockly.Xml.textToDom(contents);
 	Blockly.Xml.domToWorkspace(workspace, xml);
 };
+/* Method to allow the user to open an XML file onto their computer to 
+	add blocks into the blockly area */
 var openImportFile = function(evt) {
 	if (window.File && window.FileReader && window.FileList) {
 		var files = evt.target.files;
@@ -76,10 +93,14 @@ var openImportFile = function(evt) {
 	
 }; 
 
+/* Method to convert the normal javascript into function based javascript to allow
+   for simulated asyncronously running code to account for multiple different hat blocks */
 var generateInterpreterCode = function(codeToParse) {
+	//Ensures the function code is reset
 	resetFuncCode();
+	
+	//Parses the text into an array clean of comment values used as markers
 	var values = cleanValues(codeToParse);
-	var numHats = values.length - 1;
 	var code = 'var queue = [];\n';
 
 	// Gets all global values
@@ -100,12 +121,13 @@ var generateInterpreterCode = function(codeToParse) {
 	return code;
 };
 
+/* Method to return an array of functions and other values that are ready to be put into the code
+   that will be pased into the interpreter */
 var cleanValues = function(codeToParse) {
 	var values = codeToParse.split('// hat');
 	var numOfLoops = 0;
 	for(var i = 1; i < values.length; i++)
 	{
-		//values[i] = S(values[i]).trim().s;
 		var lines = S(values[i]).lines();
 		
 		for(var k = 0; k < lines.length; k++)
@@ -132,6 +154,7 @@ var cleanValues = function(codeToParse) {
 
 	return values;
 };
+/* Method that allows their user to step through their code */
 var stepCode = function () {
 	if(interpreter == null)
 	{
@@ -158,6 +181,7 @@ var stepCode = function () {
 	}
     
 };
+/* Method to step through the interpreter */
 function nextStep() {
 	if (interpreter.step()) {
 		window.setTimeout(nextStep, 1);
@@ -167,10 +191,12 @@ function nextStep() {
 		interpreter = null;
 	}
 };
+/* Method to stop code execution */
 var stopCode = function() {
 	workspace.highlightBlock(null);
 	interpreter = null;
 };
+/* Method to run the blockly code as javascript on the page by injecting it into the intpreter */
 var runCode = function() {
 	Blockly.JavaScript.STATEMENT_PREFIX = null;
 	var code = generateInterpreterCode(Blockly.JavaScript.workspaceToCode(workspace));
@@ -180,6 +206,7 @@ var runCode = function() {
 	nextStep();
 	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
 };
+/*Method to add event listeners to the buttons on the page */
 var registerButtons = function() {
 	document.getElementById('files').addEventListener('change', openImportFile, false);
 	document.getElementById('btnRun').addEventListener('click', runCode, false);

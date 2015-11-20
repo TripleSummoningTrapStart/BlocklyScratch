@@ -4,6 +4,7 @@
  */
 'use strict';
 
+/*Method to dynamically load the blockly blocks into a toolbox */
 function loadAllBlocks() {
     var blocks = [];
     var cats = {};
