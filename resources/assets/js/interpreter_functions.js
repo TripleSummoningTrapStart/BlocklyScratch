@@ -27,7 +27,7 @@ var changeX = function (id, newVal) {
 		obj.setAttribute("cx", parseInt(obj.getAttribute("cx")) + newVal);
 	}
 };
-var changeX = function (id, newVal) {
+var changeY = function (id, newVal) {
 	var obj = document.getElementById(id);
 	if (obj != null) {
 		obj.setAttribute("cy", parseInt(obj.getAttribute("cy")) + newVal);

@@ -70,14 +70,14 @@ Blockly.JavaScript['motion_glideto'] = function(block) {
 Blockly.JavaScript['motion_changex'] = function(block) {
     var value_change_num = Blockly.JavaScript.valueToCode(block, 'CHANGE_NUM', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code = 'changeX(sprite, ' + value_change_num + ');\n';
     return code;
 };
 
 Blockly.JavaScript['motion_changey'] = function(block) {
     var value_change_num = Blockly.JavaScript.valueToCode(block, 'CHANGE_NUM', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code = 'changeY(sprite, ' + value_change_num + ');\n';
     return code;
 };
 

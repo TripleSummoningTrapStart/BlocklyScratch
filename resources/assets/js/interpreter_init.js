@@ -40,4 +40,16 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(gotoXY(id, xVal, yVal));
 	}
 	interpreter.setProperty(scope, 'gotoXY', interpreter.createNativeFunction(wrapper));
+	var wrapper = function (id, changeVal) {
+		changeVal = changeVal ? changeVal.data : 0;
+		id = id ? id.data : '';
+		return interpreter.createPrimitive(changeX(id, changeVal));
+	}
+	interpreter.setProperty(scope, 'changeX', interpreter.createNativeFunction(wrapper));
+	var wrapper = function (id, changeVal) {
+		changeVal = changeVal ? changeVal.data : 0;
+		id = id ? id.data : '';
+		return interpreter.createPrimitive(changeY(id, changeVal));
+	}
+	interpreter.setProperty(scope, 'changeY', interpreter.createNativeFunction(wrapper));
 };
