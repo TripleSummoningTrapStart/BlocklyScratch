@@ -6,7 +6,7 @@ goog.require('Blockly.Blocks');
 
 Blockly.Blocks.events.HUE = 33;
 
-Blockly.Blocks['events_when_run_clicked'] = {
+Blockly.Blocks['events_hat_when_run_clicked'] = {
   /**
    * Block for determining the beginning of code to be run
    * @this Blockly.Block
@@ -26,7 +26,7 @@ Blockly.Blocks['events_when_run_clicked'] = {
 *Block for determing what to do when a certian key is pressed.
 *@this Blockly.Block
  */
-Blockly.Blocks['events_when_key_press'] = {
+Blockly.Blocks['events_hat_when_key_press'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("when");
@@ -45,7 +45,7 @@ Blockly.Blocks['events_when_key_press'] = {
 /**
 *Block for determining actions when a sprite is clicked
 *@this Blockly.Block*/
-Blockly.Blocks['events_when_sprite_clicked'] = {
+Blockly.Blocks['events_hat_when_sprite_clicked'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("when this sprite clicked");
@@ -60,7 +60,7 @@ Blockly.Blocks['events_when_sprite_clicked'] = {
 /**
 *Block for determing what to do when background is switched
 *@this Blockly.Block*/
-Blockly.Blocks['events_when_backdrop_switched'] = {
+Blockly.Blocks['events_hat_when_backdrop_switched'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("when backdrop switches to");
@@ -77,7 +77,7 @@ Blockly.Blocks['events_when_backdrop_switched'] = {
 /**
 *Block for determing 
 *@this Blockly.Block*/
-Blockly.Blocks['events_when_compare'] = {
+Blockly.Blocks['events_hat_when_compare'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("when");
@@ -98,7 +98,7 @@ Blockly.Blocks['events_when_compare'] = {
 /**
 *Block for determing what to do when a certian message is recived
 *@this Blockly.Block*/
-Blockly.Blocks['events_when_receive'] = {
+Blockly.Blocks['events_hat_when_receive'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("when I receive");

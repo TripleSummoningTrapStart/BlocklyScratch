@@ -11,7 +11,7 @@ goog.require('Blockly.JavaScript');
 Blockly.JavaScript['motion_step'] = function(block) {
     var value_num_steps = Blockly.JavaScript.valueToCode(block, 'NUM_STEPS', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = 'moveStep(sprite, ' + value_num_steps + ');';
+    var code = 'moveStep(sprite, ' + value_num_steps + ');\n';
     return code;
 };
 
@@ -43,11 +43,11 @@ Blockly.JavaScript['motion_pointtowards'] = function(block) {
     return code;
 };
 
-Blockly.JavaScript['motion_totoXY'] = function(block) {
+Blockly.JavaScript['motion_gotoXY'] = function(block) {
     var value_new_x_val = Blockly.JavaScript.valueToCode(block, 'NEW_X_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     var value_new_y_val = Blockly.JavaScript.valueToCode(block, 'NEW_Y_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code = 'gotoXY(sprite, ' + value_new_x_val + ', ' + value_new_y_val + ');\n';
     return code;
 };
 
@@ -82,16 +82,16 @@ Blockly.JavaScript['motion_changey'] = function(block) {
 };
 
 Blockly.JavaScript['motion_setx'] = function(block) {
-    var value_change_num = Blockly.JavaScript.valueToCode(block, 'NEW_VAL', Blockly.JavaScript.ORDER_ATOMIC);
+    var value_new_val = Blockly.JavaScript.valueToCode(block, 'NEW_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = 'setX(sprite, ' + value_change_num + ');';
+    var code = 'setX(sprite, ' + value_new_val + ');\n';
     return code;
 };
 
 Blockly.JavaScript['motion_sety'] = function(block) {
     var value_new_val = Blockly.JavaScript.valueToCode(block, 'NEW_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = 'setY(sprite, ' + value_change_num + ');';
+    var code = 'setY(sprite, ' + value_new_val + ');\n';
     return code;
 };
 

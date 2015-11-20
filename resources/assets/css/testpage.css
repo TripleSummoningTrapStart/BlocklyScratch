@@ -28,12 +28,14 @@
 				
 			}
 			#svgArea{
-				position: absolute;
-				height: 50%;
-				width: 45%;
+				/*position: absolute;*/
+				height: 48%;
+				width: 100%;
 			}
 			#textArea{
-				margin-top: 500px;
+				/*margin-top: 500px;
+				margin-left: 10px;*/
+				width: 98.5%;
 			}
 			#blocklyArea {
 			  height: 100%;
@@ -46,7 +48,7 @@
 			}
 			#content{
 				float:right;
-				width: 70.3%;
+				width: 71%;
 				height: 95%;
 				
 			}

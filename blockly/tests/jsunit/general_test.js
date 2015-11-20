@@ -9,7 +9,7 @@
   }
 function test_1downloadCode()
 {
-	var xml = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="events_when_run_clicked" x="-1" y="-1"><next><block type="control_if"><value name="IF0"><block type="logic_compare"><field name="OP">EQ</field><value name="A"><block type="math_number"><field name="NUM">0</field></block></value><value name="B"><block type="math_number"><field name="NUM">0</field></block></value></block></value></block></next></block></xml>';
+	var xml = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="events_hat_when_run_clicked" x="-1" y="-1"><next><block type="control_if"><value name="IF0"><block type="logic_compare"><field name="OP">EQ</field><value name="A"><block type="math_number"><field name="NUM">0</field></block></value><value name="B"><block type="math_number"><field name="NUM">0</field></block></value></block></value></block></next></block></xml>';
 	var expected = '// hat\nif (0 == 0) {\n}\n';
 	Blockly.mainWorkspace.clear()
 	importXML(xml);
@@ -18,13 +18,13 @@ function test_1downloadCode()
 }
 function test_1exportXML()
 {
-	var xml_text = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="events_when_run_clicked" x="26" y="59"><next><block type="control_if"><value name="IF0"><block type="logic_compare"><field name="OP">EQ</field><value name="A"><block type="math_number"><field name="NUM">0</field></block></value><value name="B"><block type="math_number"><field name="NUM">0</field></block></value></block></value></block></next></block></xml>';
+	var xml_text = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="events_hat_when_run_clicked" x="26" y="59"><next><block type="control_if"><value name="IF0"><block type="logic_compare"><field name="OP">EQ</field><value name="A"><block type="math_number"><field name="NUM">0</field></block></value><value name="B"><block type="math_number"><field name="NUM">0</field></block></value></block></value></block></next></block></xml>';
 	importXML(xml_text);
 	
 	var xml2 = exportXML();
 	assertEquals(xml2.nodeName, "XML");
 	assertEquals(xml2.childNodes[0].nodeName, "BLOCK");
-	assertEquals(xml2.childNodes[0].getAttribute("type"), "events_when_run_clicked");
+	assertEquals(xml2.childNodes[0].getAttribute("type"), "events_hat_when_run_clicked");
 	assertEquals(xml2.childNodes[0].firstChild.firstChild.getAttribute("type"), "control_if");
 	assertEquals(xml2.childNodes[0].firstChild.firstChild.firstChild.firstChild.getAttribute("type"), "logic_compare");
 	assertEquals(xml2.childNodes[0].firstChild.firstChild.firstChild.firstChild.childNodes[1].firstChild.getAttribute("type"), "math_number");
@@ -37,7 +37,7 @@ function test_1exportXML()
 	
 function test_1importXML()
 {
-	var xml_text = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="events_when_run_clicked" x="26" y="59"><next><block type="control_if"><value name="IF0"><block type="logic_compare"><field name="OP">EQ</field><value name="A"><block type="math_number"><field name="NUM">0</field></block></value><value name="B"><block type="math_number"><field name="NUM">0</field></block></value></block></value></block></next></block></xml>';
+	var xml_text = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="events_hat_when_run_clicked" x="26" y="59"><next><block type="control_if"><value name="IF0"><block type="logic_compare"><field name="OP">EQ</field><value name="A"><block type="math_number"><field name="NUM">0</field></block></value><value name="B"><block type="math_number"><field name="NUM">0</field></block></value></block></value></block></next></block></xml>';
 	importXML(xml_text);
 
 	var xml2 = Blockly.Xml.workspaceToDom(workspace);
@@ -45,7 +45,7 @@ function test_1importXML()
 
 	assertEquals(xml2.nodeName, "XML");
 	assertEquals(xml2.childNodes[0].nodeName, "BLOCK");
-	assertEquals(xml2.childNodes[0].getAttribute("type"), "events_when_run_clicked");
+	assertEquals(xml2.childNodes[0].getAttribute("type"), "events_hat_when_run_clicked");
 	assertEquals(xml2.childNodes[0].firstChild.firstChild.getAttribute("type"), "control_if");
 	assertEquals(xml2.childNodes[0].firstChild.firstChild.firstChild.firstChild.getAttribute("type"), "logic_compare");
 	assertEquals(xml2.childNodes[0].firstChild.firstChild.firstChild.firstChild.childNodes[1].firstChild.getAttribute("type"), "math_number");
