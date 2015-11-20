@@ -12,7 +12,8 @@ var bigCircle = s.circle(spritex, spritey, "5%");
 bigCircle.attr({
 	fill: "green",
 	stroke: "#000",
-	strokeWidth:5
+	strokeWidth:5,
+	id: "c2"
 });
 
 //sets up the sprite to be dragged

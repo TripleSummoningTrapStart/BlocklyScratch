@@ -21,16 +21,23 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(addConsoleText(text));
 	}
 	interpreter.setProperty(scope, 'addConsoleText', interpreter.createNativeFunction(wrapper));
-	var wrapper = function(obj, xVal)
+	var wrapper = function(id, xVal)
 	{
-		xVal = typeof xVal === 'number' ? xVal : 0;
-		return interpreter.createPrimitive(setX(obj, xVal));
+		xVal = xVal ? xVal.data : 0;
+		id = id ? id.data : '';
+		return interpreter.createPrimitive(setX(id, xVal));
 	}
 	interpreter.setProperty(scope, 'setX', interpreter.createNativeFunction(wrapper));
-	var wrapper = function(obj, yVal)
+	var wrapper = function(id, yVal)
 	{
-		yVal = typeof yVal === 'number' ? yVal : 0;
-		return interpreter.createPrimitive(setY(obj, yVal));
+		yVal = yVal ? yVal.data : 0;
+		id = id ? id.data : '';
+		return interpreter.createPrimitive(setY(id, yVal));
 	}
 	interpreter.setProperty(scope, 'setY', interpreter.createNativeFunction(wrapper));
+	var wrapper = function (id, xVal, yVal) {
+		id = id ? id.data : '';
+		return interpreter.createPrimitive(gotoXY(id, xVal, yVal));
+	}
+	interpreter.setProperty(scope, 'gotoXY', interpreter.createNativeFunction(wrapper));
 };
