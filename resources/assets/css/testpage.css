@@ -1,7 +1,8 @@
 
 			html, body{
-			  height: 100%;
+			  height: 100vh;
 			  margin: 0;
+			  overflow: auto;
 			}
 			body {
 			  padding-top:50px;
@@ -15,47 +16,75 @@
 			  font-size: 140%;
 			}
 			.blockly-container{
-			  min-height: 70%;
-			  height: 100%;
-			  width:90%;
+			  min-height: 70vmin;
+			  height: 100vh;
+			  width:100vw;
 			}
 
 			.blockly-toolbox{
 			  margin: 10px;
+			  flex-flow: column;
 			}
-
+			.flex {
+				display: flex;
+				/*flex: auto;*/
+			}
+			.tab-content{
+				margin-left: 5px;
+				padding-top: 4px;
+				height:50vh;
+				width: 40vw;
+			}
+			.nav-tabs{
+				margin-left: 5px;
+				padding-top: 10px;
+				width: 40vw;
+			}
 			#svgArea{
 				/*position: absolute;*/
-				height: 48%;
-				width: 100%;
+				height: 50vh;
+				width: 39vw;
+				margin-left: 5px;
+				align-self: flex-start;
 			}
 			#textArea{
 				/*margin-top: 500px;
 				margin-left: 10px;*/
-				width: 98.5%;
+				height:23vh;
+				width: 39.5vw;
+				align-self: flex-end;
+				resize: none;
+				border: none;
+			
 			}
 			#blocklyArea {
-			  height: 100%;
-			  width: 80%;
+			  height: 75vh;
 			}
-			#wrapper{
+			/*#wrapper{
 				margin-left:200px;
-				height: 95%;
-				width: 100%;
-			}
-			#content{
-				float:right;
-				width: 70%;
-				height: 95%;
+				height: 95vh;
+				width: 100vh;
+			}*/
+			#workspace{
+				/*float:right;
+				width: 70vh;
+				height: 95vh;*/
+				width: 60vw;
+				height: 95vh;
 				
 			}
-			#sidebar {
-				float: left;
-				width: 40%;
-				height: 95%;
-				margin-left: -200px;
+			#stage {
+				/*float: left;
+				width: 40vh;
+				height: 95vh;
+				margin-left: -200px;*/
+				flex-flow: column;
+				width: 40vw;
+				height: 95vh;
+				padding-top: 6px;
 			}
 			#cleared {
 				clear: both;
 			}
+			
 
