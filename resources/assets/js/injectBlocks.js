@@ -27,8 +27,11 @@ function loadAllBlocks() {
         var category = document.createElement("category");
         category.setAttribute("id", "cat" + cat);
         category.setAttribute("name", cat);
-        if(Blockly.Blocks[cat].hasOwnProperty("HUE")){
-            category.setAttribute("colour", Blockly.Blocks[cat].HUE);
+        if(Blockly.Blocks[cat].hasOwnProperty("HSV_HUE")
+            && Blockly.Blocks[cat].hasOwnProperty("HSV_SATURATION")
+            && Blockly.Blocks[cat].hasOwnProperty("HSV_VALUE")){
+            category.setAttribute("colour",
+                [Blockly.Blocks[cat].HSV_HUE, Blockly.Blocks[cat].HSV_SATURATION, Blockly.Blocks[cat].HSV_VALUE]);
         }
         doc_toolbox.appendChild(category);
     }

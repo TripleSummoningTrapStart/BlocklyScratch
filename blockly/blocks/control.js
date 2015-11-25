@@ -12,9 +12,9 @@ goog.provide('Blockly.Blocks.control');
 
 goog.require('Blockly.Blocks');
 
-Blockly.Blocks.control.HUE = 43;
-Blockly.Blocks.control.HSV_SATURATION = 89;
-Blockly.Blocks.control.HSV_VALUE = 88;
+Blockly.Blocks.control.HSV_HUE = 43;
+Blockly.Blocks.control.HSV_SATURATION = .89;
+Blockly.Blocks.control.HSV_VALUE = .88;
 
 /*
 Blockly.Blocks['control_wait'] = {
@@ -49,7 +49,7 @@ Blockly.Blocks['control_wait_until'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.control.HUE);
+        this.setColour(Blockly.Blocks.control.HSV_HUE, Blockly.Blocks.control.HSV_SATURATION, Blockly.Blocks.control.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }

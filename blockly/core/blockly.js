@@ -94,11 +94,14 @@ Blockly.SPRITE = {
 /**
  * Convert a hue (HSV model) into an RGB hex triplet.
  * @param {number} hue Hue on a colour wheel (0-360).
+ * @param {number} saturation Saturation of color (0-1).
+ * @param {number} value Value of colour (0-1).
  * @return {string} RGB code, e.g. '#5ba65b'.
  */
-Blockly.makeColour = function(hue) {
-  return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
-      Blockly.HSV_VALUE * 255);
+Blockly.makeColour = function(hue, saturation, value) {
+  return goog.color.hsvToHex(hue, saturation, value * 255);
+  /*return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
+      Blockly.HSV_VALUE * 255);*/
 };
 
 /**
