@@ -11,7 +11,7 @@ goog.require('Blockly.Blocks');
 
 Blockly.Blocks.motion.HSV_HUE = 222;
 Blockly.Blocks.motion.HSV_SATURATION = 0.67;
-Blockly.Blocks.motion.HSV_VALUE = 0.83;
+Blockly.Blocks.motion.HSV_VALUE = 0.75;
 
 Blockly.Blocks['motion_step'] = {
     /**
