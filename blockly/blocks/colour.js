@@ -32,7 +32,9 @@ goog.require('Blockly.Blocks');
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.colour.HUE = 120;
+Blockly.Blocks.colour.HSV_HUE = 120;
+Blockly.Blocks.colour.HSV_SATURATION = .45;
+Blockly.Blocks.colour.HSV_VALUE = .65;
 
 Blockly.Blocks['colour_picker'] = {
   /**
@@ -40,7 +42,13 @@ Blockly.Blocks['colour_picker'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.jsonInit({
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldColour("#ff0000"), "COLOUR");
+    this.setOutput("Colour");
+    this.setColour(Blockly.Blocks.colour.HSV_HUE, Blockly.Blocks.colour.HSV_SATURATION, Blockly.Blocks.colour.HSV_VALUE);
+    this.setTooltip(Blockly.Msg.COLOUR_PICKER_TOOLTIP);
+    this.setHelpUrl(Blockly.Msg.COLOUR_PICKER_HELPURL);
+    /*this.jsonInit({
       "message0": "%1",
       "args0": [
         {
@@ -53,7 +61,7 @@ Blockly.Blocks['colour_picker'] = {
       "colour": Blockly.Blocks.colour.HUE,
       "tooltip": Blockly.Msg.COLOUR_PICKER_TOOLTIP,
       "helpUrl": Blockly.Msg.COLOUR_PICKER_HELPURL
-    });
+    });*/
   }
 };
 
@@ -63,13 +71,19 @@ Blockly.Blocks['colour_random'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.jsonInit({
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.COLOUR_RANDOM_TITLE);
+    this.setOutput("Colour");
+    this.setColour(Blockly.Blocks.colour.HSV_HUE, Blockly.Blocks.colour.HSV_SATURATION, Blockly.Blocks.colour.HSV_VALUE);
+    this.setTooltip(Blockly.Msg.COLOUR_RANDOM_TOOLTIP);
+    this.setHelpUrl(Blockly.Msg.COLOUR_RANDOM_HELPURL);
+    /*this.jsonInit({
       "message0": Blockly.Msg.COLOUR_RANDOM_TITLE,
       "output": "Colour",
       "colour": Blockly.Blocks.colour.HUE,
       "tooltip": Blockly.Msg.COLOUR_RANDOM_TOOLTIP,
       "helpUrl": Blockly.Msg.COLOUR_RANDOM_HELPURL
-    });
+    });*/
   }
 };
 
@@ -80,7 +94,7 @@ Blockly.Blocks['colour_rgb'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.COLOUR_RGB_HELPURL);
-    this.setColour(Blockly.Blocks.colour.HUE);
+    this.setColour(Blockly.Blocks.colour.HSV_HUE, Blockly.Blocks.colour.HSV_SATURATION, Blockly.Blocks.colour.HSV_VALUE);
     this.appendValueInput('RED')
         .setCheck('Number')
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -106,7 +120,7 @@ Blockly.Blocks['colour_blend'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.COLOUR_BLEND_HELPURL);
-    this.setColour(Blockly.Blocks.colour.HUE);
+    this.setColour(Blockly.Blocks.colour.HSV_HUE, Blockly.Blocks.colour.HSV_SATURATION, Blockly.Blocks.colour.HSV_VALUE);
     this.appendValueInput('COLOUR1')
         .setCheck('Colour')
         .setAlign(Blockly.ALIGN_RIGHT)

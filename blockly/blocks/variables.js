@@ -32,7 +32,9 @@ goog.require('Blockly.Blocks');
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.variables.HUE = 330;
+Blockly.Blocks.variables.HSV_HUE = 27;
+Blockly.Blocks.variables.HSV_SATURATION = .92;
+Blockly.Blocks.variables.HSV_VALUE = .96;
 
 Blockly.Blocks['variables_get'] = {
   /**
@@ -41,7 +43,7 @@ Blockly.Blocks['variables_get'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
-    this.setColour(Blockly.Blocks.variables.HUE);
+    this.setColour(Blockly.Blocks.variables.HSV_HUE, Blockly.Blocks.variables.HSV_SATURATION, Blockly.Blocks.variables.HSV_VALUE);
     this.appendDummyInput()
         .appendField(new Blockly.FieldVariable(
         Blockly.Msg.VARIABLES_DEFAULT_NAME), 'VAR');
@@ -94,6 +96,14 @@ Blockly.Blocks['variables_set'] = {
    * @this Blockly.Block
    */
   init: function() {
+    /*this.appendDummyInput()
+        .appendField(Blockly.Msg.VARIABLES_SET)
+        .appendField(new Blockly.FieldVariable(Blockly.Msg.VARIABLES_DEFAULT_NAME), "VAR");
+    this.appendValueInput("VALUE");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+    this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);*/
     this.jsonInit({
       "message0": Blockly.Msg.VARIABLES_SET,
       "args0": [
@@ -109,10 +119,10 @@ Blockly.Blocks['variables_set'] = {
       ],
       "previousStatement": null,
       "nextStatement": null,
-      "colour": Blockly.Blocks.variables.HUE,
       "tooltip": Blockly.Msg.VARIABLES_SET_TOOLTIP,
       "helpUrl": Blockly.Msg.VARIABLES_SET_HELPURL
     });
+    this.setColour(Blockly.Blocks.variables.HSV_HUE, Blockly.Blocks.variables.HSV_SATURATION, Blockly.Blocks.variables.HSV_VALUE);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
   },
   /**

@@ -9,7 +9,9 @@ goog.provide('Blockly.Blocks.motion');
 
 goog.require('Blockly.Blocks');
 
-Blockly.Blocks.motion.HUE = 222;
+Blockly.Blocks.motion.HSV_HUE = 222;
+Blockly.Blocks.motion.HSV_SATURATION = 0.67;
+Blockly.Blocks.motion.HSV_VALUE = 0.83;
 
 Blockly.Blocks['motion_step'] = {
     /**
@@ -25,7 +27,7 @@ Blockly.Blocks['motion_step'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -43,7 +45,7 @@ Blockly.Blocks['motion_turn_clockwise'] = {
             .appendField(new Blockly.FieldAngle("15"), "TURN_ANGLE");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -61,7 +63,7 @@ Blockly.Blocks['motion_turn_counterclockwise'] = {
             .appendField(new Blockly.FieldAngle("15"), "TURN_ANGLE");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -74,7 +76,7 @@ Blockly.Blocks['motion_pointin'] = {
             .appendField(new Blockly.FieldDropdown([["90 (right)", "RIGHT"], ["-90 (left)", "LEFT"], ["0 (up)", "UP"], ["180 (down)", "DOWN"]]), "DIRECTIONS");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -87,7 +89,7 @@ Blockly.Blocks['motion_pointtowards'] = {
             .appendField(new Blockly.FieldDropdown([["mouse-pointer", "MOUSE"]]), "OBJECTS");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -108,7 +110,7 @@ Blockly.Blocks['motion_gotoXY'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -125,7 +127,7 @@ Blockly.Blocks['motion_goto'] = {
             .appendField(new Blockly.FieldDropdown([["mouse-pointer", "MOUSE"]]), "OBJECTS");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -148,7 +150,7 @@ Blockly.Blocks['motion_glideto'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -166,7 +168,7 @@ Blockly.Blocks['motion_changex'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -184,7 +186,7 @@ Blockly.Blocks['motion_changey'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -202,7 +204,7 @@ Blockly.Blocks['motion_setx'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -220,7 +222,7 @@ Blockly.Blocks['motion_sety'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -232,7 +234,7 @@ Blockly.Blocks['motion_bounceonedge'] = {
             .appendField("if on edge, bounce");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(Blockly.Blocks.motion.HUE);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -248,7 +250,7 @@ Blockly.Blocks['motion_rotation_style'] = {
             .appendField(new Blockly.FieldDropdown([["left-right", "LtoR"], ["don't rotate", "NONE"], ["all around", "all"]]), "OPTIONS");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }

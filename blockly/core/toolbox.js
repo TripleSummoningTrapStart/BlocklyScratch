@@ -212,9 +212,9 @@ Blockly.Toolbox.prototype.populate_ = function(newTree) {
           } else {
             syncTrees(childIn, childOut);
           }
-          var hue = childIn.getAttribute('colour');
-          if (goog.isString(hue)) {
-            childOut.hexColour = Blockly.makeColour(hue);
+          var colourVals = childIn.getAttribute('colour').split(',');
+          if (colourVals && colourVals.length == 3) {
+            childOut.hexColour = Blockly.makeColour(colourVals[0], colourVals[1], colourVals[2]);
             hasColours = true;
           } else {
             childOut.hexColour = '';

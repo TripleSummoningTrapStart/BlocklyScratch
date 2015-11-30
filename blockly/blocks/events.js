@@ -4,7 +4,9 @@ goog.provide('Blockly.Blocks.events');
 
 goog.require('Blockly.Blocks');
 
-Blockly.Blocks.events.HUE = 33;
+Blockly.Blocks.events.HSV_HUE = 33;
+Blockly.Blocks.events.HSV_SATURATION = .75;
+Blockly.Blocks.events.HSV_VALUE = .78;
 
 Blockly.Blocks['events_hat_when_run_clicked'] = {
   /**
@@ -16,7 +18,7 @@ Blockly.Blocks['events_hat_when_run_clicked'] = {
         .appendField("when 'Run' clicked");
 	Blockly.BlockSvg.START_HAT = true;
     this.setNextStatement(true, null);
-    this.setColour(20);
+    this.setColour(Blockly.Blocks.events.HSV_HUE, Blockly.Blocks.events.HSV_SATURATION, Blockly.Blocks.events.HSV_VALUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
 
@@ -37,7 +39,7 @@ Blockly.Blocks['events_hat_when_key_press'] = {
 	Blockly.BlockSvg.START_HAT = true;
     this.setInputsInline(true);
     this.setNextStatement(true, null);
-    this.setColour(20);
+    this.setColour(Blockly.Blocks.events.HSV_HUE, Blockly.Blocks.events.HSV_SATURATION, Blockly.Blocks.events.HSV_VALUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -52,7 +54,7 @@ Blockly.Blocks['events_hat_when_sprite_clicked'] = {
 	Blockly.BlockSvg.START_HAT = true;
     this.setInputsInline(true);
     this.setNextStatement(true, null);
-    this.setColour(20);
+    this.setColour(Blockly.Blocks.events.HSV_HUE, Blockly.Blocks.events.HSV_SATURATION, Blockly.Blocks.events.HSV_VALUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -69,7 +71,7 @@ Blockly.Blocks['events_hat_when_backdrop_switched'] = {
     Blockly.BlockSvg.START_HAT = true;
 	this.setInputsInline(true);
     this.setNextStatement(true, null);
-    this.setColour(20);
+    this.setColour(Blockly.Blocks.events.HSV_HUE, Blockly.Blocks.events.HSV_SATURATION, Blockly.Blocks.events.HSV_VALUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -90,7 +92,7 @@ Blockly.Blocks['events_hat_when_compare'] = {
 	Blockly.BlockSvg.START_HAT = true;
     this.setInputsInline(true);
     this.setNextStatement(true, null);
-    this.setColour(20);
+    this.setColour(Blockly.Blocks.events.HSV_HUE, Blockly.Blocks.events.HSV_SATURATION, Blockly.Blocks.events.HSV_VALUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -107,7 +109,7 @@ Blockly.Blocks['events_hat_when_receive'] = {
     Blockly.BlockSvg.START_HAT = true;
 	this.setInputsInline(true);
     this.setNextStatement(true, null);
-    this.setColour(20);
+    this.setColour(Blockly.Blocks.events.HSV_HUE, Blockly.Blocks.events.HSV_SATURATION, Blockly.Blocks.events.HSV_VALUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -120,7 +122,7 @@ Blockly.Blocks['events_broadcast'] = {
         .appendField(new Blockly.FieldDropdown([["message1", "default"], ["add message...", "add"]]), "messages");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-	this.setColour(20);
+	this.setColour(Blockly.Blocks.events.HSV_HUE, Blockly.Blocks.events.HSV_SATURATION, Blockly.Blocks.events.HSV_VALUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -134,7 +136,7 @@ Blockly.Blocks['events_broadcast_wait'] = {
         .appendField("and wait");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-	this.setColour(20);
+	this.setColour(Blockly.Blocks.events.HSV_HUE, Blockly.Blocks.events.HSV_SATURATION, Blockly.Blocks.events.HSV_VALUE);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }

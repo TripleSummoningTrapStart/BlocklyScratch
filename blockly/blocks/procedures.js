@@ -32,7 +32,9 @@ goog.require('Blockly.Blocks');
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.procedures.HUE = 290;
+Blockly.Blocks.procedures.HSV_HUE = 290;
+Blockly.Blocks.procedures.HSV_SATURATION = .45;
+Blockly.Blocks.procedures.HSV_VALUE = .65;
 
 Blockly.Blocks['procedures_defnoreturn'] = {
   /**
@@ -41,7 +43,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL);
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Blocks.procedures.HSV_HUE, Blockly.Blocks.procedures.HSV_SATURATION, Blockly.Blocks.procedures.HSV_VALUE);
     var nameField = new Blockly.FieldTextInput(
         Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE,
         Blockly.Procedures.rename);
@@ -345,7 +347,7 @@ Blockly.Blocks['procedures_defreturn'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL);
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Blocks.procedures.HSV_HUE, Blockly.Blocks.procedures.HSV_SATURATION, Blockly.Blocks.procedures.HSV_VALUE);
     var nameField = new Blockly.FieldTextInput(
         Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE,
         Blockly.Procedures.rename);
@@ -394,7 +396,7 @@ Blockly.Blocks['procedures_mutatorcontainer'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Blocks.procedures.HSV_HUE, Blockly.Blocks.procedures.HSV_SATURATION, Blockly.Blocks.procedures.HSV_VALUE);
     this.appendDummyInput()
         .appendField(Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TITLE);
     this.appendStatementInput('STACK');
@@ -412,7 +414,7 @@ Blockly.Blocks['procedures_mutatorarg'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Blocks.procedures.HSV_HUE, Blockly.Blocks.procedures.HSV_SATURATION, Blockly.Blocks.procedures.HSV_VALUE);
     this.appendDummyInput()
         .appendField(Blockly.Msg.PROCEDURES_MUTATORARG_TITLE)
         .appendField(new Blockly.FieldTextInput('x', this.validator_), 'NAME');
@@ -443,7 +445,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLNORETURN_HELPURL);
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Blocks.procedures.HSV_HUE, Blockly.Blocks.procedures.HSV_SATURATION, Blockly.Blocks.procedures.HSV_VALUE);
     this.appendDummyInput('TOPROW')
         .appendField(Blockly.Msg.PROCEDURES_CALLNORETURN_CALL)
         .appendField('', 'NAME');
@@ -672,7 +674,7 @@ Blockly.Blocks['procedures_callreturn'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLRETURN_HELPURL);
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Blocks.procedures.HSV_HUE, Blockly.Blocks.procedures.HSV_SATURATION, Blockly.Blocks.procedures.HSV_VALUE);
     this.appendDummyInput('TOPROW')
         .appendField(Blockly.Msg.PROCEDURES_CALLRETURN_CALL)
         .appendField('', 'NAME');
@@ -700,7 +702,7 @@ Blockly.Blocks['procedures_ifreturn'] = {
    */
   init: function() {
     this.setHelpUrl('http://c2.com/cgi/wiki?GuardClause');
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Blocks.procedures.HSV_HUE, Blockly.Blocks.procedures.HSV_SATURATION, Blockly.Blocks.procedures.HSV_VALUE);
     this.appendValueInput('CONDITION')
         .setCheck('Boolean')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);

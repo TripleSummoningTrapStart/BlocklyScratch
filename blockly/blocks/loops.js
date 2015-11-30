@@ -32,7 +32,9 @@ goog.require('Blockly.Blocks');
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.loops.HUE = 120;
+Blockly.Blocks.loops.HSV_HUE = 120;
+Blockly.Blocks.loops.HSV_SATURATION = 0.45;
+Blockly.Blocks.loops.HSV_VALUE = 0.65;
 
 Blockly.Blocks['control_repeat_ext'] = {
   /**
@@ -40,6 +42,14 @@ Blockly.Blocks['control_repeat_ext'] = {
    * @this Blockly.Block
    */
   init: function() {
+    /*this.appendDummyInput()
+        .appendField(Blockly.Msg.LOGIC_REPEAT_TITLE)
+    this.appendValueInput("TIMES")
+        .setCheck("Number");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.CONTROLS_REPEAT_TOOLTIP);
+    this.setHelpUrl(Blockly.Msg.CONTROLS_REPEAT_HELPURL);*/
     this.jsonInit({
       "message0": Blockly.Msg.CONTROLS_REPEAT_TITLE,
       "args0": [
@@ -51,10 +61,10 @@ Blockly.Blocks['control_repeat_ext'] = {
       ],
       "previousStatement": null,
       "nextStatement": null,
-      "colour": Blockly.Blocks.loops.HUE,
       "tooltip": Blockly.Msg.CONTROLS_REPEAT_TOOLTIP,
       "helpUrl": Blockly.Msg.CONTROLS_REPEAT_HELPURL
     });
+    this.setColour(Blockly.Blocks.loops.HSV_HUE, Blockly.Blocks.loops.HSV_SATURATION, Blockly.Blocks.loops.HSV_VALUE);
     this.appendStatementInput('DO');
   }
 };
@@ -66,6 +76,13 @@ Blockly.Blocks['control_repeat'] = {
    * @this Blockly.Block
    */
   init: function() {
+    /*this.appendDummyInput()
+        .appendField(Blockly.Msg.CONTROLS_REPEAT_TITLE)
+        .appendField(new Blockly.FieldTextInput("10"), "TIMES");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.CONTROLS_REPEAT_TOOLTIP);
+    this.setHelpUrl(Blockly.Msg.CONTROLS_REPEAT_HELPURL);*/
     this.jsonInit({
       "message0": Blockly.Msg.CONTROLS_REPEAT_TITLE,
       "args0": [
@@ -77,10 +94,10 @@ Blockly.Blocks['control_repeat'] = {
       ],
       "previousStatement": null,
       "nextStatement": null,
-      "colour": Blockly.Blocks.loops.HUE,
       "tooltip": Blockly.Msg.CONTROLS_REPEAT_TOOLTIP,
       "helpUrl": Blockly.Msg.CONTROLS_REPEAT_HELPURL
     });
+    this.setColour(Blockly.Blocks.loops.HSV_HUE, Blockly.Blocks.loops.HSV_SATURATION, Blockly.Blocks.loops.HSV_VALUE);
     this.appendStatementInput('DO');
     this.getField('TIMES').setChangeHandler(
         Blockly.FieldTextInput.nonnegativeIntegerValidator);
@@ -97,7 +114,7 @@ Blockly.Blocks['control_whileUntil'] = {
         [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
          [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
     this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
-    this.setColour(Blockly.Blocks.loops.HUE);
+    this.setColour(Blockly.Blocks.loops.HSV_HUE, Blockly.Blocks.loops.HSV_SATURATION, Blockly.Blocks.loops.HSV_VALUE);
     this.appendValueInput('BOOL')
         .setCheck('Boolean')
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
@@ -123,6 +140,22 @@ Blockly.Blocks['control_for'] = {
    * @this Blockly.Block
    */
   init: function() {
+    /*this.appendDummyInput()
+        .appendField(Blockly.Msg.CONTROLS_FOR_TITLE)
+        .appendField(new Blockly.FieldVariable(null), "VAR");
+    this.appendValueInput("FROM")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT);
+    this.appendValueInput("TO")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT);
+    this.appendValueInput("BY")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setHelpUrl(Blockly.Msg.CONTROLS_FOR_HELPURL);*/
     this.jsonInit({
       "message0": Blockly.Msg.CONTROLS_FOR_TITLE,
       "args0": [
@@ -153,9 +186,9 @@ Blockly.Blocks['control_for'] = {
       "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
-      "colour": Blockly.Blocks.loops.HUE,
       "helpUrl": Blockly.Msg.CONTROLS_FOR_HELPURL
     });
+    this.setColour(Blockly.Blocks.loops.HSV_HUE, Blockly.Blocks.loops.HSV_SATURATION, Blockly.Blocks.loops.HSV_VALUE);
     this.appendStatementInput('DO');
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
@@ -210,6 +243,14 @@ Blockly.Blocks['control_forEach'] = {
    * @this Blockly.Block
    */
   init: function() {
+    /*this.appendDummyInput()
+        .appendField(Blockly.Msg.CONTROLS_FOREACH_TITLE)
+        .appendField(new Blockly.FieldVariable(null), "VAR");
+    this.appendValueInput("LIST")
+        .setCheck("Array");;
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setHelpUrl(Blockly.Msg.CONTROLS_FOREACH_HELPURL);*/
     this.jsonInit({
       "message0": Blockly.Msg.CONTROLS_FOREACH_TITLE,
       "args0": [
@@ -226,9 +267,9 @@ Blockly.Blocks['control_forEach'] = {
       ],
       "previousStatement": null,
       "nextStatement": null,
-      "colour": Blockly.Blocks.loops.HUE,
       "helpUrl": Blockly.Msg.CONTROLS_FOREACH_HELPURL
     });
+    this.setColour(Blockly.Blocks.loops.HSV_HUE, Blockly.Blocks.loops.HSV_SATURATION, Blockly.Blocks.loops.HSV_VALUE);
     this.appendStatementInput('DO');
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
@@ -270,7 +311,7 @@ Blockly.Blocks['control_flow_statements'] = {
         [[Blockly.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK, 'BREAK'],
          [Blockly.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE, 'CONTINUE']];
     this.setHelpUrl(Blockly.Msg.CONTROLS_FLOW_STATEMENTS_HELPURL);
-    this.setColour(Blockly.Blocks.loops.HUE);
+    this.setColour(Blockly.Blocks.loops.HSV_HUE, Blockly.Blocks.loops.HSV_SATURATION, Blockly.Blocks.loops.HSV_VALUE);
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'FLOW');
     this.setPreviousStatement(true);
@@ -325,7 +366,7 @@ Blockly.Blocks['control_repeat_forever'] = {
         .setCheck(null);
     this.setPreviousStatement(true, null);
     this.setNextStatement(false, null);
-    this.setColour(120);
+    this.setColour(Blockly.Blocks.loops.HSV_HUE, Blockly.Blocks.loops.HSV_SATURATION, Blockly.Blocks.loops.HSV_VALUE);
     this.setTooltip(''); // TODO Add tooltip to messages.js
     this.setHelpUrl('http://www.example.com/');
   }

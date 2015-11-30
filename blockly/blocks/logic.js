@@ -32,7 +32,9 @@ goog.require('Blockly.Blocks');
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.logic.HUE = 210;
+Blockly.Blocks.logic.HSV_HUE = 210;
+Blockly.Blocks.logic.HSV_SATURATION = 0.45;
+Blockly.Blocks.logic.HSV_VALUE = 0.65;
 
 Blockly.Blocks['control_if'] = {
   /**
@@ -41,7 +43,7 @@ Blockly.Blocks['control_if'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Blocks.logic.HSV_HUE, Blockly.Blocks.logic.HSV_SATURATION, Blockly.Blocks.logic.HSV_VALUE);
     this.appendValueInput('IF0')
         .setCheck('Boolean')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
@@ -220,7 +222,7 @@ Blockly.Blocks['control_if_if'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Blocks.logic.HSV_HUE, Blockly.Blocks.logic.HSV_SATURATION, Blockly.Blocks.logic.HSV_VALUE);
     this.appendDummyInput()
         .appendField(Blockly.Msg.CONTROLS_IF_IF_TITLE_IF);
     this.appendStatementInput('STACK');
@@ -235,7 +237,7 @@ Blockly.Blocks['control_if_elseif'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Blocks.logic.HSV_HUE, Blockly.Blocks.logic.HSV_SATURATION, Blockly.Blocks.logic.HSV_VALUE);
     this.appendDummyInput()
         .appendField(Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF);
     this.setPreviousStatement(true);
@@ -251,7 +253,7 @@ Blockly.Blocks['control_if_else'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Blocks.logic.HSV_HUE, Blockly.Blocks.logic.HSV_SATURATION, Blockly.Blocks.logic.HSV_VALUE);
     this.appendDummyInput()
         .appendField(Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE);
     this.setPreviousStatement(true);
@@ -282,7 +284,7 @@ Blockly.Blocks['logic_compare'] = {
           ['\u2265', 'GTE']
         ];
     this.setHelpUrl(Blockly.Msg.LOGIC_COMPARE_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Blocks.logic.HSV_HUE, Blockly.Blocks.logic.HSV_SATURATION, Blockly.Blocks.logic.HSV_VALUE);
     this.setOutput(true, 'Boolean');
     this.appendValueInput('A');
     this.appendValueInput('B')
@@ -339,7 +341,7 @@ Blockly.Blocks['logic_operation'] = {
         [[Blockly.Msg.LOGIC_OPERATION_AND, 'AND'],
          [Blockly.Msg.LOGIC_OPERATION_OR, 'OR']];
     this.setHelpUrl(Blockly.Msg.LOGIC_OPERATION_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Blocks.logic.HSV_HUE, Blockly.Blocks.logic.HSV_SATURATION, Blockly.Blocks.logic.HSV_VALUE);
     this.setOutput(true, 'Boolean');
     this.appendValueInput('A')
         .setCheck('Boolean');
@@ -366,6 +368,14 @@ Blockly.Blocks['logic_negate'] = {
    * @this Blockly.Block
    */
   init: function() {
+    /*this.appendDummyInput()
+        .appendField(Blockly.Msg.LOGIC_NEGATE_TITLE)
+    this.appendValueInput("BOOL")
+        .setCheck("Boolean");
+    this.setOutput(true, "Boolean");
+    this.setInputsInline(true);
+    this.setTooltip(Blockly.Msg.LOGIC_NEGATE_TOOLTIP);
+    this.setHelpUrl(Blockly.Msg.LOGIC_NEGATE_HELPURL);*/
     this.jsonInit({
       "message0": Blockly.Msg.LOGIC_NEGATE_TITLE,
       "args0": [
@@ -376,10 +386,10 @@ Blockly.Blocks['logic_negate'] = {
         }
       ],
       "output": "Boolean",
-      "colour": Blockly.Blocks.logic.HUE,
       "tooltip": Blockly.Msg.LOGIC_NEGATE_TOOLTIP,
       "helpUrl": Blockly.Msg.LOGIC_NEGATE_HELPURL
     });
+    this.setColour(Blockly.Blocks.logic.HSV_HUE, Blockly.Blocks.logic.HSV_SATURATION, Blockly.Blocks.logic.HSV_VALUE);
   }
 };
 
@@ -389,6 +399,11 @@ Blockly.Blocks['logic_boolean'] = {
    * @this Blockly.Block
    */
   init: function() {
+    /*this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([[Blockly.Msg.LOGIC_BOOLEAN_TRUE, "TRUE"], [Blockly.Msg.LOGIC_BOOLEAN_FALSE, "FALSE"]]), "BOOL");
+    this.setOutput(true, "Boolean");
+    this.setTooltip(Blockly.Msg.LOGIC_BOOLEAN_TOOLTIP);
+    this.setHelpUrl(Blockly.Msg.LOGIC_BOOLEAN_HELPURL);*/
     this.jsonInit({
       "message0": "%1",
       "args0": [
@@ -402,10 +417,10 @@ Blockly.Blocks['logic_boolean'] = {
         }
       ],
       "output": "Boolean",
-      "colour": Blockly.Blocks.logic.HUE,
       "tooltip": Blockly.Msg.LOGIC_BOOLEAN_TOOLTIP,
       "helpUrl": Blockly.Msg.LOGIC_BOOLEAN_HELPURL
     });
+    this.setColour(Blockly.Blocks.logic.HSV_HUE, Blockly.Blocks.logic.HSV_SATURATION, Blockly.Blocks.logic.HSV_VALUE);
   }
 };
 
@@ -415,13 +430,18 @@ Blockly.Blocks['logic_null'] = {
    * @this Blockly.Block
    */
   init: function() {
+    /*this.appendDummyInput()
+        .appendField(Blockly.Msg.LOGIC_NULL);
+    this.setOutput(true, null);
+    this.setTooltip(Blockly.Msg.LOGIC_NULL_TOOLTIP);
+    this.setHelpUrl(Blockly.Msg.LOGIC_NULL_HELPURL);*/
     this.jsonInit({
       "message0": Blockly.Msg.LOGIC_NULL,
       "output": null,
-      "colour": Blockly.Blocks.logic.HUE,
       "tooltip": Blockly.Msg.LOGIC_NULL_TOOLTIP,
       "helpUrl": Blockly.Msg.LOGIC_NULL_HELPURL
     });
+    this.setColour(Blockly.Blocks.logic.HSV_HUE, Blockly.Blocks.logic.HSV_SATURATION, Blockly.Blocks.logic.HSV_VALUE);
   }
 };
 
@@ -432,7 +452,7 @@ Blockly.Blocks['logic_ternary'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.LOGIC_TERNARY_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Blocks.logic.HSV_HUE, Blockly.Blocks.logic.HSV_SATURATION, Blockly.Blocks.logic.HSV_VALUE);
     this.appendValueInput('IF')
         .setCheck('Boolean')
         .appendField(Blockly.Msg.LOGIC_TERNARY_CONDITION);
