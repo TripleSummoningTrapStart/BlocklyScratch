@@ -96,16 +96,15 @@ Blockly.Blocks['variables_set'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.appendDummyInput()
+    /*this.appendDummyInput()
         .appendField(Blockly.Msg.VARIABLES_SET)
         .appendField(new Blockly.FieldVariable(Blockly.Msg.VARIABLES_DEFAULT_NAME), "VAR");
     this.appendValueInput("VALUE");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(Blockly.Blocks.variables.HSV_HUE, Blockly.Blocks.variables.HSV_SATURATION, Blockly.Blocks.variables.HSV_VALUE);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
-    this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    /*this.jsonInit({
+    this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);*/
+    this.jsonInit({
       "message0": Blockly.Msg.VARIABLES_SET,
       "args0": [
         {
@@ -120,10 +119,10 @@ Blockly.Blocks['variables_set'] = {
       ],
       "previousStatement": null,
       "nextStatement": null,
-      "colour": Blockly.Blocks.variables.HUE,
       "tooltip": Blockly.Msg.VARIABLES_SET_TOOLTIP,
       "helpUrl": Blockly.Msg.VARIABLES_SET_HELPURL
-    });*/
+    });
+    this.setColour(Blockly.Blocks.variables.HSV_HUE, Blockly.Blocks.variables.HSV_SATURATION, Blockly.Blocks.variables.HSV_VALUE);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
   },
   /**

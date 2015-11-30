@@ -259,16 +259,18 @@ Blockly.Blocks['math_change'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.MATH_CHANGE_TITLE)
+    /*this.appendDummyInput()
+        .appendField(Blockly.Msg.MATH_CHANGE_TITLE_1)
         .appendField(new Blockly.FieldVariable(Blockly.Msg.MATH_CHANGE_TITLE_ITEM), "VAR");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MATH_CHANGE_TITLE_2);
     this.appendValueInput("DELTA")
         .setCheck("Number");
+    this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(Blockly.Blocks.math.HSV_HUE, Blockly.Blocks.math.HSV_SATURATION, Blockly.Blocks.math.HSV_VALUE);
-    this.setHelpUrl(Blockly.Msg.MATH_CHANGE_HELPURL);
-    /*this.jsonInit({
+    this.setHelpUrl(Blockly.Msg.MATH_CHANGE_HELPURL);*/
+    this.jsonInit({
       "message0": Blockly.Msg.MATH_CHANGE_TITLE,
       "args0": [
         {
@@ -284,9 +286,9 @@ Blockly.Blocks['math_change'] = {
       ],
       "previousStatement": null,
       "nextStatement": null,
-      "colour": Blockly.Blocks.math.HSV_HUE,
       "helpUrl": Blockly.Msg.MATH_CHANGE_HELPURL
-    });*/
+    });
+    this.setColour(Blockly.Blocks.math.HSV_HUE, Blockly.Blocks.math.HSV_SATURATION, Blockly.Blocks.math.HSV_VALUE);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
@@ -417,18 +419,19 @@ Blockly.Blocks['math_modulo'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.MATH_MODULO_TITLE);
+    /*this.appendDummyInput()
+        .appendField(Blockly.Msg.MATH_MODULO_TITLE_1);
     this.appendValueInput("DVIDEND")
         .setCheck("Number");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MATH_MODULO_TITLE_2);
     this.appendValueInput("DIVISOR")
         .setCheck("Number");
     this.setInputsInline(true);
     this.setOutput("Number");
-    this.setColour(Blockly.Blocks.math.HSV_HUE, Blockly.Blocks.math.HSV_SATURATION, Blockly.Blocks.math.HSV_VALUE);
     this.setTooltip(Blockly.Msg.MATH_MODULO_TOOLTIP);
-    this.setHelpUrl(Blockly.Msg.MATH_MODULO_HELPURL);
-    /*this.jsonInit({
+    this.setHelpUrl(Blockly.Msg.MATH_MODULO_HELPURL);*/
+    this.jsonInit({
       "message0": Blockly.Msg.MATH_MODULO_TITLE,
       "args0": [
         {
@@ -444,10 +447,10 @@ Blockly.Blocks['math_modulo'] = {
       ],
       "inputsInline": true,
       "output": "Number",
-      "colour": Blockly.Blocks.math.HSV_HUE,
       "tooltip": Blockly.Msg.MATH_MODULO_TOOLTIP,
       "helpUrl": Blockly.Msg.MATH_MODULO_HELPURL
-    });*/
+    });
+    this.setColour(Blockly.Blocks.math.HSV_HUE, Blockly.Blocks.math.HSV_SATURATION, Blockly.Blocks.math.HSV_VALUE);
   }
 };
 
@@ -457,7 +460,7 @@ Blockly.Blocks['math_constrain'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.appendDummyInput()
+    /*this.appendDummyInput()
         .appendField(Blockly.Msg.MATH_CONSTRAIN_TITLE);
     this.appendValueInput("VALUE")
         .setCheck("Number");
@@ -467,10 +470,9 @@ Blockly.Blocks['math_constrain'] = {
         .setCheck("Number");
     this.setInputsInline(true);
     this.setOutput("Number");
-    this.setColour(Blockly.Blocks.math.HSV_HUE, Blockly.Blocks.math.HSV_SATURATION, Blockly.Blocks.math.HSV_VALUE);
     this.setTooltip(Blockly.Msg.MATH_CONSTRAIN_TOOLTIP);
-    this.setHelpUrl(Blockly.Msg.MATH_CONSTRAIN_HELPURL);
-    /*this.jsonInit({
+    this.setHelpUrl(Blockly.Msg.MATH_CONSTRAIN_HELPURL);*/
+    this.jsonInit({
       "message0": Blockly.Msg.MATH_CONSTRAIN_TITLE,
       "args0": [
         {
@@ -491,10 +493,10 @@ Blockly.Blocks['math_constrain'] = {
       ],
       "inputsInline": true,
       "output": "Number",
-      "colour": Blockly.Blocks.math.HSV_HUE,
       "tooltip": Blockly.Msg.MATH_CONSTRAIN_TOOLTIP,
       "helpUrl": Blockly.Msg.MATH_CONSTRAIN_HELPURL
-    });*/
+    });
+    this.setColour(Blockly.Blocks.math.HSV_HUE, Blockly.Blocks.math.HSV_SATURATION, Blockly.Blocks.math.HSV_VALUE);
   }
 };
 
@@ -504,7 +506,7 @@ Blockly.Blocks['math_random_int'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.appendDummyInput()
+    /*this.appendDummyInput()
         .appendField(Blockly.Msg.MATH_RANDOM_INT_TITLE);
     this.appendValueInput("FROM")
         .setCheck("Number");
@@ -512,10 +514,9 @@ Blockly.Blocks['math_random_int'] = {
         .setCheck("Number");
     this.setInputsInline(true);
     this.setOutput("Number");
-    this.setColour(Blockly.Blocks.math.HSV_HUE, Blockly.Blocks.math.HSV_SATURATION, Blockly.Blocks.math.HSV_VALUE);
     this.setTooltip(Blockly.Msg.MATH_RANDOM_INT_TOOLTIP);
-    this.setHelpUrl(Blockly.Msg.MATH_RANDOM_INT_HELPURL);
-    /*this.jsonInit({
+    this.setHelpUrl(Blockly.Msg.MATH_RANDOM_INT_HELPURL);*/
+    this.jsonInit({
       "message0": Blockly.Msg.MATH_RANDOM_INT_TITLE,
       "args0": [
         {
@@ -531,10 +532,10 @@ Blockly.Blocks['math_random_int'] = {
       ],
       "inputsInline": true,
       "output": "Number",
-      "colour": Blockly.Blocks.math.HSV_HUE,
       "tooltip": Blockly.Msg.MATH_RANDOM_INT_TOOLTIP,
       "helpUrl": Blockly.Msg.MATH_RANDOM_INT_HELPURL
-    });*/
+    });
+    this.setColour(Blockly.Blocks.math.HSV_HUE, Blockly.Blocks.math.HSV_SATURATION, Blockly.Blocks.math.HSV_VALUE);
   }
 };
 
