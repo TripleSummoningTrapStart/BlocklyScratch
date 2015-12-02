@@ -39,31 +39,31 @@ var rotateClock = function(id, rotateVal) {
 }
 var setX = function (id, newVal) {
 	var obj = document.getElementById(id);
-	obj.setAttribute("cx", newVal);
+	obj.setAttribute("x", newVal);
 };
 var setY = function (id, newVal) {
 	var obj = document.getElementById(id);
-	obj.setAttribute("cy", newVal);
+	obj.setAttribute("y", newVal);
 };
 var changeX = function (id, newVal) {
 	var obj = document.getElementById(id);
 	if (obj != null) {
-		obj.setAttribute("cx", parseInt(obj.getAttribute("cx")) + newVal);
+		obj.setAttribute("x", parseInt(obj.getAttribute("x")) + newVal);
 	}
 };
 var changeY = function (id, newVal) {
 	var obj = document.getElementById(id);
 	if (obj != null) {
-		obj.setAttribute("cy", parseInt(obj.getAttribute("cy")) + newVal);
+		obj.setAttribute("y", parseInt(obj.getAttribute("y")) + newVal);
 	}
 };
 var gotoXY = function (id, xVal, yVal) {
 	var obj = document.getElementById(id);
 	if (obj != null) {
-		xVal = xVal ? xVal.data : obj.getAttribute("cx");
-		yVal = yVal ? yVal.data : obj.getAttribute("cy");
-		obj.setAttribute("cx", xVal);
-		obj.setAttribute("cy", yVal);
+		xVal = xVal ? xVal.data : obj.getAttribute("x");
+		yVal = yVal ? yVal.data : obj.getAttribute("y");
+		obj.setAttribute("x", xVal);
+		obj.setAttribute("y", yVal);
 	}
 };
 var glideTo = function(id, time, x, y) {
