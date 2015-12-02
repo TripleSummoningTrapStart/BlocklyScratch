@@ -8,7 +8,7 @@ var spritex = 100;
 var spritey = 100;
 
 
-var bigCircle = s.circle(spritex, spritey, "5%");
+var bigCircle = s.rect(spritex, spritey, 40, 40);
 bigCircle.attr({
 	fill: "green",
 	stroke: "#000",
@@ -20,34 +20,34 @@ bigCircle.attr({
 var start = function() {
 	maxX = s.node.width.baseVal.value;
 	maxY = s.node.height.baseVal.value;
-    this.ox = parseInt(this.attr("cx"));
-    this.oy = parseInt(this.attr("cy"));
+    this.ox = parseInt(this.attr("x"));
+    this.oy = parseInt(this.attr("y"));
 	spritex = this.ox;
 	spritey = this.oy;
     console.log("Start move, ox=" + this.ox + ", oy=" + this.oy);
 }
 //updates x,y value of sprite based on change
 var move = function(dx, dy) {
-	this.attr({"cx": this.ox + dx, "cy": this.oy + dy});
+	this.attr({"x": this.ox + dx, "y": this.oy + dy});
 }
 //controls how to update sprite location, and print to console after drag
 var stop = function() {
 	
-	this.ox = parseInt(this.attr("cx"));
-	this.oy = parseInt(this.attr("cy"));
+	this.ox = parseInt(this.attr("x"));
+	this.oy = parseInt(this.attr("y"));
 	//checks it it is on the right or bottom of the screen
 	if(this.ox-this.node.r.animVal.value >maxX || this.oy -this.node.r.animVal.value>maxY)
 	{
 		this.ox = spritex;
 		this.oy = spritey;
-		this.attr({"cx": this.ox, "cy": this.oy});
+		this.attr({"x": this.ox, "y": this.oy});
 	}
 	//checks if it is at the left or top side of the screen.
 	if(this.ox+this.node.r.animVal.value <0 || this.oy+this.node.r.animVal.value <0)
 	{
 		this.ox = spritex;
 		this.oy = spritey;
-		this.attr({"cx": this.ox, "cy": this.oy});
+		this.attr({"x": this.ox, "y": this.oy});
 	}
     console.log("Stop move, ox=" + this.ox + ", oy=" + this.oy);
 }

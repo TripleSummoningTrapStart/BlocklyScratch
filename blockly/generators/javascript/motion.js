@@ -16,16 +16,16 @@ Blockly.JavaScript['motion_step'] = function(block) {
 };
 
 Blockly.JavaScript['motion_turn_clockwise'] = function(block) {
-    var angle_turn_angle = block.getFieldValue('TURN_ANGLE');
+    var turn_angle = block.getFieldValue('TURN_ANGLE');
     // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code = "rotateClock(sprite," + turn_angle + ");\n";
     return code;
 };
 
 Blockly.JavaScript['motion_turn_counterclockwise'] = function(block) {
-    var angle_turn_angle = block.getFieldValue('TURN_ANGLE');
+    var turn_angle = block.getFieldValue('TURN_ANGLE') * -1;
     // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code = "rotateClock(sprite," + turn_angle + ");\n";
     return code;
 };
 

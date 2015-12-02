@@ -18,6 +18,20 @@ var moveStep = function(id, steps) {
 	}
 };
 // rotateclock
+var rotateClock = function(id, rotateVal)
+{
+	var obj = document.getElementById(id);
+	var rotateAngle = obj.getAttribute("transform");
+	if(rotateAngle != null)
+	{
+		rotateAngle = S(rotateAngle).chompLeft("rotate(").chompRight(')').s;
+		rotateAngle = rotateAngle.split(',');
+		rotateVal += parseInt(rotateAngle[0]);
+	}
+	var objXCenter = parseInt(obj.getAttribute("x")) + parseInt(obj.getAttribute("width"))/2;
+	var objYCenter = parseInt(obj.getAttribute("y")) + parseInt(obj.getAttribute("height"))/2;
+	obj.setAttribute("transform", "rotate(" + rotateVal + "," + objXCenter + "," + objYCenter +")");
+}
 // rotatecounterclock
 var setX = function (id, newVal) {
 	var obj = document.getElementById(id);
