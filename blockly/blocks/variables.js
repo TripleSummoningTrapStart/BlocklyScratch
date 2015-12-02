@@ -34,7 +34,7 @@ goog.require('Blockly.Blocks');
  */
 Blockly.Blocks.variables.HSV_HUE = 27;
 Blockly.Blocks.variables.HSV_SATURATION = .92;
-Blockly.Blocks.variables.HSV_VALUE = .96;
+Blockly.Blocks.variables.HSV_VALUE = .90;
 
 Blockly.Blocks['variables_get'] = {
   /**
