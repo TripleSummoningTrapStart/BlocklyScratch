@@ -1,5 +1,4 @@
-var addConsoleText = function(text)
-{
+var addConsoleText = function(text) {
 	var textarea = document.getElementById("textArea");
 	textarea.innerHTML += text + '&#13;&#10;';
 	textarea.scrollTop = textarea.scrollHeight;
@@ -10,16 +9,14 @@ var highlightBlock = function(id) {
 };
 var moveStep = function(id, steps) {
 	var obj = document.getElementById(id);
-	var xVal = parseInt(obj.getAttribute("cx"));
+	var xVal = parseInt(obj.getAttribute("x"));
 	for(var i = 0; i < steps; i++)
 	{
 		xVal += i;
-		obj.setAttribute("cx", xVal);
+		obj.setAttribute("x", xVal);
 	}
 };
-// rotateclock
-var rotateClock = function(id, rotateVal)
-{
+var rotateClock = function(id, rotateVal) {
 	var obj = document.getElementById(id);
 	var rotateAngle = obj.getAttribute("transform");
 	if(rotateAngle != null)
@@ -40,7 +37,6 @@ var rotateClock = function(id, rotateVal)
 	var objYCenter = parseInt(obj.getAttribute("y")) + parseInt(obj.getAttribute("height"))/2;
 	obj.setAttribute("transform", "rotate(" + rotateVal + "," + objXCenter + "," + objYCenter +")");
 }
-// rotatecounterclock
 var setX = function (id, newVal) {
 	var obj = document.getElementById(id);
 	obj.setAttribute("cx", newVal);
@@ -70,3 +66,22 @@ var gotoXY = function (id, xVal, yVal) {
 		obj.setAttribute("cy", yVal);
 	}
 };
+var glideTo = function(id, time, x, y) {
+	if(parseInt(time) == 0)
+	{
+		time = 1;
+	}
+	var obj = document.getElementById(id);
+	var xVal = parseInt(obj.getAttribute("x"));
+	var yVal = parseInt(obj.getAttribute("y"));
+	var xInc = (parseInt(x) - xVal) / parseInt(time);
+	var yInc = (parseInt(y) - yVal) / parseInt(time);
+	while(Math.ceil(xVal) != x)
+	{
+		xVal += xInc;
+		yVal += yInc;
+		obj.setAttribute("x", xVal);
+		obj.setAttribute("y", yVal);
+	}
+	
+}
