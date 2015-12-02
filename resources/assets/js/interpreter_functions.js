@@ -27,6 +27,14 @@ var rotateClock = function(id, rotateVal)
 		rotateAngle = S(rotateAngle).chompLeft("rotate(").chompRight(')').s;
 		rotateAngle = rotateAngle.split(',');
 		rotateVal += parseInt(rotateAngle[0]);
+		if(rotateVal > 0 && rotateVal > 360)
+		{
+			rotateVal -= 360;
+		}
+		else if(rotateVal < 0 && Math.abs(rotateVal) > 360)
+		{
+			rotateVal += 360;
+		}
 	}
 	var objXCenter = parseInt(obj.getAttribute("x")) + parseInt(obj.getAttribute("width"))/2;
 	var objYCenter = parseInt(obj.getAttribute("y")) + parseInt(obj.getAttribute("height"))/2;
