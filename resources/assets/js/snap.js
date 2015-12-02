@@ -35,15 +35,8 @@ var stop = function() {
 	
 	this.ox = parseInt(this.attr("x"));
 	this.oy = parseInt(this.attr("y"));
-	//checks it it is on the right or bottom of the screen
-	if(this.ox-this.node.r.animVal.value >maxX || this.oy -this.node.r.animVal.value>maxY)
-	{
-		this.ox = spritex;
-		this.oy = spritey;
-		this.attr({"x": this.ox, "y": this.oy});
-	}
-	//checks if it is at the left or top side of the screen.
-	if(this.ox+this.node.r.animVal.value <0 || this.oy+this.node.r.animVal.value <0)
+	//checks it it sprite has left the svg area
+	if(this.ox>=maxX || this.oy>=maxY||this.ox +this.node.width.animVal.value<=0||this.oy+this.node.height.animVal.value<=0)
 	{
 		this.ox = spritex;
 		this.oy = spritey;
