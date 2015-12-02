@@ -43,7 +43,7 @@ Blockly.Blocks['control_if'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HSV_HUE, Blockly.Blocks.logic.HSV_SATURATION, Blockly.Blocks.logic.HSV_VALUE);
+    this.setColour(Blockly.Blocks.control.HSV_HUE, Blockly.Blocks.control.HSV_SATURATION, Blockly.Blocks.control.HSV_VALUE);
     this.appendValueInput('IF0')
         .setCheck('Boolean')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
