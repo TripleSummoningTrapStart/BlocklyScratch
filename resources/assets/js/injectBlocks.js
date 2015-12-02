@@ -8,11 +8,11 @@
 function loadAllBlocks() {
     var blocks = [];
     var cats = {};
-
+	var invalid = ["texts_create_join_container", "texts_create_join_item", "lists_create_with_container", "lists_create_with_item", "control_if_if", "control_if_elseif", "control_if_else", "procedures_mutatorcontainer", "procedures_mutatorarg","procedures_callnoreturn", "procedures_callreturn"];
     for (var block in Blockly.Blocks) {
 
         try {
-            if (Blockly.Blocks[block].hasOwnProperty("init")) {
+            if (Blockly.Blocks[block].hasOwnProperty("init")&&invalid.indexOf(block)==-1) {
                 blocks.push(block);
             } else {
                 cats[block] = 0;
