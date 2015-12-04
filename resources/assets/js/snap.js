@@ -35,13 +35,15 @@ var stop = function() {
 	
 	this.ox = parseInt(this.attr("x"));
 	this.oy = parseInt(this.attr("y"));
-	//checks it it sprite has left the svg area
-	if(this.ox>=maxX || this.oy>=maxY||this.ox +this.node.width.animVal.value<=0||this.oy+this.node.height.animVal.value<=0)
+	
+	if(this.ox+this.node.width.baseVal.value <=0 || this.ox >=480||this.oy+this.node.height.animVal.value<=0||this.oy>=360)
 	{
 		this.ox = spritex;
 		this.oy = spritey;
 		this.attr({"x": this.ox, "y": this.oy});
 	}
+	
+
     console.log("Stop move, ox=" + this.ox + ", oy=" + this.oy);
 }
 
