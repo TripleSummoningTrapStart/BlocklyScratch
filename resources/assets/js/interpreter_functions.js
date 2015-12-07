@@ -29,7 +29,7 @@ var rotateClock = function(id, rotateVal, rotateInc) {
 	var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
 	var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
 
-	obj.stop().animate({ transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50 , function(){
+	obj.animate({ transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50 , function(){
 				rotateVal = rotateVal + rotateInc;	
 				rotateClock(id, rotateVal,rotateInc); // Repeat this animation so it appears infinite.
 			} );
@@ -64,7 +64,7 @@ var gotoXY = function (id, xVal, yVal) {
 	}
 };
 var glideTo = function(id, time, x, y) {
-	if(time == 0)
+	/*if(time == 0)
 	{
 		time = 1;
 	}
@@ -81,5 +81,14 @@ var glideTo = function(id, time, x, y) {
 		obj.setAttribute("y", yVal);
 		return true;
 	}
-	return false;
+	return false;*/
+	var obj = s.select('#'+id);
+	var objX = parseInt(obj.attr('x')) - x;
+	var objY = parseInt(obj.attr('y')) - y;
+
+	obj.animate({ transform: "T" + objX + ',' + objY}, (time * 1000), function(){}, setLocation(id, x, y));
+}
+var setLocation = function(id, x, y) {
+	var obj = s.select('#'+id);
+	obj.attr({'x': x, 'y': y});
 }

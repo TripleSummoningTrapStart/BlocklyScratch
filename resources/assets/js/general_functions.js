@@ -134,7 +134,7 @@ var cleanValues = function(codeToParse) {
 		
 		for(var k = 0; k < lines.length; k++)
 		{
-			if(!S(lines[i]).contains('}') && S(lines[i]).contains('//') && S(lines[i]).contains('loop'))
+			if(!S(lines[k]).contains('}') && S(lines[k]).contains('//') && S(lines[k]).contains('loop'))
 			{
 				numOfLoops++;
 			}
@@ -205,7 +205,7 @@ var runCode = function() {
 	interpreter = new Interpreter(code, initApi);
 	//var worker = new Worker('../resources/assests/js/worker.js');
     //workspace.traceOn(true);
-
+	//interpreter.run();
 	nextStep();
 	//timer();
 	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
