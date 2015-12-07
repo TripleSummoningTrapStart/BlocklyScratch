@@ -113,8 +113,7 @@ var getBeforeStartOfLoop = function (lines) {
 		
 };
 /* Method to find where a loop starts based on comment flag */
-var findStartOfLoop = function(lines)
-{
+var findStartOfLoop = function(lines) {
 	for(var i = 0; i < lines.length; i++)
 	{
 		if (!S(lines[i]).contains('}') && S(lines[i]).contains('//') && S(lines[i]).contains('loop'))

@@ -18,7 +18,7 @@ Blockly.JavaScript['motion_step'] = function(block) {
 Blockly.JavaScript['motion_turn_clockwise'] = function(block) {
     var turn_angle = block.getFieldValue('TURN_ANGLE');
   
-    var code = "rotateClock(sprite," + turn_angle + ");\n";
+    var code = "rotateClock(sprite," + turn_angle + "," + turn_angle + ");\n";
     return code;
 };
 
@@ -63,7 +63,11 @@ Blockly.JavaScript['motion_glideto'] = function(block) {
     var value_x_val = Blockly.JavaScript.valueToCode(block, 'X_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     var value_y_val = Blockly.JavaScript.valueToCode(block, 'Y_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = "glideTo(sprite, " + value_time + ","+value_x_val + ","+ value_y_val +");\n";
+    var code = 'var glideFunction = function() {\n'
+	+ 'var time = '+value_time +';\n var x ='+ value_x_val+ ';\nvar y ='+ value_y_val + ';\n'
+	+ 'var shouldQ = glideTo(sprite, time, x, y);\n'
+	+ 'if(shouldQ){queue.push(glideFunction)}\n}\n'
+	+"queue.push(glideFunction);\n";
     return code;
 };
 

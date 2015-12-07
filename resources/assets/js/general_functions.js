@@ -3,6 +3,7 @@ var blocklyDiv;
 var workspace;
 var highlightPause = false;
 var interpreter;
+var time = 1;
 
 /* Method called when a change is detected in the page to resize the blockly area */
 var resizeBlockly = function(e) {
@@ -185,7 +186,7 @@ var stepCode = function () {
 /* Method to step through the interpreter */
 function nextStep() {
 	if (interpreter.step()) {
-		window.setTimeout(nextStep, 1);
+		window.setTimeout(nextStep, 0);
 	}
 	else
 	{
@@ -202,11 +203,21 @@ var runCode = function() {
 	Blockly.JavaScript.STATEMENT_PREFIX = null;
 	var code = generateInterpreterCode(Blockly.JavaScript.workspaceToCode(workspace));
 	interpreter = new Interpreter(code, initApi);
-    workspace.traceOn(true);
+	//var worker = new Worker('../resources/assests/js/worker.js');
+    //workspace.traceOn(true);
 
 	nextStep();
+	//timer();
 	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
 };
+var timer = function()
+{
+	var textarea = document.getElementById("textArea");
+	textarea.innerHTML += time + '&#13;&#10;';
+	textarea.scrollTop = textarea.scrollHeight;
+	time++;
+	window.setTimeout(timer, 1000);
+}
 /*Method to add event listeners to the buttons on the page */
 var registerButtons = function() {
 	document.getElementById('files').addEventListener('change', openImportFile, false);
