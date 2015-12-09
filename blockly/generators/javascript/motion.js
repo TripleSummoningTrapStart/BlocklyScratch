@@ -63,7 +63,7 @@ Blockly.JavaScript['motion_glideto'] = function(block) {
     var value_x_val = Blockly.JavaScript.valueToCode(block, 'X_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     var value_y_val = Blockly.JavaScript.valueToCode(block, 'Y_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = 'glideTo(sprite, '+ time + ',' + (parseInt(value_x_val) + 200) + ',' + ((parseInt(value_y_val) + 140) *-1) +');'/*'var glideFunction = function() {\n'
+    var code = 'glideTo(sprite, '+ value_time + ',' + (parseInt(value_x_val) + 200) + ',' + ((parseInt(value_y_val) + 140) *-1) +');'/*'var glideFunction = function() {\n'
 	+ 'var time = '+value_time +';\n var x ='+ value_x_val+ ';\nvar y ='+ value_y_val + ';\n'
 	+ 'var shouldQ = glideTo(sprite, time, x, y);\n'
 	+ 'if(shouldQ){queue.push(glideFunction)}\n}\n'
