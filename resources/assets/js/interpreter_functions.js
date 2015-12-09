@@ -16,7 +16,7 @@ var moveStep = function(id, steps) {
 		obj.setAttribute("x", xVal);
 	}
 };
-var rotateClock = function(id, rotateVal, rotateInc) {
+var rotateClock = function(id, rotateVal, rotateInc, forever) {
 	/*  if(rotateVal > 0 && rotateVal > 360)
 		{
 			rotateVal -= 360;
@@ -29,10 +29,15 @@ var rotateClock = function(id, rotateVal, rotateInc) {
 	var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
 	var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
 
-	obj.animate({ transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50 , function(){
-				rotateVal = rotateVal + rotateInc;	
-				rotateClock(id, rotateVal,rotateInc); // Repeat this animation so it appears infinite.
-			} );
+	if(forever) {
+		obj.animate({transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50, function () {
+			rotateVal = rotateVal + rotateInc;
+			rotateClock(id, rotateVal, rotateInc, forever); // Repeat this animation so it appears infinite.
+		});
+	}
+	else {
+		obj.animate({transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50);
+	}
 }
 var setX = function (id, newVal) {
 	var obj = document.getElementById(id);
