@@ -1,3 +1,5 @@
+var hold;
+var obj;
 var addConsoleText = function(text) {
 	var textarea = document.getElementById("textArea");
 	textarea.innerHTML += text + '&#13;&#10;';
@@ -87,13 +89,22 @@ var glideTo = function(id, time, x, y) {
 		return true;
 	}
 	return false;*/
-	var obj = s.select('#'+id);
-	var objX = parseInt(obj.attr('x')) - x;
-	var objY = parseInt(obj.attr('y')) - y;
-
-	obj.animate({ transform: "T" + objX + ',' + objY}, (time * 1000), function(){}, setLocation(id, x, y));
+	obj = s.select('#'+id);
+	var objX = x - parseInt(obj.attr('x'));
+	var objY = y + parseInt(obj.attr('y'));
+	
+	if(!obj.matrix)
+	{
+		m = new Snap.Matrix().translate(objX, objY);
+	}
+	else
+	{
+		m = obj.matrix.translate(objX, objY);
+	}
+	obj.animate({ transform: m }, (time * 1000), function(){}, setLocation(id, objX, objY));
 }
 var setLocation = function(id, x, y) {
-	var obj = s.select('#'+id);
-	obj.attr({'x': x, 'y': y});
+	//var obj = s.select('#'+id);
+
+	//obj.attr({'x': x, 'y': y});
 }
