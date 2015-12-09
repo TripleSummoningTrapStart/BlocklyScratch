@@ -1,14 +1,14 @@
 var s = Snap("#svgArea");
 
 //for different screen sizes, shows edge of working area
-var maxX;
-var maxY;
+var maxX = s.node.width.baseVal.value;
+var maxY = s.node.height.baseVal.value;
 //current location of sprite
-var spritex = 100;
-var spritey = 100;
+var spritex = (maxX/2) - 30;
+var spritey = maxY/2;
 
 
-var bigCircle = s.rect(spritex, spritey, 40, 40);
+var bigCircle = s.rect(200, 140, 40, 40);
 bigCircle.attr({
 	fill: "green",
 	stroke: "#000",

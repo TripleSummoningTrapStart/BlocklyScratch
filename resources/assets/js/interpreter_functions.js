@@ -83,12 +83,12 @@ var glideTo = function(id, time, x, y) {
 	}
 	return false;*/
 	var obj = s.select('#'+id);
-	var objX = parseInt(obj.attr('x')) - x;
-	var objY = parseInt(obj.attr('y')) - y;
+	var objX = x - parseInt(obj.attr('x'));
+	var objY = y + parseInt(obj.attr('y'));
 
-	obj.animate({ transform: "T" + objX + ',' + objY}, (time * 1000), function(){}, setLocation(id, x, y));
+	obj.animate({ transform: "t" + objX + ',' + objY}, (time * 1000), function(){}, setLocation(id, objX, objY));
 }
 var setLocation = function(id, x, y) {
-	var obj = s.select('#'+id);
-	obj.attr({'x': x, 'y': y});
+	//var obj = s.select('#'+id);
+	//obj.attr({'x': x, 'y': y});
 }
