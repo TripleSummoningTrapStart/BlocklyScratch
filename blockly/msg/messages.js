@@ -724,11 +724,11 @@ Blockly.Msg.TEXT_PROMPT_HELPURL = 'https://github.com/google/blockly/wiki/Text#g
 /// dropdown - Specifies that a piece of text should be requested from the user with
 /// the following message.  See [https://github.com/google/blockly/wiki/Text#printing-text
 /// https://github.com/google/blockly/wiki/Text#printing-text].
-Blockly.Msg.TEXT_PROMPT_TYPE_TEXT = 'prompt for text with message';
+Blockly.Msg.TEXT_PROMPT_TYPE_TEXT = 'ask for text with message';
 /// dropdown - Specifies that a number should be requested from the user with the
 /// following message.  See [https://github.com/google/blockly/wiki/Text#printing-text
 /// https://github.com/google/blockly/wiki/Text#printing-text].
-Blockly.Msg.TEXT_PROMPT_TYPE_NUMBER = 'prompt for number with message';
+Blockly.Msg.TEXT_PROMPT_TYPE_NUMBER = 'ask for number with message';
 /// dropdown - Precedes the message with which the user should be prompted for
 /// a number.  See [https://github.com/google/blockly/wiki/Text#printing-text
 /// https://github.com/google/blockly/wiki/Text#printing-text].
