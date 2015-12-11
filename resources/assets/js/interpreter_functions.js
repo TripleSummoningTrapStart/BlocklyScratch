@@ -30,12 +30,30 @@ var rotateClock = function(id, rotateVal, rotateInc) {
 	var obj = s.select('#'+id);
 	var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
 	var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
+	var m;
+	if(!obj.matrix)	{
+		m = new Snap.Matrix().rotate(rotateVal, objX, objY);
+		//m.translate(objX, objY);
+	}
+	else {
+		m = obj.matrix.rotate(rotateVal, objX, objY);
+		//m.translate(objX, objY);
+	}
+	
+	//obj.animate({transform: m }, 50);
+	obj.transform(m);
 
-	obj.animate({ transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50 , function(){
-				rotateVal = rotateVal + rotateInc;	
-				rotateClock(id, rotateVal,rotateInc); // Repeat this animation so it appears infinite.
-			} );
-}
+	/*
+	if(forever) {
+		obj.animate({transform: m}, 50, function () {
+			rotateVal = rotateVal + rotateInc;
+			rotateClock(id, rotateVal, rotateInc, forever); // Repeat this animation so it appears infinite.
+		});
+	}
+	else {
+		obj.animate({transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50);
+	}*/
+};
 var setX = function (id, newVal) {
 	var obj = document.getElementById(id);
 	obj.setAttribute("x", newVal);
