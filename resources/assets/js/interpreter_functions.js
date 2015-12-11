@@ -120,11 +120,4 @@ var glideTo = function(id, time, x, y) {
 		m = obj.matrix.translate((x * -1), (y * -1));
 		obj.transform(m);
 	});
-	//setTimeout(setLocation, time*1000, id, objX, objY);
-}
-var setLocation = function(id, x, y) {
-
-	//obj.attr({'x': parseInt(obj.attr('x')) + x, 'y':  parseInt(obj.attr('y')) + y});
-	m = obj.matrix.translate((x * -1), (y * -1));
-	obj.transform(m);
 }
