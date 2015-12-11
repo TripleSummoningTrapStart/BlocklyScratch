@@ -85,8 +85,8 @@ var glideTo = function(id, time, x, y) {
 	}
 	return false;*/
 	obj = s.select('#'+id);
-	var objX = x - parseInt(obj.attr('x'));
-	var objY = y + parseInt(obj.attr('y'));
+	var objX = x; //- parseInt(obj.attr('x'));
+	var objY = y; //+ parseInt(obj.attr('y'));
 	
 	if(!obj.matrix)
 	{
@@ -96,10 +96,17 @@ var glideTo = function(id, time, x, y) {
 	{
 		m = obj.matrix.translate(objX, objY);
 	}
-	obj.animate({ transform: m }, (time * 1000), function(){}, setLocation(id, objX, objY));
+	//obj.transform(m);
+	obj.animate({ transform: m }, (time * 1000), mina.linear, function() {
+		obj.attr({'x': parseInt(obj.attr('x')) + x, 'y':  parseInt(obj.attr('y')) + y});
+		m = obj.matrix.translate((x * -1), (y * -1));
+		obj.transform(m);
+	});
+	//setTimeout(setLocation, time*1000, id, objX, objY);
 }
 var setLocation = function(id, x, y) {
-	//var obj = s.select('#'+id);
 
-	//obj.attr({'x': x, 'y': y});
+	//obj.attr({'x': parseInt(obj.attr('x')) + x, 'y':  parseInt(obj.attr('y')) + y});
+	m = obj.matrix.translate((x * -1), (y * -1));
+	obj.transform(m);
 }
