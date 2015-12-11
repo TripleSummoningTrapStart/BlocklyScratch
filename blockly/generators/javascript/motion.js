@@ -17,18 +17,13 @@ Blockly.JavaScript['motion_step'] = function(block) {
 
 Blockly.JavaScript['motion_turn_clockwise'] = function(block) {
     var turn_angle = block.getFieldValue('TURN_ANGLE');
-    var code = "rotateClock(sprite," + turn_angle + ", " + turn_angle  + ", "
-        + (block.parentBlock_ && block.parentBlock_.type == 'control_repeat_forever')
-        + ");\n";
+    var code = "rotateClock(sprite," + turn_angle + ", " + turn_angle + ");\n";
     return code;
 };
 
 Blockly.JavaScript['motion_turn_counterclockwise'] = function(block) {
     var turn_angle = block.getFieldValue('TURN_ANGLE') * -1;
-    if(block.parentBlock_ && block.parentBlock_.type == 'control_repeat_forever')
-    var code = "rotateClock(sprite," + turn_angle + ", " + turn_angle  + ", "
-        + (block.parentBlock_ && block.parentBlock_.type == 'control_repeat_forever')
-        + ");\n";
+    var code = "rotateClock(sprite," + turn_angle + ", " + turn_angle + ");\n";
     return code;
 };
 

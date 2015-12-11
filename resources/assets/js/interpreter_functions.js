@@ -18,7 +18,7 @@ var moveStep = function(id, steps) {
 		obj.setAttribute("x", xVal);
 	}
 };
-var rotateClock = function(id, rotateVal, rotateInc, forever) {
+var rotateClock = function(id, rotateVal, rotateInc) {
 	/*  if(rotateVal > 0 && rotateVal > 360)
 		{
 			rotateVal -= 360;
@@ -32,14 +32,18 @@ var rotateClock = function(id, rotateVal, rotateInc, forever) {
 	var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
 	var m;
 	if(!obj.matrix)	{
-		m = new Snap.Matrix().rotate(rotateVal);
-		m.translate(objX, objY);
+		m = new Snap.Matrix().rotate(rotateVal, objX, objY);
+		//m.translate(objX, objY);
 	}
 	else {
-		m = obj.matrix.rotate(rotateVal);
-		m.translate(objX, objY);
+		m = obj.matrix.rotate(rotateVal, objX, objY);
+		//m.translate(objX, objY);
 	}
+	
+	//obj.animate({transform: m }, 50);
+	obj.transform(m);
 
+	/*
 	if(forever) {
 		obj.animate({transform: m}, 50, function () {
 			rotateVal = rotateVal + rotateInc;
@@ -48,7 +52,7 @@ var rotateClock = function(id, rotateVal, rotateInc, forever) {
 	}
 	else {
 		obj.animate({transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50);
-	}
+	}*/
 };
 var setX = function (id, newVal) {
 	var obj = document.getElementById(id);
