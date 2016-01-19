@@ -1,3 +1,5 @@
+var hold;
+var obj;
 var addConsoleText = function(text) {
 	var textarea = document.getElementById("textArea");
 	textarea.innerHTML += text + '&#13;&#10;';
@@ -28,12 +30,30 @@ var rotateClock = function(id, rotateVal, rotateInc) {
 	var obj = s.select('#'+id);
 	var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
 	var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
+	var m;
+	if(!obj.matrix)	{
+		m = new Snap.Matrix().rotate(rotateVal, objX, objY);
+		//m.translate(objX, objY);
+	}
+	else {
+		m = obj.matrix.rotate(rotateVal, objX, objY);
+		//m.translate(objX, objY);
+	}
+	
+	//obj.animate({transform: m }, 50);
+	obj.transform(m);
 
-	obj.animate({ transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50 , function(){
-				rotateVal = rotateVal + rotateInc;	
-				rotateClock(id, rotateVal,rotateInc); // Repeat this animation so it appears infinite.
-			} );
-}
+	/*
+	if(forever) {
+		obj.animate({transform: m}, 50, function () {
+			rotateVal = rotateVal + rotateInc;
+			rotateClock(id, rotateVal, rotateInc, forever); // Repeat this animation so it appears infinite.
+		});
+	}
+	else {
+		obj.animate({transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50);
+	}*/
+};
 var setX = function (id, newVal) {
 	var obj = document.getElementById(id);
 	obj.setAttribute("x", newVal);
@@ -82,13 +102,22 @@ var glideTo = function(id, time, x, y) {
 		return true;
 	}
 	return false;*/
-	var obj = s.select('#'+id);
-	var objX = x - parseInt(obj.attr('x'));
-	var objY = y + parseInt(obj.attr('y'));
-
-	obj.animate({ transform: "t" + objX + ',' + objY}, (time * 1000), function(){}, setLocation(id, objX, objY));
-}
-var setLocation = function(id, x, y) {
-	//var obj = s.select('#'+id);
-	//obj.attr({'x': x, 'y': y});
+	obj = s.select('#'+id);
+	var objX = x; //- parseInt(obj.attr('x'));
+	var objY = y; //+ parseInt(obj.attr('y'));
+	
+	if(!obj.matrix)
+	{
+		m = new Snap.Matrix().translate(objX, objY);
+	}
+	else
+	{
+		m = obj.matrix.translate(objX, objY);
+	}
+	//obj.transform(m);
+	obj.animate({ transform: m }, (time * 1000), mina.linear, function() {
+		obj.attr({'x': parseInt(obj.attr('x')) + x, 'y':  parseInt(obj.attr('y')) + y});
+		m = obj.matrix.translate((x * -1), (y * -1));
+		obj.transform(m);
+	});
 }
