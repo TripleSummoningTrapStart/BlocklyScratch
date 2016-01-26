@@ -121,3 +121,12 @@ var glideTo = function(id, time, x, y) {
 		obj.transform(m);
 	});
 }
+
+var pointIn = function (id, dir) {
+	var obj = document.getElementById(id);
+	if(obj != null) {
+		var pointDiff = parseInt(obj.attributes.pointDir.value) - dir;
+		rotateClock(id, pointDiff, pointDiff);
+		obj.pointDir = dir;
+	}
+};

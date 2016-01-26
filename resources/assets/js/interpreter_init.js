@@ -77,4 +77,10 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(glideTo(id, time, x, y));
 	}
 	interpreter.setProperty(scope, 'glideTo', interpreter.createNativeFunction(wrapper));
+	var wrapper = function (id, dir) {
+		dir = dir ? dir.data : 90;
+		id = id ? id.data : '';
+		return interpreter.createPrimitive(pointIn(id, dir));
+	}
+	interpreter.setProperty(scope, 'pointIn', interpreter.createNativeFunction(wrapper));
 };
