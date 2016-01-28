@@ -10,13 +10,13 @@ var highlightBlock = function(id) {
 	highlightPause = true;
 };
 var moveStep = function(id, steps) {
-	var obj = document.getElementById(id);
+	var obj = s.select('#' + id);
+	var dir = parseInt(obj.attr("pointDir"));
+	var oppSide = steps * Math.sin(dir); // y diff
+	var adjSide = steps * Math.cos(dir); // x diff
 	var xVal = parseInt(obj.getAttribute("x"));
-	for(var i = 0; i < steps; i++)
-	{
-		xVal += i;
-		obj.setAttribute("x", xVal);
-	}
+	var yVal = parseInt(obj.getAttribute("y"));
+	obj.attr({'x': xVal + adjSide, 'y': yVal + oppSide});
 };
 var rotateClock = function(id, rotateVal, rotateInc) {
 	/*  if(rotateVal > 0 && rotateVal > 360)
@@ -39,7 +39,7 @@ var rotateClock = function(id, rotateVal, rotateInc) {
 		m = obj.matrix.rotate(rotateVal, objX, objY);
 		//m.translate(objX, objY);
 	}
-	
+
 	//obj.animate({transform: m }, 50);
 	obj.transform(m);
 
@@ -105,7 +105,7 @@ var glideTo = function(id, time, x, y) {
 	obj = s.select('#'+id);
 	var objX = x; //- parseInt(obj.attr('x'));
 	var objY = y; //+ parseInt(obj.attr('y'));
-	
+
 	if(!obj.matrix)
 	{
 		m = new Snap.Matrix().translate(objX, objY);
@@ -123,9 +123,9 @@ var glideTo = function(id, time, x, y) {
 }
 
 var pointIn = function (id, dir) {
-	var obj = document.getElementById(id);
+	var obj = s.select("#" + id);
 	if(obj != null) {
-		var pointDiff = parseInt(obj.attributes.pointDir.value) - dir;
+		var pointDiff = parseInt(obj.attr("pointDir")) - dir;
 		rotateClock(id, pointDiff, pointDiff);
 		obj.pointDir = dir;
 	}
