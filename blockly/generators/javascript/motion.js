@@ -17,13 +17,13 @@ Blockly.JavaScript['motion_step'] = function(block) {
 
 Blockly.JavaScript['motion_turn_clockwise'] = function(block) {
     var turn_angle = block.getFieldValue('TURN_ANGLE');
-    var code = "rotateClock(sprite," + turn_angle + ", " + turn_angle + ");\n";
+    var code = "rotateClock(sprite," + turn_angle + ");\n";
     return code;
 };
 
 Blockly.JavaScript['motion_turn_counterclockwise'] = function(block) {
     var turn_angle = block.getFieldValue('TURN_ANGLE') * -1;
-    var code = "rotateClock(sprite," + turn_angle + ", " + turn_angle + ");\n";
+    var code = "rotateClock(sprite," + turn_angle + ");\n";
     return code;
 };
 
@@ -61,7 +61,7 @@ Blockly.JavaScript['motion_glideto'] = function(block) {
     var value_x_val = Blockly.JavaScript.valueToCode(block, 'X_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     var value_y_val = Blockly.JavaScript.valueToCode(block, 'Y_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = 'glideTo(sprite, '+ value_time + ',' + value_x_val + ',' + (value_y_val *-1) +');';
+    var code = 'glideTo(sprite, '+ value_time + ',' + value_x_val + ',' + (value_y_val *-1) +')\n;';
     return code;
 };
 
@@ -95,7 +95,7 @@ Blockly.JavaScript['motion_sety'] = function(block) {
 
 Blockly.JavaScript['motion_bounceonedge'] = function(block) {
     // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code = 'onEdgeBounce = True;\n';
     return code;
 };
 

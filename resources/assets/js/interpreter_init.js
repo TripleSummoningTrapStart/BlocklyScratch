@@ -62,11 +62,10 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(changeY(id, changeVal));
 	}
 	interpreter.setProperty(scope, 'changeY', interpreter.createNativeFunction(wrapper));
-	var wrapper = function (id, rotateVal, rotateInc) {
+	var wrapper = function (id, rotateVal) {
 		rotateVal = rotateVal ? rotateVal.data : 0;
-		rotateInc = rotateInc ? rotateInc.data : 0;
 		id = id ? id.data : '';
-		return interpreter.createPrimitive(rotateClock(id, rotateVal,rotateInc));
+		return interpreter.createPrimitive(rotateClock(id, rotateVal));
 	}
 	interpreter.setProperty(scope, 'rotateClock', interpreter.createNativeFunction(wrapper));
 	var wrapper = function (id, time, x, y) {

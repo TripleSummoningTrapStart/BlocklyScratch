@@ -1,5 +1,7 @@
 var hold;
 var obj;
+var adjX = 200;
+var adjY = 140;
 var addConsoleText = function(text) {
 	var textarea = document.getElementById("textArea");
 	textarea.innerHTML += text + '&#13;&#10;';
@@ -10,15 +12,16 @@ var highlightBlock = function(id) {
 	highlightPause = true;
 };
 var moveStep = function(id, steps) {
-	var obj = document.getElementById(id);
-	var xVal = parseInt(obj.getAttribute("x"));
+	obj = s.select('#'+id);
+	var objX = parseInt(obj.attr('x'));
+	var objY = parseInt(obj.attr('y'));
 	for(var i = 0; i < steps; i++)
 	{
 		xVal += i;
 		obj.setAttribute("x", xVal);
 	}
 };
-var rotateClock = function(id, rotateVal, rotateInc) {
+var rotateClock = function(id, rotateVal) {
 	/*  if(rotateVal > 0 && rotateVal > 360)
 		{
 			rotateVal -= 360;
@@ -36,12 +39,15 @@ var rotateClock = function(id, rotateVal, rotateInc) {
 		//m.translate(objX, objY);
 	}
 	else {
-		m = obj.matrix.rotate(rotateVal, objX, objY);
+		m = new Snap.Matrix().rotate(rotateVal, objX, objY).add(obj.matrix);
 		//m.translate(objX, objY);
 	}
 	
-	//obj.animate({transform: m }, 50);
-	obj.transform(m);
+	obj.animate({transform: m }, 250);
+	//obj.transform(m);
+	//obj.animate({ transform: 'r' + rotateVal + ',' + objX + ',' + objY }, 250, mina.easein);
+	//obj.transform('r' + rotateVal + ',' + objX + ',' + objY);
+
 
 	/*
 	if(forever) {
@@ -75,49 +81,47 @@ var changeY = function (id, newVal) {
 	}
 };
 var gotoXY = function (id, xVal, yVal) {
-	var obj = document.getElementById(id);
-	if (obj != null) {
-		xVal = xVal ? xVal.data : obj.getAttribute("x");
-		yVal = yVal ? yVal.data : obj.getAttribute("y");
-		obj.setAttribute("x", xVal);
-		obj.setAttribute("y", yVal);
-	}
+	obj = s.select('#'+id);
+	obj.attr({'x': xVal, 'y':  yVal});
 };
 var glideTo = function(id, time, x, y) {
-	/*if(time == 0)
-	{
-		time = 1;
-	}
-	var obj = document.getElementById(id);
-	var xVal = parseInt(obj.getAttribute("x"));
-	var yVal = parseInt(obj.getAttribute("y"));
-	var xInc = (parseInt(x) - xVal)/ time;
-	var yInc = (parseInt(y) - yVal) / time;
-	if(Math.ceil(xVal) != x)
-	{
-		xVal += xInc;
-		yVal += yInc;
-		obj.setAttribute("x", xVal);
-		obj.setAttribute("y", yVal);
-		return true;
-	}
-	return false;*/
+
 	obj = s.select('#'+id);
-	var objX = x; //- parseInt(obj.attr('x'));
-	var objY = y; //+ parseInt(obj.attr('y'));
-	
+	var objX = parseInt(obj.attr('x'));
+	var objY = parseInt(obj.attr('y'));
+	var newX = adjX + x;
+	var newY = adjY + y;
+	if(newX == objX && newY == objY)
+	{
+		return;
+	}
+	if(newX > maxX)
+	{
+		newX = maxX;
+	}
+	if(newY > maxY)
+	{
+		newY = maxY;
+	}
 	if(!obj.matrix)
 	{
-		m = new Snap.Matrix().translate(objX, objY);
+		m = new Snap.Matrix().translate(newX - objX, newY - objY);
 	}
 	else
 	{
-		m = obj.matrix.translate(objX, objY);
+		m = new Snap.Matrix().translate(newX - objX, newY - objY).add(obj.matrix);
 	}
-	//obj.transform(m);
 	obj.animate({ transform: m }, (time * 1000), mina.linear, function() {
-		obj.attr({'x': parseInt(obj.attr('x')) + x, 'y':  parseInt(obj.attr('y')) + y});
-		m = obj.matrix.translate((x * -1), (y * -1));
-		obj.transform(m);
+		obj.attr({'x': newX, 'y':  newY});
+		obj.transform(new Snap.Matrix());
 	});
+}
+var edgeBounce = function(id){
+	obj = s.select('#'+id);
+	var objX = parseInt(obj.attr('x'));
+	var objY = parseInt(obj.attr('y'));
+	if(newX == objX || newY == objY)
+	{
+		//change object direction
+	}
 }

@@ -103,6 +103,7 @@ var generateInterpreterCode = function(codeToParse) {
 	//Parses the text into an array clean of comment values used as markers
 	var values = cleanValues(codeToParse);
 	var code = 'var queue = [];\n';
+	code += "var onEdgeBounce = false;\n"
 	code = "var sprite = '" + bigCircle.attr("id") + "';\n" + code; // TODO remove this and make dynamic
 
 	// Gets all global values
