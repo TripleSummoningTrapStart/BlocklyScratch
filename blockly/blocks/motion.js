@@ -41,7 +41,7 @@ Blockly.Blocks['motion_turn_clockwise'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("turn")
-			.appendField(new Blockly.FieldImage("blockly\\media\\clockwiseturn.png", 20, 20, "clockwise"))
+			      .appendField(new Blockly.FieldImage("blockly\\media\\clockwiseturn.png", 20, 20, "clockwise"))
             .appendField(new Blockly.FieldAngle("15"), "TURN_ANGLE");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -73,7 +73,7 @@ Blockly.Blocks['motion_pointin'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("point in direction")
-            .appendField(new Blockly.FieldDropdown([["90 (right)", "90"], ["-90 (left)", "-90"], ["0 (up)", "0"], ["180 (down)", "180"]]), "DIRECTIONS");
+            .appendField(new Blockly.FieldAngle("0"), "TURN_ANGLE");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Blocks.motion.HSV_HUE, Blockly.Blocks.motion.HSV_SATURATION, Blockly.Blocks.motion.HSV_VALUE);
