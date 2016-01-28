@@ -125,3 +125,12 @@ var edgeBounce = function(id){
 		//change object direction
 	}
 }
+
+var pointIn = function (id, dir) {
+	var obj = document.getElementById(id);
+	if(obj != null) {
+		var pointDiff = parseInt(obj.attributes.pointDir.value) - dir;
+		rotateClock(id, pointDiff, pointDiff);
+		obj.pointDir = dir;
+	}
+};

@@ -29,8 +29,7 @@ Blockly.JavaScript['motion_turn_counterclockwise'] = function(block) {
 
 Blockly.JavaScript['motion_pointin'] = function(block) {
     var dropdown_directions = block.getFieldValue('DIRECTIONS');
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code = "pointIn(sprite, " + dropdown_directions + ");\n";
     return code;
 };
 
