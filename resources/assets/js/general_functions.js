@@ -30,11 +30,11 @@ var injectBlockly = function() {
   workspace = Blockly.inject('blocklyDiv',
       {media: 'blockly/media/',
 		  toolbox: document.getElementById('toolbox')});
-		  
+
   //Local storage set up
   window.setTimeout(BlocklyStorage.restoreBlocks, 0);
   BlocklyStorage.backupOnUnload();
-  //Some block initialization including setting the infinite loop trap, the highlight block prefix 
+  //Some block initialization including setting the infinite loop trap, the highlight block prefix
   //and creating the hat curve
   window.LoopTrap = 1000;
   Blockly.BlockSvg.START_HAT = true;
@@ -42,7 +42,7 @@ var injectBlockly = function() {
   Blockly.JavaScript.addReservedWords('highlightBlock');
 	Blockly.JavaScript.addReservedWords('code');
   Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
-  
+
   //Adds the listener for resizing
   window.addEventListener('resize', resizeBlockly, false);
   resizeBlockly();
@@ -59,12 +59,12 @@ var downloadCode = function() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
 	return code;
 };
-/* Method to allow the user to export their blockly code into XML that can be imported later for 
+/* Method to allow the user to export their blockly code into XML that can be imported later for
    continuous work */
 var exportXML = function() {
 	var xml = Blockly.Xml.workspaceToDom(workspace);
 	var xml_text = Blockly.Xml.domToText(xml);
-	
+
 	document.getElementById('btnExportXML').href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(xml_text);
 	return xml;
 };
@@ -74,7 +74,7 @@ var importXML = function(contents) {
 	var xml = Blockly.Xml.textToDom(contents);
 	Blockly.Xml.domToWorkspace(workspace, xml);
 };
-/* Method to allow the user to open an XML file onto their computer to 
+/* Method to allow the user to open an XML file onto their computer to
 	add blocks into the blockly area */
 var openImportFile = function(evt) {
 	if (window.File && window.FileReader && window.FileList) {
@@ -91,15 +91,15 @@ var openImportFile = function(evt) {
 	} else {
 		alert('The File APIs are not fully supported by your browser.');
 	}
-	
-}; 
+
+};
 
 /* Method to convert the normal javascript into function based javascript to allow
    for simulated asyncronously running code to account for multiple different hat blocks */
 var generateInterpreterCode = function(codeToParse) {
 	//Ensures the function code is reset
 	resetFuncCode();
-	
+
 	//Parses the text into an array clean of comment values used as markers
 	var values = cleanValues(codeToParse);
 	var code = 'var queue = [];\n';
@@ -131,7 +131,7 @@ var cleanValues = function(codeToParse) {
 	for(var i = 1; i < values.length; i++)
 	{
 		var lines = S(values[i]).lines();
-		
+
 		for(var k = 0; k < lines.length; k++)
 		{
 			if(!S(lines[k]).contains('}') && S(lines[k]).contains('//') && S(lines[k]).contains('loop'))
@@ -143,7 +143,7 @@ var cleanValues = function(codeToParse) {
 		lines.shift();
 		lines.pop();
 		var startingLoopNumber = (numOfLoops*(i-1));
-		
+
 			var hasLoop = lookForLoop(lines, startingLoopNumber -1, 0);
 			if(hasLoop > -1)
 			{
@@ -151,7 +151,7 @@ var cleanValues = function(codeToParse) {
 			resetFuncCode();
 			values[i] += 'queue.push(functionLoop' + startingLoopNumber + ');\n';
 			}
-		
+
 	}
 
 	return values;
@@ -181,7 +181,7 @@ var stepCode = function () {
 		// Keep executing until a highlight statement is reached.
 		stepCode();
 	}
-    
+
 };
 /* Method to step through the interpreter */
 function nextStep() {
@@ -227,7 +227,11 @@ var registerButtons = function() {
 	document.getElementById('btnCode').addEventListener('click', downloadCode, false);
 	document.getElementById('btnExportXML').addEventListener('click', exportXML, false);
 };
-  
+
+var convertToRadians(deg){
+  return deg * Math.PI / 180;
+}
+
 window.onload = function() {
 	loadAllBlocks();
 	injectBlockly();
