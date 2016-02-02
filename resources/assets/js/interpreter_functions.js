@@ -1,5 +1,3 @@
-var hold;
-var obj;
 var adjX = 200;
 var adjY = 140;
 var addConsoleText = function(text) {
@@ -12,7 +10,7 @@ var highlightBlock = function(id) {
 	highlightPause = true;
 };
 var moveStep = function(id, steps) {
-	obj = s.select('#'+id);
+	var obj = s.select('#'+id);
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
 	for(var i = 0; i < steps; i++)
@@ -39,11 +37,12 @@ var rotateClock = function(id, rotateVal) {
 		//m.translate(objX, objY);
 	}
 	else {
-		m = new Snap.Matrix().rotate(rotateVal, objX, objY).add(obj.matrix);
+		m = obj.matrix.rotate(rotateVal, objX, objY);
 		//m.translate(objX, objY);
 	}
 	
 	obj.animate({transform: m }, 250);
+	//pointIn(id, rotateVal, false);
 	//obj.transform(m);
 	//obj.animate({ transform: 'r' + rotateVal + ',' + objX + ',' + objY }, 250, mina.easein);
 	//obj.transform('r' + rotateVal + ',' + objX + ',' + objY);
@@ -81,12 +80,12 @@ var changeY = function (id, newVal) {
 	}
 };
 var gotoXY = function (id, xVal, yVal) {
-	obj = s.select('#'+id);
+	var obj = s.select('#'+id);
 	obj.attr({'x': xVal, 'y':  yVal});
 };
 var glideTo = function(id, time, x, y) {
 
-	obj = s.select('#'+id);
+	var obj = s.select('#'+id);
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
 	var newX = adjX + x;
@@ -111,26 +110,31 @@ var glideTo = function(id, time, x, y) {
 	{
 		m = new Snap.Matrix().translate(newX - objX, newY - objY).add(obj.matrix);
 	}
+	//var direction = obj.pointDir.value;
 	obj.animate({ transform: m }, (time * 1000), mina.linear, function() {
 		obj.attr({'x': newX, 'y':  newY});
 		obj.transform(new Snap.Matrix());
+		rotateClock(id, direction);
 	});
 }
 var edgeBounce = function(id){
-	obj = s.select('#'+id);
+	var obj = s.select('#'+id);
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
-	if(newX == objX || newY == objY)
+	if(maxX == objX || maxY == objY)
 	{
-		//change object direction
+		pointIn(id, obj.pointIn.value + 180, true);
 	}
 }
 
-var pointIn = function (id, dir) {
+var pointIn = function (id, dir, setDirection) {
 	var obj = document.getElementById(id);
 	if(obj != null) {
-		var pointDiff = parseInt(obj.attributes.pointDir.value) - dir;
+		var pointDiff = parseInt(obj.attributes.pointDir) - dir;
 		rotateClock(id, pointDiff, pointDiff);
-		obj.pointDir = dir;
+		if(setDirection)
+			obj.pointDir = dir;
+		else
+			obj.pointDir += dir;
 	}
 };

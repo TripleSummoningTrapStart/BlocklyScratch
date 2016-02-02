@@ -103,8 +103,7 @@ var generateInterpreterCode = function(codeToParse) {
 	//Parses the text into an array clean of comment values used as markers
 	var values = cleanValues(codeToParse);
 	var code = 'var queue = [];\n';
-	code += "var onEdgeBounce = false;\n"
-	code = "var sprite = '" + arrow.attr("id") + "';\n" + code; // TODO remove this and make dynamic
+	code = "var sprite = '" + bigCircle.attr("id") + "';\n" + code; // TODO remove this and make dynamic
 
 	// Gets all global values
 	if(S(values[0]).contains('var'))
@@ -204,11 +203,7 @@ var runCode = function() {
 	Blockly.JavaScript.STATEMENT_PREFIX = null;
 	var code = generateInterpreterCode(Blockly.JavaScript.workspaceToCode(workspace));
 	interpreter = new Interpreter(code, initApi);
-	//var worker = new Worker('../resources/assests/js/worker.js');
-    //workspace.traceOn(true);
-	//interpreter.run();
 	nextStep();
-	//timer();
 	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
 };
 var timer = function()
