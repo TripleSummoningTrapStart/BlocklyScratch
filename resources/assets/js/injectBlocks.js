@@ -8,7 +8,7 @@
 function loadAllBlocks() {
     var blocks = [];
     var cats = {};
-	var invalid = ["control_repeat", "control_for", "control_forEach", "texts_prompt", "texts_create_join_container", "texts_create_join_item", "lists_create_with_container", "lists_create_with_item", "control_if_if", "control_if_elseif", "control_if_else", "procedures_mutatorcontainer", "procedures_mutatorarg","procedures_callnoreturn", "procedures_callreturn"];
+	var invalid = ["logic_ternary", "control_repeat", "control_for", "control_forEach", "texts_prompt", "texts_create_join_container", "texts_create_join_item", "lists_create_with_container", "lists_create_with_item", "control_if_if", "control_if_elseif", "control_if_else", "procedures_mutatorcontainer", "procedures_mutatorarg","procedures_callnoreturn", "procedures_callreturn"];
     for (var block in Blockly.Blocks) {
 
         try {

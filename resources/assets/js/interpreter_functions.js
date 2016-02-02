@@ -10,14 +10,13 @@ var highlightBlock = function(id) {
 	highlightPause = true;
 };
 var moveStep = function(id, steps) {
-	var obj = s.select('#'+id);
-	var objX = parseInt(obj.attr('x'));
-	var objY = parseInt(obj.attr('y'));
-	for(var i = 0; i < steps; i++)
-	{
-		xVal += i;
-		obj.setAttribute("x", xVal);
-	}
+	var obj = s.select('#' + id);
+	var dir = parseInt(obj.attr("pointDir"));
+	var oppSide = steps * Math.sin(dir); // y diff
+	var adjSide = steps * Math.cos(dir); // x diff
+	var xVal = parseInt(obj.getAttribute("x"));
+	var yVal = parseInt(obj.getAttribute("y"));
+	obj.attr({'x': xVal + adjSide, 'y': yVal + oppSide});
 };
 var rotateClock = function(id, rotateVal) {
 	/*  if(rotateVal > 0 && rotateVal > 360)
@@ -128,9 +127,9 @@ var edgeBounce = function(id){
 }
 
 var pointIn = function (id, dir, setDirection) {
-	var obj = document.getElementById(id);
+	var obj = s.select("#" + id);
 	if(obj != null) {
-		var pointDiff = parseInt(obj.attributes.pointDir) - dir;
+		var pointDiff = parseInt(obj.attr("pointDir")) - dir;
 		rotateClock(id, pointDiff, pointDiff);
 		if(setDirection)
 			obj.pointDir = dir;
