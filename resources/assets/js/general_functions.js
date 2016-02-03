@@ -224,9 +224,9 @@ var registerButtons = function() {
 	document.getElementById('btnExportXML').addEventListener('click', exportXML, false);
 };
 
-var convertToRadians(deg){
+var convertToRadians = function(deg){
   return deg * Math.PI / 180;
-}
+};
 
 window.onload = function() {
 	loadAllBlocks();
