@@ -232,6 +232,10 @@ var convertToRadians = function(deg){
   return deg * Math.PI / 180;
 };
 
+var convertToDegrees = function(rad){
+  return rad * 180 / Math.PI;
+}
+
 window.onload = function() {
 	loadAllBlocks();
 	injectBlockly();
