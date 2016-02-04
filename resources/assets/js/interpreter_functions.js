@@ -11,14 +11,17 @@ var highlightBlock = function(id) {
 };
 var moveStep = function(id, steps) {
 	var obj = s.select('#' + id);
-	var dir = parseInt(obj.attr("pointDir"));
+	var dir = parseFloat(obj.attr("pointDir"));
 	var oppSide = steps * Math.sin(dir); // y diff
 	var adjSide = steps * Math.cos(dir); // x diff
-	var xVal = parseInt(obj.getAttribute("x"));
-	var yVal = parseInt(obj.getAttribute("y"));
-	obj.attr({'x': xVal + adjSide, 'y': yVal + oppSide});
+	obj.attr({'x': parseInt(obj.attr('x')) + adjSide, 'y':  parseInt(obj.attr('y')) - oppSide});
+	/*obj.transform("t" + adjSide + "," + oppSide);
+	var boundingBox = obj.getBBox();
+	boundingBox.cx += adjSide;
+	boundingBox.cy += oppSide;*/
 };
 var rotateClock = function(id, rotateVal) {
+		//TODO Should probably change to take Radians, maybe not
 	/*  if(rotateVal > 0 && rotateVal > 360)
 		{
 			rotateVal -= 360;
@@ -129,11 +132,11 @@ var edgeBounce = function(id){
 var pointIn = function (id, dir, setDirection) {
 	var obj = s.select("#" + id);
 	if(obj != null) {
-		var pointDiff = parseInt(obj.attr("pointDir")) - dir;
-		rotateClock(id, pointDiff, pointDiff);
-		if(setDirection)
-			obj.pointDir = dir;
-		else
+		var dirRad = convertToRadians(dir);
+		var pointDiffRad = parseFloat(obj.attr("pointDir")) - dirRad;
+		var pointDiffDeg = convertToDegrees(pointDiffRad);
+		//rotateClock(id, pointDiffDeg, pointDiffDeg);
+		obj.attr("pointDir", dirRad);
 			obj.pointDir += dir;
 	}
 };

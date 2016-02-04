@@ -20,7 +20,7 @@ arrow.attr({
 	stroke: "#000",
 	strokeWidth: 3,
 	id: "a1",
-	pointDir: 0
+	pointDir: 0 // Needs to be in Radians for Math.<trigfunction>
 });*/
 
 var bigCircle = s.rect(200, 140, 40, 40);
