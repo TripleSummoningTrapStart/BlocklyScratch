@@ -14,14 +14,14 @@ var spritey = maxY/2;
 var diffx;
 var diffy;
 //
-var arrow = s.paper.polygon([200, 110, 250,160, 200,210]);
+/*var arrow = s.paper.polygon([200, 110, 250,160, 200,210]);
 arrow.attr({
 	fill: "green",
 	stroke: "#000",
 	strokeWidth: 3,
 	id: "a1",
 	pointDir: 0 // Needs to be in Radians for Math.<trigfunction>
-});
+});*/
 
 var bigCircle = s.rect(200, 140, 40, 40);
 bigCircle.attr({
@@ -29,7 +29,7 @@ bigCircle.attr({
 	stroke: "#000",
 	strokeWidth:5,
 	id: "c2",
-	pointDir: 0
+	pointDir: 0 // Needs to be in Radians for Math.<trigfunction>
 });
 
 //sets up the sprite to be dragged
