@@ -159,9 +159,17 @@ var pointIn = function (id, dir, setDirection) {
 		var dirRad = convertToRadians(dir);
 		var pointDiffRad = parseFloat(obj.attr("pointDir")) - dirRad;
 		var pointDiffDeg = convertToDegrees(pointDiffRad);
-		//rotateClock(id, pointDiffDeg, pointDiffDeg);
-		obj.attr("pointDir", dirRad);
-			obj.pointDir += dir;
+		var rotateStyle = obj.attr('rotationStyle');
+		if(rotationStyle == 'NONE' || (rotationStyle == 'LtoR' && dir != 0 || dir != 180)
+		{
+			return;
+		}
+		else
+		{
+			//rotateClock(id, pointDiffDeg, pointDiffDeg);
+			obj.attr("pointDir", dirRad);
+				obj.pointDir += dir;
+		}
 	}
 };
 var setRotationStyle = function(id, rotateStyle)
