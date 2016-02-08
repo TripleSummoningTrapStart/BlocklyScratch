@@ -29,7 +29,9 @@ bigCircle.attr({
 	stroke: "#000",
 	strokeWidth:5,
 	id: "c2",
-	pointDir: 0 // Needs to be in Radians for Math.<trigfunction>
+	pointDir: 0, // Needs to be in Radians for Math.<trigfunction>
+	rotationStyle: "all",
+	rotationDegree: 0
 });
 
 //sets up the sprite to be dragged

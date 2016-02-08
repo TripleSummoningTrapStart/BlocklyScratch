@@ -101,7 +101,7 @@ Blockly.JavaScript['motion_bounceonedge'] = function(block) {
 Blockly.JavaScript['motion_rotation_style'] = function(block) {
     var dropdown_options = block.getFieldValue('OPTIONS');
     // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code = 'setRotationStyle(sprite, "' + dropdown_options + '");\n';
     return code;
 };
 

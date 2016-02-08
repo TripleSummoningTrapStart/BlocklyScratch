@@ -10,9 +10,9 @@
 		 <link href="resources/assets/css/testpage.css" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
-		<script src="Snap.svg-0.4.1/dist/snap.svg-min.js"></script>
+		<script src="Snap.svg-0.4.1/dist/snap.svg.js"></script>
 
-		<script src="blockly/blockly_uncompressed.js"></script> 
+		<script src="blockly/blockly_uncompressed.js"></script>
 		<script src="blockly/blocks/logic.js"></script>
 		<script src="blockly/blocks/loops.js"></script>
 		<script src="blockly/blocks/math.js"></script>
@@ -47,13 +47,13 @@
 		<script src="resources/assets/js/injectBlocks.js"></script>
 		<script src="resources/assets/js/interpreter_init.js"></script>
 		<script src="resources/assets/js/interpreter_functions.js"></script>
-		
 
-		
+
+
 	</head>
 	<body>
-		
-			
+
+
 			<div class="row blockly-toolbox flex">
 				<div class="alert">The functionality of all the Events Blocks is not currently implemented in this version except for when 'Run' clicked.</div>
 				<div class="col-sm-12 col-md-12 col-lg-12">
@@ -65,39 +65,13 @@
 					<a id="btnImportXML" class="btn btn-info">Upload XML: <input type="file" style="display:inline" style="visibility: hidden" id="files" name="files[]"></a> <!--- reference: http://www.html5rocks.com/en/tutorials/file/dndfiles/ -->
 				</div>
 			</div>
-			<!--<div id="wrapper">
-				<div id="sidebar">
-					<svg id="svgArea" style = "outline: 5px solid black"  class="row">
-							<pattern id="pattern" patternUnits="userSpaceOnUse" x="0" y="0" width ="10" height = "10" viewbox="0 0 10 10">
-								<path d="M-5,0,10,15m0-5,15,10" stroke="white" stroke-width="5"/>
-							</pattern>
-							
-					</svg>
-				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#console" aria-controls="console" role="tab" data-toggle="tab">Console</a></li>
-					<li role="presentation"><a href="#sprites" aria-controls="sprites" role="tab" data-toggle="tab">Sprites</a></li>
-				</ul>
-				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="console"><textarea rows="21" cols="105" id="textArea" readonly></textArea></div>
-					<div role="tabpanel" class="tab-pane" id="sprites">...</div>
-				</div>
-				
-			</div>
-				<div id="content">
-					<div class="blockly-container">
-						<div id="blocklyArea" class="col-sm-12 col-md-12 col-lg-12">
-							<p>Blockly goes here</p>
-						</div>
-					</div>
-				</div>	
-			</div>-->
 			<div class="flex-container flex">
 				<div id="stage" class="flex">
 					<svg id="svgArea" style = "outline: 5px solid black"  class="row" viewBox ="0 0 480 360">
 							<pattern id="pattern" patternUnits="userSpaceOnUse" x="0" y="0" width ="10" height = "10" viewbox="0 0 10 10">
 								<path d="M-5,0,10,15m0-5,15,10" stroke="white" stroke-width="5"/>
 							</pattern>
-							
+
 					</svg>
 				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation" class="active"><a href="#console" aria-controls="console" role="tab" data-toggle="tab">Console</a></li>
@@ -116,12 +90,12 @@
 					</div>
 					<xml id="toolbox" style="display: none"></xml>
 
-				</div>	
+				</div>
 			</div>
-			
+
 		<div id="blocklyDiv"  style="position: absolute"></div>
-		
-		
+
+
 	</body>
 	<script src="resources/assets/js/snap.js"></script>
 </html>

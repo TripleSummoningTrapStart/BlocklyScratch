@@ -34,14 +34,12 @@ var injectBlockly = function() {
   //Local storage set up
   window.setTimeout(BlocklyStorage.restoreBlocks, 0);
   BlocklyStorage.backupOnUnload();
-  //Some block initialization including setting the infinite loop trap, the highlight block prefix
+  //Some block initialization including setting the highlight block prefix
   //and creating the hat curve
-  window.LoopTrap = 1000;
   Blockly.BlockSvg.START_HAT = true;
   Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
   Blockly.JavaScript.addReservedWords('highlightBlock');
 	Blockly.JavaScript.addReservedWords('code');
-  Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
 
   //Adds the listener for resizing
   window.addEventListener('resize', resizeBlockly, false);
@@ -52,11 +50,9 @@ var injectBlockly = function() {
   remove the prefixes to create clean javascript free of extra blockly code */
 var downloadCode = function() {
 	Blockly.JavaScript.STATEMENT_PREFIX = null;
-	Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
 	var code = Blockly.JavaScript.workspaceToCode(workspace);
     document.getElementById('btnCode').href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(code);
     Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-    Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
 	return code;
 };
 /* Method to allow the user to export their blockly code into XML that can be imported later for
@@ -231,7 +227,10 @@ var convertToRadians = function(deg){
 var convertToDegrees = function(rad){
   return rad * 180 / Math.PI;
 }
-
+var matrixAdd = function(matrixA, matrixB)
+{
+  return new Snap.Matrix(matrixA.a + matrixB.a, matrixA.b + matrixB.b, matrixA.c + matrixB.c, matrixA.d + matrixB.d, matrixB.e, matrixB.f)
+}
 window.onload = function() {
 	loadAllBlocks();
 	injectBlockly();

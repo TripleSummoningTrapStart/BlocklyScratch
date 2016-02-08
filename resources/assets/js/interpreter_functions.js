@@ -33,17 +33,41 @@ var rotateClock = function(id, rotateVal) {
 	var obj = s.select('#'+id);
 	var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
 	var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
+	var rotationStyle = obj.attr('rotationStyle');
+	var rotationDegree = parseInt(obj.attr('rotationDegree'));
+	var radians = convertToRadians(rotateVal);
+
+	if(rotationStyle == 'LtoR'){
+		if((rotationDegree + rotateVal) % 180 > 90)
+		{
+			rotateVal = 180;
+			rotationDegree = 0;
+		}
+		else
+		{
+				obj.attr({'rotationDegree': parseInt(rotationDegree + rotateVal)});
+				return;
+		}
+	}
+	else if(rotationStyle == 'NONE')
+	{
+		return;
+	}
 	var m;
 	if(!obj.matrix)	{
-		m = new Snap.Matrix().rotate(rotateVal, objX, objY);
-		//m.translate(objX, objY);
+	  //m = new Snap.Matrix(Math.cos(radians), Math.sin(radians), Math.sin(radians) * -1, Math.cos(radians), objX, objY);//.translate(0,0);//.translate(objX, objY);
+		//m = new Snap.Matrix(1,1,1,1,1,1).add(new Snap.Matrix(1,1,1,1,1,1));
+		//m = new Snap.Matrix(Math.cos(radians), Math.sin(radians), Math.sin(radians) * -1, Math.cos(radians), objX, objY);
+		m = new Snap.Matrix().rotate(rotateVal, objX, objY);//.translate(objX, objY);
 	}
 	else {
+		//	m = new Snap.Matrix().translate(objX * -1, objY * -1).add(Math.cos(radians), Math.sin(radians), Math.sin(radians) * -1, Math.cos(radians), 0,0).translate(objX, objY);
 		m = obj.matrix.rotate(rotateVal, objX, objY);
 		//m.translate(objX, objY);
 	}
-	
+
 	obj.animate({transform: m }, 250);
+	obj.attr({'rotationDegree': parseInt(rotationDegree + rotateVal)});
 	//pointIn(id, rotateVal, false);
 	//obj.transform(m);
 	//obj.animate({ transform: 'r' + rotateVal + ',' + objX + ',' + objY }, 250, mina.easein);
@@ -116,7 +140,7 @@ var glideTo = function(id, time, x, y) {
 	obj.animate({ transform: m }, (time * 1000), mina.linear, function() {
 		obj.attr({'x': newX, 'y':  newY});
 		obj.transform(new Snap.Matrix());
-		rotateClock(id, direction);
+		//rotateClock(id, direction);
 	});
 }
 var edgeBounce = function(id){
@@ -140,3 +164,10 @@ var pointIn = function (id, dir, setDirection) {
 			obj.pointDir += dir;
 	}
 };
+var setRotationStyle = function(id, rotateStyle)
+{
+	var obj = s.select("#"  + id);
+	if(obj != null){
+		obj.attr({'rotationStyle': rotateStyle});
+	}
+}
