@@ -40,11 +40,17 @@
 				padding-top: 10px;
 				width: 40vw;
 			}
-			#svgArea{
+			#svgStage{
 				/*position: absolute;*/
 				height: 50vh;
 				width: 39vw;
 				margin-left: 5px;
+				align-self: flex-start;
+			}
+			#svgSprite{
+				/*position: absolute;*/
+				height: 29vh;
+				width: 40vw;
 				align-self: flex-start;
 			}
 			#textArea{
@@ -55,10 +61,9 @@
 				align-self: flex-end;
 				resize: none;
 				border: none;
-			
 			}
 			#blocklyArea {
-			  height: 75vh;
+			  height: 80vh;
 			}
 			/*#wrapper{
 				margin-left:200px;
@@ -71,7 +76,7 @@
 				height: 95vh;*/
 				width: 60vw;
 				height: 95vh;
-				
+
 			}
 			#stage {
 				/*float: left;
@@ -86,5 +91,3 @@
 			#cleared {
 				clear: both;
 			}
-			
-

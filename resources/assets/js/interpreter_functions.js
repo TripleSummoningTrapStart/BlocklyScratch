@@ -10,7 +10,7 @@ var highlightBlock = function(id) {
 	highlightPause = true;
 };
 var moveStep = function(id, steps) {
-	var obj = s.select('#' + id);
+	var obj = stage.select('#' + id);
 	var dir = parseFloat(obj.attr("pointDir"));
 	var oppSide = steps * Math.sin(dir); // y diff
 	var adjSide = steps * Math.cos(dir); // x diff
@@ -30,7 +30,7 @@ var rotateClock = function(id, rotateVal) {
 		{
 			rotateVal += 360;
 		}*/
-	var obj = s.select('#'+id);
+	var obj = stage.select('#'+id);
 	var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
 	var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
 	var rotationStyle = obj.attr('rotationStyle');
@@ -106,12 +106,12 @@ var changeY = function (id, newVal) {
 	}
 };
 var gotoXY = function (id, xVal, yVal) {
-	var obj = s.select('#'+id);
+	var obj = stage.select('#'+id);
 	obj.attr({'x': xVal, 'y':  yVal});
 };
 var glideTo = function(id, time, x, y) {
 
-	var obj = s.select('#'+id);
+	var obj = stage.select('#'+id);
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
 	var newX = adjX + x;
@@ -144,7 +144,7 @@ var glideTo = function(id, time, x, y) {
 	});
 }
 var edgeBounce = function(id){
-	var obj = s.select('#'+id);
+	var obj = stage.select('#'+id);
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
 	if(maxX == objX || maxY == objY)
@@ -154,16 +154,15 @@ var edgeBounce = function(id){
 }
 
 var pointIn = function (id, dir, setDirection) {
-	var obj = s.select("#" + id);
-	if(obj != null) {
+	var obj = stage.select("#" + id);
+	if(obj != null)
+	{
 		var dirRad = convertToRadians(dir);
 		var pointDiffRad = parseFloat(obj.attr("pointDir")) - dirRad;
 		var pointDiffDeg = convertToDegrees(pointDiffRad);
 		var rotateStyle = obj.attr('rotationStyle');
-		if(rotationStyle == 'NONE' || (rotationStyle == 'LtoR' && dir != 0 || dir != 180)
-		{
+		if(rotationStyle == 'NONE' || (rotationStyle == 'LtoR' && dir != 0 || dir != 180))
 			return;
-		}
 		else
 		{
 			//rotateClock(id, pointDiffDeg, pointDiffDeg);
@@ -174,7 +173,7 @@ var pointIn = function (id, dir, setDirection) {
 };
 var setRotationStyle = function(id, rotateStyle)
 {
-	var obj = s.select("#"  + id);
+	var obj = stage.select("#"  + id);
 	if(obj != null){
 		obj.attr({'rotationStyle': rotateStyle});
 	}

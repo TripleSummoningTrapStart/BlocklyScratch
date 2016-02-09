@@ -1,5 +1,6 @@
 var svg = $('#svgArea')[0];
-var s = Snap("#svgArea");
+var stage = Snap("#svgArea");
+var sprite = Snap("#svgSprite");
 var pt = svg.createSVGPoint();
 
 //for different screen sizes, shows edge of working area
@@ -23,7 +24,7 @@ arrow.attr({
 	pointDir: 0 // Needs to be in Radians for Math.<trigfunction>
 });*/
 
-var bigCircle = s.rect(200, 140, 40, 40);
+var bigCircle = stage.rect(200, 140, 40, 40);
 bigCircle.attr({
 	fill: "green",
 	stroke: "#000",
@@ -36,8 +37,8 @@ bigCircle.attr({
 
 //sets up the sprite to be dragged
 var start = function() {
-	maxX = s.node.width.baseVal.value;
-	maxY = s.node.height.baseVal.value;
+	maxX = stage.node.width.baseVal.value;
+	maxY = stage.node.height.baseVal.value;
     this.ox = parseInt(this.attr("x"));
     this.oy = parseInt(this.attr("y"));
 	spritex = this.ox;
