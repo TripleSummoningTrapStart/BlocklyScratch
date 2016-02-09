@@ -137,7 +137,7 @@ var glideTo = function(id, time, x, y) {
 		m = new Snap.Matrix().translate(newX - objX, newY - objY).add(obj.matrix);
 	}
 	//var direction = obj.pointDir.value;
-	obj.animate({ transform: m }, (time * 1000), mina.linear, function() {
+	Snap.animate({ transform: m }, (time * 1000), mina.linear, function() {
 		obj.attr({'x': newX, 'y':  newY});
 		obj.transform(new Snap.Matrix());
 		//rotateClock(id, direction);
@@ -160,8 +160,8 @@ var pointIn = function (id, dir, setDirection) {
 		var dirRad = convertToRadians(dir);
 		var pointDiffRad = parseFloat(obj.attr("pointDir")) - dirRad;
 		var pointDiffDeg = convertToDegrees(pointDiffRad);
-		var rotateStyle = obj.attr('rotationStyle');
-		if(rotationStyle == 'NONE' || (rotationStyle == 'LtoR' && dir != 0 || dir != 180))
+		var rotateStyle = obj.attr('rotateStyle');
+		if(rotateStyle == 'NONE' || (rotateStyle == 'LtoR' && (dir != 0 || dir != 180)))
 			return;
 		else
 		{
@@ -175,6 +175,6 @@ var setRotationStyle = function(id, rotateStyle)
 {
 	var obj = stage.select("#"  + id);
 	if(obj != null){
-		obj.attr({'rotationStyle': rotateStyle});
+		obj.attr({'rotateStyle': rotateStyle});
 	}
 }
