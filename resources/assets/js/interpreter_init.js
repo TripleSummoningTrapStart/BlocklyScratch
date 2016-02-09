@@ -82,4 +82,15 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(pointIn(id, dir));
 	}
 	interpreter.setProperty(scope, 'pointIn', interpreter.createNativeFunction(wrapper));
+	var wrapper = function (spriteID) {
+		spriteID = spriteID ? spriteID.data : '';
+		return interpreter.createPrimitive(pointTowardsMouse(spriteID));
+	}
+	interpreter.setProperty(scope, 'pointTowardsMouse', interpreter.createNativeFunction(wrapper));
+	var wrapper = function (spriteID, objID) {
+		spriteID = spriteID ? spriteID.data : '';
+		objID = objID ? id.data : '';
+		return interpreter.createPrimitive(pointTowards(spriteID, objID));
+	}
+	interpreter.setProperty(scope, 'pointTowards', interpreter.createNativeFunction(wrapper));
 };

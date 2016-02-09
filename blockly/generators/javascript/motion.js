@@ -35,8 +35,13 @@ Blockly.JavaScript['motion_pointin'] = function(block) {
 
 Blockly.JavaScript['motion_pointtowards'] = function(block) {
     var dropdown_objects = block.getFieldValue('OBJECTS');
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code;
+    if (dropdown_objects == "MOUSE"){
+      code = "pointTowardsMouse(sprite);\n";
+    }
+    else {
+      var code = '...';
+    }
     return code;
 };
 

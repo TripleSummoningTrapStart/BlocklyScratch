@@ -42,7 +42,7 @@ var rotateClock = function(id, rotateVal) {
 		m = obj.matrix.rotate(rotateVal, objX, objY);
 		//m.translate(objX, objY);
 	}
-	
+
 	obj.animate({transform: m }, 250);
 	//pointIn(id, rotateVal, false);
 	//obj.transform(m);
@@ -139,4 +139,12 @@ var pointIn = function (id, dir, setDirection) {
 		obj.attr("pointDir", dirRad);
 			obj.pointDir += dir;
 	}
+};
+
+var pointTowardsMouse = function(spriteID){
+	var spr = stage.select("#" + spriteID);
+	var mX = mouseX;
+	var mY = mouseY;
+	var spritePos = calculateSpriteWindowPosition(spr);
+
 };

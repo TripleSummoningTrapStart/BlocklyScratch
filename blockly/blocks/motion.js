@@ -241,9 +241,6 @@ Blockly.Blocks['motion_bounceonedge'] = {
 };
 
 Blockly.Blocks['motion_rotation_style'] = {
-    /**
-     * I'm not sure what this block is suppose to to do
-     */
     init: function() {
         this.appendDummyInput()
             .appendField("set rotation style")
