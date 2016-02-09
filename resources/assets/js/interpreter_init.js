@@ -82,6 +82,12 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(pointIn(id, dir));
 	}
 	interpreter.setProperty(scope, 'pointIn', interpreter.createNativeFunction(wrapper));
+	var wrapper = function (id, rotateStyle) {
+		rotateStyle = rotateStyle ? rotateStyle.data : 'all';
+		id = id ? id.data : '';
+		return interpreter.createPrimitive(setRotationStyle(id, rotateStyle));
+	}
+	interpreter.setProperty(scope, 'setRotationStyle', interpreter.createNativeFunction(wrapper));
 	var wrapper = function (spriteID) {
 		spriteID = spriteID ? spriteID.data : '';
 		return interpreter.createPrimitive(pointTowardsMouse(spriteID));
