@@ -10,7 +10,7 @@ var highlightBlock = function(id) {
 	highlightPause = true;
 };
 var moveStep = function(id, steps) {
-	var obj = s.select('#' + id);
+	var obj = stage.select('#' + id);
 	var dir = parseFloat(obj.attr("pointDir"));
 	var oppSide = steps * Math.sin(dir); // y diff
 	var adjSide = steps * Math.cos(dir); // x diff
@@ -30,20 +30,44 @@ var rotateClock = function(id, rotateVal) {
 		{
 			rotateVal += 360;
 		}*/
-	var obj = s.select('#'+id);
+	var obj = stage.select('#'+id);
 	var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
 	var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
+	var rotationStyle = obj.attr('rotationStyle');
+	var rotationDegree = parseInt(obj.attr('rotationDegree'));
+	var radians = convertToRadians(rotateVal);
+
+	if(rotationStyle == 'LtoR'){
+		if((rotationDegree + rotateVal) % 180 > 90)
+		{
+			rotateVal = 180;
+			rotationDegree = 0;
+		}
+		else
+		{
+				obj.attr({'rotationDegree': parseInt(rotationDegree + rotateVal)});
+				return;
+		}
+	}
+	else if(rotationStyle == 'NONE')
+	{
+		return;
+	}
 	var m;
 	if(!obj.matrix)	{
-		m = new Snap.Matrix().rotate(rotateVal, objX, objY);
-		//m.translate(objX, objY);
+	  //m = new Snap.Matrix(Math.cos(radians), Math.sin(radians), Math.sin(radians) * -1, Math.cos(radians), objX, objY);//.translate(0,0);//.translate(objX, objY);
+		//m = new Snap.Matrix(1,1,1,1,1,1).add(new Snap.Matrix(1,1,1,1,1,1));
+		//m = new Snap.Matrix(Math.cos(radians), Math.sin(radians), Math.sin(radians) * -1, Math.cos(radians), objX, objY);
+		m = new Snap.Matrix().rotate(rotateVal, objX, objY);//.translate(objX, objY);
 	}
 	else {
+		//	m = new Snap.Matrix().translate(objX * -1, objY * -1).add(Math.cos(radians), Math.sin(radians), Math.sin(radians) * -1, Math.cos(radians), 0,0).translate(objX, objY);
 		m = obj.matrix.rotate(rotateVal, objX, objY);
 		//m.translate(objX, objY);
 	}
 
 	obj.animate({transform: m }, 250);
+	obj.attr({'rotationDegree': parseInt(rotationDegree + rotateVal)});
 	//pointIn(id, rotateVal, false);
 	//obj.transform(m);
 	//obj.animate({ transform: 'r' + rotateVal + ',' + objX + ',' + objY }, 250, mina.easein);
@@ -82,12 +106,12 @@ var changeY = function (id, newVal) {
 	}
 };
 var gotoXY = function (id, xVal, yVal) {
-	var obj = s.select('#'+id);
+	var obj = stage.select('#'+id);
 	obj.attr({'x': xVal, 'y':  yVal});
 };
 var glideTo = function(id, time, x, y) {
 
-	var obj = s.select('#'+id);
+	var obj = stage.select('#'+id);
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
 	var newX = adjX + x;
@@ -116,11 +140,11 @@ var glideTo = function(id, time, x, y) {
 	obj.animate({ transform: m }, (time * 1000), mina.linear, function() {
 		obj.attr({'x': newX, 'y':  newY});
 		obj.transform(new Snap.Matrix());
-		rotateClock(id, direction);
+		//rotateClock(id, direction);
 	});
 }
 var edgeBounce = function(id){
-	var obj = s.select('#'+id);
+	var obj = stage.select('#'+id);
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
 	if(maxX == objX || maxY == objY)
@@ -130,14 +154,21 @@ var edgeBounce = function(id){
 }
 
 var pointIn = function (id, dir, setDirection) {
-	var obj = s.select("#" + id);
-	if(obj != null) {
+	var obj = stage.select("#" + id);
+	if(obj != null)
+	{
 		var dirRad = convertToRadians(dir);
 		var pointDiffRad = parseFloat(obj.attr("pointDir")) - dirRad;
 		var pointDiffDeg = convertToDegrees(pointDiffRad);
-		//rotateClock(id, pointDiffDeg, pointDiffDeg);
-		obj.attr("pointDir", dirRad);
-			obj.pointDir += dir;
+		var rotateStyle = obj.attr('rotationStyle');
+		if(rotationStyle == 'NONE' || (rotationStyle == 'LtoR' && dir != 0 || dir != 180))
+			return;
+		else
+		{
+			//rotateClock(id, pointDiffDeg, pointDiffDeg);
+			obj.attr("pointDir", dirRad);
+				obj.pointDir += dir;
+		}
 	}
 };
 
@@ -148,3 +179,11 @@ var pointTowardsMouse = function(spriteID){
 	var spritePos = calculateSpriteWindowPosition(spr);
 
 };
+
+var setRotationStyle = function(id, rotateStyle)
+{
+	var obj = stage.select("#"  + id);
+	if(obj != null){
+		obj.attr({'rotationStyle': rotateStyle});
+	}
+}
