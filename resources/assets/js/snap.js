@@ -1,11 +1,11 @@
-var svg = $('#svgArea')[0];
-var stage = Snap("#svgArea");
+var svg = $('#svgStage')[0];
+var stage = Snap("#svgStage");
 var sprite = Snap("#svgSprite");
 var pt = svg.createSVGPoint();
 
 //for different screen sizes, shows edge of working area
-var maxX = s.node.width.baseVal.value;
-var maxY = s.node.height.baseVal.value;
+var maxX = stage.node.width.baseVal.value;
+var maxY = stage.node.height.baseVal.value;
 //current location of sprite
 var spritex = (maxX/2) - 30;
 var spritey = maxY/2;
