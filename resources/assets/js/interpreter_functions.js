@@ -151,7 +151,7 @@ var edgeBounce = function(id){
 	{
 		pointIn(id, obj.pointIn.value + 180, true);
 	}
-}
+};
 
 var pointIn = function (id, dir, setDirection) {
 	var obj = stage.select("#" + id);
@@ -171,6 +171,28 @@ var pointIn = function (id, dir, setDirection) {
 		}
 	}
 };
+
+var pointTowardsMouse = function(spriteID){
+	var spr = stage.select("#" + spriteID);
+	var mX = mouseX;
+	var mY = mouseY;
+	var points = calculateSpriteWindowPosition(spr); // Should return a tuple
+	var xDif = (mX - points.x);
+	var yDif = -1 * (mY - points.y);
+	var pointDir = Math.atan(yDif/xDif);
+	switch (true) {
+		case (xDif < 0):
+			pointDir += Math.PI;
+			break;
+		case (yDif > 0):
+			pointDir += 2 * Math.PI;
+			break;
+		default: // yDif < 0 and xDif > 0
+			// do nothing
+	}
+	pointIn(spriteID, convertToDegrees(pointDir), true);
+};
+
 var setRotationStyle = function(id, rotateStyle)
 {
 	var obj = stage.select("#"  + id);

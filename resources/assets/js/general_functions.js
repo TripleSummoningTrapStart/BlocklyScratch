@@ -4,6 +4,8 @@ var workspace;
 var highlightPause = false;
 var interpreter;
 var time = 1;
+var mouseX;
+var mouseY;
 
 /* Method called when a change is detected in the page to resize the blockly area */
 var resizeBlockly = function(e) {
@@ -239,11 +241,22 @@ var convertToRadians = function(deg){
 
 var convertToDegrees = function(rad){
   return rad * 180 / Math.PI;
-}
+};
+
+$(document).mousemove(function(event) {
+  mouseX= event.pageX;
+  mouseY = event.pageY;
+});
+
+var calculateSpriteWindowPosition = function(spr){
+  return {x: 126, y: 380};
+};
+
 var matrixAdd = function(matrixA, matrixB)
 {
   return new Snap.Matrix(matrixA.a + matrixB.a, matrixA.b + matrixB.b, matrixA.c + matrixB.c, matrixA.d + matrixB.d, matrixB.e, matrixB.f)
 }
+
 window.onload = function() {
 	loadAllBlocks();
 	injectBlockly();
