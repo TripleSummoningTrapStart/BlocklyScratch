@@ -69,6 +69,7 @@ var exportXML = function() {
 
 /* Method to convert text into xml and add them to the workspace */
 var importXML = function(contents) {
+  workspace.clear();
 	var xml = Blockly.Xml.textToDom(contents);
 	Blockly.Xml.domToWorkspace(workspace, xml);
 };
@@ -82,7 +83,18 @@ var openImportFile = function(evt) {
 			var reader = new FileReader();
 			reader.onload = function(e)
 			{
-				importXML(e.target.result);
+        var importType = e.target.result.substring(1,4);
+
+        switch(importType)
+        {
+          case 'xml':
+            importXML(e.target.result);
+            break;
+          case 'svg':
+            importSVG(e.target.result);
+            break;
+        }
+
 			};
 			reader.readAsText(file);
 		}
@@ -214,12 +226,13 @@ var timer = function()
 }
 /*Method to add event listeners to the buttons on the page */
 var registerButtons = function() {
-	document.getElementById('files').addEventListener('change', openImportFile, false);
+	document.getElementById('btnImportXML').addEventListener('click', openImportFile, false);
 	document.getElementById('btnRun').addEventListener('click', runCode, false);
 	document.getElementById('btnStep').addEventListener('click', stepCode, false);
 	document.getElementById('btnStop').addEventListener('click', stopCode, false);
 	document.getElementById('btnCode').addEventListener('click', downloadCode, false);
 	document.getElementById('btnExportXML').addEventListener('click', exportXML, false);
+  document.getElementById('btnImportSVG').addEventListener('click', openImportFile, false);
 };
 
 var convertToRadians = function(deg){

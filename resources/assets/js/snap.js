@@ -2,6 +2,7 @@ var svg = $('#svgStage')[0];
 var stage = Snap("#svgStage");
 var sprite = Snap("#svgSprite");
 var pt = svg.createSVGPoint();
+var focused;
 
 //for different screen sizes, shows edge of working area
 var maxX = stage.node.width.baseVal.value;
@@ -23,17 +24,62 @@ arrow.attr({
 	id: "a1",
 	pointDir: 0 // Needs to be in Radians for Math.<trigfunction>
 });*/
+var switchSprite = function()
+{
+	focused.attr({blockXML: Blockly.Xml.domToText( Blockly.Xml.workspaceToDom(workspace))})
+	focused = this;
+	workspace.clear();
+	Blockly.Xml.domToWorkspace(workspace, Blockly.Xml.textToDom(focused.attr('blockXML')));
+
+}
 
 var bigCircle = stage.rect(200, 140, 40, 40);
+
 bigCircle.attr({
 	fill: "green",
 	stroke: "#000",
 	strokeWidth:5,
 	id: "c2",
 	pointDir: 0, // Needs to be in Radians for Math.<trigfunction>
-	rotationStyle: "all",
+	rotateStyle: "all",
 	rotationDegree: 0
 });
+var smallCircle = bigCircle.clone();
+smallCircle.attr({
+	strokeWidth: 1,
+	id: "smallc2",
+	x: -50,
+	y: 2,
+	height: 10,
+	width: 10,
+	blockXML: "<XML></XML>"
+});
+sprite.append(smallCircle);
+smallCircle.click(switchSprite);
+
+var bigSQ = stage.circle(100, 100, 40);
+bigCircle.attr({
+	fill: "green",
+	stroke: "#000",
+	strokeWidth:5,
+	id: "s2",
+	pointDir: 0, // Needs to be in Radians for Math.<trigfunction>
+	rotateStyle: "all",
+	rotationDegree: 0
+});
+var smallSQ = bigSQ.clone();
+smallSQ.attr({
+	strokeWidth: 1,
+	id: "smalls2",
+	cx: -25,
+	cy: 7.5,
+	r: 7.5,
+	blockXML: "<XML></XML>"
+});
+sprite.append(smallSQ);
+smallSQ.click(switchSprite);
+focused = smallCircle;
+
 
 
 //sets up the sprite to be dragged
@@ -79,4 +125,13 @@ var stop = function() {
 }
 
 bigCircle.drag(move, start, stop);
+
+var importSVGImage = function(contents)
+{
+
+}
+var cloneSVG = function(svg)
+{
+
+}
 /*arrow.drag(move, start, stop);*/
