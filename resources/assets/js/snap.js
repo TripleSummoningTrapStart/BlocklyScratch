@@ -15,7 +15,6 @@ var spritey = maxY/2;
 var diffx;
 var diffy;
 //
-
 /*var arrow = stage.paper.polygon([200, 110, 250,160, 200,210]);
 arrow.attr({
 	fill: "green",
@@ -47,8 +46,8 @@ var start = function() {
 	spritey = this.oy;
     console.log("Start move, ox=" + this.ox + ", oy=" + this.oy);
 	
-	diffy = mouseY - document.body.children[1].children[0].children[0].children[3].getBoundingClientRect().top;
-	diffx = mouseX - document.body.children[1].children[0].children[0].children[3].getBoundingClientRect().left;
+	diffy = mouseY - document.getElementById(this.node.id).getBoundingClientRect().top;
+	diffx = mouseX - document.getElementById(this.node.id).getBoundingClientRect().left;
 }
 
 
@@ -79,3 +78,4 @@ var stop = function() {
 }
 
 bigCircle.drag(move, start, stop);
+/*arrow.drag(move, start, stop);*/
