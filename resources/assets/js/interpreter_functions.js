@@ -177,8 +177,8 @@ var pointTowardsMouse = function(spriteID){
 	var mX = mouseX;
 	var mY = mouseY;
 	var points = calculateSpriteWindowPosition(spr); // Should return a tuple
-	var xDif = (mX - points.x);
-	var yDif = -1 * (mY - points.y);
+	var xDif = (mX + points.x);
+	var yDif = -1 * (mY + points.y - 100);
 	var pointDir = Math.atan(yDif/xDif);
 	switch (true) {
 		case (xDif < 0):

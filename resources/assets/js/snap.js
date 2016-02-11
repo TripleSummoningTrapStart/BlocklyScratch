@@ -45,9 +45,10 @@ var start = function() {
 	spritex = this.ox;
 	spritey = this.oy;
     console.log("Start move, ox=" + this.ox + ", oy=" + this.oy);
-	
-	diffy = mouseY - document.getElementById(this.node.id).getBoundingClientRect().top;
-	diffx = mouseX - document.getElementById(this.node.id).getBoundingClientRect().left;
+
+	var diffs = calculateSpriteWindowPosition(this);
+	diffx = diffs.x;
+	diffy = diffs.y;
 }
 
 
