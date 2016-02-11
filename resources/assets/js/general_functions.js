@@ -236,7 +236,7 @@ $(document).mousemove(function(event) {
 });
 
 var calculateSpriteWindowPosition = function(spr){
-  return {x: 1, y: 2};
+  return {x: 126, y: 380};
 };
 
 var matrixAdd = function(matrixA, matrixB)

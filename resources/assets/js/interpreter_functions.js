@@ -180,7 +180,17 @@ var pointTowardsMouse = function(spriteID){
 	var xDif = (mX - points.x);
 	var yDif = -1 * (mY - points.y);
 	var pointDir = Math.atan(yDif/xDif);
-	pointIn(spriteID, pointDir, true);
+	switch (true) {
+		case (xDif < 0):
+			pointDir += Math.PI;
+			break;
+		case (yDif > 0):
+			pointDir += 2 * Math.PI;
+			break;
+		default: // yDif < 0 and xDif > 0
+			// do nothing
+	}
+	pointIn(spriteID, convertToDegrees(pointDir), true);
 };
 
 var setRotationStyle = function(id, rotateStyle)
