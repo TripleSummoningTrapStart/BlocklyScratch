@@ -15,7 +15,8 @@ var spritey = maxY/2;
 var diffx;
 var diffy;
 //
-/*var arrow = s.paper.polygon([200, 110, 250,160, 200,210]);
+
+/*var arrow = stage.paper.polygon([200, 110, 250,160, 200,210]);
 arrow.attr({
 	fill: "green",
 	stroke: "#000",
@@ -35,6 +36,7 @@ bigCircle.attr({
 	rotationDegree: 0
 });
 
+
 //sets up the sprite to be dragged
 var start = function() {
 	maxX = stage.node.width.baseVal.value;
@@ -44,19 +46,17 @@ var start = function() {
 	spritex = this.ox;
 	spritey = this.oy;
     console.log("Start move, ox=" + this.ox + ", oy=" + this.oy);
-
-	diffx = pt.x - bigCircle.x;
-	diffy = pt.y - bigCircle.y;
+	
+	diffy = mouseY - document.body.children[1].children[0].children[0].children[3].getBoundingClientRect().top;
+	diffx = mouseX - document.body.children[1].children[0].children[0].children[3].getBoundingClientRect().left;
 }
 
 
 //Code writen with help from:
 //http://stackoverflow.com/questions/21852543/svg-how-to-get-the-mouse-position-on-the-internal-matrix
 var move = function(dx, dy, posX, posY) {
-	pt.x = posX-20;
-	pt.y = posY-20;
-
-	//this.attr({"x": this.ox+dx, "y": this.oy+dy});
+	pt.x = posX-diffx;
+	pt.y = posY-diffy;
 
 	var transformed = pt.matrixTransform(svg.getScreenCTM().inverse());
     bigCircle.attr({ x : transformed.x, y : transformed.y });
@@ -74,7 +74,6 @@ var stop = function() {
 		this.oy = spritey;
 		this.attr({"x": this.ox, "y": this.oy});
 	}
-
 
     console.log("Stop move, ox=" + this.ox + ", oy=" + this.oy);
 }
