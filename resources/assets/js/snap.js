@@ -86,11 +86,11 @@ focused = smallCircle;
 var start = function() {
 	maxX = stage.node.width.baseVal.value;
 	maxY = stage.node.height.baseVal.value;
-    this.ox = parseInt(this.attr("x"));
-    this.oy = parseInt(this.attr("y"));
+  this.ox = parseInt(this.attr("x"));
+  this.oy = parseInt(this.attr("y"));
 	spritex = this.ox;
 	spritey = this.oy;
-    console.log("Start move, ox=" + this.ox + ", oy=" + this.oy);
+	console.log("Start move, ox=" + this.ox + ", oy=" + this.oy);
 
 	var diffs = calculateSpriteWindowPosition(this);
 	diffx = diffs.x;

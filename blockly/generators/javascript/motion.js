@@ -10,7 +10,6 @@ goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['motion_step'] = function(block) {
     var value_num_steps = Blockly.JavaScript.valueToCode(block, 'NUM_STEPS', Blockly.JavaScript.ORDER_ATOMIC);
-
     var code = 'moveStep(sprite, ' + value_num_steps + ');\n';
     return code;
 };
@@ -48,15 +47,19 @@ Blockly.JavaScript['motion_pointtowards'] = function(block) {
 Blockly.JavaScript['motion_gotoXY'] = function(block) {
     var value_new_x_val = Blockly.JavaScript.valueToCode(block, 'NEW_X_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     var value_new_y_val = Blockly.JavaScript.valueToCode(block, 'NEW_Y_VAL', Blockly.JavaScript.ORDER_ATOMIC);
-
     var code = 'gotoXY(sprite, ' + value_new_x_val + ', ' + value_new_y_val + ');\n';
     return code;
 };
 
 Blockly.JavaScript['motion_goto'] = function(block) {
     var dropdown_objects = block.getFieldValue('OBJECTS');
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    var code;
+    if (dropdown_objects == "MOUSE"){
+      code = "gotoMouse(sprite);\n";
+    }
+    else {
+      code = '...';
+    }
     return code;
 };
 
