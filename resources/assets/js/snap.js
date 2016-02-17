@@ -91,14 +91,15 @@ spriteList.push(smallSQ);
 var start = function() {
 	maxX = stage.node.width.baseVal.value;
 	maxY = stage.node.height.baseVal.value;
-    this.ox = parseInt(this.attr("x"));
-    this.oy = parseInt(this.attr("y"));
+  this.ox = parseInt(this.attr("x"));
+  this.oy = parseInt(this.attr("y"));
 	spritex = this.ox;
 	spritey = this.oy;
-    console.log("Start move, ox=" + this.ox + ", oy=" + this.oy);
+	console.log("Start move, ox=" + this.ox + ", oy=" + this.oy);
 
-	diffy = mouseY - document.getElementById(this.node.id).getBoundingClientRect().top;
-	diffx = mouseX - document.getElementById(this.node.id).getBoundingClientRect().left;
+	var diffs = calculateSpriteWindowPosition(this);
+	diffx = diffs.x;
+	diffy = diffs.y;
 }
 
 

@@ -5,10 +5,12 @@ var addConsoleText = function(text) {
 	textarea.innerHTML += text + '&#13;&#10;';
 	textarea.scrollTop = textarea.scrollHeight;
 };
+
 var highlightBlock = function(id) {
 	workspace.highlightBlock(id);
 	highlightPause = true;
 };
+
 var moveStep = function(id, steps) {
 	var obj = stage.select('#' + id);
 	var dir = parseFloat(obj.attr("pointDir"));
@@ -20,6 +22,7 @@ var moveStep = function(id, steps) {
 	boundingBox.cx += adjSide;
 	boundingBox.cy += oppSide;*/
 };
+
 var rotateClock = function(id, rotateVal) {
 		//TODO Should probably change to take Radians, maybe not
 	/*  if(rotateVal > 0 && rotateVal > 360)
@@ -85,30 +88,58 @@ var rotateClock = function(id, rotateVal) {
 		obj.animate({transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50);
 	}*/
 };
+
 var setX = function (id, newVal) {
 	var obj = document.getElementById(id);
 	obj.setAttribute("x", newVal);
 };
+
 var setY = function (id, newVal) {
 	var obj = document.getElementById(id);
 	obj.setAttribute("y", newVal);
 };
+
 var changeX = function (id, newVal) {
 	var obj = document.getElementById(id);
 	if (obj != null) {
 		obj.setAttribute("x", parseInt(obj.getAttribute("x")) + newVal);
 	}
 };
+
 var changeY = function (id, newVal) {
 	var obj = document.getElementById(id);
 	if (obj != null) {
 		obj.setAttribute("y", parseInt(obj.getAttribute("y")) + newVal);
 	}
 };
+
 var gotoXY = function (id, xVal, yVal) {
 	var obj = stage.select('#'+id);
 	obj.attr({'x': xVal, 'y':  yVal});
 };
+
+var gotoMouse = function(id){
+	var obj = stage.select('#' + id);
+	var maxX = stage.node.width.baseVal.value;
+	var maxY = stage.node.height.baseVal.value;
+	var newX = mouseX;
+	var newY = mouseY;
+	if(mouseX > maxX){
+		newX = maxX;
+	}
+	else if (mouseX < 0){
+		newX = 0;
+	}
+	if(mouseY > maxY){
+		newY = maxY;
+	}
+	else if(mouseY < 0){
+		newY = 0;
+	}
+	console.log("x: " + newX + ", y:" + newY);
+	obj.attr({'x': newX, 'y': newY - 250});
+};
+
 var glideTo = function(id, time, x, y) {
 
 	var obj = stage.select('#'+id);
@@ -177,8 +208,8 @@ var pointTowardsMouse = function(spriteID){
 	var mX = mouseX;
 	var mY = mouseY;
 	var points = calculateSpriteWindowPosition(spr); // Should return a tuple
-	var xDif = (mX - points.x);
-	var yDif = -1 * (mY - points.y);
+	var xDif = -1 * (mX + points.x);
+	var yDif = (mY + points.y - 50);
 	var pointDir = Math.atan(yDif/xDif);
 	switch (true) {
 		case (xDif < 0):

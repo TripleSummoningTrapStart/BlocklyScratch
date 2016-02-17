@@ -249,7 +249,9 @@ $(document).mousemove(function(event) {
 });
 
 var calculateSpriteWindowPosition = function(spr){
-  return {x: 126, y: 380};
+  var curY = mouseY - document.getElementById(spr.node.id).getBoundingClientRect().top;
+	var curX = mouseX - document.getElementById(spr.node.id).getBoundingClientRect().left;
+  return {x: curX, y: curY};
 };
 
 var matrixAdd = function(matrixA, matrixB)
