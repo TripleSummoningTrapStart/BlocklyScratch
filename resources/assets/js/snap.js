@@ -3,6 +3,8 @@ var stage = Snap("#svgStage");
 var sprite = Snap("#svgSprite");
 var pt = svg.createSVGPoint();
 var focused;
+var spriteList = [];//TODO put into cache
+var stageList = [];//TODO put into cache
 
 //for different screen sizes, shows edge of working area
 var maxX = stage.node.width.baseVal.value;
@@ -54,7 +56,7 @@ smallCircle.attr({
 	width: 10,
 	blockXML: "<XML></XML>"
 });
-sprite.append(smallCircle);
+//sprite.append(smallCircle);
 smallCircle.click(switchSprite);
 
 var bigSQ = stage.circle(100, 100, 40);
@@ -76,10 +78,13 @@ smallSQ.attr({
 	r: 7.5,
 	blockXML: "<XML></XML>"
 });
-sprite.append(smallSQ);
+//sprite.append(smallSQ);
 smallSQ.click(switchSprite);
 focused = smallCircle;
-
+stageList.push(bigCircle);
+spriteList.push(smallCircle);
+stageList.push(bigSQ);
+spriteList.push(smallSQ);
 
 
 //sets up the sprite to be dragged
@@ -125,12 +130,38 @@ var stop = function() {
 
 bigCircle.drag(move, start, stop);
 
-var importSVGImage = function(contents)
+var importSVG = function(contents)
 {
+		var image = Snap.parse(contents);
+	stage.append(image);
+		var temp = stage.select("#Layer_1");
+		temp.attr({'height': 100, 'width': 100});
+		temp.drag();
+		stageList.push(temp);
+		spriteList.push(temp);
+
+		cloneSVG(temp);
+}
+var cloneSVG = function(image)
+{
+	var temp = image.clone()
+	temp.attr({
+		'height': 30,
+		'width': 30,
+		x: -23,
+		y: -5,
+		blockXML: "<XML></XML>"
+	});
+	temp.click(switchSprite);
+	sprite.append(temp);
 
 }
-var cloneSVG = function(svg)
+var addSprites = function()
 {
-
+	for(var i = 0; i < stageList.length; i++)
+	{
+		stage.append(stageList[i]);
+		sprite.append(spriteList[i]);
+	}
 }
 /*arrow.drag(move, start, stop);*/
