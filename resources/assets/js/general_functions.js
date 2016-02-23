@@ -226,13 +226,13 @@ var timer = function()
 }
 /*Method to add event listeners to the buttons on the page */
 var registerButtons = function() {
-	document.getElementById('btnImportXML').addEventListener('click', openImportFile, false);
+	document.getElementById('xmlFile').addEventListener('change', openImportFile, false);
 	document.getElementById('btnRun').addEventListener('click', runCode, false);
 	document.getElementById('btnStep').addEventListener('click', stepCode, false);
 	document.getElementById('btnStop').addEventListener('click', stopCode, false);
 	document.getElementById('btnCode').addEventListener('click', downloadCode, false);
 	document.getElementById('btnExportXML').addEventListener('click', exportXML, false);
-  document.getElementById('btnImportSVG').addEventListener('click', openImportFile, false);
+  document.getElementById('svgFile').addEventListener('change', openImportFile, false);
 };
 
 var convertToRadians = function(deg){
@@ -263,4 +263,7 @@ window.onload = function() {
 	loadAllBlocks();
 	injectBlockly();
 	registerButtons();
+  stage.clear();
+  sprite.clear();
+  addSprites();
 };
