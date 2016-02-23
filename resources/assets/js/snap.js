@@ -5,13 +5,15 @@ var pt = svg.createSVGPoint();
 var focused;
 var spriteList = [];//TODO put into cache
 var stageList = [];//TODO put into cache
+var spriteXoffset = -82;
+var spriteYoffset = 2;
 
 //for different screen sizes, shows edge of working area
-var maxX = stage.node.width.baseVal.value;
-var maxY = stage.node.height.baseVal.value;
+var maxX;// = stage.node.width.baseVal.value;
+var maxY;// = stage.node.height.baseVal.value;
 //current location of sprite
-var spritex = (maxX/2) - 30;
-var spritey = maxY/2;
+//var spritex = (maxX/2) - 30;
+//var spritey = maxY/2;
 
 
 //testing somethign new
@@ -50,17 +52,18 @@ var smallCircle = bigCircle.clone();
 smallCircle.attr({
 	strokeWidth: 1,
 	id: "smallc2",
-	x: -50,
-	y: 2,
-	height: 10,
-	width: 10,
+	x: spriteXoffset,
+	y: spriteYoffset,
+	height: bigCircle.attr('height')/3,
+	width: bigCircle.attr('width')/3,
 	blockXML: "<XML></XML>"
 });
+spriteXoffset += parseInt(smallCircle.attr('width'));
 //sprite.append(smallCircle);
 smallCircle.click(switchSprite);
 
-var bigSQ = stage.circle(100, 100, 40);
-bigCircle.attr({
+var bigSQ = stage.circle(100, 100, 30);
+bigSQ.attr({
 	fill: "green",
 	stroke: "#000",
 	strokeWidth:5,
@@ -73,9 +76,9 @@ var smallSQ = bigSQ.clone();
 smallSQ.attr({
 	strokeWidth: 1,
 	id: "smalls2",
-	cx: -25,
-	cy: 7.5,
-	r: 7.5,
+	r: 8,
+	cx: spriteXoffset + parseInt(smallSQ.attr('r')/2),
+  cy: parseInt(smallSQ.attr('r')) + 1,
 	blockXML: "<XML></XML>"
 });
 //sprite.append(smallSQ);
@@ -89,8 +92,8 @@ spriteList.push(smallSQ);
 
 //sets up the sprite to be dragged
 var start = function() {
-	maxX = stage.node.width.baseVal.value;
-	maxY = stage.node.height.baseVal.value;
+	//maxX = stage.node.width.baseVal.value;
+	//maxY = stage.node.height.baseVal.value;
   this.ox = parseInt(this.attr("x"));
   this.oy = parseInt(this.attr("y"));
 	spritex = this.ox;
@@ -110,7 +113,7 @@ var move = function(dx, dy, posX, posY) {
 	pt.y = posY-diffy;
 
 	var transformed = pt.matrixTransform(svg.getScreenCTM().inverse());
-    bigCircle.attr({ x : transformed.x, y : transformed.y });
+    this.attr({ x : transformed.x, y : transformed.y });
 }
 
 //controls how to update sprite location, and print to console after drag
@@ -133,11 +136,13 @@ bigCircle.drag(move, start, stop);
 
 var importSVG = function(contents)
 {
+	  var substr = contents.substring(contents.indexOf('id="')).replace('id="','');
+	  var id = substr.substring(0, substr.indexOf('"'));
 		var image = Snap.parse(contents);
-	stage.append(image);
-		var temp = stage.select("#Layer_1");
+	  stage.append(image);
+		var temp = stage.select("#" + id);
 		temp.attr({'height': 100, 'width': 100});
-		temp.drag();
+		temp.drag(move, start, stop);
 		stageList.push(temp);
 		spriteList.push(temp);
 
@@ -147,9 +152,9 @@ var cloneSVG = function(image)
 {
 	var temp = image.clone()
 	temp.attr({
-		'height': 30,
-		'width': 30,
-		x: -23,
+		'height': image.attr('height')/3,
+		'width': image.attr('width')/3,
+		x: -60,
 		y: -5,
 		blockXML: "<XML></XML>"
 	});
@@ -159,6 +164,8 @@ var cloneSVG = function(image)
 }
 var addSprites = function()
 {
+	maxX = stage.node.width.baseVal.value;
+  maxY = stage.node.height.baseVal.value;
 	for(var i = 0; i < stageList.length; i++)
 	{
 		stage.append(stageList[i]);
