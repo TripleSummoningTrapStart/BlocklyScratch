@@ -9,9 +9,9 @@ goog.provide('Blockly.Blocks.pen');
 
 goog.require('Blockly.Blocks');
 
-Blockly.Blocks.pen.HSV_HUE = 120;
-Blockly.Blocks.pen.HSV_SATURATION = 0.67;
-Blockly.Blocks.pen.HSV_VALUE = 0.75;
+Blockly.Blocks.pen.HSV_HUE = 160;
+Blockly.Blocks.pen.HSV_SATURATION = 0.95;
+Blockly.Blocks.pen.HSV_VALUE = 0.62;
 
 
 Blockly.Blocks['pen_clear'] = {
