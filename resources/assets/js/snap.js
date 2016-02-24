@@ -9,11 +9,8 @@ var spriteXoffset = -82;
 var spriteYoffset = 2;
 
 //for different screen sizes, shows edge of working area
-var maxX;// = stage.node.width.baseVal.value;
-var maxY;// = stage.node.height.baseVal.value;
-//current location of sprite
-//var spritex = (maxX/2) - 30;
-//var spritey = maxY/2;
+var maxX;
+var maxY;
 
 
 //testing somethign new
@@ -164,7 +161,7 @@ var cloneSVG = function(image)
 }
 var addSprites = function()
 {
-	maxX = stage.node.width.baseVal.value;
+	maxX = stage.node.width.baseVal.value; //TODO reset on resize
   maxY = stage.node.height.baseVal.value;
 	for(var i = 0; i < stageList.length; i++)
 	{

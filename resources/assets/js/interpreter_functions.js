@@ -1,17 +1,28 @@
 var adjX = 200;
 var adjY = 140;
 var semaphore = 0;
+
+/*This fu nction takes in a text input from the print block to add to the text area
+ located in the console tab
+ @param: the text to add */
 var addConsoleText = function(text) {
 	var textarea = document.getElementById("textArea");
 	textarea.innerHTML += text + '&#13;&#10;';
 	textarea.scrollTop = textarea.scrollHeight;
 };
 
+/*this function is called to highlight each individual block when pressing step to
+	step through the code.
+	@param: the id of the block to highlight */
 var highlightBlock = function(id) {
 	workspace.highlightBlock(id);
 	highlightPause = true;
 };
 
+/*this function is called by the moveSteps block to move the specified sprite in
+  the direction it is facing by the specified number of steps.
+	@param: the id of the sprite
+	@param: the number of pixels to move the sprite */
 var moveStep = function(id, steps) {
 	var obj = stage.select('#' + id);
 	var dir = parseFloat(obj.attr("pointDir"));
@@ -24,16 +35,14 @@ var moveStep = function(id, steps) {
 	boundingBox.cy += oppSide;*/
 };
 
-var rotateClock = function(id, rotateVal) {
+
+/* this function is called by the both the rotateClockwise and rotateCounterClockwise
+   blocks to rotate the specified by given rotate value
+	@param: the id of the sprite
+	@param: the number of degrees to rotate the sprite (negative if counter cloackwise) */
+var rotate = function(id, rotateVal) {
 		//TODO Should probably change to take Radians, maybe not
-	/*  if(rotateVal > 0 && rotateVal > 360)
-		{
-			rotateVal -= 360;
-		}
-		else if(rotateVal < 0 && Math.abs(rotateVal) > 360)
-		{
-			rotateVal += 360;
-		}*/
+
 	var obj = stage.select('#'+id);
 	var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
 	var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
@@ -96,35 +105,56 @@ var rotateClock = function(id, rotateVal) {
 
 };
 
+/* this function is called by the setY block to set the X value of the specified sprite
+   to the new value passed int
+	@param: the id of the sprite
+	@param: the new X value */
 var setX = function (id, newVal) {
-	var obj = document.getElementById(id);
-	obj.setAttribute("x", newVal);
+	var obj = stage.select('#'+id);
+	obj.attr({'x': newVal});
 };
 
+/* this function is called by the setX block to set the Y value of the specified sprite
+   to the new value passed int
+	@param: the id of the sprite
+	@param: the new Y value */
 var setY = function (id, newVal) {
-	var obj = document.getElementById(id);
-	obj.setAttribute("y", newVal);
+	var obj = stage.select('#'+id);
+	obj.attr({'y':  newVal});
 };
 
-var changeX = function (id, newVal) {
-	var obj = document.getElementById(id);
-	if (obj != null) {
-		obj.setAttribute("x", parseInt(obj.getAttribute("x")) + newVal);
-	}
+/* this function is called by the changeX block to change the X value of the specified sprite
+   by adding the new value to the old value
+	@param: the id of the sprite
+	@param: the value to change X by */
+var changeX = function (id, changeVal) {
+	var obj = stage.select('#'+id);
+	obj.attr({'x':  parseInt(obj.attr('x')) + changeVal});
 };
 
-var changeY = function (id, newVal) {
-	var obj = document.getElementById(id);
-	if (obj != null) {
-		obj.setAttribute("y", parseInt(obj.getAttribute("y")) + newVal);
-	}
+/* this function is called by the changeY block to change the Y value of the specified sprite
+   by adding the new value to the old value
+	@param: the id of the sprite
+	@param: the value to change Y by */
+var changeY = function (id, changeVal) {
+	var obj = stage.select('#'+id);
+	obj.attr({'y':  parseInt(obj.attr('y')) + changeVal});
 };
 
+/* this function is called by the GotoXY block to change the X and Y value of
+   the specified block to the new values given
+	@param: the id of the sprite
+	@param: the value to change X to
+	@param: the value to change Y to*/
 var gotoXY = function (id, xVal, yVal) {
 	var obj = stage.select('#'+id);
 	obj.attr({'x': xVal, 'y':  yVal});
 };
 
+
+/* this function is called by the Go to Mouse block to change the X and Y value of
+   the specified block to the current location of the mouse
+	@param: the id of the sprite*/
 var gotoMouse = function(id){
 	var obj = stage.select('#' + id);
 	var newX = mouseX;
@@ -145,6 +175,12 @@ var gotoMouse = function(id){
 	obj.attr({'x': newX, 'y': newY - 250});
 };
 
+/* this function is called by the glideTo block to change the X and Y value of
+   the specified block to the new values given over a specified amount of time
+	@param: the id of the sprite
+	@param: the time to animate the sprite in seconds
+	@param: the value to change X to
+	@param: the value to change Y to */
 var glideTo = function(id, time, x, y) {
 
 	var obj = stage.select('#'+id);
@@ -181,6 +217,10 @@ var glideTo = function(id, time, x, y) {
 		//rotateClock(id, direction);
 	});
 }
+
+/* this function is called by the If on Edge Bounce block to change the direction
+   the specified sprite is facing if it is touching the edge.
+	@param: the id of the sprite */
 var edgeBounce = function(id){
 	var obj = stage.select('#'+id);
 	var objX = parseInt(obj.attr('x'));
@@ -191,6 +231,12 @@ var edgeBounce = function(id){
 	}
 };
 
+/* this function is called by the Point In block to change the point direction attribute
+   a sprite and possibly rotate it. This function is also called as a helper method for
+	 other functions
+	@param: the id of the sprite
+	@param: direction to point the sprite
+	@param: boolean specifying whether the direction is being set */
 var pointIn = function (id, dir, setDirection) {
 	var obj = stage.select("#" + id);
 	if(obj != null)
@@ -210,6 +256,9 @@ var pointIn = function (id, dir, setDirection) {
 	}
 };
 
+/* this function is called by the pointIn block to point the specified sprite
+	 in the direction of the mouse
+	 @param: the id of the sprite */
 var pointTowardsMouse = function(spriteID){
 	var spr = stage.select("#" + spriteID);
 	var mX = mouseX;
@@ -231,6 +280,10 @@ var pointTowardsMouse = function(spriteID){
 	pointIn(spriteID, convertToDegrees(pointDir), true);
 };
 
+/* this function is called by the Set Rotation Style Block to set the rotation style
+   attribute of the specified sprite
+	@param: the id of the sprite
+	@param: the specific rotation style given by the list in the block */
 var setRotationStyle = function(id, rotateStyle)
 {
 	var obj = stage.select("#"  + id);

@@ -61,9 +61,9 @@ function initApi(interpreter, scope) {
 	var wrapper = function (id, rotateVal) {
 		rotateVal = rotateVal ? rotateVal.data : 0;
 		id = id ? id.data : '';
-		return interpreter.createPrimitive(rotateClock(id, rotateVal));
+		return interpreter.createPrimitive(rotate(id, rotateVal));
 	}
-	interpreter.setProperty(scope, 'rotateClock', interpreter.createNativeFunction(wrapper));
+	interpreter.setProperty(scope, 'rotate', interpreter.createNativeFunction(wrapper));
 	var wrapper = function (id, time, x, y) {
 		time = time ? time.data : 0;
 		x = x ? x.data : 0;
