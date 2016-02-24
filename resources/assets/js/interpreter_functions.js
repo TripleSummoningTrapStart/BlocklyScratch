@@ -249,7 +249,7 @@ var pointIn = function (id, dir, setDirection) {
 			return;
 		else
 		{
-			rotateClock(id, pointDiffDeg, pointDiffDeg);
+			rotateClock(id, pointDiffDeg);
 			obj.attr("pointDir", dirRad);
 				obj.pointDir += dir;
 		}
@@ -261,13 +261,32 @@ var pointIn = function (id, dir, setDirection) {
 	 @param: the id of the sprite */
 var pointTowardsMouse = function(spriteID){
 	var spr = stage.select("#" + spriteID);
-	var mX = mouseX;
-	var mY = mouseY;
+	var mX = convertToRadians(mouseX);
+	var mY = convertToRadians(mouseY);
 	var points = calculateSpriteWindowPosition(spr); // Should return a tuple
-	var xDif = -1 * (mX + points.x);
-	var yDif = (mY + points.y - 50);
+	var xDif = (mX + convertToRadians(points.x));
+	var yDif = (mY + convertToRadians(points.y) - convertToRadians(50));
 	var pointDir = Math.atan(yDif/xDif);
+	if(pointDir < 0) { // quadrants 2 & 4
+		if (xDif < 0) { // quadrant 2
+			pointDir += Math.PI;
+		}
+		else { // quadrant 4
+			pointDir += 2 * Math.PI;
+		}
+	}
+	else { // quadrants 1 & 3
+		if (xDif < 0 && yDif < 0) { // quadrant 3
+			pointDir += Math.PI
+		}
+		// do nothing for quadrant 1
+	}
+
+/*
 	switch (true) {
+		case(pointDir < 0): // quadrant 2 & 4
+
+			break;
 		case (xDif < 0):
 			pointDir += Math.PI;
 			break;
@@ -277,6 +296,7 @@ var pointTowardsMouse = function(spriteID){
 		default: // yDif < 0 and xDif > 0
 			// do nothing
 	}
+*/
 	pointIn(spriteID, convertToDegrees(pointDir), true);
 };
 
