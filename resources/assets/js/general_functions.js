@@ -249,9 +249,8 @@ $(document).mousemove(function(event) {
 });
 
 var calculateSpriteWindowPosition = function(spr){
-  var curY = mouseY - document.getElementById(spr.node.id).getBoundingClientRect().top;
-	var curX = mouseX - document.getElementById(spr.node.id).getBoundingClientRect().left;
-  return {x: curX, y: curY};
+  return {x: document.getElementById(spr.node.id).getBoundingClientRect().left, 
+          y: document.getElementById(spr.node.id).getBoundingClientRect().top};
 };
 
 var matrixAdd = function(matrixA, matrixB)
