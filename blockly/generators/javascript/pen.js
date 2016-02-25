@@ -23,19 +23,20 @@ Blockly.JavaScript['pen_stamp'] = function(block) {
 
 Blockly.JavaScript['pen_pen_down'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var code = 'penDown(sprite);\n';
   return code;
 };
 
 Blockly.JavaScript['pen_pen_up'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var code = 'penUp(sprite);\n';
   return code;
 };
 
 Blockly.JavaScript['pen_change_pen_color_by'] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'NAME', order) || '0';
   var code = '...;\n';
   return code;
 };
@@ -43,7 +44,7 @@ Blockly.JavaScript['pen_change_pen_color_by'] = function(block) {
 Blockly.JavaScript['pen_set_pen_color_to'] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var code = ';\n';
   return code;
 };
 

@@ -95,4 +95,15 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(pointTowards(spriteID, objID));
 	}
 	interpreter.setProperty(scope, 'pointTowards', interpreter.createNativeFunction(wrapper));
+	
+	var wrapper = function(spriteID){
+		spriteID = spriteID ? spriteID.data : '';
+		return  interpreter.createPrimitive(penDown(spriteID));
+	}
+	interpreter.setProperty(scope, 'penDown', interpreter.createNativeFunction(wrapper));
+	var wrapper = function(spriteID){
+		spriteID = spriteID ? spriteID.data : '';
+		return  interpreter.createPrimitive(penUp(spriteID));
+	}
+	interpreter.setProperty(scope, 'penUp', interpreter.createNativeFunction(wrapper));
 };

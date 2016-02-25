@@ -43,7 +43,8 @@ bigCircle.attr({
 	id: "c2",
 	pointDir: 0, // Needs to be in Radians for Math.<trigfunction>
 	rotateStyle: "all",
-	rotationDegree: 0
+	rotationDegree: 0,
+	penDown: false
 });
 var smallCircle = bigCircle.clone();
 smallCircle.attr({
@@ -91,8 +92,8 @@ spriteList.push(smallSQ);
 var start = function() {
 	//maxX = stage.node.width.baseVal.value;
 	//maxY = stage.node.height.baseVal.value;
-  this.ox = parseInt(this.attr("x"));
-  this.oy = parseInt(this.attr("y"));
+	this.ox = parseInt(this.attr("x"));
+	this.oy = parseInt(this.attr("y"));
 	spritex = this.ox;
 	spritey = this.oy;
 	console.log("Start move, ox=" + this.ox + ", oy=" + this.oy);
@@ -127,6 +128,7 @@ var stop = function() {
 	}
 
     console.log("Stop move, ox=" + this.ox + ", oy=" + this.oy);
+
 }
 
 bigCircle.drag(move, start, stop);

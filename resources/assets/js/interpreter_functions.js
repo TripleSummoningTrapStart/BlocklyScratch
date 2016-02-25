@@ -1,7 +1,7 @@
 var adjX = 200;
 var adjY = 140;
 var semaphore = 0;
-
+//var stage = Snap("#svgStage");
 /*This fu nction takes in a text input from the print block to add to the text area
  located in the console tab
  @param: the text to add */
@@ -28,6 +28,12 @@ var moveStep = function(id, steps) {
 	var dir = parseFloat(obj.attr("pointDir"));
 	var oppSide = steps * Math.sin(dir); // y diff
 	var adjSide = steps * Math.cos(dir); // x diff
+	if(obj.attr('penDown') == "true")
+	{
+		x1 = obj.attr('x');
+		y1 = obj.attr('y');
+		var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: '#00ADEF', strokeWidth: 4});
+	}
 	obj.attr({'x': parseInt(obj.attr('x')) + adjSide, 'y':  parseInt(obj.attr('y')) - oppSide});
 	/*obj.transform("t" + adjSide + "," + oppSide);
 	var boundingBox = obj.getBBox();
@@ -111,6 +117,12 @@ var rotate = function(id, rotateVal) {
 	@param: the new X value */
 var setX = function (id, newVal) {
 	var obj = stage.select('#'+id);
+	if(obj.attr('penDown') == "true")
+	{
+		x1 = obj.attr('x');
+		y1 = obj.attr('y');
+		var line1 = stage.line(x1, y1, newVal, y1).attr({stroke: '#00ADEF', strokeWidth: 4});
+	}
 	obj.attr({'x': newVal});
 };
 
@@ -120,6 +132,12 @@ var setX = function (id, newVal) {
 	@param: the new Y value */
 var setY = function (id, newVal) {
 	var obj = stage.select('#'+id);
+	if(obj.attr('penDown') == "true")
+	{
+		x1 = obj.attr('x');
+		y1 = obj.attr('y');
+		var line1 = stage.line(x1, y1, x1, newVal).attr({stroke: '#00ADEF', strokeWidth: 4});
+	}
 	obj.attr({'y':  newVal});
 };
 
@@ -129,6 +147,12 @@ var setY = function (id, newVal) {
 	@param: the value to change X by */
 var changeX = function (id, changeVal) {
 	var obj = stage.select('#'+id);
+	if(obj.attr('penDown') == "true")
+	{
+		x1 = obj.attr('x');
+		y1 = obj.attr('y');
+		var line1 = stage.line(x1, y1, parseInt(x1)+changeVal, y1).attr({stroke: '#00ADEF', strokeWidth: 4});
+	}
 	obj.attr({'x':  parseInt(obj.attr('x')) + changeVal});
 };
 
@@ -138,6 +162,12 @@ var changeX = function (id, changeVal) {
 	@param: the value to change Y by */
 var changeY = function (id, changeVal) {
 	var obj = stage.select('#'+id);
+	if(obj.attr('penDown') == "true")
+	{
+		x1 = obj.attr('x');
+		y1 = obj.attr('y');
+		var line1 = stage.line(x1, y1, x1, parseInt(y1)+changeVal).attr({stroke: '#00ADEF', strokeWidth: 4});
+	}
 	obj.attr({'y':  parseInt(obj.attr('y')) + changeVal});
 };
 
@@ -148,7 +178,14 @@ var changeY = function (id, changeVal) {
 	@param: the value to change Y to*/
 var gotoXY = function (id, xVal, yVal) {
 	var obj = stage.select('#'+id);
+	if(obj.attr('penDown') == "true")
+	{
+		x1 = obj.attr('x');
+		y1 = obj.attr('y');
+		var line1 = stage.line(x1, y1, xVal, yVal).attr({stroke: '#00ADEF', strokeWidth: 4});
+	}
 	obj.attr({'x': xVal, 'y':  yVal});
+	
 };
 
 
@@ -172,6 +209,12 @@ var gotoMouse = function(id){
 		newY = 0;
 	}
 	console.log("x: " + newX + ", y:" + newY);
+	if(obj.attr('penDown') == "true")
+	{
+		x1 = obj.attr('x');
+		y1 = obj.attr('y');
+		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: '#00ADEF', strokeWidth: 4});
+	}
 	obj.attr({'x': newX, 'y': newY - 250});
 };
 
@@ -309,5 +352,25 @@ var setRotationStyle = function(id, rotateStyle)
 	var obj = stage.select("#"  + id);
 	if(obj != null){
 		obj.attr({'rotateStyle': rotateStyle});
+	}
+}
+//Pen functions
+
+/*this function sets the value of penDown to be true for a given sprite, when a pen down block is present
+	@param: the id of the sprite that is activate*/
+var penDown = function(id)
+{
+	var obj = stage.select("#"+id);
+	if(obj!=null){
+		obj.attr({'penDown': true});
+	}
+}
+/*this function sets the value of penDown to be false for a given sprite, when a pen up block is present
+	@param: the id of the sprite that is activate*/
+var penUp = function(id)
+{
+	var obj = stage.select("#"+id);
+	if(obj!=null){
+		obj.attr({'penDown': false});
 	}
 }
