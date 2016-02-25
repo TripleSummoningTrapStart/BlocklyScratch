@@ -261,27 +261,30 @@ var pointIn = function (id, dir, setDirection) {
 	 @param: the id of the sprite */
 var pointTowardsMouse = function(spriteID){
 	var spr = stage.select("#" + spriteID);
-	var mX = convertToRadians(mouseX);
-	var mY = convertToRadians(mouseY);
 	var points = calculateSpriteWindowPosition(spr); // Should return a tuple
-	var xDif = (mX + convertToRadians(points.x));
-	var yDif = (mY + convertToRadians(points.y) - convertToRadians(50));
+	var xDif = (points.x - mouseX);
+	var yDif = (points.y - mouseY - 100);
+	console.log("mouseX: " + mouseX);
+	console.log("mouseY: " + mouseY);
+	console.log("points.x: " + points.x);
+	console.log("points.y: " + points.y);
+	console.log("xDif: " + xDif);
+	console.log("yDif: " + yDif);
 	var pointDir = Math.atan(yDif/xDif);
+	console.log("pointDir Original: " + pointDir);
 	if(pointDir < 0) { // quadrants 2 & 4
-		if (xDif < 0) { // quadrant 2
-			pointDir += Math.PI;
-		}
-		else { // quadrant 4
+		if (xDif < 0) { // quadrant 4
 			pointDir += 2 * Math.PI;
 		}
-	}
-	else { // quadrants 1 & 3
-		if (xDif < 0 && yDif < 0) { // quadrant 3
-			pointDir += Math.PI
+		else { // quadrant 2
+			pointDir -= Math.PI / 1.5;
 		}
-		// do nothing for quadrant 1
 	}
-
+	else if (xDif < 0 && yDif < 0) { // quadrant 3
+			pointDir += Math.PI;
+	}
+		// do nothing for quadrant 1
+	pointDir += (Math.PI / 3); // offset needed for all quadrants (I don't know why)
 /*
 	switch (true) {
 		case(pointDir < 0): // quadrant 2 & 4
@@ -297,6 +300,8 @@ var pointTowardsMouse = function(spriteID){
 			// do nothing
 	}
 */
+var v = convertToDegrees(pointDir);
+console.log("Radians: " + pointDir + "\nDegrees: " + v);
 	pointIn(spriteID, convertToDegrees(pointDir), true);
 };
 

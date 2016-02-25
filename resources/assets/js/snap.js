@@ -97,9 +97,9 @@ var start = function() {
 	spritey = this.oy;
 	console.log("Start move, ox=" + this.ox + ", oy=" + this.oy);
 
-	var diffs = calculateSpriteWindowPosition(this);
-	diffx = diffs.x;
-	diffy = diffs.y;
+	var spriteLoc = calculateSpriteWindowPosition(this);
+	diffx = mouseX - spriteLoc.x;
+	diffy = mouseY - spriteLoc.y;
 }
 
 
