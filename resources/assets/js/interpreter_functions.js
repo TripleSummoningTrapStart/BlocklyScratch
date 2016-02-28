@@ -111,7 +111,15 @@ var rotate = function(id, rotateVal) {
 	@param: the new X value */
 var setX = function (id, newVal) {
 	var obj = stage.select('#'+id);
-	obj.attr({'x': newVal});
+	var objX = parseInt(obj.attr('x'));
+	var newX = adjX + newVal;
+	if(newX == objX){
+		return;
+	}
+	if(newX > maxX){
+		newX = maxX;
+	}
+	obj.attr({'x': newX});
 };
 
 /* this function is called by the setX block to set the Y value of the specified sprite
@@ -120,7 +128,15 @@ var setX = function (id, newVal) {
 	@param: the new Y value */
 var setY = function (id, newVal) {
 	var obj = stage.select('#'+id);
-	obj.attr({'y':  newVal});
+	var objY = parseInt(obj.attr('y'));
+	var newY = adjY + newVal;
+	if(newY == objY){
+		return;
+	}
+	if(newY > maxY){
+		newY = maxY
+	}
+	obj.attr({'y':  newY});
 };
 
 /* this function is called by the changeX block to change the X value of the specified sprite
