@@ -36,10 +36,6 @@ var moveStep = function(id, steps) {
 		var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: '#00ADEF', strokeWidth: stroke});
 	}
 	obj.attr({'x': parseInt(obj.attr('x')) + adjSide, 'y':  parseInt(obj.attr('y')) - oppSide});
-	/*obj.transform("t" + adjSide + "," + oppSide);
-	var boundingBox = obj.getBBox();
-	boundingBox.cx += adjSide;
-	boundingBox.cy += oppSide;*/
 };
 
 
@@ -366,8 +362,8 @@ var pointTowardsMouse = function(spriteID){
 			// do nothing
 	}
 */
-var v = convertToDegrees(pointDir);
-console.log("Radians: " + pointDir + "\nDegrees: " + v);
+	var v = convertToDegrees(pointDir);
+	console.log("Radians: " + pointDir + "\nDegrees: " + v);
 	pointIn(spriteID, convertToDegrees(pointDir), true);
 };
 
