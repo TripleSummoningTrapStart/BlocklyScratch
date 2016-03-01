@@ -11,6 +11,7 @@ function loadAllBlocks() {
 	var invalid = ["logic_ternary", "control_repeat", "control_for", "control_forEach", "texts_prompt", "texts_create_join_container", "texts_create_join_item", "lists_create_with_container", "lists_create_with_item", "control_if_if", "control_if_elseif", "control_if_else", "procedures_mutatorcontainer", "procedures_mutatorarg","procedures_callnoreturn", "procedures_callreturn"];
     for (var block in Blockly.Blocks) {
 
+      /* Gathers all blocks and categories */
         try {
             if (Blockly.Blocks[block].hasOwnProperty("init")&&invalid.indexOf(block)==-1) {
                 blocks.push(block);
@@ -22,6 +23,7 @@ function loadAllBlocks() {
         }
     }
 
+    /* Creates a section for each category in the toolbox */
     var doc_toolbox = document.getElementById('toolbox');
     for (var cat in cats) {
         var category = document.createElement("category");
@@ -36,6 +38,7 @@ function loadAllBlocks() {
         doc_toolbox.appendChild(category);
     }
 
+    /* Fills the categories with the blocks in that category */
     for (var block in blocks) {
         var s = blocks[block].split('_');
         if (s.length > 0 && cats.hasOwnProperty(s[0])) {
@@ -49,6 +52,7 @@ function loadAllBlocks() {
         }
     }
 
+    /* Removes any categories with no blocks */
     for (var cat in cats) {
         if (cats[cat] === 0) {
             document.getElementById("cat" + cat).remove(); // remove() is not supported in IE
