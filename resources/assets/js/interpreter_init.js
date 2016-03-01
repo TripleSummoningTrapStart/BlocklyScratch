@@ -106,4 +106,16 @@ function initApi(interpreter, scope) {
 		return  interpreter.createPrimitive(penUp(spriteID));
 	}
 	interpreter.setProperty(scope, 'penUp', interpreter.createNativeFunction(wrapper));
+	var wrapper = function(spriteID, setVal){
+		setVal = setVal ? setVal.data : 0;
+		spriteID = spriteID ? spriteID.data : '';
+		return interpreter.createPrimitive(setSize(spriteID, setVal));
+	}
+	interpreter.setProperty(scope, 'setSize', interpreter.createNativeFunction(wrapper));
+	var wrapper = function(spriteID, setVal){
+		setVal = setVal ? setVal.data : 0;
+		spriteID = spriteID ? spriteID.data : '';
+		return interpreter.createPrimitive(changeSize(spriteID, setVal));
+	}
+	interpreter.setProperty(scope, 'changeSize', interpreter.createNativeFunction(wrapper));
 };

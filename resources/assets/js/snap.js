@@ -44,7 +44,8 @@ bigCircle.attr({
 	pointDir: 0, // Needs to be in Radians for Math.<trigfunction>
 	rotateStyle: "all",
 	rotationDegree: 0,
-	penDown: false
+	penDown: false,
+	strokeSize: 4
 });
 var smallCircle = bigCircle.clone();
 smallCircle.attr({
