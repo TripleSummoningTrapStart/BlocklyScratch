@@ -1,11 +1,12 @@
 var svg = $('#svgStage')[0];
+var svg2 = $('#svgSprite')[0];
 var stage = Snap("#svgStage");
 var sprite = Snap("#svgSprite");
 var pt = svg.createSVGPoint();
 var focused;
 var spriteList = [];//TODO put into cache
 var stageList = [];//TODO put into cache
-var spriteXoffset = -82;
+var spriteXoffset = -85;
 var spriteYoffset = 2;
 
 //for different screen sizes, shows edge of working area
@@ -27,10 +28,10 @@ arrow.attr({
 });*/
 var switchSprite = function()
 {
-	focused.attr({blockXML: Blockly.Xml.domToText( Blockly.Xml.workspaceToDom(workspace))})
+	focused.attr({blockxml: Blockly.Xml.domToText( Blockly.Xml.workspaceToDom(workspace))})
 	focused = this;
 	workspace.clear();
-	Blockly.Xml.domToWorkspace(workspace, Blockly.Xml.textToDom(focused.attr('blockXML')));
+	Blockly.Xml.domToWorkspace(workspace, Blockly.Xml.textToDom(focused.attr('blockxml')));
 
 }
 
@@ -53,7 +54,7 @@ smallCircle.attr({
 	y: spriteYoffset,
 	height: bigCircle.attr('height')/3,
 	width: bigCircle.attr('width')/3,
-	blockXML: "<XML></XML>"
+	blockxml: '<XML></XML>'
 });
 spriteXoffset += parseInt(smallCircle.attr('width'));
 //sprite.append(smallCircle);
@@ -75,10 +76,11 @@ smallSQ.attr({
 	id: "smalls2",
 	r: 8,
 	cx: spriteXoffset + parseInt(smallSQ.attr('r')/2),
-  cy: parseInt(smallSQ.attr('r')) + 1,
-	blockXML: "<XML></XML>"
+  cy: 9.5,
+	blockxml: '<XML></XML>'
 });
 //sprite.append(smallSQ);
+spriteXoffset = spriteXoffset + parseInt(smallSQ.attr('r'));
 smallSQ.click(switchSprite);
 focused = smallCircle;
 stageList.push(bigCircle);
@@ -110,6 +112,9 @@ var move = function(dx, dy, posX, posY) {
 	pt.y = posY-diffy;
 
 	var transformed = pt.matrixTransform(svg.getScreenCTM().inverse());
+  if(this.type == 'circle')
+		this.attr({ cx : transformed.x, cy : transformed.y });
+	else
     this.attr({ x : transformed.x, y : transformed.y });
 }
 
@@ -119,7 +124,7 @@ var stop = function() {
 	this.ox = parseInt(this.attr("x"));
 	this.oy = parseInt(this.attr("y"));
 
-	if(this.ox+this.node.width.baseVal.value <=0 || this.ox >=480||this.oy+this.node.height.animVal.value<=0||this.oy>=360)
+	if(this.ox+stage.node.width.baseVal.value <=0 || this.ox >=480||this.oy+stage.node.height.animVal.value<=0||this.oy>=360)
 	{
 		this.ox = spritex;
 		this.oy = spritey;
@@ -129,44 +134,92 @@ var stop = function() {
     console.log("Stop move, ox=" + this.ox + ", oy=" + this.oy);
 }
 
-bigCircle.drag(move, start, stop);
+//bigCircle.drag(move, start, stop);
 
-var importSVG = function(contents)
+var importSVG = function(contents, clone)
 {
 	  var substr = contents.substring(contents.indexOf('id="')).replace('id="','');
 	  var id = substr.substring(0, substr.indexOf('"'));
 		var image = Snap.parse(contents);
 	  stage.append(image);
 		var temp = stage.select("#" + id);
-		temp.attr({'height': 100, 'width': 100});
+
 		temp.drag(move, start, stop);
 		stageList.push(temp);
+		if(clone)
+		{
+			temp.attr({'height': 100, 'width': 100});
+			cloneSVG(temp, id);
+		}
+
+}
+var addToSpriteArea = function(contents)
+{
+	  var substr = contents.substring(contents.indexOf('id="')) .replace('id="','');
+	  var id = substr.substring(0, substr.indexOf('"'));
+		var image = Snap.parse(contents);
+	  sprite.append(image);
+		var temp = sprite.select("#" + id);
+		temp.click(switchSprite);
 		spriteList.push(temp);
 
-		cloneSVG(temp);
 }
-var cloneSVG = function(image)
+var cloneSVG = function(image, id)
 {
 	var temp = image.clone()
 	temp.attr({
 		'height': image.attr('height')/3,
 		'width': image.attr('width')/3,
-		x: -60,
-		y: -5,
-		blockXML: "<XML></XML>"
+		x: spriteXoffset + 2,
+		y: spriteYoffset,
+		id: 'small' + id,
+		blockxml: "<XML></XML>"
 	});
+	spriteXoffset = spriteXoffset + parseInt(temp.attr('width'));
+	if(spriteXoffset == sprite.node.width.baseVal)
+	{
+		spriteYoffset += parseInt(temp.attr('height'));
+	}
 	temp.click(switchSprite);
 	sprite.append(temp);
+	spriteList.push(temp);
+	updateStorage();
 
 }
 var addSprites = function()
 {
 	maxX = stage.node.width.baseVal.value; //TODO reset on resize
   maxY = stage.node.height.baseVal.value;
-	for(var i = 0; i < stageList.length; i++)
-	{
-		stage.append(stageList[i]);
-		sprite.append(spriteList[i]);
-	}
+	//if(localStorage.getItem('StageSprites') !== null) {
+	//store.get(StageSprites, function(sprites){console.log(sprites)})
+  /*  this.get('StageSprites', function(sprites) {
+			//var tempstageList = localStorage.getItem('StageSprites');
+			//var tempspriteList = localStorage.getItem('SpriteAreaSprites');
+			var temparr = sprites.split('>,');
+			for(var i = 0; i < temparr.length; i++)
+			{
+				temparr[i] += '>';
+				importSVG(temparr[i], false);
+			}
+			stageList = temparr;
+    });
+})
+
+		temparr = tempspriteList.split('>,');
+		for(var i = 0; i < temparr.length; i++)
+		{
+			temparr[i] += '>';
+			addToSpriteArea(temparr[i]);
+		}
+		spriteList = temparr;*/
+  //}
+	//else {
+		for(var i = 0; i < stageList.length; i++)
+		{
+			stage.append(stageList[i]);
+			sprite.append(spriteList[i]);
+		}
+	//}
 }
+
 /*arrow.drag(move, start, stop);*/

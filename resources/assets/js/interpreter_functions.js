@@ -1,5 +1,5 @@
-var adjX = 200;
-var adjY = 140;
+var adjX = 200; // the adjusted X value of the sprite to support a cartesian coordinate plane
+var adjY = 140; // the adjusted Y value of the sprite to support a cartesian coordinate plane
 var semaphore = 0;
 
 /*This fu nction takes in a text input from the print block to add to the text area
@@ -249,7 +249,7 @@ var pointIn = function (id, dir, setDirection) {
 			return;
 		else
 		{
-			rotateClock(id, pointDiffDeg);
+			rotate(id, pointDiffDeg);
 			obj.attr("pointDir", dirRad);
 				obj.pointDir += dir;
 		}

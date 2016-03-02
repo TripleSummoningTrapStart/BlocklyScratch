@@ -6,6 +6,7 @@ var interpreter;
 var time = 1;
 var mouseX;
 var mouseY;
+var store = new Lawnchair({adaptor:'dom', table:'people'}, function(){});
 
 /* Method called when a change is detected in the page to resize the blockly area */
 var resizeBlockly = function(e) {
@@ -34,8 +35,8 @@ var injectBlockly = function() {
 		  toolbox: document.getElementById('toolbox')});
 
   //Local storage set up
-  window.setTimeout(BlocklyStorage.restoreBlocks, 0);
-  BlocklyStorage.backupOnUnload();
+  //window.setTimeout(BlocklyStorage.restoreBlocks, 0);
+  //BlocklyStorage.backupOnUnload();
   //Some block initialization including setting the highlight block prefix
   //and creating the hat curve
   Blockly.BlockSvg.START_HAT = true;
@@ -91,7 +92,7 @@ var openImportFile = function(evt) {
             importXML(e.target.result);
             break;
           case 'svg':
-            importSVG(e.target.result);
+            importSVG(e.target.result, true);
             break;
         }
 
@@ -259,6 +260,13 @@ var matrixAdd = function(matrixA, matrixB)
   return new Snap.Matrix(matrixA.a + matrixB.a, matrixA.b + matrixB.b, matrixA.c + matrixB.c, matrixA.d + matrixB.d, matrixB.e, matrixB.f)
 }
 
+var updateStorage = function()
+{
+
+    store.save({key: 'StageSprites'}, {StageSprites: stageList}, function(){console.log(stageList);})
+  //localStorage.setItem('StageSprites',  stageList);
+  //localStorage.setItem('SpriteAreaSprites', spriteList);
+}
 window.onload = function() {
 	loadAllBlocks();
 	injectBlockly();
