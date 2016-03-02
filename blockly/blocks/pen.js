@@ -159,3 +159,15 @@ Blockly.Blocks['pen_set_pen_size_to'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
+Blockly.Blocks['pen_set_color'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Color To")
+        .appendField(new Blockly.FieldColour("#ff0000"), "NAME");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+	this.setColour(Blockly.Blocks.pen.HSV_HUE, Blockly.Blocks.pen.HSV_SATURATION, Blockly.Blocks.pen.HSV_VALUE);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};

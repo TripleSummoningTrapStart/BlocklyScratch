@@ -80,3 +80,10 @@ Blockly.JavaScript['pen_set_pen_size_to'] = function(block) {
   var code = 'setSize(sprite, '+value_name+');';
   return code;
 };
+Blockly.JavaScript['pen_set_color'] = function(block) {
+  var text_name = block.getFieldValue('NAME');
+  var colour_name = block.getFieldValue('NAME');
+  // TODO: Assemble JavaScript into code variable.
+  var code = '...;\n';
+  return code;
+};

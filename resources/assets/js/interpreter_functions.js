@@ -398,6 +398,7 @@ var penUp = function(id)
 		obj.attr({'penDown': false});
 	}
 }
+/*setColor, changeColor, setShade, changeShade all still need implemented, and wrapper functions created intrpreter_init*/
 var setColor = function(id, x)
 {
 	var obj = stage.select('#' + id);
