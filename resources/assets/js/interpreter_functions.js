@@ -311,9 +311,9 @@ var pointIn = function (id, dir, setDirection) {
 			return;
 		else
 		{
-			rotateClock(id, pointDiffDeg);
+			rotate(id, pointDiffDeg);
 			obj.attr("pointDir", dirRad);
-				obj.pointDir += dir;
+			obj.pointDir += dir;
 		}
 	}
 };
