@@ -287,9 +287,9 @@ var edgeBounce = function(id){
 	var obj = stage.select('#'+id);
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
-	if(maxX == objX || maxY == objY)
+	if(maxX <= objX || maxY <= objY)
 	{
-		pointIn(id, obj.pointIn.value + 180, true);
+		pointIn(id, obj.pointIn + 180, true);
 	}
 };
 

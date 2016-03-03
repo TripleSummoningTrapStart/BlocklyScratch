@@ -35,8 +35,8 @@ var injectBlockly = function() {
 		  toolbox: document.getElementById('toolbox')});
 
   //Local storage set up
-  //window.setTimeout(BlocklyStorage.restoreBlocks, 0);
-  //BlocklyStorage.backupOnUnload();
+  window.setTimeout(BlocklyStorage.restoreBlocks, 0);
+  BlocklyStorage.backupOnUnload();
   //Some block initialization including setting the highlight block prefix
   //and creating the hat curve
   Blockly.BlockSvg.START_HAT = true;
@@ -250,7 +250,7 @@ $(document).mousemove(function(event) {
 });
 
 var calculateSpriteWindowPosition = function(spr){
-  return {x: document.getElementById(spr.node.id).getBoundingClientRect().left, 
+  return {x: document.getElementById(spr.node.id).getBoundingClientRect().left,
           y: document.getElementById(spr.node.id).getBoundingClientRect().top};
 };
 

@@ -83,7 +83,11 @@ function initApi(interpreter, scope) {
 		id = id ? id.data : '';
 		return interpreter.createPrimitive(setRotationStyle(id, rotateStyle));
 	}
-	interpreter.setProperty(scope, 'setRotationStyle', interpreter.createNativeFunction(wrapper));
+	var wrapper = function (id, rotateStyle) {
+		id = id ? id.data : '';
+		return interpreter.createPrimitive(edgeBounce(id));
+	}
+	interpreter.setProperty(scope, 'edgeBounce', interpreter.createNativeFunction(wrapper));
 	var wrapper = function (spriteID) {
 		spriteID = spriteID ? spriteID.data : '';
 		return interpreter.createPrimitive(pointTowardsMouse(spriteID));
@@ -95,7 +99,7 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(pointTowards(spriteID, objID));
 	}
 	interpreter.setProperty(scope, 'pointTowards', interpreter.createNativeFunction(wrapper));
-	
+
 	var wrapper = function(spriteID){
 		spriteID = spriteID ? spriteID.data : '';
 		return  interpreter.createPrimitive(penDown(spriteID));

@@ -102,7 +102,7 @@ Blockly.JavaScript['motion_sety'] = function(block) {
 
 Blockly.JavaScript['motion_bounceonedge'] = function(block) {
     // TODO: Assemble JavaScript into code variable.
-    var code = 'onEdgeBounce = True;\n';
+    var code = 'edgeBounce(sprite);\n';
     return code;
 };
 
