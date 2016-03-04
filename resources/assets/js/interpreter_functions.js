@@ -240,7 +240,10 @@ var gotoXY = function (id, xVal, yVal) {
 	@param: the id of the sprite*/
 var gotoMouse = function(id){
 	var obj = stage.select('#' + id);
-	var newX = mouseX;
+	var objX = parseInt(obj.attr('x'));
+	var objY = parseInt(obj.attr('y'));
+	var box = obj.getBBox();
+	var newX = mouseX - box.width / 2;
 	var newY = mouseY;
 	if(mouseX > maxX){
 		newX = maxX;
@@ -248,11 +251,11 @@ var gotoMouse = function(id){
 	else if (mouseX < 0){
 		newX = 0;
 	}
-	if(mouseY > maxY){
-		newY = maxY;
+	if(mouseY > maxY + adjY + 2 * box.height){
+		newY = maxY + adjY + 2 * box.height;
 	}
-	else if(mouseY < 0){
-		newY = 0;
+	else if(mouseY < adjY + 2 * box.height){
+		newY = adjY + 2 * box.height;
 	}
 	console.log("x: " + newX + ", y:" + newY);
 	if(obj.attr('penDown') == "true")
@@ -262,7 +265,7 @@ var gotoMouse = function(id){
 		var stroke = obj.attr('strokeSize');
 		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
 	}
-	obj.attr({'x': newX, 'y': newY - 250});
+	obj.attr({'x': newX, 'y': newY - 2 * adjY});
 };
 
 /* this function is called by the glideTo block to change the X and Y value of
