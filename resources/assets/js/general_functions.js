@@ -236,24 +236,33 @@ var registerButtons = function() {
   document.getElementById('svgFile').addEventListener('change', openImportFile, false);
 };
 
+/* Method to convert the given degrees to radians
+* @param degrees to be converted
+*/
 var convertToRadians = function(deg){
   return deg * Math.PI / 180;
 };
 
+/* Method to convert the given radians to degrees
+* @param radians to be converted
+*/
 var convertToDegrees = function(rad){
   return rad * 180 / Math.PI;
 };
 
+/* JQuery method to track the position of the mouse */
 $(document).mousemove(function(event) {
   mouseX= event.pageX;
   mouseY = event.pageY;
 });
 
+/* Method to calculate the position of the sprite in the browser window */
 var calculateSpriteWindowPosition = function(spr){
   return {x: document.getElementById(spr.node.id).getBoundingClientRect().left,
           y: document.getElementById(spr.node.id).getBoundingClientRect().top};
 };
 
+/* Method to add two matrices and return the SnapSVG Matrix */
 var matrixAdd = function(matrixA, matrixB)
 {
   return new Snap.Matrix(matrixA.a + matrixB.a, matrixA.b + matrixB.b, matrixA.c + matrixB.c, matrixA.d + matrixB.d, matrixB.e, matrixB.f)

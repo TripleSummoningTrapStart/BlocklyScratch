@@ -83,6 +83,10 @@ Blockly.Blocks['motion_pointin'] = {
 };
 
 Blockly.Blocks['motion_pointtowards'] = {
+  /**
+   * Block for pointing the sprite towards the selected object
+   * @this Blockly.Block
+   */
     init: function() {
         this.appendDummyInput()
             .appendField("point towards")
@@ -229,6 +233,10 @@ Blockly.Blocks['motion_sety'] = {
 };
 
 Blockly.Blocks['motion_bounceonedge'] = {
+  /**
+   * Block for setting the bounce on edge property for movement
+   * @this Blockly.Block
+   */
     init: function() {
         this.appendDummyInput()
             .appendField("if on edge, bounce");
@@ -241,6 +249,10 @@ Blockly.Blocks['motion_bounceonedge'] = {
 };
 
 Blockly.Blocks['motion_rotation_style'] = {
+  /**
+   * Block for setting the rotation style of the sprite
+   * @this Blockly.Block
+   */
     init: function() {
         this.appendDummyInput()
             .appendField("set rotation style")

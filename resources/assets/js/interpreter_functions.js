@@ -162,14 +162,21 @@ var setY = function (id, newVal) {
 	@param: the value to change X by */
 var changeX = function (id, changeVal) {
 	var obj = stage.select('#'+id);
-	if(obj.attr('penDown') == "true")
-	{
-		x1 = obj.attr('x');
-		y1 = obj.attr('y');
-		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, parseInt(x1)+changeVal, y1).attr({stroke: '#00ADEF', strokeWidth: stroke});
-	}
-	obj.attr({'x':  parseInt(obj.attr('x')) + changeVal});
+	var objX = parseInt(obj.attr('x'));
+		var newX = changeVal + objX;
+		if(newX == objX){
+			return;
+		}
+		if(newX > maxX){
+			newX = maxX;
+		}
+		if(obj.attr('penDown') == "true")
+		{
+			x1 = obj.attr('x');
+			y1 = obj.attr('y');
+			var line1 = stage.line(x1, y1, newX, y1).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		}
+		obj.attr({'x': newX});
 };
 
 /* this function is called by the changeY block to change the Y value of the specified sprite
@@ -178,14 +185,21 @@ var changeX = function (id, changeVal) {
 	@param: the value to change Y by */
 var changeY = function (id, changeVal) {
 	var obj = stage.select('#'+id);
+	var objY = parseInt(obj.attr('y'));
+	var newY = -1 * changeVal + objY;
+	if(newY == objY){
+		return;
+	}
+	if(newY > maxY){
+		newY = maxY;
+	}
 	if(obj.attr('penDown') == "true")
 	{
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
-		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, x1, parseInt(y1)+changeVal).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var line1 = stage.line(x1, y1, x1, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
 	}
-	obj.attr({'y':  parseInt(obj.attr('y')) + changeVal});
+	obj.attr({'y': newY});
 };
 
 /* this function is called by the GotoXY block to change the X and Y value of
@@ -195,15 +209,29 @@ var changeY = function (id, changeVal) {
 	@param: the value to change Y to*/
 var gotoXY = function (id, xVal, yVal) {
 	var obj = stage.select('#'+id);
+	var objX = parseInt(obj.attr('x'));
+	var objY = parseInt(obj.attr('y'));
+	var newX = adjX + xVal;
+	var newY = adjY - yVal;
+	if(newX == objX && newY == objY)
+	{
+		return;
+	}
+	if(newX > maxX)
+	{
+		newX = maxX;
+	}
+	if(newY > maxY)
+	{
+		newY = maxY;
+	}
 	if(obj.attr('penDown') == "true")
 	{
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
-		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, xVal, yVal).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
 	}
-	obj.attr({'x': xVal, 'y':  yVal});
-
+	obj.attr({'x': newX, 'y': newY});
 };
 
 
@@ -212,7 +240,10 @@ var gotoXY = function (id, xVal, yVal) {
 	@param: the id of the sprite*/
 var gotoMouse = function(id){
 	var obj = stage.select('#' + id);
-	var newX = mouseX;
+	var objX = parseInt(obj.attr('x'));
+	var objY = parseInt(obj.attr('y'));
+	var box = obj.getBBox();
+	var newX = mouseX - box.width / 2;
 	var newY = mouseY;
 	if(mouseX > maxX){
 		newX = maxX;
@@ -220,11 +251,11 @@ var gotoMouse = function(id){
 	else if (mouseX < 0){
 		newX = 0;
 	}
-	if(mouseY > maxY){
-		newY = maxY;
+	if(mouseY > maxY + adjY + 2 * box.height){
+		newY = maxY + adjY + 2 * box.height;
 	}
-	else if(mouseY < 0){
-		newY = 0;
+	else if(mouseY < adjY + 2 * box.height){
+		newY = adjY + 2 * box.height;
 	}
 	console.log("x: " + newX + ", y:" + newY);
 	if(obj.attr('penDown') == "true")
@@ -234,7 +265,7 @@ var gotoMouse = function(id){
 		var stroke = obj.attr('strokeSize');
 		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
 	}
-	obj.attr({'x': newX, 'y': newY - 250});
+	obj.attr({'x': newX, 'y': newY - 2 * adjY});
 };
 
 /* this function is called by the glideTo block to change the X and Y value of
