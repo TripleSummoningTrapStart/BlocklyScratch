@@ -33,7 +33,8 @@ var moveStep = function(id, steps) {
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
 		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var strokeColor = obj.attr('strokePen');
+		var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'x': parseInt(obj.attr('x')) + adjSide, 'y':  parseInt(obj.attr('y')) - oppSide});
 };
@@ -438,13 +439,369 @@ var changeColor = function(id, dx)
 {
 	var obj = stage.select('#' + id);
 }
+/*
+This function sets the shade of the pen to a certian value
+	@param: the id of the sprite that is active
+	@param: the size to set the shade of the pen to be
+*/
 var setShade = function(id, x)
 {
 	var obj = stage.select('#' + id);
+	var color = obj.attr('strokePen');
+	//var spli = color.split(', ');
+	//var R = parseInt(spli[0].split('(')[1]);
+	//var G = parseInt(spli[1]);
+	//var B = parseInt(spli[2].split(')')[0]);
+	var R = parseInt(color[1] + color[2], 16);
+	var G = parseInt(color[3] + color[4], 16);
+	var B = parseInt(color[5] + color[6], 16);
+	var Rp = R/255.0;
+	var Gp = G/255.0;
+	var Bp = B/255.0;
+	var Cmax = 0;
+	var Cmin = 1;
+	if(Rp>=Gp)
+	{
+		if(Rp>=Bp)
+		{
+			//red max
+			Cmax = Rp;
+		}
+		else
+		{
+			//blue max
+			Cmax = Bp;
+		}
+	}
+	else
+	{
+		if(Gp>=Bp)
+		{
+			//Green Max
+			Cmax = Gp;
+		}
+		else
+		{
+			//blue max
+			Cmax = Bp;
+		}
+	}
+	if(Rp<=Gp)
+	{
+		if(Rp<=Bp)
+		{
+			//red min
+			Cmin = Rp;
+		}
+		else
+		{
+			//blue min
+			Cmin = Bp;
+		}
+	}
+	else
+	{
+		if(Gp<=Bp)
+		{
+			//Green Min
+			Cmin = Gp;
+		}
+		else
+		{
+			//blue min
+			Cmin = Bp;
+		}
+	}
+	var delta = Cmax - Cmin;
+	var H;
+	if(delta == 0)
+	{
+		H = 0;
+	}
+	else if(Rp == Cmax)
+	{
+		H = 60*(((Gp-Bp)/delta)%6);
+	}
+	else if(Gp == Cmax)
+	{
+		H = 60*(((Bp-Rp)/delta)+2);
+	}
+	else
+	{
+		H = 60*(((Rp-Gp)/delta)+4);
+	}
+	var S;
+	if(Cmax==0)
+	{
+		S = 0;
+	}
+	else
+	{
+		S = delta/Cmax;
+	}
+	//change shade value
+	var V = x/100;
+	//now convert back to RGB
+	var C = V*S;
+	var X = C*(1-Math.abs(((H/60)%2)-1));
+	var m = V - C;
+	
+	if(H<60)
+	{
+		Rp = C;
+		Gp = X;
+		Bp = 0;
+	}
+	else if(H<120)
+	{
+		Rp = X;
+		Gp = C;
+		Bp = 0;
+	}
+	else if(H<180)
+	{
+		Rp = 0;
+		Gp = C;
+		Bp = X;
+	}
+	else if(H<240)
+	{
+		Rp = 0;
+		Gp = X;
+		Bp = C;
+	}
+	else if(H<300)
+	{
+		Rp = X;
+		Gp = 0;
+		Bp = C;
+	}
+	else
+	{
+		Rp = C;
+		Gp = 0;
+		Bp = X;
+	}
+	R = parseInt((Rp+m)*255);
+	G = parseInt((Gp+m)*255);
+	B = parseInt((Bp+m)*255);
+	var r1;
+	if(R<16)
+	{
+		r1 = '0'+R.toString(16);
+	}
+	else
+	{
+		r1 = R.toString(16);
+	}
+	var g1;
+	if(G<16)
+	{
+		g1 = '0'+G.toString(16);
+	}
+	else
+	{
+		g1 = G.toString(16);
+	}
+	var b1;
+	if(B<16)
+	{
+		b1 = '0'+B.toString(16);
+	}
+	else
+	{
+		b1 = B.toString(16);
+	}
+	var Hex = '#'+r1+g1+b1;
+	obj.attr({strokePen: Hex});
 }
+/*
+This function changes the shade of the pen to a certian value, if value goes below 0, or above 1-
+it switches the direction that the shade is changing by.  0 is for close to black, 1 is for close to white.
+	@param: the id of the sprite that is active
+	@param: the size to set the shade of the pen to be
+*/
 var changeShade = function(id, dx)
 {
 	var obj = stage.select('#' + id);
+	var color = obj.attr('strokePen');
+	//var spli = color.split(', ');
+	//var R = parseInt(spli[0].split('(')[1]);
+	//var G = parseInt(spli[1]);
+	//var B = parseInt(spli[2].split(')')[0]);
+	var R = parseInt(color[1] + color[2], 16);
+	var G = parseInt(color[3] + color[4], 16);
+	var B = parseInt(color[5] + color[6], 16);
+	var Rp = R/255.0;
+	var Gp = G/255.0;
+	var Bp = B/255.0;
+	var Cmax = 0;
+	var Cmin = 1;
+	if(Rp>=Gp)
+	{
+		if(Rp>=Bp)
+		{
+			//red max
+			Cmax = Rp;
+		}
+		else
+		{
+			//blue max
+			Cmax = Bp;
+		}
+	}
+	else
+	{
+		if(Gp>=Bp)
+		{
+			//Green Max
+			Cmax = Gp;
+		}
+		else
+		{
+			//blue max
+			Cmax = Bp;
+		}
+	}
+	if(Rp<=Gp)
+	{
+		if(Rp<=Bp)
+		{
+			//red min
+			Cmin = Rp;
+		}
+		else
+		{
+			//blue min
+			Cmin = Bp;
+		}
+	}
+	else
+	{
+		if(Gp<=Bp)
+		{
+			//Green Min
+			Cmin = Gp;
+		}
+		else
+		{
+			//blue min
+			Cmin = Bp;
+		}
+	}
+	var delta = Cmax - Cmin;
+	var H;
+	if(delta == 0)
+	{
+		H = 0;
+	}
+	else if(Rp == Cmax)
+	{
+		H = 60*(((Gp-Bp)/delta)%6);
+	}
+	else if(Gp == Cmax)
+	{
+		H = 60*(((Bp-Rp)/delta)+2);
+	}
+	else
+	{
+		H = 60*(((Rp-Gp)/delta)+4);
+	}
+	var S;
+	if(Cmax==0)
+	{
+		S = 0;
+	}
+	else
+	{
+		S = delta/Cmax;
+	}
+	//change shade value
+	
+	var V = Cmax + obj.attr('shadeDirection')*(parseInt(dx)/100);
+	if(V<0)
+	{
+		V = 0-V;
+		obj.attr({shadeDirection: 1});
+	}
+	else if(V>1)
+	{
+		V = 1-(V%1);
+		obj.attr({shadeDirection: -1});
+	}
+	//now convert back to RGB
+	var C = V*S;
+	var X = C*(1-Math.abs(((H/60)%2)-1));
+	var m = V - C;
+	
+	if(H<60)
+	{
+		Rp = C;
+		Gp = X;
+		Bp = 0;
+	}
+	else if(H<120)
+	{
+		Rp = X;
+		Gp = C;
+		Bp = 0;
+	}
+	else if(H<180)
+	{
+		Rp = 0;
+		Gp = C;
+		Bp = X;
+	}
+	else if(H<240)
+	{
+		Rp = 0;
+		Gp = X;
+		Bp = C;
+	}
+	else if(H<300)
+	{
+		Rp = X;
+		Gp = 0;
+		Bp = C;
+	}
+	else
+	{
+		Rp = C;
+		Gp = 0;
+		Bp = X;
+	}
+	R = parseInt((Rp+m)*255);
+	G = parseInt((Gp+m)*255);
+	B = parseInt((Bp+m)*255);
+	var r1;
+	if(R<16)
+	{
+		r1 = '0'+R.toString(16);
+	}
+	else
+	{
+		r1 = R.toString(16);
+	}
+	var g1;
+	if(G<16)
+	{
+		g1 = '0'+G.toString(16);
+	}
+	else
+	{
+		g1 = G.toString(16);
+	}
+	var b1;
+	if(B<16)
+	{
+		b1 = '0'+B.toString(16);
+	}
+	else
+	{
+		b1 = B.toString(16);
+	}
+	var Hex = '#'+r1+g1+b1;
+	obj.attr({strokePen: Hex});
 }
 /*
 This functions sets the size of the pen to be x
