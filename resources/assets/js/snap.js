@@ -48,7 +48,8 @@ bigCircle.attr({
 	penDown: false,
 	strokeSize: 4,
 	strokePen: "#00ADEF",
-	shadeDirection: 1
+	shadeDirection: 1,
+	colorDirection: 1
 });
 var smallCircle = bigCircle.clone();
 smallCircle.attr({
