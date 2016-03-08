@@ -1,3 +1,8 @@
+/**
+* Event blocks
+* Created by David Barnes III on...
+*/
+
 'use strict';
 
 goog.provide('Blockly.Blocks.events');
@@ -5,8 +10,8 @@ goog.provide('Blockly.Blocks.events');
 goog.require('Blockly.Blocks');
 
 Blockly.Blocks.events.HSV_HUE = 33;
-Blockly.Blocks.events.HSV_SATURATION = .75;
-Blockly.Blocks.events.HSV_VALUE = .78;
+Blockly.Blocks.events.HSV_SATURATION = 0.75;
+Blockly.Blocks.events.HSV_VALUE = 0.78;
 
 Blockly.Blocks['events_hat_when_run_clicked'] = {
   /**
@@ -24,11 +29,12 @@ Blockly.Blocks['events_hat_when_run_clicked'] = {
 
   }
 };
-/**
-*Block for determing what to do when a certian key is pressed.
-*@this Blockly.Block
- */
+
 Blockly.Blocks['events_hat_when_key_press'] = {
+  /**
+  * Block for determing what to do when a certian key is pressed.
+  * @this Blockly.Block
+  */
   init: function() {
     this.appendDummyInput()
         .appendField("when");
@@ -44,10 +50,12 @@ Blockly.Blocks['events_hat_when_key_press'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
-/**
-*Block for determining actions when a sprite is clicked
-*@this Blockly.Block*/
+
 Blockly.Blocks['events_hat_when_sprite_clicked'] = {
+  /**
+  * Block for determining actions when a sprite is clicked
+  * @this Blockly.Block
+  */
   init: function() {
     this.appendDummyInput()
         .appendField("when this sprite clicked");
@@ -59,10 +67,12 @@ Blockly.Blocks['events_hat_when_sprite_clicked'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
-/**
-*Block for determing what to do when background is switched
-*@this Blockly.Block*/
+
 Blockly.Blocks['events_hat_when_backdrop_switched'] = {
+  /**
+  * Block for determing what to do when background is switched
+  * @this Blockly.Block
+  */
   init: function() {
     this.appendDummyInput()
         .appendField("when backdrop switches to");
@@ -76,10 +86,12 @@ Blockly.Blocks['events_hat_when_backdrop_switched'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
-/**
-*Block for determing 
-*@this Blockly.Block*/
+
 Blockly.Blocks['events_hat_when_compare'] = {
+  /**
+  * Block for determing
+  * @this Blockly.Block
+  */
   init: function() {
     this.appendDummyInput()
         .appendField("when");
@@ -97,10 +109,12 @@ Blockly.Blocks['events_hat_when_compare'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
-/**
-*Block for determing what to do when a certian message is recived
-*@this Blockly.Block*/
+
 Blockly.Blocks['events_hat_when_receive'] = {
+  /**
+  * Block for determing what to do when a certian message is recived
+  * @this Blockly.Block
+  */
   init: function() {
     this.appendDummyInput()
         .appendField("when I receive");
@@ -116,6 +130,10 @@ Blockly.Blocks['events_hat_when_receive'] = {
 };
 
 Blockly.Blocks['events_broadcast'] = {
+  /**
+  * Block for broadcasting a message to another sprite
+  * @this Blockly.Block
+  */
   init: function() {
     this.appendDummyInput()
         .appendField("broadcast ")
@@ -129,6 +147,10 @@ Blockly.Blocks['events_broadcast'] = {
 };
 
 Blockly.Blocks['events_broadcast_wait'] = {
+  /**
+  * Block for wating for a broadcast message from antoher sprite
+  * @this Blockly.Block
+  */
   init: function() {
     this.appendDummyInput()
         .appendField("broadcast ")

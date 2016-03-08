@@ -33,8 +33,8 @@ goog.require('Blockly.Blocks');
  * Common HSV hue for all blocks in this category.
  */
 Blockly.Blocks.procedures.HSV_HUE = 290;
-Blockly.Blocks.procedures.HSV_SATURATION = .45;
-Blockly.Blocks.procedures.HSV_VALUE = .65;
+Blockly.Blocks.procedures.HSV_SATURATION = 0.45;
+Blockly.Blocks.procedures.HSV_VALUE = 0.65;
 
 Blockly.Blocks['procedures_defnoreturn'] = {
   /**
@@ -775,4 +775,3 @@ Blockly.Blocks['procedures_ifreturn'] = {
     }
   }
 };
-

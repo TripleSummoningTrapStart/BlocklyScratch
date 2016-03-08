@@ -16,10 +16,8 @@ Blockly.Blocks.pen.HSV_VALUE = 0.62;
 
 Blockly.Blocks['pen_clear'] = {
   init: function() {
-    //this.appendValueInput()
-    this.appendDummyInput()  
+    this.appendDummyInput()
 		.appendField("clear");
-	 //this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(Blockly.Blocks.pen.HSV_HUE, Blockly.Blocks.pen.HSV_SATURATION, Blockly.Blocks.pen.HSV_VALUE);
