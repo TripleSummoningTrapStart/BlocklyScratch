@@ -6,7 +6,7 @@ var interpreter;
 var time = 1;
 var mouseX;
 var mouseY;
-var store = new Lawnchair({adaptor:'dom', table:'people'}, function(){});
+//var store = new Lawnchair({adaptor:'dom', table:'people'}, function(){});
 
 /* Method called when a change is detected in the page to resize the blockly area */
 var resizeBlockly = function(e) {
@@ -262,7 +262,7 @@ var matrixAdd = function(matrixA, matrixB)
 var updateStorage = function()
 {
 
-    store.save({key: 'StageSprites'}, {StageSprites: stageList}, function(){console.log(stageList);})
+    //store.save({key: 'StageSprites'}, {StageSprites: stageList}, function(){console.log(stageList);})
   //localStorage.setItem('StageSprites',  stageList);
   //localStorage.setItem('SpriteAreaSprites', spriteList);
 }
