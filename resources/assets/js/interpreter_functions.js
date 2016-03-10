@@ -441,11 +441,11 @@ var penUp = function(id)
 }
 
 /*
-This function sets the color of the pen to a certian value
+This function sets the color of the pen to a certian numeric value
 	@param: the id of the sprite that is active
 	@param: the size to set the color of the pen to be
 */
-var setColor = function(id, x)
+var setColorByNumber = function(id, x)
 {
 	var obj = stage.select('#'+id);
 	var color = obj.attr('strokePen');
@@ -474,26 +474,16 @@ var setColor = function(id, x)
 	var Hex = '#'+r1+g1+b1;
 	obj.attr({strokePen: Hex});
 }
-var changeColor = function(id, dx)
+/*
+This function sets the color of the pen to a certian color, decided by color block
+	@param: the id of the sprite that is active
+	@param: the size to set the color of the pen to be
+*/
+var setColorByColor = function(id, h, s, v)
 {
-	var obj = stage.select('#' + id);
-	var color = obj.attr('strokePen');
-	var hsv = RGBtoHSV(color);
-	var H = parseInt(hsv[0]);
-	var S = parseFloat(hsv[1]);
-	var V = parseFloat(hsv[2]);
-	var H = H+ obj.attr('colorDirection')*parseInt(dx);
-	if(H<0)
-	{
-		H = 0-H;
-		obj.attr({colorDirection: 1});
-	}
-	else if(H>360)
-	{
-		H = 360-(H%360);
-		obj.attr({colorDirection: -1});
-	}
-	hsv = [H, S, V];
+	var obj = stage.select('#'+id);
+	//obj.attr({strokePen: x});
+	var hsv = [h, s, v];
 	var rgb = HSVtoRGB(hsv);
 	var r1 = rgb[0];
 	var g1 = rgb[1];
@@ -506,7 +496,7 @@ This function sets the shade of the pen to a certian value
 	@param: the id of the sprite that is active
 	@param: the size to set the shade of the pen to be
 */
-var setShade = function(id, x)
+var setShade = function(id,x)
 {
 	var obj = stage.select('#'+id);
 	var color = obj.attr('strokePen');
