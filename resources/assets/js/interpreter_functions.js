@@ -128,7 +128,8 @@ var setX = function (id, newVal) {
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
 		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, newX, y1).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var strokeColor = obj.attr('strokePen');
+		var line1 = stage.line(x1, y1, newX, y1).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'x': newX});
 };
@@ -152,7 +153,8 @@ var setY = function (id, newVal) {
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
 		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, x1, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var strokeColor = obj.attr('strokePen');
+		var line1 = stage.line(x1, y1, x1, newY).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'y':  newY});
 };
@@ -175,7 +177,9 @@ var changeX = function (id, changeVal) {
 		{
 			x1 = obj.attr('x');
 			y1 = obj.attr('y');
-			var line1 = stage.line(x1, y1, newX, y1).attr({stroke: '#00ADEF', strokeWidth: stroke});
+			var stroke = obj.attr('strokeSize');
+			var strokeColor = obj.attr('strokePen');
+			var line1 = stage.line(x1, y1, newX, y1).attr({stroke: strokeColor, strokeWidth: stroke});
 		}
 		obj.attr({'x': newX});
 };
@@ -198,7 +202,9 @@ var changeY = function (id, changeVal) {
 	{
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
-		var line1 = stage.line(x1, y1, x1, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var stroke = obj.attr('strokeSize');
+		var strokeColor = obj.attr('strokePen');
+		var line1 = stage.line(x1, y1, x1, newY).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'y': newY});
 };
@@ -230,7 +236,9 @@ var gotoXY = function (id, xVal, yVal) {
 	{
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
-		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var stroke = obj.attr('strokeSize');
+		var strokeColor = obj.attr('strokePen');
+		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'x': newX, 'y': newY});
 };
@@ -264,7 +272,8 @@ var gotoMouse = function(id){
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
 		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var strokeColor = obj.attr('strokePen');
+		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'x': newX, 'y': newY - 2 * adjY});
 };
