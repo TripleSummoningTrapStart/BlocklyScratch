@@ -67,48 +67,41 @@ Blockly.JavaScript['motion_glideto'] = function(block) {
     var value_time = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_ATOMIC);
     var value_x_val = Blockly.JavaScript.valueToCode(block, 'X_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     var value_y_val = Blockly.JavaScript.valueToCode(block, 'Y_VAL', Blockly.JavaScript.ORDER_ATOMIC);
-    // TODO: Assemble JavaScript into code variable.
     var code = 'glideTo(sprite, '+ value_time + ',' + value_x_val + ',' + (value_y_val *-1) +')\n;';
     return code;
 };
 
 Blockly.JavaScript['motion_changex'] = function(block) {
     var value_change_num = Blockly.JavaScript.valueToCode(block, 'CHANGE_NUM', Blockly.JavaScript.ORDER_ATOMIC);
-
     var code = 'changeX(sprite, ' + value_change_num + ');\n';
     return code;
 };
 
 Blockly.JavaScript['motion_changey'] = function(block) {
     var value_change_num = Blockly.JavaScript.valueToCode(block, 'CHANGE_NUM', Blockly.JavaScript.ORDER_ATOMIC);
-
     var code = 'changeY(sprite, ' + value_change_num + ');\n';
     return code;
 };
 
 Blockly.JavaScript['motion_setx'] = function(block) {
     var value_new_val = Blockly.JavaScript.valueToCode(block, 'NEW_VAL', Blockly.JavaScript.ORDER_ATOMIC);
-
     var code = 'setX(sprite, ' + value_new_val + ');\n';
     return code;
 };
 
 Blockly.JavaScript['motion_sety'] = function(block) {
     var value_new_val = Blockly.JavaScript.valueToCode(block, 'NEW_VAL', Blockly.JavaScript.ORDER_ATOMIC);
-
     var code = 'setY(sprite, ' + value_new_val + ');\n';
     return code;
 };
 
 Blockly.JavaScript['motion_bounceonedge'] = function(block) {
-    // TODO: Assemble JavaScript into code variable.
     var code = 'edgeBounce(sprite);\n';
     return code;
 };
 
 Blockly.JavaScript['motion_rotation_style'] = function(block) {
     var dropdown_options = block.getFieldValue('OPTIONS');
-    // TODO: Assemble JavaScript into code variable.
     var code = 'setRotationStyle(sprite, "' + dropdown_options + '");\n';
     return code;
 };

@@ -217,14 +217,6 @@ var runCode = function() {
 	nextStep();
 	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
 };
-var timer = function()
-{
-	var textarea = document.getElementById("textArea");
-	textarea.innerHTML += time + '&#13;&#10;';
-	textarea.scrollTop = textarea.scrollHeight;
-	time++;
-	window.setTimeout(timer, 1000);
-}
 /*Method to add event listeners to the buttons on the page */
 var registerButtons = function() {
 	document.getElementById('xmlFile').addEventListener('change', openImportFile, false);

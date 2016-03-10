@@ -1,5 +1,4 @@
 var svg = $('#svgStage')[0];
-var svg2 = $('#svgSprite')[0];
 var stage = Snap("#svgStage");
 var sprite = Snap("#svgSprite");
 var pt = svg.createSVGPoint();
