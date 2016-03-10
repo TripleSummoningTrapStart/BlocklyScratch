@@ -45,7 +45,10 @@ bigCircle.attr({
 	rotateStyle: "all",
 	rotationDegree: 0,
 	penDown: false,
-	strokeSize: 4
+	strokeSize: 4,
+	strokePen: "#00ADEF",
+	shadeDirection: 1,
+	colorDirection: 1
 });
 var smallCircle = bigCircle.clone();
 smallCircle.attr({

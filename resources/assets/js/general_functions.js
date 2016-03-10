@@ -267,6 +267,179 @@ var updateStorage = function()
   //localStorage.setItem('StageSprites',  stageList);
   //localStorage.setItem('SpriteAreaSprites', spriteList);
 }
+var RGBtoHSV = function(color)
+{
+	//var array = [0, 1, 2];
+	var R = parseInt(color[1] + color[2], 16);
+	var G = parseInt(color[3] + color[4], 16);
+	var B = parseInt(color[5] + color[6], 16);
+	var Rp = R/255.0;
+	var Gp = G/255.0;
+	var Bp = B/255.0;
+	var Cmax = 0;
+	var Cmin = 1;
+	if(Rp>=Gp)
+	{
+		if(Rp>=Bp)
+		{
+			//red max
+			Cmax = Rp;
+		}
+		else
+		{
+			//blue max
+			Cmax = Bp;
+		}
+	}
+	else
+	{
+		if(Gp>=Bp)
+		{
+			//Green Max
+			Cmax = Gp;
+		}
+		else
+		{
+			//blue max
+			Cmax = Bp;
+		}
+	}
+	if(Rp<=Gp)
+	{
+		if(Rp<=Bp)
+		{
+			//red min
+			Cmin = Rp;
+		}
+		else
+		{
+			//blue min
+			Cmin = Bp;
+		}
+	}
+	else
+	{
+		if(Gp<=Bp)
+		{
+			//Green Min
+			Cmin = Gp;
+		}
+		else
+		{
+			//blue min
+			Cmin = Bp;
+		}
+	}
+	var delta = Cmax - Cmin;
+	var H;
+	if(delta == 0)
+	{
+		H = 0;
+	}
+	else if(Rp == Cmax)
+	{
+		H = 60*(((Gp-Bp)/delta)%6);
+	}
+	else if(Gp == Cmax)
+	{
+		H = 60*(((Bp-Rp)/delta)+2);
+	}
+	else
+	{
+		H = 60*(((Rp-Gp)/delta)+4);
+	}
+	var S;
+	if(Cmax==0)
+	{
+		S = 0;
+	}
+	else
+	{
+		S = delta/Cmax;
+	}
+	//change shade value
+	
+	var V = Cmax;
+	var array = [H, S, V];
+	return array;
+}
+var HSVtoRGB = function(hsv)
+{
+	var H = parseInt(hsv[0]);
+	var S = parseFloat(hsv[1]);
+	var V = parseFloat(hsv[2]);
+	var C = V*S;
+	var X = C*(1-Math.abs(((H/60)%2)-1));
+	var m = V - C;
+	var R, G, B, Rp, Gp, Bp;
+	if(H<60)
+	{
+		Rp = C;
+		Gp = X;
+		Bp = 0;
+	}
+	else if(H<120)
+	{
+		Rp = X;
+		Gp = C;
+		Bp = 0;
+	}
+	else if(H<180)
+	{
+		Rp = 0;
+		Gp = C;
+		Bp = X;
+	}
+	else if(H<240)
+	{
+		Rp = 0;
+		Gp = X;
+		Bp = C;
+	}
+	else if(H<300)
+	{
+		Rp = X;
+		Gp = 0;
+		Bp = C;
+	}
+	else
+	{
+		Rp = C;
+		Gp = 0;
+		Bp = X;
+	}
+	R = parseInt((Rp+m)*255);
+	G = parseInt((Gp+m)*255);
+	B = parseInt((Bp+m)*255);
+	var r1;
+	if(R<16)
+	{
+		r1 = '0'+R.toString(16);
+	}
+	else
+	{
+		r1 = R.toString(16);
+	}
+	var g1;
+	if(G<16)
+	{
+		g1 = '0'+G.toString(16);
+	}
+	else
+	{
+		g1 = G.toString(16);
+	}
+	var b1;
+	if(B<16)
+	{
+		b1 = '0'+B.toString(16);
+	}
+	else
+	{
+		b1 = B.toString(16);
+	}
+	return [r1, g1, b1];
+}
 window.onload = function() {
 	loadAllBlocks();
 	injectBlockly();

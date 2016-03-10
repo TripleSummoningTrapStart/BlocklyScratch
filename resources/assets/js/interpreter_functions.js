@@ -33,7 +33,8 @@ var moveStep = function(id, steps) {
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
 		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var strokeColor = obj.attr('strokePen');
+		var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'x': parseInt(obj.attr('x')) + adjSide, 'y':  parseInt(obj.attr('y')) - oppSide});
 };
@@ -429,23 +430,136 @@ var penUp = function(id)
 		obj.attr({'penDown': false});
 	}
 }
-/*setColor, changeColor, setShade, changeShade all still need implemented, and wrapper functions created intrpreter_init*/
+
+/*
+This function sets the color of the pen to a certian value
+	@param: the id of the sprite that is active
+	@param: the size to set the color of the pen to be
+*/
 var setColor = function(id, x)
 {
-	var obj = stage.select('#' + id);
+	var obj = stage.select('#'+id);
+	var color = obj.attr('strokePen');
+	var hsv = RGBtoHSV(color);
+	var H = parseInt(hsv[0]);
+	var S = parseFloat(hsv[1]);
+	var V = parseFloat(hsv[2]);
+	//V = x/100;
+	if(x<0)
+	{
+		H = 0;
+	}
+	else if(x>360)
+	{
+		H =360;
+	}
+	else
+	{
+		H = x;
+	}
+	hsv = [H, S, V];
+	var rgb = HSVtoRGB(hsv);
+	var r1 = rgb[0];
+	var g1 = rgb[1];
+	var b1 = rgb[2];
+	var Hex = '#'+r1+g1+b1;
+	obj.attr({strokePen: Hex});
 }
 var changeColor = function(id, dx)
 {
 	var obj = stage.select('#' + id);
+	var color = obj.attr('strokePen');
+	var hsv = RGBtoHSV(color);
+	var H = parseInt(hsv[0]);
+	var S = parseFloat(hsv[1]);
+	var V = parseFloat(hsv[2]);
+	var H = H+ obj.attr('colorDirection')*parseInt(dx);
+	if(H<0)
+	{
+		H = 0-H;
+		obj.attr({colorDirection: 1});
+	}
+	else if(H>360)
+	{
+		H = 360-(H%360);
+		obj.attr({colorDirection: -1});
+	}
+	hsv = [H, S, V];
+	var rgb = HSVtoRGB(hsv);
+	var r1 = rgb[0];
+	var g1 = rgb[1];
+	var b1 = rgb[2];
+	var Hex = '#'+r1+g1+b1;
+	obj.attr({strokePen: Hex});
 }
+/*
+This function sets the shade of the pen to a certian value
+	@param: the id of the sprite that is active
+	@param: the size to set the shade of the pen to be
+*/
 var setShade = function(id, x)
 {
-	var obj = stage.select('#' + id);
+	var obj = stage.select('#'+id);
+	var color = obj.attr('strokePen');
+	var hsv = RGBtoHSV(color);
+	var H = parseInt(hsv[0]);
+	var S = parseFloat(hsv[1]);
+	var V = parseFloat(hsv[2]);
+	//V = x/100;
+	if(x<0)
+	{
+		V = 0.0;
+	}
+	else if(x>100)
+	{
+		V =1.0;
+	}
+	else
+	{
+		V = x/100;
+	}
+	hsv = [H, S, V];
+	var rgb = HSVtoRGB(hsv);
+	var r1 = rgb[0];
+	var g1 = rgb[1];
+	var b1 = rgb[2];
+	var Hex = '#'+r1+g1+b1;
+	obj.attr({strokePen: Hex});
 }
+/*
+This function changes the shade of the pen to a certian value, if value goes below 0, or above 1-
+it switches the direction that the shade is changing by.  0 is for close to black, 1 is for close to white.
+	@param: the id of the sprite that is active
+	@param: the size to set the shade of the pen to be
+*/
 var changeShade = function(id, dx)
 {
 	var obj = stage.select('#' + id);
+	var color = obj.attr('strokePen');
+	var hsv = RGBtoHSV(color);
+	var H = hsv[0];
+	var S = hsv[1];
+	var V = parseFloat(hsv[2]);
+	var V = V+ obj.attr('shadeDirection')*(parseInt(dx)/100);
+	if(V<0)
+	{
+		V = 0-V;
+		obj.attr({shadeDirection: 1});
+	}
+	else if(V>1)
+	{
+		V = 1-(V%1);
+		obj.attr({shadeDirection: -1});
+	}
+	hsv = [H, S, V];
+	var rgb = HSVtoRGB(hsv);
+	var r1 = rgb[0];
+	var g1 = rgb[1];
+	var b1 = rgb[2];
+	var Hex = '#'+r1+g1+b1;
+	obj.attr({strokePen: Hex});
 }
+
 /*
 This functions sets the size of the pen to be x
 	@param: the id of the sprite that is active
