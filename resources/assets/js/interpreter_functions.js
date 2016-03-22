@@ -491,6 +491,48 @@ var setColorByColor = function(id, h, s, v)
 	var Hex = '#'+r1+g1+b1;
 	obj.attr({strokePen: Hex});
 }
+/*changes the color value of a given sprite (found with id) by given value dx
+	@param id of the sprite being manipulated
+	@param dx, the change in coor value (Hue)
+	*/
+var changeColor = function(id, dx)
+{
+	var obj = stage.select('#'+id);
+	var color = obj.attr('strokePen');
+	var hsv = RGBtoHSV(color);
+	var H = parseInt(hsv[0]);
+	var S = parseFloat(hsv[1]);
+	var V = parseFloat(hsv[2]);
+	//V = x/100;
+	if(dx<-360)
+	{
+		H = H+obj.attr('colorDirection')*(parseInt(dx)%-360);
+	}
+	else if(dx>360)
+	{
+		H =H + obj.attr('colorDirection')*(parseInt(dx)%360);
+	}
+	else
+	{
+		H = H+obj.attr('colorDirection')*parseInt(dx);
+	}
+	if(H<0)
+	{
+		H = 0-H;
+	}
+	else if(H>360)
+	{
+		H = H - (H%360);
+	}
+	hsv = [H, S, V];
+	var rgb = HSVtoRGB(hsv);
+	var r1 = rgb[0];
+	var g1 = rgb[1];
+	var b1 = rgb[2];
+	var Hex = '#'+r1+g1+b1;
+	obj.attr({strokePen: Hex});
+	
+}
 /*
 This function sets the shade of the pen to a certian value
 	@param: the id of the sprite that is active
@@ -539,6 +581,10 @@ var changeShade = function(id, dx)
 	var H = hsv[0];
 	var S = hsv[1];
 	var V = parseFloat(hsv[2]);
+	if(parseInt(dx)>100)
+	{
+		dx = parseInt(dx)%100;
+	}
 	var V = V+ obj.attr('shadeDirection')*(parseInt(dx)/100);
 	if(V<0)
 	{

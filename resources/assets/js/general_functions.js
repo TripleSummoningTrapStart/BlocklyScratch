@@ -275,6 +275,10 @@ var updateStorage = function()
   //localStorage.setItem('StageSprites',  stageList);
   //localStorage.setItem('SpriteAreaSprites', spriteList);
 }
+
+/*Method to change a #color value to an array of hsv values
+	@param color is the hex value of a given color
+	@return an array of hue saturation and value values representing the given color*/
 var RGBtoHSV = function(color)
 {
 	//var array = [0, 1, 2];
@@ -371,6 +375,9 @@ var RGBtoHSV = function(color)
 	var array = [H, S, V];
 	return array;
 }
+/*changes array of hsv value (hue saturation and value) to an RGB hex number
+	@param array of hsv values to convert to RGB 
+	@retun array of RGB vaules representing the given hsv values*/
 var HSVtoRGB = function(hsv)
 {
 	var H = parseInt(hsv[0]);
