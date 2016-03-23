@@ -9,7 +9,8 @@ var mySquare= stage.append("rect")
 	.attr("id", 'c2')
 	.attr("rotationDegree", 0)
 	.attr("penDown", "false")
-	.attr("rotationStyle", "all");
+	.attr("rotationStyle", "all")
+  .attr("pointDir", 0);
 
 var	maxX = stage.node.width.baseVal.value; //TODO reset on resize
 var  maxY = stage.node.height.baseVal.value;

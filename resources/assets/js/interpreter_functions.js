@@ -25,18 +25,18 @@ var highlightBlock = function(id) {
 	@param: the number of pixels to move the sprite */
 var moveStep = function(id, steps) {
 	var obj = stage.select('#' + id);
+	var objX = parseInt(obj.attr('x'));
+	var objY = parseInt(obj.attr('y'));
 	var dir = parseFloat(obj.attr("pointDir"));
 	var oppSide = steps * Math.sin(dir); // y diff
 	var adjSide = steps * Math.cos(dir); // x diff
 	if(obj.attr('penDown') == "true")
 	{
-		x1 = obj.attr('x');
-		y1 = obj.attr('y');
 		var stroke = obj.attr('strokeSize');
 		var strokeColor = obj.attr('strokePen');
-		var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
+		var line1 = stage.line(objX, objY, parseInt(objX)+adjSide, parseInt(objY)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
-	obj.attr({'x': parseInt(obj.attr('x')) + adjSide, 'y':  parseInt(obj.attr('y')) - oppSide});
+	obj.attr({'x': objX + adjSide, 'y':  objY - oppSide});
 };
 
 
