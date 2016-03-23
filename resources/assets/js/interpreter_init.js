@@ -152,4 +152,9 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(setColor(spriteID, setVal));
 	}
 	interpreter.setProperty(scope, 'setColor', interpreter.createNativeFunction(wrapper));
+	var wrapper = function(spriteID){
+		spriteID = spriteID ? spriteID.data : '';
+		return interpreter.createPrimitive(stamp(spriteID));
+	}
+	interpreter.setProperty(scope, 'stamp', interpreter.createNativeFunction(wrapper));
 };

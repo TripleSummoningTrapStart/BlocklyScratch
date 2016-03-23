@@ -581,3 +581,9 @@ var changeSize = function(id, dx)
 	x = obj.attr('strokeSize');
 	obj.attr({strokeSize: parseInt(x)+dx});
 }
+
+var stamp = function(id)
+{
+	var obj = stage.select('#' + id).clone();
+	stage.append(obj);
+}
