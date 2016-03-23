@@ -34,7 +34,14 @@ var moveStep = function(id, steps) {
 		y1 = obj.attr('y');
 		var stroke = obj.attr('strokeSize');
 		var strokeColor = obj.attr('strokePen');
-		var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
+		var l = stage.append("line")
+									.attr("x1", x1)
+									.attr("y1", y1)
+									.attr("x2", parseInt(obj.attr('x')) + adjSide)
+									.attr("y2", parseInt(obj.attr('y')) - oppSide)
+									.attr("stroke", strokeColor)
+									.attr("stroke-width", stroke);
+		//var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'x': parseInt(obj.attr('x')) + adjSide, 'y':  parseInt(obj.attr('y')) - oppSide});
 };
