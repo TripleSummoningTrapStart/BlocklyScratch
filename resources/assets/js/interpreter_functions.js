@@ -72,7 +72,14 @@ var rotate = function(id, rotateVal) {
 		{
 			return;
 		}
-		var m;
+		obj.transition().ease("linear").attrTween("transform", tween);
+
+		function tween(d, i, a) {
+			return d3.interpolateString("rotate(" + rotationDegree +"," + objX + "," + objY +")",
+														"rotate("+ (rotationDegree + rotateVal) +"," + objX + "," + objY +")");
+		}
+		obj.attr("rotationDegree", (rotationDegree + rotateVal));
+		/*var m;
 		if(!obj.matrix)	{
 			//m = new Snap.Matrix(Math.cos(radians), Math.sin(radians), Math.sin(radians) * -1, Math.cos(radians), objX, objY);//.translate(0,0);//.translate(objX, objY);
 			//m = new Snap.Matrix(1,1,1,1,1,1).add(new Snap.Matrix(1,1,1,1,1,1));
@@ -105,7 +112,7 @@ var rotate = function(id, rotateVal) {
 		else {
 			obj.animate({transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50);
 		}*/
-	//}
+	//}*/
 
 };
 
@@ -296,7 +303,8 @@ var glideTo = function(id, time, x, y) {
 	{
 		newY = maxY;
 	}
-	if(!obj.matrix)
+	obj.transition().attr("x", newX).attr("y", newY).duration(time*1000);
+	/*if(!obj.matrix)
 	{
 		m = new Snap.Matrix().translate(newX - objX, newY - objY);
 	}
@@ -309,7 +317,7 @@ var glideTo = function(id, time, x, y) {
 		obj.attr({'x': newX, 'y':  newY});
 		obj.transform(new Snap.Matrix());
 		//rotateClock(id, direction);
-	});
+	});*/
 }
 
 /* this function is called by the If on Edge Bounce block to change the direction

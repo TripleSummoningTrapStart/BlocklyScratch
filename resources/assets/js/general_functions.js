@@ -114,7 +114,7 @@ var generateInterpreterCode = function(codeToParse) {
 	//Parses the text into an array clean of comment values used as markers
 	var values = cleanValues(codeToParse);
 	var code = 'var queue = [];\n';
-	code = "var sprite = '" + bigCircle.attr("id") + "';\n" + code; // TODO remove this and make dynamic
+	code = "var sprite = '" + mySquare.attr("id") + "';\n" + code; // TODO remove this and make dynamic
 
 	// Gets all global values
 	if(S(values[0]).contains('var'))
@@ -366,7 +366,7 @@ var RGBtoHSV = function(color)
 		S = delta/Cmax;
 	}
 	//change shade value
-	
+
 	var V = Cmax;
 	var array = [H, S, V];
 	return array;
@@ -452,7 +452,7 @@ window.onload = function() {
 	loadAllBlocks();
 	injectBlockly();
 	registerButtons();
-  stage.clear();
-  sprite.clear();
-  addSprites();
+  //stage.clear();
+  //sprite.clear();
+  //addSprites();
 };
