@@ -149,9 +149,15 @@ function initApi(interpreter, scope) {
 	var wrapper = function(spriteID, setVal){
 		setVal = setVal ? setVal.data : 0;
 		spriteID = spriteID ? spriteID.data : '';
-		return interpreter.createPrimitive(setColor(spriteID, setVal));
+		return interpreter.createPrimitive(setColorByNumber(spriteID, setVal));
 	}
-	interpreter.setProperty(scope, 'setColor', interpreter.createNativeFunction(wrapper));
+	interpreter.setProperty(scope, 'setColorByNumber', interpreter.createNativeFunction(wrapper));
+	var wrapper = function(spriteID, setVal, setVal2, setVal3){
+		//setVal = setVal ? setVal.data : 0;
+		spriteID = spriteID ? spriteID.data : '';
+		return interpreter.createPrimitive(setColorByColor(spriteID, setVal, setVal2, setVal3));
+	}
+	interpreter.setProperty(scope, 'setColorByColor', interpreter.createNativeFunction(wrapper));
 	var wrapper = function(spriteID){
 		spriteID = spriteID ? spriteID.data : '';
 		return interpreter.createPrimitive(stamp(spriteID));

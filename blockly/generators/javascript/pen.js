@@ -73,7 +73,9 @@ Blockly.JavaScript['pen_set_pen_size_to'] = function(block) {
 Blockly.JavaScript['pen_set_color'] = function(block) {
   var text_name = block.getFieldValue('NAME');
   var colour_name = block.getFieldValue('NAME');
+  //colour_name = colour_name.replace('#', '');
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var arr = RGBtoHSV(colour_name);
+  var code = 'setColor2(sprite, '+arr+');\n';
   return code;
 };

@@ -128,7 +128,8 @@ var setX = function (id, newVal) {
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
 		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, newX, y1).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var strokeColor = obj.attr('strokePen');
+		var line1 = stage.line(x1, y1, newX, y1).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'x': newX});
 };
@@ -152,7 +153,8 @@ var setY = function (id, newVal) {
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
 		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, x1, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var strokeColor = obj.attr('strokePen');
+		var line1 = stage.line(x1, y1, x1, newY).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'y':  newY});
 };
@@ -175,7 +177,9 @@ var changeX = function (id, changeVal) {
 		{
 			x1 = obj.attr('x');
 			y1 = obj.attr('y');
-			var line1 = stage.line(x1, y1, newX, y1).attr({stroke: '#00ADEF', strokeWidth: stroke});
+			var stroke = obj.attr('strokeSize');
+			var strokeColor = obj.attr('strokePen');
+			var line1 = stage.line(x1, y1, newX, y1).attr({stroke: strokeColor, strokeWidth: stroke});
 		}
 		obj.attr({'x': newX});
 };
@@ -198,7 +202,9 @@ var changeY = function (id, changeVal) {
 	{
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
-		var line1 = stage.line(x1, y1, x1, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var stroke = obj.attr('strokeSize');
+		var strokeColor = obj.attr('strokePen');
+		var line1 = stage.line(x1, y1, x1, newY).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'y': newY});
 };
@@ -230,7 +236,9 @@ var gotoXY = function (id, xVal, yVal) {
 	{
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
-		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var stroke = obj.attr('strokeSize');
+		var strokeColor = obj.attr('strokePen');
+		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'x': newX, 'y': newY});
 };
@@ -264,7 +272,8 @@ var gotoMouse = function(id){
 		x1 = obj.attr('x');
 		y1 = obj.attr('y');
 		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var strokeColor = obj.attr('strokePen');
+		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'x': newX, 'y': newY - 2 * adjY});
 };
@@ -432,11 +441,11 @@ var penUp = function(id)
 }
 
 /*
-This function sets the color of the pen to a certian value
+This function sets the color of the pen to a certian numeric value
 	@param: the id of the sprite that is active
 	@param: the size to set the color of the pen to be
 */
-var setColor = function(id, x)
+var setColorByNumber = function(id, x)
 {
 	var obj = stage.select('#'+id);
 	var color = obj.attr('strokePen');
@@ -465,24 +474,55 @@ var setColor = function(id, x)
 	var Hex = '#'+r1+g1+b1;
 	obj.attr({strokePen: Hex});
 }
+/*
+This function sets the color of the pen to a certian color, decided by color block
+	@param: the id of the sprite that is active
+	@param: the size to set the color of the pen to be
+*/
+var setColorByColor = function(id, h, s, v)
+{
+	var obj = stage.select('#'+id);
+	//obj.attr({strokePen: x});
+	var hsv = [h, s, v];
+	var rgb = HSVtoRGB(hsv);
+	var r1 = rgb[0];
+	var g1 = rgb[1];
+	var b1 = rgb[2];
+	var Hex = '#'+r1+g1+b1;
+	obj.attr({strokePen: Hex});
+}
+/*changes the color value of a given sprite (found with id) by given value dx
+	@param id of the sprite being manipulated
+	@param dx, the change in coor value (Hue)
+	*/
 var changeColor = function(id, dx)
 {
-	var obj = stage.select('#' + id);
+	var obj = stage.select('#'+id);
 	var color = obj.attr('strokePen');
 	var hsv = RGBtoHSV(color);
 	var H = parseInt(hsv[0]);
 	var S = parseFloat(hsv[1]);
 	var V = parseFloat(hsv[2]);
-	var H = H+ obj.attr('colorDirection')*parseInt(dx);
+	//V = x/100;
+	if(dx<-360)
+	{
+		H = H+obj.attr('colorDirection')*(parseInt(dx)%-360);
+	}
+	else if(dx>360)
+	{
+		H =H + obj.attr('colorDirection')*(parseInt(dx)%360);
+	}
+	else
+	{
+		H = H+obj.attr('colorDirection')*parseInt(dx);
+	}
 	if(H<0)
 	{
 		H = 0-H;
-		obj.attr({colorDirection: 1});
 	}
 	else if(H>360)
 	{
-		H = 360-(H%360);
-		obj.attr({colorDirection: -1});
+		H = H - (H%360);
 	}
 	hsv = [H, S, V];
 	var rgb = HSVtoRGB(hsv);
@@ -491,13 +531,14 @@ var changeColor = function(id, dx)
 	var b1 = rgb[2];
 	var Hex = '#'+r1+g1+b1;
 	obj.attr({strokePen: Hex});
+	
 }
 /*
 This function sets the shade of the pen to a certian value
 	@param: the id of the sprite that is active
 	@param: the size to set the shade of the pen to be
 */
-var setShade = function(id, x)
+var setShade = function(id,x)
 {
 	var obj = stage.select('#'+id);
 	var color = obj.attr('strokePen');
@@ -540,6 +581,10 @@ var changeShade = function(id, dx)
 	var H = hsv[0];
 	var S = hsv[1];
 	var V = parseFloat(hsv[2]);
+	if(parseInt(dx)>100)
+	{
+		dx = parseInt(dx)%100;
+	}
 	var V = V+ obj.attr('shadeDirection')*(parseInt(dx)/100);
 	if(V<0)
 	{
