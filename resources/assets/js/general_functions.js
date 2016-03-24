@@ -447,7 +447,8 @@ var HSVtoRGB = function(hsv)
 		b1 = B.toString(16);
 	}
 	return [r1, g1, b1];
-}
+};
+
 window.onload = function() {
 	loadAllBlocks();
 	injectBlockly();

@@ -533,7 +533,8 @@ var setColor = function(id, x)
 	var b1 = rgb[2];
 	var Hex = '#'+r1+g1+b1;
 	obj.attr({strokePen: Hex});
-}
+};
+
 var changeColor = function(id, dx)
 {
 	var obj = stage.select('#' + id);
@@ -559,8 +560,9 @@ var changeColor = function(id, dx)
 	var g1 = rgb[1];
 	var b1 = rgb[2];
 	var Hex = '#'+r1+g1+b1;
-	obj.attr({strokePen: Hex});
-}
+	obj.attr("strokePen", d3.rgb(Hex));
+};
+
 /*
 This function sets the shade of the pen to a certian value
 	@param: the id of the sprite that is active
@@ -593,8 +595,9 @@ var setShade = function(id, x)
 	var g1 = rgb[1];
 	var b1 = rgb[2];
 	var Hex = '#'+r1+g1+b1;
-	obj.attr({strokePen: Hex});
-}
+	obj.attr("strokePen", d3.rgb(Hex));
+};
+
 /*
 This function changes the shade of the pen to a certian value, if value goes below 0, or above 1-
 it switches the direction that the shade is changing by.  0 is for close to black, 1 is for close to white.
@@ -626,8 +629,8 @@ var changeShade = function(id, dx)
 	var g1 = rgb[1];
 	var b1 = rgb[2];
 	var Hex = '#'+r1+g1+b1;
-	obj.attr({strokePen: Hex});
-}
+	obj.attr("strokePen", d3.rgb(Hex));
+};
 
 /*
 This functions sets the size of the pen to be x
@@ -637,8 +640,8 @@ This functions sets the size of the pen to be x
 var setSize = function(id, x)
 {
 	var obj = stage.select('#' + id);
-	obj.attr({strokeSize: x});
-}
+	obj.attr("strokeSize", x);
+};
 /*
 This functions changes the size of the pen by a set amount
 	@param: the id of the sprite that is active
@@ -648,5 +651,5 @@ var changeSize = function(id, dx)
 {
 	var obj = stage.select('#' + id);
 	x = obj.attr('strokeSize');
-	obj.attr({strokeSize: parseInt(x)+dx});
-}
+	obj.attr("strokeSize", parseInt(x)+dx);
+};

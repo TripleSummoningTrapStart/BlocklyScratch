@@ -10,7 +10,7 @@ var mySquare= stage.append("rect")
 	.attr("rotationDegree", 0)
 	.attr("penDown", "false")
   .attr("strokeSize", 4)
-	.attr("strokePen", "black")
+	.attr("strokePen", d3.rgb("#00ADEF"))
 	.attr("rotationStyle", "all")
   .attr("pointDir", 0);
 
