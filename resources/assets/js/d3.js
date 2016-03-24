@@ -9,6 +9,8 @@ var mySquare= stage.append("rect")
 	.attr("id", 'c2')
 	.attr("rotationDegree", 0)
 	.attr("penDown", "false")
+  .attr("strokeSize", 4)
+	.attr("strokePen", "black")
 	.attr("rotationStyle", "all")
   .attr("pointDir", 0);
 
