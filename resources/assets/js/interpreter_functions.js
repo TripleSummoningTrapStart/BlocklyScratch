@@ -27,14 +27,21 @@ var moveStep = function(id, steps) {
 	var obj = stage.select('#' + id);
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
-	var dir = parseFloat(obj.attr("pointDir"));
+	var dir = convertToRadians(parseFloat(obj.attr("rotationDegree"))) * -1;
 	var oppSide = steps * Math.sin(dir); // y diff
 	var adjSide = steps * Math.cos(dir); // x diff
 	if(obj.attr('penDown') == "true")
 	{
-		var stroke = obj.attr('strokeSize');
-		var strokeColor = obj.attr('strokePen');
-		var line1 = stage.line(objX, objY, parseInt(objX)+adjSide, parseInt(objY)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
+		var lineX = objX + parseInt(obj.attr('width')/2);
+		var lineY = objY + parseInt(obj.attr('height')/2);
+		var l = stage.append("line")
+									.attr("x1", lineX)
+									.attr("y1", lineY)
+									.attr("x2", lineX + adjSide)
+									.attr("y2", lineY - oppSide)
+									.attr("stroke",  obj.attr('strokePen'))
+									.attr("stroke-width", obj.attr('strokeSize'));
+		//var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'x': objX + adjSide, 'y':  objY - oppSide});
 };
@@ -132,10 +139,19 @@ var setX = function (id, newVal) {
 	}
 	if(obj.attr('penDown') == "true")
 	{
-		x1 = obj.attr('x');
-		y1 = obj.attr('y');
-		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, newX, y1).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var lineY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
+		var xAdj = parseInt(obj.attr('width')/2);
+		var l = stage.append("line")
+									.attr("x1", objX + xAdj)
+									.attr("y1", lineY)
+									.attr("x2", newX + xAdj)
+									.attr("y2", lineY)
+									.attr("stroke",  obj.attr('strokePen'))
+									.attr("stroke-width", obj.attr('strokeSize'));
+		///x1 = obj.attr('x');
+		//y1 = obj.attr('y');
+		//var stroke = obj.attr('strokeSize');
+		//var line1 = stage.line(x1, y1, newX, y1).attr({stroke: '#00ADEF', strokeWidth: stroke});
 	}
 	obj.attr({'x': newX});
 };
@@ -156,12 +172,21 @@ var setY = function (id, newVal) {
 	}
 	if(obj.attr('penDown') == "true")
 	{
-		x1 = obj.attr('x');
-		y1 = obj.attr('y');
-		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, x1, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var lineX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
+		var yAdj = parseInt(obj.attr('height')/2);
+		var l = stage.append("line")
+									.attr("x1", lineX)
+									.attr("y1", objY + yAdj)
+									.attr("x2", lineX)
+									.attr("y2", newY + yAdj)
+									.attr("stroke",  obj.attr('strokePen'))
+									.attr("stroke-width", obj.attr('strokeSize'));
+		//x1 = obj.attr('x');
+		//y1 = obj.attr('y');
+	//	var stroke = obj.attr('strokeSize');
+	//	var line1 = stage.line(x1, y1, x1, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
 	}
-	obj.attr({'y':  newY});
+	obj.attr({'y': newY});
 };
 
 /* this function is called by the changeX block to change the X value of the specified sprite
@@ -180,9 +205,18 @@ var changeX = function (id, changeVal) {
 		}
 		if(obj.attr('penDown') == "true")
 		{
-			x1 = obj.attr('x');
-			y1 = obj.attr('y');
-			var line1 = stage.line(x1, y1, newX, y1).attr({stroke: '#00ADEF', strokeWidth: stroke});
+			var lineY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
+			var xAdj = parseInt(obj.attr('width')/2);
+			var l = stage.append("line")
+										.attr("x1", objX + xAdj)
+										.attr("y1", lineY)
+										.attr("x2", newX + xAdj)
+										.attr("y2", lineY)
+										.attr("stroke",  obj.attr('strokePen'))
+										.attr("stroke-width", obj.attr('strokeSize'));
+			//x1 = obj.attr('x');
+			//y1 = obj.attr('y');
+			//var line1 = stage.line(x1, y1, newX, y1).attr({stroke: '#00ADEF', strokeWidth: stroke});
 		}
 		obj.attr({'x': newX});
 };
@@ -203,9 +237,18 @@ var changeY = function (id, changeVal) {
 	}
 	if(obj.attr('penDown') == "true")
 	{
-		x1 = obj.attr('x');
-		y1 = obj.attr('y');
-		var line1 = stage.line(x1, y1, x1, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var lineX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
+		var yAdj = parseInt(obj.attr('height')/2);
+		var l = stage.append("line")
+									.attr("x1", lineX)
+									.attr("y1", objY + yAdj)
+									.attr("x2", lineX)
+									.attr("y2", newY + yAdj)
+									.attr("stroke",  obj.attr('strokePen'))
+									.attr("stroke-width", obj.attr('strokeSize'));
+		//x1 = obj.attr('x');
+		//y1 = obj.attr('y');
+		//var line1 = stage.line(x1, y1, x1, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
 	}
 	obj.attr({'y': newY});
 };
@@ -235,9 +278,18 @@ var gotoXY = function (id, xVal, yVal) {
 	}
 	if(obj.attr('penDown') == "true")
 	{
-		x1 = obj.attr('x');
-		y1 = obj.attr('y');
-		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var xAdj = parseInt(obj.attr('width')/2);
+		var yAdj = parseInt(obj.attr('height')/2);
+		var l = stage.append("line")
+									.attr("x1", objX + xAdj)
+									.attr("y1", objY + yAdj)
+									.attr("x2", newX + xAdj)
+									.attr("y2", newY + yAdj)
+									.attr("stroke",  obj.attr('strokePen'))
+									.attr("stroke-width", obj.attr('strokeSize'));
+		//x1 = obj.attr('x');
+		//y1 = obj.attr('y');
+		//var line1 = stage.line(x1, y1, newX, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
 	}
 	obj.attr({'x': newX, 'y': newY});
 };
@@ -268,10 +320,19 @@ var gotoMouse = function(id){
 	console.log("x: " + newX + ", y:" + newY);
 	if(obj.attr('penDown') == "true")
 	{
-		x1 = obj.attr('x');
-		y1 = obj.attr('y');
-		var stroke = obj.attr('strokeSize');
-		var line1 = stage.line(x1, y1, newX, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
+		var xAdj = parseInt(obj.attr('width')/2);
+		var yAdj = parseInt(obj.attr('height')/2);
+		var l = stage.append("line")
+									.attr("x1", objX + xAdj)
+									.attr("y1", objY + yAdj)
+									.attr("x2", newX + xAdj)
+									.attr("y2", newY + yAdj)
+									.attr("stroke",  obj.attr('strokePen'))
+									.attr("stroke-width", obj.attr('strokeSize'));
+		//x1 = obj.attr('x');
+		//y1 = obj.attr('y');
+	//	var stroke = obj.attr('strokeSize');
+		//var line1 = stage.line(x1, y1, newX, newY).attr({stroke: '#00ADEF', strokeWidth: stroke});
 	}
 	obj.attr({'x': newX, 'y': newY - 2 * adjY});
 };
@@ -472,7 +533,8 @@ var setColor = function(id, x)
 	var b1 = rgb[2];
 	var Hex = '#'+r1+g1+b1;
 	obj.attr({strokePen: Hex});
-}
+};
+
 var changeColor = function(id, dx)
 {
 	var obj = stage.select('#' + id);
@@ -498,8 +560,9 @@ var changeColor = function(id, dx)
 	var g1 = rgb[1];
 	var b1 = rgb[2];
 	var Hex = '#'+r1+g1+b1;
-	obj.attr({strokePen: Hex});
-}
+	obj.attr("strokePen", d3.rgb(Hex));
+};
+
 /*
 This function sets the shade of the pen to a certian value
 	@param: the id of the sprite that is active
@@ -532,8 +595,9 @@ var setShade = function(id, x)
 	var g1 = rgb[1];
 	var b1 = rgb[2];
 	var Hex = '#'+r1+g1+b1;
-	obj.attr({strokePen: Hex});
-}
+	obj.attr("strokePen", d3.rgb(Hex));
+};
+
 /*
 This function changes the shade of the pen to a certian value, if value goes below 0, or above 1-
 it switches the direction that the shade is changing by.  0 is for close to black, 1 is for close to white.
@@ -565,8 +629,8 @@ var changeShade = function(id, dx)
 	var g1 = rgb[1];
 	var b1 = rgb[2];
 	var Hex = '#'+r1+g1+b1;
-	obj.attr({strokePen: Hex});
-}
+	obj.attr("strokePen", d3.rgb(Hex));
+};
 
 /*
 This functions sets the size of the pen to be x
@@ -576,8 +640,8 @@ This functions sets the size of the pen to be x
 var setSize = function(id, x)
 {
 	var obj = stage.select('#' + id);
-	obj.attr({strokeSize: x});
-}
+	obj.attr("strokeSize", x);
+};
 /*
 This functions changes the size of the pen by a set amount
 	@param: the id of the sprite that is active
@@ -587,5 +651,5 @@ var changeSize = function(id, dx)
 {
 	var obj = stage.select('#' + id);
 	x = obj.attr('strokeSize');
-	obj.attr({strokeSize: parseInt(x)+dx});
-}
+	obj.attr("strokeSize", parseInt(x)+dx);
+};
