@@ -59,10 +59,6 @@ var rotate = function(id, rotateVal) {
 	var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
 	var rotationStyle = obj.attr('rotationStyle');
 	var rotationDegree = parseInt(obj.attr('rotationDegree'));
-	//var radians = convertToRadians(rotateVal);
-
-	//while(!semaphore){
-		//semaphore = 1;
 		if(rotationStyle == 'LtoR'){
 			if((rotationDegree + rotateVal) % 180 > 90)
 			{
@@ -86,40 +82,8 @@ var rotate = function(id, rotateVal) {
 														"rotate("+ (rotationDegree + rotateVal) +"," + objX + "," + objY +")");
 		}
 		obj.attr("rotationDegree", (rotationDegree + rotateVal));
-		/*var m;
-		if(!obj.matrix)	{
-			//m = new Snap.Matrix(Math.cos(radians), Math.sin(radians), Math.sin(radians) * -1, Math.cos(radians), objX, objY);//.translate(0,0);//.translate(objX, objY);
-			//m = new Snap.Matrix(1,1,1,1,1,1).add(new Snap.Matrix(1,1,1,1,1,1));
-			//m = new Snap.Matrix(Math.cos(radians), Math.sin(radians), Math.sin(radians) * -1, Math.cos(radians), objX, objY);
-			m = new Snap.Matrix().rotate(rotateVal, objX, objY);//.translate(objX, objY);
-		}
-		else {
-			//	m = new Snap.Matrix().translate(objX * -1, objY * -1).add(Math.cos(radians), Math.sin(radians), Math.sin(radians) * -1, Math.cos(radians), 0,0).translate(objX, objY);
-			m = obj.matrix.rotate(rotateVal, objX, objY);
-			//m.translate(objX, objY);
-		}
 
-		obj.animate({transform: m }, 250);//, mina.easeinout, function(){
-		//	semaphore = 0;
-		//});
-		obj.attr({'rotationDegree': parseInt(rotationDegree + rotateVal)});
 		//pointIn(id, rotateVal, false);
-		//obj.transform(m);
-		//obj.animate({ transform: 'r' + rotateVal + ',' + objX + ',' + objY }, 250, mina.easein);
-		//obj.transform('r' + rotateVal + ',' + objX + ',' + objY);
-
-
-		/*
-		if(forever) {
-			obj.animate({transform: m}, 50, function () {
-				rotateVal = rotateVal + rotateInc;
-				rotateClock(id, rotateVal, rotateInc, forever); // Repeat this animation so it appears infinite.
-			});
-		}
-		else {
-			obj.animate({transform: "r" + rotateVal + ',' + objX + ',' + objY}, 50);
-		}*/
-	//}*/
 
 };
 
@@ -556,7 +520,7 @@ This function sets the color of the pen to a certian value
 	@param: the id of the sprite that is active
 	@param: the size to set the color of the pen to be
 */
-var setColor = function(id, x)
+/*var setColor = function(id, x)
 {
 	var obj = stage.select('#'+id);
 	var color = obj.attr('strokePen');
@@ -585,7 +549,7 @@ var setColor = function(id, x)
 	var Hex = '#'+r1+g1+b1;
 	//d3.rgb("#00ADEF")
 	obj.attr({strokePen: d3.rgb(Hex)});
-};
+};*/
 
 var changeColor = function(id, dx)
 {
