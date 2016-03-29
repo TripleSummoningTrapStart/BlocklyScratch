@@ -501,6 +501,57 @@ var penUp = function(id)
 }
 
 /*
+This function sets the color of the pen to a certian numeric value
+	@param: the id of the sprite that is active
+	@param: the size to set the color of the pen to be
+*/
+var setColorByNumber = function(id, x)
+{
+	var obj = stage.select('#'+id);
+	var color = obj.attr('strokePen');
+	var hsv = RGBtoHSV(color);
+	var H = parseInt(hsv[0]);
+	var S = parseFloat(hsv[1]);
+	var V = parseFloat(hsv[2]);
+	//V = x/100;
+	if(x<0)
+	{
+		H = 0;
+	}
+	else if(x>360)
+	{
+		H =360;
+	}
+	else
+	{
+		H = x;
+	}
+	hsv = [H, S, V];
+	var rgb = HSVtoRGB(hsv);
+	var r1 = rgb[0];
+	var g1 = rgb[1];
+	var b1 = rgb[2];
+	var Hex = '#'+r1+g1+b1;
+	obj.attr({strokePen: d3.rgb(Hex)});
+}
+/*
+This function sets the color of the pen to a certian color, decided by color block
+	@param: the id of the sprite that is active
+	@param: the size to set the color of the pen to be
+*/
+var setColorByColor = function(id, h, s, v)
+{
+	var obj = stage.select('#'+id);
+	//obj.attr({strokePen: x});
+	var hsv = [h, s, v];
+	var rgb = HSVtoRGB(hsv);
+	var r1 = rgb[0];
+	var g1 = rgb[1];
+	var b1 = rgb[2];
+	var Hex = '#'+r1+g1+b1;
+	obj.attr({strokePen: d3.rgb(Hex)});
+}
+/*
 This function sets the color of the pen to a certian value
 	@param: the id of the sprite that is active
 	@param: the size to set the color of the pen to be
@@ -532,7 +583,8 @@ var setColor = function(id, x)
 	var g1 = rgb[1];
 	var b1 = rgb[2];
 	var Hex = '#'+r1+g1+b1;
-	obj.attr({strokePen: Hex});
+	//d3.rgb("#00ADEF")
+	obj.attr({strokePen: d3.rgb(Hex)});
 };
 
 var changeColor = function(id, dx)

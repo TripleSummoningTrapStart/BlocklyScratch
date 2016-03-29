@@ -45,7 +45,7 @@ Blockly.JavaScript['pen_set_pen_color_to'] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   //var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', order) || '0';
-  var code = 'setColor(sprite, '+value_name+');\n';
+  var code = 'setColorByNumber(sprite, '+value_name+');\n';
   return code;
 };
 
@@ -83,7 +83,9 @@ Blockly.JavaScript['pen_set_pen_size_to'] = function(block) {
 Blockly.JavaScript['pen_set_color'] = function(block) {
   var text_name = block.getFieldValue('NAME');
   var colour_name = block.getFieldValue('NAME');
+  //colour_name = colour_name.replace('#', '');
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var arr = RGBtoHSV(colour_name);
+  var code = 'setColorByColor(sprite, '+arr+');\n';
   return code;
 };

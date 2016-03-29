@@ -12,6 +12,8 @@ var mySquare= stage.append("rect")
   .attr("strokeSize", 4)
 	.attr("strokePen", d3.rgb("#00ADEF"))
 	.attr("rotationStyle", "all")
+	.attr("colorDirection", 1)
+	.attr("shadeDirection", 1)
   .attr("pointDir", 0);
 
 var	maxX = stage.node.width.baseVal.value; //TODO reset on resize
