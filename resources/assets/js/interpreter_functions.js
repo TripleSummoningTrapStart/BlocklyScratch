@@ -23,22 +23,28 @@ var highlightBlock = function(id) {
   the direction it is facing by the specified number of steps.
 	@param: the id of the sprite
 	@param: the number of pixels to move the sprite */
+
 var moveStep = function(id, steps) {
 	var obj = stage.select('#' + id);
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
-	var dir = convertToRadians(parseFloat(obj.attr("rotationDegree"))) * -1;
+	var dir = parseFloat(obj.attr("pointDir"));
 	var oppSide = steps * Math.sin(dir); // y diff
 	var adjSide = steps * Math.cos(dir); // x diff
 	if(obj.attr('penDown') == "true")
 	{
+		var lobjX = parseInt(obj.attr('x'));
+		var lobjY = parseInt(obj.attr('y'));
+		var lDir = convertToRadians(parseFloat(obj.attr("rotationDegree"))) * -1;
+		var loppSide = steps * Math.sin(lDir); // y diff
+		var ladjSide = steps * Math.cos(lDir); // x diff
 		var lineX = objX + parseInt(obj.attr('width')/2);
 		var lineY = objY + parseInt(obj.attr('height')/2);
 		var l = stage.append("line")
 									.attr("x1", lineX)
 									.attr("y1", lineY)
-									.attr("x2", lineX + adjSide)
-									.attr("y2", lineY - oppSide)
+									.attr("x2", lineX + ladjSide)
+									.attr("y2", lineY - loppSide)
 									.attr("stroke",  obj.attr('strokePen'))
 									.attr("stroke-width", obj.attr('strokeSize'));
 		//var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
@@ -46,6 +52,30 @@ var moveStep = function(id, steps) {
 	obj.attr({'x': objX + adjSide, 'y':  objY - oppSide});
 };
 
+/************************
+var moveStep = function(id, steps) {
+	var obj = stage.select('#' + id);
+	var objX = parseInt(obj.attr('x'));
+	var objY = parseInt(obj.attr('y'));
+	var dir = parseFloat(obj.attr("pointDir"));
+	var oppSide = steps * Math.sin(dir); // y diff
+	var adjSide = steps * Math.cos(dir); // x diff
+	if(obj.attr('penDown') == "true")
+	{
+		var stroke = obj.attr('strokeSize');
+		var strokeColor = obj.attr('strokePen');
+		var l = stage.append("line")
+									.attr("x1", x1)
+									.attr("y1", y1)
+									.attr("x2", parseInt(obj.attr('x')) + adjSide)
+									.attr("y2", parseInt(obj.attr('y')) - oppSide)
+									.attr("stroke", strokeColor)
+									.attr("stroke-width", stroke);
+		//var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
+	}
+	obj.attr({'x': objX + adjSide, 'y':  objY - oppSide});
+};
+*****************************/
 
 /* this function is called by the both the rotateClockwise and rotateCounterClockwise
    blocks to rotate the specified by given rotate value
