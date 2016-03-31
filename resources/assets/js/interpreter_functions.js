@@ -23,6 +23,36 @@ var highlightBlock = function(id) {
   the direction it is facing by the specified number of steps.
 	@param: the id of the sprite
 	@param: the number of pixels to move the sprite */
+
+var moveStep = function(id, steps) {
+	var obj = stage.select('#' + id);
+	var objX = parseInt(obj.attr('x'));
+	var objY = parseInt(obj.attr('y'));
+	var dir = parseFloat(obj.attr("pointDir"));
+	var oppSide = steps * Math.sin(dir); // y diff
+	var adjSide = steps * Math.cos(dir); // x diff
+	if(obj.attr('penDown') == "true")
+	{
+		var lobjX = parseInt(obj.attr('x'));
+		var lobjY = parseInt(obj.attr('y'));
+		var lDir = convertToRadians(parseFloat(obj.attr("rotationDegree"))) * -1;
+		var loppSide = steps * Math.sin(lDir); // y diff
+		var ladjSide = steps * Math.cos(lDir); // x diff
+		var lineX = objX + parseInt(obj.attr('width')/2);
+		var lineY = objY + parseInt(obj.attr('height')/2);
+		var l = stage.append("line")
+									.attr("x1", lineX)
+									.attr("y1", lineY)
+									.attr("x2", lineX + ladjSide)
+									.attr("y2", lineY - loppSide)
+									.attr("stroke",  obj.attr('strokePen'))
+									.attr("stroke-width", obj.attr('strokeSize'));
+		//var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
+	}
+	obj.attr({'x': objX + adjSide, 'y':  objY - oppSide});
+};
+
+/************************
 var moveStep = function(id, steps) {
 	var obj = stage.select('#' + id);
 	var objX = parseInt(obj.attr('x'));
@@ -45,7 +75,7 @@ var moveStep = function(id, steps) {
 	}
 	obj.attr({'x': objX + adjSide, 'y':  objY - oppSide});
 };
-
+*****************************/
 
 /* this function is called by the both the rotateClockwise and rotateCounterClockwise
    blocks to rotate the specified by given rotate value
@@ -463,11 +493,11 @@ var penUp = function(id)
 }
 
 /*
-This function sets the color of the pen to a certian value
+This function sets the color of the pen to a certian numeric value
 	@param: the id of the sprite that is active
 	@param: the size to set the color of the pen to be
 */
-var setColor = function(id, x)
+var setColorByNumber = function(id, x)
 {
 	var obj = stage.select('#'+id);
 	var color = obj.attr('strokePen');
@@ -494,8 +524,25 @@ var setColor = function(id, x)
 	var g1 = rgb[1];
 	var b1 = rgb[2];
 	var Hex = '#'+r1+g1+b1;
-	obj.attr({strokePen: Hex});
-};
+	obj.attr({strokePen: d3.rgb(Hex)});
+}
+/*
+This function sets the color of the pen to a certian color, decided by color block
+	@param: the id of the sprite that is active
+	@param: the size to set the color of the pen to be
+*/
+var setColorByColor = function(id, h, s, v)
+{
+	var obj = stage.select('#'+id);
+	//obj.attr({strokePen: x});
+	var hsv = [h, s, v];
+	var rgb = HSVtoRGB(hsv);
+	var r1 = rgb[0];
+	var g1 = rgb[1];
+	var b1 = rgb[2];
+	var Hex = '#'+r1+g1+b1;
+	obj.attr({strokePen: d3.rgb(Hex)});
+}
 
 var changeColor = function(id, dx)
 {

@@ -356,6 +356,12 @@ var RGBtoHSV = function(color)
 	{
 		H = 60*(((Rp-Gp)/delta)+4);
 	}
+	while(H<0){
+		H = 360+H;
+	}
+	while(H>360){
+		H = H-360;
+	}
 	var S;
 	if(Cmax==0)
 	{

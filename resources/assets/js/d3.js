@@ -15,6 +15,13 @@ var mySquare= stage.append("rect")
 	.attr("rotationDegree", 0)
 	.attr("penDown", "false")
 	.attr("rotationStyle", "all")
+	//next 3 variables are for pen color
+	.attr("colorDirection", 1)
+	.attr("shadeDirection", 1)
+	.attr("strokePen", d3.rgb("#00ADEF"))
+	.attr("strokeSize", 4)
+	
+  .attr("pointDir", 0)
   .attr("pointDir", 0)
   .attr('fill', 'purple')
   .attr('stroke', 'black')
