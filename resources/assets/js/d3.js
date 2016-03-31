@@ -68,8 +68,8 @@ var miniCircle= sprite.append("circle")
   .on("click", function(){switchSprite(miniCircle);});
 focused = miniSquare;
 
-var	maxX = stage.style.width; //TODO reset on resize
-var maxY = stage.style.height;
+var	maxX = parseInt(stage.style("width")); //TODO reset on resize
+var maxY = parseInt(stage.style("height"));
 
 //Code objtained from http://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
 d3.selection.prototype.moveToFront = function() {

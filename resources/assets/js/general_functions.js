@@ -217,14 +217,6 @@ var runCode = function() {
 	nextStep();
 	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
 };
-var timer = function()
-{
-	var textarea = document.getElementById("textArea");
-	textarea.innerHTML += time + '&#13;&#10;';
-	textarea.scrollTop = textarea.scrollHeight;
-	time++;
-	window.setTimeout(timer, 1000);
-}
 /*Method to add event listeners to the buttons on the page */
 var registerButtons = function() {
 	document.getElementById('xmlFile').addEventListener('change', openImportFile, false);
@@ -439,17 +431,14 @@ var HSVtoRGB = function(hsv)
 	{
 		g1 = '0'+G.toString(16);
 	}
-	else
-	{
+	else{
 		g1 = G.toString(16);
 	}
 	var b1;
-	if(B<16)
-	{
+	if(B<16){
 		b1 = '0'+B.toString(16);
 	}
-	else
-	{
+	else{
 		b1 = B.toString(16);
 	}
 	return [r1, g1, b1];
@@ -464,8 +453,7 @@ window.onload = function() {
   //addSprites();
 };
 
-var rotateWithoutAnimation = function(obj)
-{
+var rotateWithoutAnimation = function(obj) {
   var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
   var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
   var rotationStyle = obj.attr('rotationStyle');
@@ -476,3 +464,20 @@ var rotateWithoutAnimation = function(obj)
   }
   obj.attr("transform", "rotate(" + rotationDegree +"," + objX + "," + objY +")");
 };
+
+var drawSquare = function(obj, changeX, changeY){
+
+    var boundingBox = obj.node().getBBox();
+    var lineY = parseInt(boundingBox.y) + parseInt(boundingBox.height/2);
+    var xAdj = parseInt(boundingBox.width/2);
+    var lineX = parseInt(boundingBox.x) + parseInt(boundingBox.width/2);
+    var yAdj = parseInt(boundingBox.height/2);
+    var l = stage.append("line")
+                  .attr("x1", lineX)
+                  .attr("y1", lineY)
+                  .attr("x2", lineX + changeX)
+                  .attr("y2", lineY + changeY)
+                  .attr("stroke",  obj.attr('strokePen'))
+                  .attr("stroke-width", obj.attr('strokeSize'));
+      obj.moveToFront();
+}
