@@ -27,20 +27,20 @@ var moveStep = function(id, steps) {
 	var obj = stage.select('#' + id);
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
-	var dir = convertToRadians(parseFloat(obj.attr("rotationDegree"))) * -1;
+	var dir = parseFloat(obj.attr("pointDir"));
 	var oppSide = steps * Math.sin(dir); // y diff
 	var adjSide = steps * Math.cos(dir); // x diff
 	if(obj.attr('penDown') == "true")
 	{
-		var lineX = objX + parseInt(obj.attr('width')/2);
-		var lineY = objY + parseInt(obj.attr('height')/2);
+		var stroke = obj.attr('strokeSize');
+		var strokeColor = obj.attr('strokePen');
 		var l = stage.append("line")
-									.attr("x1", lineX)
-									.attr("y1", lineY)
-									.attr("x2", lineX + adjSide)
-									.attr("y2", lineY - oppSide)
-									.attr("stroke",  obj.attr('strokePen'))
-									.attr("stroke-width", obj.attr('strokeSize'));
+									.attr("x1", x1)
+									.attr("y1", y1)
+									.attr("x2", parseInt(obj.attr('x')) + adjSide)
+									.attr("y2", parseInt(obj.attr('y')) - oppSide)
+									.attr("stroke", strokeColor)
+									.attr("stroke-width", stroke);
 		//var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
 	obj.attr({'x': objX + adjSide, 'y':  objY - oppSide});
@@ -82,11 +82,9 @@ var rotate = function(id, rotateVal) {
 														"rotate("+ (rotationDegree + rotateVal) +"," + objX + "," + objY +")");
 		}
 		obj.attr("rotationDegree", (rotationDegree + rotateVal));
-
 		//pointIn(id, rotateVal, false);
 
 };
-
 /* this function is called by the setY block to set the X value of the specified sprite
    to the new value passed int
 	@param: the id of the sprite

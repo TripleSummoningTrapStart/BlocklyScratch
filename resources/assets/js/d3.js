@@ -1,7 +1,11 @@
 var stage = d3.select("#svgStage");
 var sprite = d3.select("#svgSprite");
 var focused;
-
+var dragSquare = d3.behavior.drag()
+            .on("drag", moveSquare)
+            .on("dragend", stop);
+var dragCircle = d3.behavior.drag()
+            .on("drag", moveCircle);
 var mySquare= stage.append("rect")
   .attr("x",200)
   .attr("y",140)
@@ -14,7 +18,9 @@ var mySquare= stage.append("rect")
   .attr("pointDir", 0)
   .attr('fill', 'purple')
   .attr('stroke', 'black')
-  .attr('stroke-width', 5);
+  .attr('stroke-width', 5)
+  .attr('transform', 'translate(1,1)')
+  .call(dragSquare);
 var myCircle= stage.append("circle")
   .attr("cx", 100)
   .attr("cy", 70)
@@ -26,7 +32,8 @@ var myCircle= stage.append("circle")
   .attr("pointDir", 0)
   .attr('fill', 'purple')
   .attr('stroke', 'black')
-  .attr('stroke-width', 5);
+  .attr('stroke-width', 5)
+  .call(dragCircle);
 var miniSquare= sprite.append("rect")
   .attr("x",-75)
   .attr("y", 5)
@@ -50,8 +57,7 @@ var miniCircle= sprite.append("circle")
   .attr('stroke-width', 1)
   .on("click", function(){switchSprite(miniCircle);});
 focused = miniSquare;
-var drag = d3.behavior.drag();
-stage.call(drag);
+
 var	maxX = stage.style.width; //TODO reset on resize
 var maxY = stage.style.height;
 
@@ -63,48 +69,84 @@ var switchSprite = function(sprite)
 	workspace.clear();
 	Blockly.Xml.domToWorkspace(workspace, Blockly.Xml.textToDom(focused.attr('blockxml')));
 }
-//sets up the sprite to be dragged
-var start = function() {
-	//maxX = stage.node.width.baseVal.value;
-	//maxY = stage.node.height.baseVal.value;
-	this.ox = parseInt(this.attr("x"));
-	this.oy = parseInt(this.attr("y"));
-	spritex = this.ox;
-	spritey = this.oy;
-	console.log("Start move, ox=" + this.ox + ", oy=" + this.oy);
 
-	var spriteLoc = calculateSpriteWindowPosition(this);
-	diffx = mouseX - spriteLoc.x;
-	diffy = mouseY - spriteLoc.y;
+// Function that moves a sprite with x and y vaules sprite while dragging, due to issues with rotate transforms, it resets all transforms on the object before moving
+function moveSquare(d) {
+ var obj = d3.select(this);
+ obj.attr('transform', '');
+ obj.attr({'x': d3.event.x, 'y': d3.event.y});
 }
 
-//comment
-//Code writen with help from:
-//http://stackoverflow.com/questions/21852543/svg-how-to-get-the-mouse-position-on-the-internal-matrix
-var move = function(dx, dy, posX, posY) {
-	pt.x = posX-diffx;
-	pt.y = posY-diffy;
-
-	var transformed = pt.matrixTransform(svg.getScreenCTM().inverse());
-  if(this.type == 'circle')
-		this.attr({ cx : transformed.x, cy : transformed.y });
-	else
-    this.attr({ x : transformed.x, y : transformed.y });
+// Function that resets the sprite rotations after drag.
+function stop (d) {
+  var obj = d3.select(this);
+  rotateWithoutAnimation(obj);
 }
 
-//controls how to update sprite location, and print to console after drag
-var stop = function() {
+// Function that moves a sprite with cx and cy vaules sprite while dragging, due to issues with rotate transforms, it resets all transforms on the object before moving
+function moveCircle(d){
+  var obj = d3.select(this);
+  obj.attr('transform', '');
+  obj.attr({'cx': d3.event.x, 'cy': d3.event.y});
+}
 
-	this.ox = parseInt(this.attr("x"));
-	this.oy = parseInt(this.attr("y"));
+var importSVG = function(contents, clone)
+{
+	  var substr = contents.substring(contents.indexOf('id="')).replace('id="','');
+	  var id = substr.substring(0, substr.indexOf('"'));
+		var image = Snap.parse(contents);
+	  stage.append(image);
+		var temp = stage.select("#" + id);
 
-	if(this.ox+stage.style.height <=0 || this.ox >=480||this.oy+stage.style.height<=0||this.oy>=360)
+		temp.drag(move, start, stop);
+		stageList.push(temp);
+		if(clone)
+		{
+			temp.attr({'height': 100, 'width': 100});
+			cloneSVG(temp, id);
+		}
+
+}
+var addToSpriteArea = function(contents)
+{
+	  var substr = contents.substring(contents.indexOf('id="')) .replace('id="','');
+	  var id = substr.substring(0, substr.indexOf('"'));
+		var image = Snap.parse(contents);
+	  sprite.append(image);
+		var temp = sprite.select("#" + id);
+		temp.click(switchSprite);
+		spriteList.push(temp);
+
+}
+var cloneSVG = function(image, id)
+{
+	var temp = image.clone()
+	temp.attr({
+		'height': image.attr('height')/3,
+		'width': image.attr('width')/3,
+		x: spriteXoffset + 2,
+		y: spriteYoffset,
+		id: 'small' + id,
+		blockxml: "<XML></XML>"
+	});
+	spriteXoffset = spriteXoffset + parseInt(temp.attr('width'));
+	if(spriteXoffset == sprite.node.width.baseVal)
 	{
-		this.ox = spritex;
-		this.oy = spritey;
-		this.attr({"x": this.ox, "y": this.oy});
+		spriteYoffset += parseInt(temp.attr('height'));
 	}
+	temp.click(switchSprite);
+	sprite.append(temp);
+	spriteList.push(temp);
+	updateStorage();
 
-    console.log("Stop move, ox=" + this.ox + ", oy=" + this.oy);
-
+}
+var addSprites = function()
+{
+	maxX = stage.node.width.baseVal.value; //TODO reset on resize
+  maxY = stage.node.height.baseVal.value;
+		for(var i = 0; i < stageList.length; i++)
+		{
+			stage.append(stageList[i]);
+			sprite.append(spriteList[i]);
+		}
 }
