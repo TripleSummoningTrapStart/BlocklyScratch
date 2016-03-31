@@ -49,6 +49,7 @@ var moveStep = function(id, steps) {
 									.attr("stroke-width", obj.attr('strokeSize'));
 		//var line1 = stage.line(x1, y1, parseInt(x1)+adjSide, parseInt(y1)-oppSide).attr({stroke: strokeColor, strokeWidth: stroke});
 	}
+	obj.moveToFront()
 	obj.attr({'x': objX + adjSide, 'y':  objY - oppSide});
 };
 

@@ -2,10 +2,13 @@ var stage = d3.select("#svgStage");
 var sprite = d3.select("#svgSprite");
 var focused;
 var dragSquare = d3.behavior.drag()
+            .on("dragstart", moveStart)
             .on("drag", moveSquare)
-            .on("dragend", stop);
+            .on("dragend", moveStop);
 var dragCircle = d3.behavior.drag()
-            .on("drag", moveCircle);
+            .on("dragstart", moveStart)
+            .on("drag", moveCircle)
+            .on("dragend", moveStop);
 var mySquare= stage.append("rect")
   .attr("x",200)
   .attr("y",140)
@@ -20,7 +23,7 @@ var mySquare= stage.append("rect")
 	.attr("shadeDirection", 1)
 	.attr("strokePen", d3.rgb("#00ADEF"))
 	.attr("strokeSize", 4)
-	
+
   .attr("pointDir", 0)
   .attr("pointDir", 0)
   .attr('fill', 'purple')
@@ -68,6 +71,12 @@ focused = miniSquare;
 var	maxX = stage.style.width; //TODO reset on resize
 var maxY = stage.style.height;
 
+//Code objtained from http://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+    this.parentNode.appendChild(this);
+  });
+};
 
 var switchSprite = function(sprite)
 {
@@ -77,6 +86,10 @@ var switchSprite = function(sprite)
 	Blockly.Xml.domToWorkspace(workspace, Blockly.Xml.textToDom(focused.attr('blockxml')));
 }
 
+function moveStart (d){
+  var obj = d3.select(this);
+  obj.moveToFront();
+}
 // Function that moves a sprite with x and y vaules sprite while dragging, due to issues with rotate transforms, it resets all transforms on the object before moving
 function moveSquare(d) {
  var obj = d3.select(this);
@@ -85,9 +98,10 @@ function moveSquare(d) {
 }
 
 // Function that resets the sprite rotations after drag.
-function stop (d) {
+function moveStop (d) {
   var obj = d3.select(this);
   rotateWithoutAnimation(obj);
+  obj.moveToFront();
 }
 
 // Function that moves a sprite with cx and cy vaules sprite while dragging, due to issues with rotate transforms, it resets all transforms on the object before moving
