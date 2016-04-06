@@ -243,12 +243,12 @@ Blockly.JavaScript['texts_prompt_ext'] = function(block) {
     var msg = Blockly.JavaScript.valueToCode(block, 'TEXT',
         Blockly.JavaScript.ORDER_NONE) || '\'\'';
   }
-  var code = 'inputPrompt(sprite,' + msg + ')';
+  var code = '(function() {inputPrompt(sprite,' + msg + ')';
   var toNumber = block.getFieldValue('TYPE') == 'NUMBER';
   if (toNumber) {
     code = 'parseFloat(' + code + ')';
   }
-  code += ';\nwhile(!getTextSubmitted()){}\nsetTextSubmitted(false)'
+  code += ';\nwhile(!getTextSubmitted()){}\nresetTextSubmitted();\n return submitAndResetTextArea(); })()'
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 

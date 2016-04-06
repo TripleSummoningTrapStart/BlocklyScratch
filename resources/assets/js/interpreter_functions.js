@@ -501,14 +501,21 @@ var changeSize = function(id, dx) {
 var inputPrompt = function(id, msg) {
 	var obj = stage.select("#" + id);
 	var consoleIn = document.getElementById('consoleInput');
+	consoleIn.style.display='';
 	addConsoleText(msg);
 	consoleIn.focus();
- 	return consoleIn.innerHTML;
+	consoleIn.select();
+ 	//return consoleIn.value;
 	//addConsoleText(v);
 };
 var getTextSubmitted = function(){
 	return textSubmitted;
 }
-var setTextSubmitted = function(value){
-	textSubmitted = value;
+var resetTextSubmitted = function(){
+	textSubmitted = false;
+}
+var submitAndResetTextArea = function(){
+	var consoleIn = document.getElementById('consoleInput');
+	consoleIn.style.display='none';
+	return consoleIn.value
 }
