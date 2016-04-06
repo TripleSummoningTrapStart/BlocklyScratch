@@ -83,7 +83,7 @@
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="console">
 						<textarea rows="21" cols="105" id="textArea" readonly></textArea>
-						<textarea rows="1" cols="105" id="consoleInput" onkeydown="if(event.keydown==13){ submit();}">Enter text here...</textArea>
+						<textarea rows="1" cols="105" id="consoleInput" style="display:none" onkeydown="if(event.keyCode==13){ submit();}">Enter text here...</textArea>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="sprites">
 							<svg id="svgSprite" style = "outline: 1px solid black"  class="row" viewBox ="0 0 100 100">

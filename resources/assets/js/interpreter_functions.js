@@ -498,12 +498,17 @@ var changeSize = function(id, dx) {
 
 /* This function prompts the user for input
 */
-var inputprompt = function(id, msg) {
+var inputPrompt = function(id, msg) {
 	var obj = stage.select("#" + id);
-	var consoleIn = document.getElementById('consoleinput');
+	var consoleIn = document.getElementById('consoleInput');
 	addConsoleText(msg);
 	consoleIn.focus();
-	var v = getInput(consoleIn);
+ 	return consoleIn.innerHTML;
 	//addConsoleText(v);
-	return v;
 };
+var getTextSubmitted = function(){
+	return textSubmitted;
+}
+var setTextSubmitted = function(value){
+	textSubmitted = value;
+}
