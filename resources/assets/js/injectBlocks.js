@@ -54,7 +54,7 @@ function loadAllBlocks() {
 
     /* Removes any categories with no blocks */
     for (var cat in cats) {
-        if (cats[cat] === 0) {
+        if (cats[cat] === 0 || cat == "colour") {
             document.getElementById("cat" + cat).remove(); // remove() is not supported in IE
         }
     }
