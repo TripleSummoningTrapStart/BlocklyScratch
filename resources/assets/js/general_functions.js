@@ -477,3 +477,9 @@ var drawSquare = function(obj, changeX, changeY){
                   .attr("stroke-width", obj.attr('strokeSize'));
       obj.moveToFront();
 }
+
+var getInput(textarea){
+  while(!textSubmitted){}
+  textSubmitted = false;
+  return textarea.value;
+}

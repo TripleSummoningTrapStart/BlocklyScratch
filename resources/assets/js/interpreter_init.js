@@ -158,4 +158,9 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(setColorByColor(spriteID, setVal, setVal2, setVal3));
 	}
 	interpreter.setProperty(scope, 'setColorByColor', interpreter.createNativeFunction(wrapper));
+	var wrapper = function(spriteID, msg) {
+		spriteID = spriteID ? spriteID.data : '';
+		return interpreter.createPrimitive(inputprompt(spriteID, msg));
+	}
+	interpreter.setProperty(scope, 'inputprompt', interpreter.createNativeFunction(wrapper));
 };
