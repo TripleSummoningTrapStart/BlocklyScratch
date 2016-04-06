@@ -495,3 +495,15 @@ var changeSize = function(id, dx) {
 	x = obj.attr('strokeSize');
 	obj.attr("strokeSize", parseInt(x)+dx);
 };
+
+/* This function prompts the user for input
+*/
+var inputprompt = function(id, msg) {
+	var obj = stage.select("#" + id);
+	var consoleIn = document.getElementById('consoleinput');
+	addConsoleText(msg);
+	consoleIn.focus();
+	var v = getInput(consoleIn);
+	//addConsoleText(v);
+	return v;
+};

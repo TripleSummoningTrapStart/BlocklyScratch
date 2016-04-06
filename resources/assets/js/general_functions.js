@@ -482,3 +482,9 @@ var submit = function()
 {
   textSubmitted = true;
 }
+
+var getInput(textarea){
+  while(!textSubmitted){}
+  textSubmitted = false;
+  return textarea.value;
+}
