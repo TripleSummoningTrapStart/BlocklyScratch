@@ -156,14 +156,14 @@ var cleanValues = function(codeToParse) {
 		lines.pop();
 		var startingLoopNumber = (numOfLoops*(i-1));
 
-			var hasLoop = lookForLoop(lines, startingLoopNumber -1, 0);
-			if(hasLoop > -1)
-			{
-			values[i] = getFuncCode();
-			resetFuncCode();
-			values[i] += 'queue.push(functionLoop' + startingLoopNumber + ');\n';
-			}
-
+		var hasLoop = lookForLoop(lines, startingLoopNumber -1, 0);
+		if(hasLoop > -1)
+		{
+  		values[i] = getFuncCode();
+  		resetFuncCode();
+  		values[i] += 'queue.push(functionLoop' + startingLoopNumber + ');\n';
+		}
+    resetFuncCode();
 	}
 
 	return values;
