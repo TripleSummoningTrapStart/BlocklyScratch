@@ -1,6 +1,8 @@
 var stage = d3.select("#svgStage");
 var sprite = d3.select("#svgSprite");
 var focused;
+var	maxX = stage.attr('viewBox').split(' ')[2]//parseInt(stage.style("width")); //TODO reset on resize
+var maxY = stage.attr('viewBox').split(' ')[3]//parseInt(stage.style("height"));
 var dragSquare = d3.behavior.drag()
             .on("dragstart", moveStart)
             .on("drag", moveSquare)
@@ -10,8 +12,8 @@ var dragCircle = d3.behavior.drag()
             .on("drag", moveCircle)
             .on("dragend", moveStop);
 var mySquare= stage.append("rect")
-  .attr("x",200)
-  .attr("y",140)
+  .attr("x", 240)
+  .attr("y", 140)
   .attr("width",30)
   .attr("height",30)
 	.attr("id", 's2')
@@ -68,8 +70,6 @@ var miniCircle= sprite.append("circle")
   .on("click", function(){switchSprite(miniCircle);});
 focused = miniSquare;
 
-var	maxX = parseInt(stage.style("width")); //TODO reset on resize
-var maxY = parseInt(stage.style("height"));
 
 //Code objtained from http://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
 d3.selection.prototype.moveToFront = function() {

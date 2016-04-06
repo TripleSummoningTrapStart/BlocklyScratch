@@ -182,8 +182,8 @@ var gotoMouse = function(id){
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
 	var box = obj.node().getBBox();
-	var newX = mouseX - adjX;
-	var newY = mouseY - adjY;
+	var newX = mouseX - 5;
+	var newY = mouseY - 184;
 	if(newX > maxX)
 		newX = maxX;
 	else if (newX < 0)
@@ -192,8 +192,6 @@ var gotoMouse = function(id){
 		newY = maxY;
 	else if(newY < 0)
 		newY = 0;
-	console.log(mouseX);
-	console.log(mouseY);
 	console.log("x: " + newX + ", y:" + newY);
 	if(obj.attr('penDown') == "true")
 		drawSquare(obj, newX - objX, newY - objY);

@@ -242,11 +242,7 @@ var convertToDegrees = function(rad){
   return rad * 180 / Math.PI;
 };
 
-/* JQuery method to track the position of the mouse */
-$(document).mousemove(function(event) {
-  mouseX= event.pageX;
-  mouseY = event.pageY;
-});
+
 
 /* Method to calculate the position of the sprite in the browser window */
 var calculateSpriteWindowPosition = function(spr){
