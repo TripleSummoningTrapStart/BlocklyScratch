@@ -81,7 +81,10 @@
 					<li role="presentation"><a href="#sprites" aria-controls="sprites" role="tab" data-toggle="tab">Sprites</a></li>
 				</ul>
 				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="console"><textarea rows="21" cols="105" id="textArea" readonly></textArea></div>
+					<div role="tabpanel" class="tab-pane active" id="console">
+						<textarea rows="21" cols="105" id="textArea" readonly></textArea>
+						<textarea rows="1" cols="105" id="consoleInput" onkeydown="if(event.keydown==13){ submit();}">Enter text here...</textArea>
+					</div>
 					<div role="tabpanel" class="tab-pane" id="sprites">
 							<svg id="svgSprite" style = "outline: 1px solid black"  class="row" viewBox ="0 0 100 100">
 									<pattern id="pattern" patternUnits="userSpaceOnUse" x="0" y="0" width ="10" height = "10" viewbox="0 0 10 10">

@@ -6,6 +6,7 @@ var interpreter;
 var time = 1;
 var mouseX;
 var mouseY;
+var textSubmitted = false;
 //var store = new Lawnchair({adaptor:'dom', table:'people'}, function(){});
 
 /* Method called when a change is detected in the page to resize the blockly area */
@@ -476,4 +477,8 @@ var drawSquare = function(obj, changeX, changeY){
                   .attr("stroke",  obj.attr('strokePen'))
                   .attr("stroke-width", obj.attr('strokeSize'));
       obj.moveToFront();
+}
+var submit = function()
+{
+  textSubmitted = true;
 }
