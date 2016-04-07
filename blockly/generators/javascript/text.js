@@ -244,11 +244,11 @@ Blockly.JavaScript['texts_prompt_ext'] = function(block) {
         Blockly.JavaScript.ORDER_NONE) || '\'\'';
   }
   var code = '(function() {inputPrompt(sprite,' + msg + ')';
+  code += ';\nwhile(!getTextSubmitted()){}\nresetTextSubmitted();\n return submitAndResetTextArea(); })()'
   var toNumber = block.getFieldValue('TYPE') == 'NUMBER';
   if (toNumber) {
     code = 'parseFloat(' + code + ')';
   }
-  code += ';\nwhile(!getTextSubmitted()){}\nresetTextSubmitted();\n return submitAndResetTextArea(); })()'
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
