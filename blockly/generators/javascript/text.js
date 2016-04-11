@@ -243,7 +243,8 @@ Blockly.JavaScript['texts_prompt_ext'] = function(block) {
     var msg = Blockly.JavaScript.valueToCode(block, 'TEXT',
         Blockly.JavaScript.ORDER_NONE) || '\'\'';
   }
-  var code = 'window.prompt(' + msg + ')';
+  var code = '(function() {inputPrompt(sprite,' + msg + ')';
+  code += ';\nwhile(!getTextSubmitted()){}\nresetTextSubmitted();\n return submitAndResetTextArea(); })()'
   var toNumber = block.getFieldValue('TYPE') == 'NUMBER';
   if (toNumber) {
     code = 'parseFloat(' + code + ')';

@@ -6,6 +6,7 @@ var interpreter;
 var time = 1;
 var mouseX;
 var mouseY;
+var textSubmitted = false;
 //var store = new Lawnchair({adaptor:'dom', table:'people'}, function(){});
 
 /* Method called when a change is detected in the page to resize the blockly area */
@@ -114,7 +115,7 @@ var generateInterpreterCode = function(codeToParse) {
 	//Parses the text into an array clean of comment values used as markers
 	var values = cleanValues(codeToParse);
 	var code = 'var queue = [];\n';
-	code = "var sprite = '" + bigCircle.attr("id") + "';\n" + code; // TODO remove this and make dynamic
+	code = "var sprite = '" + mySquare.attr("id") + "';\n" + code; // TODO remove this and make dynamic
 
 	// Gets all global values
 	if(S(values[0]).contains('var'))
@@ -155,14 +156,14 @@ var cleanValues = function(codeToParse) {
 		lines.pop();
 		var startingLoopNumber = (numOfLoops*(i-1));
 
-			var hasLoop = lookForLoop(lines, startingLoopNumber -1, 0);
-			if(hasLoop > -1)
-			{
-			values[i] = getFuncCode();
-			resetFuncCode();
-			values[i] += 'queue.push(functionLoop' + startingLoopNumber + ');\n';
-			}
-
+		var hasLoop = lookForLoop(lines, startingLoopNumber -1, 0);
+		if(hasLoop > -1)
+		{
+  		values[i] = getFuncCode();
+  		resetFuncCode();
+  		values[i] += 'queue.push(functionLoop' + startingLoopNumber + ');\n';
+		}
+    resetFuncCode();
 	}
 
 	return values;
@@ -242,11 +243,7 @@ var convertToDegrees = function(rad){
   return rad * 180 / Math.PI;
 };
 
-/* JQuery method to track the position of the mouse */
-$(document).mousemove(function(event) {
-  mouseX= event.pageX;
-  mouseY = event.pageY;
-});
+
 
 /* Method to calculate the position of the sprite in the browser window */
 var calculateSpriteWindowPosition = function(spr){
@@ -352,6 +349,12 @@ var RGBtoHSV = function(color)
 	{
 		H = 60*(((Rp-Gp)/delta)+4);
 	}
+	while(H<0){
+		H = 360+H;
+	}
+	while(H>360){
+		H = H-360;
+	}
 	var S;
 	if(Cmax==0)
 	{
@@ -362,7 +365,7 @@ var RGBtoHSV = function(color)
 		S = delta/Cmax;
 	}
 	//change shade value
-	
+
 	var V = Cmax;
 	var array = [H, S, V];
 	return array;
@@ -432,26 +435,56 @@ var HSVtoRGB = function(hsv)
 	{
 		g1 = '0'+G.toString(16);
 	}
-	else
-	{
+	else{
 		g1 = G.toString(16);
 	}
 	var b1;
-	if(B<16)
-	{
+	if(B<16){
 		b1 = '0'+B.toString(16);
 	}
-	else
-	{
+	else{
 		b1 = B.toString(16);
 	}
 	return [r1, g1, b1];
-}
+};
+
 window.onload = function() {
 	loadAllBlocks();
 	injectBlockly();
 	registerButtons();
-  stage.clear();
-  sprite.clear();
-  addSprites();
+  //stage.clear();
+  //sprite.clear();
+  //addSprites();
 };
+
+var rotateWithoutAnimation = function(obj) {
+  var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
+  var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
+  var rotationStyle = obj.attr('rotationStyle');
+  var rotationDegree = parseInt(obj.attr('rotationDegree'));
+  if(rotationStyle == 'NONE')
+  {
+      return;
+  }
+  obj.attr("transform", "rotate(" + rotationDegree +"," + objX + "," + objY +")");
+};
+
+var drawSquare = function(obj, changeX, changeY){
+
+    var boundingBox = obj.node().getBBox();
+    var lineY = parseInt(boundingBox.y) + parseInt(boundingBox.height/2);
+    var xAdj = parseInt(boundingBox.width/2);
+    var lineX = parseInt(boundingBox.x) + parseInt(boundingBox.width/2);
+    var yAdj = parseInt(boundingBox.height/2);
+    var l = stage.append("line")
+                  .attr("x1", lineX)
+                  .attr("y1", lineY)
+                  .attr("x2", lineX + changeX)
+                  .attr("y2", lineY + changeY)
+                  .attr("stroke",  obj.attr('strokePen'))
+                  .attr("stroke-width", obj.attr('strokeSize'));
+      obj.moveToFront();
+}
+var submit = function(){
+  textSubmitted = true;
+}

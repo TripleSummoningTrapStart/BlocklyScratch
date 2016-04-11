@@ -10,7 +10,7 @@
 		 <link href="resources/assets/css/testpage.css" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
-		<script src="Snap.svg-0.4.1/dist/snap.svg.js"></script>
+		<script src="d3/d3.js"></script>
 
 		<script src="blockly/blockly_uncompressed.js"></script>
 		<script src="blockly/blocks/logic.js"></script>
@@ -44,7 +44,6 @@
 
 		<script src="JS-Interpreter/acorn_interpreter.js"></script>
 		<script src="https://cdn.rawgit.com/jprichardson/string.js/master/dist/string.min.js"></script>
-		<script src="resources/lawnchair-0.6.1.min.js"></script>
 		<script src="resources/assets/js/loop_functions.js"></script>
 		<script src="resources/assets/js/general_functions.js"></script>
 		<script src="resources/assets/js/injectBlocks.js"></script>
@@ -82,8 +81,11 @@
 					<li role="presentation"><a href="#sprites" aria-controls="sprites" role="tab" data-toggle="tab">Sprites</a></li>
 				</ul>
 				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="console"><textarea rows="21" cols="105" id="textArea" readonly></textArea></div>
-					<div role="tabpanel" class="tab-pane flex" id="sprites">
+					<div role="tabpanel" class="tab-pane active" id="console">
+						<textarea rows="21" cols="105" id="textArea" readonly></textArea>
+						<textarea rows="1" cols="105" id="consoleInput" style="display:none" onkeydown="if(event.keyCode==13){ submit(); return false;}">Enter text here...</textArea>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="sprites">
 							<svg id="svgSprite" style = "outline: 1px solid black"  class="row" viewBox ="0 0 100 100">
 									<pattern id="pattern" patternUnits="userSpaceOnUse" x="0" y="0" width ="10" height = "10" viewbox="0 0 10 10">
 										<path d="M-5,0,10,15m0-5,15,10" stroke="white" stroke-width="2"/>
@@ -107,5 +109,22 @@
 
 
 	</body>
-	<script src="resources/assets/js/snap.js"></script>
+	<script src="resources/assets/js/d3.js"></script>
+	<script> /* JQuery method to track the position of the mouse */
+	$("#svgStage").mousemove(function(event) {
+	  mouseX= event.pageX;
+	  mouseY = event.pageY;
+		console.log("X:" + mouseX + " Y:" + mouseY);
+	});
+	$(window).resize(function() {
+		stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
+		maxX = $("#svgStage").height();
+		maxY = $("#svgStage").width();
+	});
+	$("#svgStage").load(function() {
+		stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
+		maxX = $("#svgStage").height();
+		maxY = $("#svgStage").width();
+	});
+	</script>
 </html>

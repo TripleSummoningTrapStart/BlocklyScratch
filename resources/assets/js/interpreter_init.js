@@ -158,9 +158,28 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(setColorByColor(spriteID, setVal, setVal2, setVal3));
 	}
 	interpreter.setProperty(scope, 'setColorByColor', interpreter.createNativeFunction(wrapper));
+
 	var wrapper = function(spriteID){
 		spriteID = spriteID ? spriteID.data : '';
 		return interpreter.createPrimitive(stamp(spriteID));
 	}
 	interpreter.setProperty(scope, 'stamp', interpreter.createNativeFunction(wrapper));
+	var wrapper = function(spriteID, msg) {
+		spriteID = spriteID ? spriteID.data : '';
+		return interpreter.createPrimitive(inputPrompt(spriteID, msg));
+	}
+	interpreter.setProperty(scope, 'inputPrompt', interpreter.createNativeFunction(wrapper));
+	var wrapper = function() {
+		return interpreter.createPrimitive(resetTextSubmitted());
+	}
+	interpreter.setProperty(scope, 'resetTextSubmitted', interpreter.createNativeFunction(wrapper));
+	var wrapper = function() {
+		return interpreter.createPrimitive(getTextSubmitted());
+	}
+	interpreter.setProperty(scope, 'getTextSubmitted', interpreter.createNativeFunction(wrapper));
+	var wrapper = function() {
+		return interpreter.createPrimitive(submitAndResetTextArea());
+	}
+	interpreter.setProperty(scope, 'submitAndResetTextArea', interpreter.createNativeFunction(wrapper));
+
 };

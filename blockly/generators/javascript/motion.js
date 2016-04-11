@@ -47,7 +47,7 @@ Blockly.JavaScript['motion_pointtowards'] = function(block) {
 Blockly.JavaScript['motion_gotoXY'] = function(block) {
     var value_new_x_val = Blockly.JavaScript.valueToCode(block, 'NEW_X_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     var value_new_y_val = Blockly.JavaScript.valueToCode(block, 'NEW_Y_VAL', Blockly.JavaScript.ORDER_ATOMIC);
-    var code = 'gotoXY(sprite, ' + value_new_x_val + ', ' + value_new_y_val + ');\n';
+    var code = 'gotoXY(sprite, ' + value_new_x_val + ', ' + value_new_y_val * -1 + ');\n';
     return code;
 };
 
@@ -79,7 +79,7 @@ Blockly.JavaScript['motion_changex'] = function(block) {
 
 Blockly.JavaScript['motion_changey'] = function(block) {
     var value_change_num = Blockly.JavaScript.valueToCode(block, 'CHANGE_NUM', Blockly.JavaScript.ORDER_ATOMIC);
-    var code = 'changeY(sprite, ' + value_change_num + ');\n';
+    var code = 'changeY(sprite, ' + value_change_num * -1 + ');\n';
     return code;
 };
 
@@ -91,7 +91,7 @@ Blockly.JavaScript['motion_setx'] = function(block) {
 
 Blockly.JavaScript['motion_sety'] = function(block) {
     var value_new_val = Blockly.JavaScript.valueToCode(block, 'NEW_VAL', Blockly.JavaScript.ORDER_ATOMIC);
-    var code = 'setY(sprite, ' + value_new_val + ');\n';
+    var code = 'setY(sprite, ' + value_new_val*-1 + ');\n';
     return code;
 };
 
