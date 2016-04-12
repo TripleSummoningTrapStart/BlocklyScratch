@@ -390,6 +390,10 @@ var setColorByColor = function(id, h, s, v) {
 	obj.attr({strokePen: d3.rgb(Hex)});
 }
 
+/*This function changes the color of the pen by a set amount
+	@param the id of the sprite whose pen color is changing
+	@param the amount to change the pen color by
+*/
 var changeColor = function(id, dx) {
 	var obj = stage.select('#' + id);
 	var color = obj.attr('strokePen');
@@ -537,6 +541,22 @@ var submitAndResetTextArea = function(){
 
 var stamp = function(id)
 {
-	var obj = stage.select('#' + id).clone();
-	stage.append(obj);
+	var selection = stage.select('#'+id);
+	//var obj = stage.select('#' + id).clone();
+	var attr = selection.node().attributes;
+	
+	//var stage2 = Snap("#svgStage");
+	//var obj = stage2.rect(attr[0].value, attr[1].value, attr[2].value, attr[3].value);
+	stage.append("rect")
+	.attr("x", attr[0].value)
+	.attr("y", attr[1].value)
+	.attr("width", attr[2].value)
+	.attr("height", attr[3].value)
+	.attr('fill', attr[13].value)
+	.attr('stroke', attr[14].value)
+	.attr('stroke-width', attr[15].value)
+	.attr('rotationdegree', attr[5].value)
+	.attr('transform', attr[16].value)
+	.attr('id', "clone");
+	rotateWithoutAnimation(stage.select('#clone'));
 }
