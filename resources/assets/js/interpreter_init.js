@@ -32,6 +32,8 @@ function initApi(interpreter, scope) {
 	interpreter.setProperty(scope, 'setY', interpreter.createNativeFunction(wrapper));
 	var wrapper = function (id, xVal, yVal) {
 		id = id ? id.data : '';
+		yVal = yVal ? yVal.data : 0;
+		xVal = xVal ? xVal.data : 0;
 		return interpreter.createPrimitive(gotoXY(id, xVal, yVal));
 	}
 	interpreter.setProperty(scope, 'gotoXY', interpreter.createNativeFunction(wrapper));
@@ -181,5 +183,13 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(submitAndResetTextArea());
 	}
 	interpreter.setProperty(scope, 'submitAndResetTextArea', interpreter.createNativeFunction(wrapper));
-
+	var wrapper = function(spriteID) {
+		spriteID = spriteID ? spriteID.data : '';
+		return interpreter.createPrimitive(getInAnim(spriteID));
+	}
+	interpreter.setProperty(scope, 'getInAnim', interpreter.createNativeFunction(wrapper));
+	var wrapper = function() {
+		return interpreter.createPrimitive(clearPenLines());
+	}
+	interpreter.setProperty(scope, 'clearPenLines', interpreter.createNativeFunction(wrapper));
 };

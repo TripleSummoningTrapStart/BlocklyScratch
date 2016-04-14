@@ -26,6 +26,7 @@ var highlightBlock = function(id) {
 
 var moveStep = function(id, steps) {
 	var obj = stage.select('#' + id);
+	while(getInAnim(id)){};
 	var objX = parseInt(obj.attr('x'));
 	var objY = parseInt(obj.attr('y'));
 	var dir = convertToRadians(parseFloat(obj.attr("rotationDegree"))) * -1
@@ -62,8 +63,12 @@ var rotate = function(id, rotateVal) {
 		}
 		else if(rotationStyle == 'NONE')
 			return;
-
-		obj.transition().ease("linear").attrTween("transform", tween);
+	  obj.attr("inAnim", 'true');
+		obj.transition()
+			.ease("linear")
+			.attrTween("transform", tween)
+			.duration(100)
+			.each("end", setInAnim(obj, 'false'));
 
 		function tween(d, i, a) {
 			return d3.interpolateString("rotate(" + rotationDegree +"," + objX + "," + objY +")",
@@ -85,7 +90,7 @@ var setX = function (id, newVal) {
 		return;
 	if(newX > maxX)
 		newX = maxX;
-	if(obj.attr('penDown') == "true")
+	if(obj.attr('penDown') == 'true')
 		drawSquare(obj, newX-objX, 0);
 	obj.attr('transform', '');
 	obj.attr({'x': newX});
@@ -104,7 +109,7 @@ var setY = function (id, newVal) {
 		return;
 	if(newY > maxY)
 		newY = maxY
-	if(obj.attr('penDown') == "true")
+	if(obj.attr('penDown') == 'true')
 		drawSquare(obj, 0, newY - objY);
   obj.attr('transform', '');
 	obj.attr({'y': newY});
@@ -123,7 +128,7 @@ var changeX = function (id, changeVal) {
 			return;
 		if(newX > maxX)
 			newX = maxX;
-		if(obj.attr('penDown') == "true")
+		if(obj.attr('penDown') == 'true')
 			drawSquare(obj, changeVal, 0);
 	  obj.attr('transform', '');
 		obj.attr({'x': newX});
@@ -142,7 +147,7 @@ var changeY = function (id, changeVal) {
 		return;
 	if(newY > maxY)
 		newY = maxY;
-	if(obj.attr('penDown') == "true")
+	if(obj.attr('penDown') == 'true')
 			drawSquare(obj, 0, changeVal);
 	obj.attr('transform', '');
 	obj.attr({'y': newY});
@@ -166,11 +171,24 @@ var gotoXY = function (id, xVal, yVal) {
 		newX = maxX;
 	if(newY > maxY)
 		newY = maxY;
-	if(obj.attr('penDown') == "true")
+	if(obj.attr('penDown') == 'true')
 		drawSquare(obj, newX - objX, newY - objY);
-	obj.attr('transform', '');
-	obj.attr({'x': newX, 'y': newY});
-	rotateWithoutAnimation(obj);
+	//if(obj.attr('transform') != null)	{
+		obj.attr('transform', '');
+		obj.attr({'x': newX, 'y': newY});
+		rotateWithoutAnimation(obj);
+	//}
+	/*else
+		{
+			obj.transition().attrTween('x', tweenX).attrTween('y', tweenY);
+			function tweenX(d, i, a) {
+				return d3.interpolateString(objX, newX);
+			}
+			function tweenY(d, i, a) {
+				return d3.interpolateString(objY, newY);
+			}
+	}*/
+
 };
 
 
@@ -193,7 +211,7 @@ var gotoMouse = function(id){
 	else if(newY < 0)
 		newY = 0;
 	console.log("x: " + newX + ", y:" + newY);
-	if(obj.attr('penDown') == "true")
+	if(obj.attr('penDown') == 'true')
 		drawSquare(obj, newX - objX, newY - objY);
 	obj.attr('transform', '');
 	obj.attr({'x': newX, 'y': newY});
@@ -331,17 +349,13 @@ var setRotationStyle = function(id, rotateStyle) {
 	@param: the id of the sprite that is activate*/
 var penDown = function(id) {
 	var obj = stage.select("#"+id);
-	if(obj!=null){
-		obj.attr({'penDown': true});
-	}
+		obj.attr({'penDown': 'true'});
 }
 /*this function sets the value of penDown to be false for a given sprite, when a pen up block is present
 	@param: the id of the sprite that is activate*/
 var penUp = function(id) {
 	var obj = stage.select("#"+id);
-	if(obj!=null){
-		obj.attr({'penDown': false});
-	}
+		obj.attr({'penDown': 'false'});
 }
 
 /* This function sets the color of the pen to a certian numeric value
@@ -529,6 +543,9 @@ var getTextSubmitted = function(){
 var resetTextSubmitted = function(){
 	textSubmitted = false;
 }
+var getInAnim = function(id){
+	return stage.select("#" + id).attr("inAnim") == "true";
+}
 var submitAndResetTextArea = function(){
 	var consoleIn = document.getElementById('consoleInput');
 	consoleIn.style.display='none';
@@ -539,4 +556,8 @@ var stamp = function(id)
 {
 	var obj = stage.select('#' + id).clone();
 	stage.append(obj);
+}
+
+var clearPenLines = function(){
+	stage.selectAll("#draw").remove()
 }

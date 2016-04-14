@@ -47,7 +47,7 @@ Blockly.JavaScript['motion_pointtowards'] = function(block) {
 Blockly.JavaScript['motion_gotoXY'] = function(block) {
     var value_new_x_val = Blockly.JavaScript.valueToCode(block, 'NEW_X_VAL', Blockly.JavaScript.ORDER_ATOMIC);
     var value_new_y_val = Blockly.JavaScript.valueToCode(block, 'NEW_Y_VAL', Blockly.JavaScript.ORDER_ATOMIC);
-    var code = 'gotoXY(sprite, ' + value_new_x_val + ', ' + value_new_y_val * -1 + ');\n';
+    var code = 'gotoXY(sprite, ' + value_new_x_val + ', ' + value_new_y_val + ' * -1);\n';
     return code;
 };
 

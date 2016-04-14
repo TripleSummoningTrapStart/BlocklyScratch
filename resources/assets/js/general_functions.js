@@ -131,7 +131,7 @@ var generateInterpreterCode = function(codeToParse) {
 	}
 
 	code += 'while (queue.length > 0) {\n var func = queue.shift();\n func(); \n}';
-
+  //code = "var sprite = 's2'; var queue = [];var t;var L;var k;var R;var x;var y;t = 0;L = 1.42;k = 1.71;R = 53;x = 0;y = 0;penDown(sprite);while(1){x = R * ((1 - k) * Math.sin(t / 180 * Math.PI) + (L * k) * Math.sin((((1 - k) / k) * t) / 180 * Math.PI));y = (R * ((1 - k) * Math.cos(t / 180 * Math.PI) + (L * k) * Math.cos((((1 - k) / k) * t) / 180 * Math.PI))*-1);gotoXY(sprite, x, y);t = (typeof t == 'number' ? t : 0) + 20;changeColor(sprite, 1);};"
 	return code;
 };
 
@@ -213,11 +213,13 @@ var stopCode = function() {
 /* Method to run the blockly code as javascript on the page by injecting it into the intpreter */
 var runCode = function() {
 	Blockly.JavaScript.STATEMENT_PREFIX = null;
+
 	var code = generateInterpreterCode(Blockly.JavaScript.workspaceToCode(workspace));
 	interpreter = new Interpreter(code, initApi);
 	nextStep();
 	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
 };
+
 /*Method to add event listeners to the buttons on the page */
 var registerButtons = function() {
 	document.getElementById('xmlFile').addEventListener('change', openImportFile, false);
@@ -371,7 +373,7 @@ var RGBtoHSV = function(color)
 	return array;
 }
 /*changes array of hsv value (hue saturation and value) to an RGB hex number
-	@param array of hsv values to convert to RGB 
+	@param array of hsv values to convert to RGB
 	@retun array of RGB vaules representing the given hsv values*/
 var HSVtoRGB = function(hsv)
 {
@@ -477,6 +479,7 @@ var drawSquare = function(obj, changeX, changeY){
     var lineX = parseInt(boundingBox.x) + parseInt(boundingBox.width/2);
     var yAdj = parseInt(boundingBox.height/2);
     var l = stage.append("line")
+                  .attr("id", "draw")
                   .attr("x1", lineX)
                   .attr("y1", lineY)
                   .attr("x2", lineX + changeX)
@@ -488,3 +491,6 @@ var drawSquare = function(obj, changeX, changeY){
 var submit = function(){
   textSubmitted = true;
 }
+var setInAnim = function(obj, inAnim){
+  obj.attr("inAnim", inAnim)
+};

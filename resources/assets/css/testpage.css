@@ -6,7 +6,6 @@
 			}
 			body {
 			  padding-top:50px;
-			  background-color: #fff;
 			  font-family: sans-serif;
 			  overflow: hidden;
 			  padding-bottom: 60px;
@@ -44,6 +43,7 @@
 				/*position: absolute;*/
 				height: 50vh;
 				width: 39vw;
+				background-color: white;
 				margin-left: 5px;
 				align-self: flex-start;
 			}
@@ -51,6 +51,7 @@
 				/*position: absolute;*/
 				height: 29vh;
 				width: 40vw;
+					background-color: white;
 				align-self: flex-start;
 			}
 			#textArea{

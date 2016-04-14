@@ -18,20 +18,19 @@ var mySquare= stage.append("rect")
   .attr("height",30)
 	.attr("id", 's2')
 	.attr("rotationDegree", 0)
-	.attr("penDown", "false")
+	.attr("penDown", 'false')
 	.attr("rotationStyle", "all")
 	//next 3 variables are for pen color
 	.attr("colorDirection", 1)
 	.attr("shadeDirection", 1)
 	.attr("strokePen", d3.rgb("#00ADEF"))
-	.attr("strokeSize", 4)
-
+	.attr("strokeSize", 2)
+  .attr("inAnim", 'false')
   .attr("pointDir", 0)
   .attr("pointDir", 0)
   .attr('fill', 'purple')
   .attr('stroke', 'black')
   .attr('stroke-width', 5)
-  .attr('transform', 'translate(1,1)')
   .call(dragSquare);
 var myCircle= stage.append("circle")
   .attr("cx", 100)
@@ -39,7 +38,7 @@ var myCircle= stage.append("circle")
   .attr("r", 20)
   .attr("id", 'c2')
   .attr("rotationDegree", 0)
-  .attr("penDown", "false")
+  .attr("penDown", 'false')
   .attr("rotationStyle", "all")
   .attr("pointDir", 0)
   .attr('fill', 'purple')
@@ -88,6 +87,7 @@ var switchSprite = function(sprite)
 
 function moveStart (d){
   var obj = d3.select(this);
+  obj.attr("penDown", "false")
   obj.moveToFront();
 }
 // Function that moves a sprite with x and y vaules sprite while dragging, due to issues with rotate transforms, it resets all transforms on the object before moving
@@ -102,6 +102,7 @@ function moveStop (d) {
   var obj = d3.select(this);
   rotateWithoutAnimation(obj);
   obj.moveToFront();
+  obj.attr("pendDown", "true")
 }
 
 // Function that moves a sprite with cx and cy vaules sprite while dragging, due to issues with rotate transforms, it resets all transforms on the object before moving

@@ -10,7 +10,7 @@ goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['pen_clear'] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, 'CLEAR', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = 'var red = 1;\n';
+  var code = 'clearPenLines();\n';
   return code;
 };
 

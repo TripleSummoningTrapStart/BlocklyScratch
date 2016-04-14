@@ -54,10 +54,9 @@
 
 	</head>
 	<body>
-
+<img src="resources/block-images/blockly_scratch_logo.png" alt="logo" style="margin: 0px auto;display:block">
 
 			<div class="row blockly-toolbox flex">
-				<div class="alert">The functionality of all the Events Blocks is not currently implemented in this version except for when 'Run' clicked.</div>
 				<div class="col-sm-12 col-md-12 col-lg-12">
 					<button id="btnRun" class="btn btn-success">Run</button>
 					<button id="btnStep" class="btn btn-warning">Step</button>
@@ -114,7 +113,7 @@
 	$("#svgStage").mousemove(function(event) {
 	  mouseX= event.pageX;
 	  mouseY = event.pageY;
-		console.log("X:" + mouseX + " Y:" + mouseY);
+		//console.log("X:" + mouseX + " Y:" + mouseY);
 	});
 	$(window).resize(function() {
 		stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
