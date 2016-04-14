@@ -7,6 +7,7 @@ var time = 1;
 var mouseX;
 var mouseY;
 var textSubmitted = false;
+var downloadingCode = false; // Check for generating functions as strings for downloading code
 //var store = new Lawnchair({adaptor:'dom', table:'people'}, function(){});
 
 /* Method called when a change is detected in the page to resize the blockly area */
@@ -54,11 +55,47 @@ var injectBlockly = function() {
   remove the prefixes to create clean javascript free of extra blockly code */
 var downloadCode = function() {
 	Blockly.JavaScript.STATEMENT_PREFIX = null;
+  // write outside functions
+  downloadingCode = true;
 	var code = Blockly.JavaScript.workspaceToCode(workspace);
+  downloadingCode = false;
+  // Remove all duplicate functions
+  code = parseDownloadCodeFunctions(code);
+  // Write actual executed code
+  code += Blockly.JavaScript.workspaceToCode(workspace);
     document.getElementById('btnCode').href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(code);
     Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
 	return code;
 };
+
+/* Method to remove duplicate functions from code that is being downloaded */
+var parseDownloadCodeFunctions = function(codeToParse) {
+  var functions = codeToParse.split("// FunctionHeaderForRemovingExcess");
+  if (functions.length == 1){
+    return codeToParse;
+  }
+  else {
+    var found = [];
+    var i;
+    if (S(functions[0]).contains("var")){
+      i = 1;
+    }
+    else {
+      i = 0;
+    }
+    for(; i < functions.length; i ++){
+      var func = functions[i].trim();
+      if (found.indexOf(func) > -1){
+        continue;
+      }
+      else {
+        found.push(func);
+      }
+    }
+    return found.join("\n") + "\n// End of function declarations\n\n";
+  }
+};
+
 /* Method to allow the user to export their blockly code into XML that can be imported later for
    continuous work */
 var exportXML = function() {
@@ -131,7 +168,6 @@ var generateInterpreterCode = function(codeToParse) {
 	}
 
 	code += 'while (queue.length > 0) {\n var func = queue.shift();\n func(); \n}';
-  //code = "var sprite = 's2'; var queue = [];var t;var L;var k;var R;var x;var y;t = 0;L = 1.42;k = 1.71;R = 53;x = 0;y = 0;penDown(sprite);while(1){x = R * ((1 - k) * Math.sin(t / 180 * Math.PI) + (L * k) * Math.sin((((1 - k) / k) * t) / 180 * Math.PI));y = (R * ((1 - k) * Math.cos(t / 180 * Math.PI) + (L * k) * Math.cos((((1 - k) / k) * t) / 180 * Math.PI))*-1);gotoXY(sprite, x, y);t = (typeof t == 'number' ? t : 0) + 20;changeColor(sprite, 1);};"
 	return code;
 };
 
