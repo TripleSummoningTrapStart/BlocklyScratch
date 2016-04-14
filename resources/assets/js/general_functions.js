@@ -7,6 +7,7 @@ var time = 1;
 var mouseX;
 var mouseY;
 var textSubmitted = false;
+var downloadingCode = false; // Check for generating functions as strings for downloading code
 //var store = new Lawnchair({adaptor:'dom', table:'people'}, function(){});
 
 /* Method called when a change is detected in the page to resize the blockly area */
@@ -54,11 +55,47 @@ var injectBlockly = function() {
   remove the prefixes to create clean javascript free of extra blockly code */
 var downloadCode = function() {
 	Blockly.JavaScript.STATEMENT_PREFIX = null;
+  // write outside functions
+  downloadingCode = true;
 	var code = Blockly.JavaScript.workspaceToCode(workspace);
+  downloadingCode = false;
+  // Remove all duplicate functions
+  code = parseDownloadCodeFunctions(code);
+  // Write actual executed code
+  code += Blockly.JavaScript.workspaceToCode(workspace);
     document.getElementById('btnCode').href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(code);
     Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
 	return code;
 };
+
+/* Method to remove duplicate functions from code that is being downloaded */
+var parseDownloadCodeFunctions = function(codeToParse) {
+  var functions = codeToParse.split("// FunctionHeaderForRemovingExcess");
+  if (functions.length == 1){
+    return codeToParse;
+  }
+  else {
+    var found = [];
+    var i;
+    if (S(functions[0]).contains("var")){
+      i = 1;
+    }
+    else {
+      i = 0;
+    }
+    for(; i < functions.length; i ++){
+      var func = functions[i].trim();
+      if (found.indexOf(func) > -1){
+        continue;
+      }
+      else {
+        found.push(func);
+      }
+    }
+    return found.join("\n") + "\n// End of function declarations\n\n";
+  }
+};
+
 /* Method to allow the user to export their blockly code into XML that can be imported later for
    continuous work */
 var exportXML = function() {
@@ -371,7 +408,7 @@ var RGBtoHSV = function(color)
 	return array;
 }
 /*changes array of hsv value (hue saturation and value) to an RGB hex number
-	@param array of hsv values to convert to RGB 
+	@param array of hsv values to convert to RGB
 	@retun array of RGB vaules representing the given hsv values*/
 var HSVtoRGB = function(hsv)
 {
