@@ -11,7 +11,7 @@ goog.require('Blockly.JavaScript');
 Blockly.JavaScript['pen_clear'] = function(block) {
   var code = "";
   if(downloadingCode){
-    code = "// FunctionHeaderForRemovingExcess\nvar stamp = " + S(clearPenLines).toString() + ";\n";
+    code = "// FunctionHeaderForRemovingExcess\nvar clearPenLines = " + S(clearPenLines).toString() + ";\n";
   }
   else {
      code = 'clearPenLines();\n';
