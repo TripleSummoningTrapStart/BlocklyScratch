@@ -575,6 +575,7 @@ var stamp = function(id)
 	.attr('rotationDegree', attr['rotationDegree'].value)
 	.attr('id', "clone");
 	rotateWithoutAnimation(stage.select('#clone'));
+	selection.moveToFront();
 }
 
 var clearPenLines = function(){
