@@ -569,11 +569,10 @@ var stamp = function(id)
 	.attr("y", attr[1].value)
 	.attr("width", attr[2].value)
 	.attr("height", attr[3].value)
-	.attr('fill', attr[13].value)
-	.attr('stroke', attr[14].value)
-	.attr('stroke-width', attr[15].value)
+	.attr('fill', attr[14].value)
+	.attr('stroke', attr[15].value)
+	.attr('stroke-width', attr[16].value)
 	.attr('rotationdegree', attr[5].value)
-	.attr('transform', attr[16].value)
 	.attr('id', "clone");
 	rotateWithoutAnimation(stage.select('#clone'));
 }
