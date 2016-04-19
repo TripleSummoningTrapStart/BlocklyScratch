@@ -289,3 +289,14 @@ Blockly.JavaScript['texts_prompt_ext'] = function(block) {
 };
 
 Blockly.JavaScript['texts_prompt'] = Blockly.JavaScript['texts_prompt_ext'];
+
+Blockly.JavaScript['texts_clear_console'] = function(block) {
+  var code = "";
+  if(downloadingCode){
+    code = "// FunctionHeaderForRemovingExcess\nvar clearConsole =" + S(clearConsole).toString() + ";\n";
+  }
+  else {
+    code = 'clearConsole();\n';
+  }
+  return code;
+};

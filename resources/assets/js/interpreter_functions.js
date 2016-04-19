@@ -581,3 +581,8 @@ var stamp = function(id)
 var clearPenLines = function(){
 	stage.selectAll("#draw").remove()
 }
+
+var clearConsole = function(){
+  var textarea = document.getElementById("textArea");
+  textarea.innerHTML = "";
+};

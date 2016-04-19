@@ -192,4 +192,8 @@ function initApi(interpreter, scope) {
 		return interpreter.createPrimitive(clearPenLines());
 	}
 	interpreter.setProperty(scope, 'clearPenLines', interpreter.createNativeFunction(wrapper));
+	var wrapper = function() {
+		return interpreter.createPrimitive(clearConsole());
+	}
+	interpreter.setProperty(scope, 'clearConsole', interpreter.createNativeFunction(wrapper));
 };

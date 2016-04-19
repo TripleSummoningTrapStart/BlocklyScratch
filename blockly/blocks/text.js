@@ -708,3 +708,19 @@ Blockly.Blocks['texts_prompt'] = {
   mutationToDom: Blockly.Blocks['texts_prompt_ext'].mutationToDom,
   domToMutation: Blockly.Blocks['texts_prompt_ext'].domToMutation
 };
+
+Blockly.Blocks['texts_clear_console'] = {
+  /**
+  * Block for clearing the console of text
+  * @this Blockly.Block
+  */
+  init: function() {
+    this.appendDummyInput()
+        .appendField("clear console");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(Blockly.Blocks.texts.HSV_HUE, Blockly.Blocks.texts.HSV_SATURATION, Blockly.Blocks.texts.HSV_VALUE);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
