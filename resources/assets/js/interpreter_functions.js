@@ -565,14 +565,14 @@ var stamp = function(id)
 	//var stage2 = Snap("#svgStage");
 	//var obj = stage2.rect(attr[0].value, attr[1].value, attr[2].value, attr[3].value);
 	stage.append("rect")
-	.attr("x", attr[0].value)
-	.attr("y", attr[1].value)
-	.attr("width", attr[2].value)
-	.attr("height", attr[3].value)
-	.attr('fill', attr[14].value)
-	.attr('stroke', attr[15].value)
-	.attr('stroke-width', attr[16].value)
-	.attr('rotationdegree', attr[5].value)
+	.attr("x", attr['x'].value)
+	.attr("y", attr['y'].value)
+	.attr("width", attr['width'].value)
+	.attr("height", attr['height'].value)
+	.attr('fill', attr['fill'].value)
+	.attr('stroke', attr['stroke'].value)
+	.attr('stroke-width', attr['stroke-width'].value)
+	.attr('rotationDegree', attr['rotationDegree'].value)
 	.attr('id', "clone");
 	rotateWithoutAnimation(stage.select('#clone'));
 }
