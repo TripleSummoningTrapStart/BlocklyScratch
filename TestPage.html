@@ -116,14 +116,14 @@
 		//console.log("X:" + mouseX + " Y:" + mouseY);
 	});
 	$(window).resize(function() {
-		stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
-		maxX = $("#svgStage").height();
-		maxY = $("#svgStage").width();
+		SVGAreas.stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
+		SVGAreas.maxX = $("#svgStage").height();
+		SVGAreas.maxY = $("#svgStage").width();
 	});
 	$("#svgStage").load(function() {
-		stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
-		maxX = $("#svgStage").height();
-		maxY = $("#svgStage").width();
+		SVGAreas.stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
+		SVGAreas.maxX = $("#svgStage").height();
+		SVGAreas.maxY = $("#svgStage").width();
 	});
 	window.onload = function(){
 		workspace.loadAllBlocks();
