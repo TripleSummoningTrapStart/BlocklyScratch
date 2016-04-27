@@ -61,6 +61,18 @@ var SVGAreas = (function() {
     obj.attr({'cx': d3.event.x, 'cy': d3.event.y});
   }
 
+  var rotateWithoutAnimation = function(obj) {
+    var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
+    var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
+    var rotationStyle = obj.attr('rotationStyle');
+    var rotationDegree = parseInt(obj.attr('rotationDegree'));
+    if(rotationStyle == 'NONE')
+    {
+        return;
+    }
+    obj.attr("transform", "rotate(" + rotationDegree +"," + objX + "," + objY +")");
+  };
+
   var createImportSVGButton = function(divID) {
    $('#' + divID)
    .append('<button id="btnImportSVG" class="btn btn-success">Upload SVG:</button>')
