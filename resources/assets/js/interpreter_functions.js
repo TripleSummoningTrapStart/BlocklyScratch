@@ -1,6 +1,6 @@
 var adjX = 200; // the adjusted X value of the sprite to support a cartesian coordinate plane
 var adjY = 140; // the adjusted Y value of the sprite to support a cartesian coordinate plane
-
+var cloneCount = 0
 
 /*This fu nction takes in a text input from the print block to add to the text area
  located in the console tab
@@ -561,7 +561,7 @@ var stamp = function(id)
 	var selection = stage.select('#'+id);
 	//var obj = stage.select('#' + id).clone();
 	var attr = selection.node().attributes;
-
+	cloneCount = cloneCount + 1
 	//var stage2 = Snap("#svgStage");
 	//var obj = stage2.rect(attr[0].value, attr[1].value, attr[2].value, attr[3].value);
 	stage.append("rect")
@@ -573,8 +573,9 @@ var stamp = function(id)
 	.attr('stroke', attr['stroke'].value)
 	.attr('stroke-width', attr['stroke-width'].value)
 	.attr('rotationDegree', attr['rotationDegree'].value)
-	.attr('id', "clone");
-	rotateWithoutAnimation(stage.select('#clone'));
+	.attr('id', "clone" + cloneCount);
+	rotateWithoutAnimation(stage.select('#clone' + cloneCount));
+	selection.moveToFront();
 }
 
 var clearPenLines = function(){

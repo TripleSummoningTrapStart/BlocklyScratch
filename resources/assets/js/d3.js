@@ -172,3 +172,4 @@ var addSprites = function()
 			sprite.append(spriteList[i]);
 		}
 }
+//for import use sprite.node().tagname and sprite.node().attr()
