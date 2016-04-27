@@ -1,4 +1,4 @@
-function initApi(interpreter, scope) {
+var initApi = function(interpreter, scope) {
 	var wrapper = function(text){
 		text = text ? text.toString() : '';
 		return interpreter.createPrimitive(alert(text));

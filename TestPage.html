@@ -57,10 +57,10 @@
 <img src="resources/block-images/blockly_scratch_logo.png" alt="logo" style="margin: 0px auto;display:block">
 
 			<div class="row blockly-toolbox flex">
-				<div class="col-sm-12 col-md-12 col-lg-12">
-					<button id="btnRun" class="btn btn-success">Run</button>
+				<div id="toolboxDiv" class="col-sm-12 col-md-12 col-lg-12">
+					<!--<button id="btnRun" class="btn btn-success">Run</button>
 					<button id="btnStep" class="btn btn-warning">Step</button>
-					<button id="btnStop" class="btn btn-danger">Stop</button>
+					<button id="btnStop" class="btn btn-danger">Stop</button>-->
 					<a id="btnCode" href="" class="btn btn-info" download="code.js">Download Code</a>
 					<a id="btnExportXML" href="" class="btn btn-info" download="blocks.xml">Download XML</a>
 					<a id="btnImportXML" class="btn btn-info">Upload XML: <input type="file" style="display:inline" style="visibility: hidden" id="xmlFile" name="files[]"></a> <!--- reference: http://www.html5rocks.com/en/tutorials/file/dndfiles/ -->
@@ -125,5 +125,11 @@
 		maxX = $("#svgStage").height();
 		maxY = $("#svgStage").width();
 	});
+	window.onload = function(){
+		workspace.loadAllBlocks();
+		workspace.injectBlockly();
+		workspace.createRunButton("toolboxDiv");
+		workspace.createStopButton("toolboxDiv");
+	}
 	</script>
 </html>

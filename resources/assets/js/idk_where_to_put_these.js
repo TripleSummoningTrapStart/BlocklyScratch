@@ -209,14 +209,7 @@ var HSVtoRGB = function(hsv)
 	return [r1, g1, b1];
 };
 
-window.onload = function() {
-	loadAllBlocks();
-	injectBlockly();
-	registerButtons();
-  //stage.clear();
-  //sprite.clear();
-  //addSprites();
-};
+
 
 var rotateWithoutAnimation = function(obj) {
   var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
