@@ -25,7 +25,7 @@ Blockly.JavaScript['motion_turn_clockwise'] = function(block) {
     //var code = "rotate(sprite," + turn_angle + ");\n";
     //var code = "var id = sprite;\nvar rotateVal = " + turn_angle + ";\n";
     var code = "";
-    if(Blockspace.Blockspace.downloadingCode){
+    if(Blockspace.downloadingCode){
       code = "// FunctionHeaderForRemovingExcess\nvar rotate = " + S(rotate).toString() + ";\n";
     }
     else{
