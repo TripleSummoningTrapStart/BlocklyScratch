@@ -209,20 +209,6 @@ var HSVtoRGB = function(hsv)
 	return [r1, g1, b1];
 };
 
-
-
-var rotateWithoutAnimation = function(obj) {
-  var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
-  var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
-  var rotationStyle = obj.attr('rotationStyle');
-  var rotationDegree = parseInt(obj.attr('rotationDegree'));
-  if(rotationStyle == 'NONE')
-  {
-      return;
-  }
-  obj.attr("transform", "rotate(" + rotationDegree +"," + objX + "," + objY +")");
-};
-
 var drawSquare = function(obj, changeX, changeY){
 
     var boundingBox = obj.node().getBBox();

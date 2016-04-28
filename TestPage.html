@@ -62,29 +62,6 @@
 			</div>
 			<div class="flex-container flex">
 				<div id="stage" class="flex">
-					<svg id="svgStage" style = "outline: 5px solid black"  class="row" viewBox ="0 0 480 360">
-							<pattern id="pattern" patternUnits="userSpaceOnUse" x="0" y="0" width ="10" height = "10" viewbox="0 0 10 10">
-								<path d="M-5,0,10,15m0-5,15,10" stroke="white" stroke-width="5"/>
-							</pattern>
-
-					</svg>
-				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#console" aria-controls="console" role="tab" data-toggle="tab">Console</a></li>
-					<li role="presentation"><a href="#sprites" aria-controls="sprites" role="tab" data-toggle="tab">Sprites</a></li>
-				</ul>
-				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="console">
-						<textarea rows="21" cols="105" id="textArea" readonly></textArea>
-						<textarea rows="1" cols="105" id="consoleInput" style="display:none" onkeydown="if(event.keyCode==13){ submit(); return false;}">Enter text here...</textArea>
-					</div>
-					<div role="tabpanel" class="tab-pane" id="sprites">
-							<svg id="svgSprite" style = "outline: 1px solid black"  class="row" viewBox ="0 0 100 100">
-									<pattern id="pattern" patternUnits="userSpaceOnUse" x="0" y="0" width ="10" height = "10" viewbox="0 0 10 10">
-										<path d="M-5,0,10,15m0-5,15,10" stroke="white" stroke-width="2"/>
-									</pattern>
-									</svg>
-								</div>
-				</div>
 			</div>
 				<div id="workspace" class="flex">
 					<div class="blockly-container">
@@ -103,21 +80,6 @@
 	</body>
 	<script src="resources/assets/js/d3.js"></script>
 	<script> /* JQuery method to track the position of the mouse */
-	$("#svgStage").mousemove(function(event) {
-	  mouseX= event.pageX;
-	  mouseY = event.pageY;
-		//console.log("X:" + mouseX + " Y:" + mouseY);
-	});
-	$(window).resize(function() {
-		SVGAreas.stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
-		SVGAreas.maxX = $("#svgStage").height();
-		SVGAreas.maxY = $("#svgStage").width();
-	});
-	$("#svgStage").load(function() {
-		SVGAreas.stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
-		SVGAreas.maxX = $("#svgStage").height();
-		SVGAreas.maxY = $("#svgStage").width();
-	});
 	window.onload = function(){
 		Blockspace.createRunButton("toolboxDiv");
 		Blockspace.createStepButton("toolboxDiv")
@@ -127,6 +89,9 @@
 		Blockspace.createImportXMLButton("toolboxDiv");
 		Blockspace.loadAllBlocks();
 		Blockspace.injectBlockly();
+		SVGAreas.createSVGStage("stage");
+		SVGAreas.createTabSVGConsole("stage");
 	}
+
 	</script>
 </html>
