@@ -243,6 +243,3 @@ var drawSquare = function(obj, changeX, changeY){
 var submit = function(){
   textSubmitted = true;
 }
-var setInAnim = function(obj, inAnim){
-  obj.attr("inAnim", inAnim)
-};

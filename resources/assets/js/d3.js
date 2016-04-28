@@ -120,6 +120,10 @@ var SVGAreas = (function() {
    //.click(importSVG)
  };
 
+ var setInAnim = function(obj, inAnim){
+   obj.attr("inAnim", inAnim)
+ };
+
   return {
       switchSprite : switchSprite,
       stage : stage,
@@ -128,7 +132,8 @@ var SVGAreas = (function() {
       maxY : maxY,
       mySquare : mySquare,
       myCircle : myCircle,
-      createImportSVGButton : createImportSVGButton
+      createImportSVGButton : createImportSVGButton,
+      setInAnim: setInAnim
   }
 
 }) ();

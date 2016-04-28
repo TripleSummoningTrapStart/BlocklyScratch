@@ -31,7 +31,7 @@ goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['procedures_defreturn'] = function(block) {
   // Define a procedure with a return value.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var funcName = Blockly.JavaScript.variableDB_.getName(
         block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
     var branch = Blockly.JavaScript.statementToCode(block, 'STACK');
@@ -70,7 +70,7 @@ Blockly.JavaScript['procedures_defnoreturn'] =
 
 Blockly.JavaScript['procedures_callreturn'] = function(block) {
   // Call a procedure with a return value.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var funcName = Blockly.JavaScript.variableDB_.getName(
         block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
     var args = [];
@@ -86,7 +86,7 @@ Blockly.JavaScript['procedures_callreturn'] = function(block) {
 
 Blockly.JavaScript['procedures_callnoreturn'] = function(block) {
   // Call a procedure with no return value.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var funcName = Blockly.JavaScript.variableDB_.getName(
         block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
     var args = [];
@@ -102,7 +102,7 @@ Blockly.JavaScript['procedures_callnoreturn'] = function(block) {
 
 Blockly.JavaScript['procedures_ifreturn'] = function(block) {
   // Conditionally return value from a procedure.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var condition = Blockly.JavaScript.valueToCode(block, 'CONDITION',
         Blockly.JavaScript.ORDER_NONE) || 'false';
     var code = 'if (' + condition + ') {\n';

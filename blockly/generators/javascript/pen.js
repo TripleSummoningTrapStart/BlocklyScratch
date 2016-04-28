@@ -10,7 +10,7 @@ goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['pen_clear'] = function(block) {
   var code = "";
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     code = "// FunctionHeaderForRemovingExcess\nvar clearPenLines = " + S(clearPenLines).toString() + ";\n";
   }
   else {
@@ -21,7 +21,7 @@ Blockly.JavaScript['pen_clear'] = function(block) {
 
 Blockly.JavaScript['pen_stamp'] = function(block) {
   var code = "";
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     code = "// FunctionHeaderForRemovingExcess\nvar stamp = " + S(stamp).toString() + ";\n";
   }
   else {
@@ -32,7 +32,7 @@ Blockly.JavaScript['pen_stamp'] = function(block) {
 
 Blockly.JavaScript['pen_pen_down'] = function(block) {
   var code = "";
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     code = "// FunctionHeaderForRemovingExcess\nvar penDown = " + S(penDown).toString() + ";\n";
   }
   else {
@@ -43,7 +43,7 @@ Blockly.JavaScript['pen_pen_down'] = function(block) {
 
 Blockly.JavaScript['pen_pen_up'] = function(block) {
   var code = "";
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     code = "// FunctionHeaderForRemovingExcess\nvar penUp = " + S(penUp).toString() + ";\n";
   }
   else {
@@ -54,7 +54,7 @@ Blockly.JavaScript['pen_pen_up'] = function(block) {
 
 Blockly.JavaScript['pen_change_pen_color_by'] = function(block) {
   var code = "";
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     code = "// FunctionHeaderForRemovingExcess\nvar changeColor = " + S(changeColor).toString() + ";\n";
   }
   else {
@@ -67,7 +67,7 @@ Blockly.JavaScript['pen_change_pen_color_by'] = function(block) {
 
 Blockly.JavaScript['pen_set_pen_color_to'] = function(block) {
   var code = "";
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     code = "// FunctionHeaderForRemovingExcess\nvar setColorByNumber = " + S(setColorByNumber).toString() + ";\n";
   }
   else {
@@ -80,7 +80,7 @@ Blockly.JavaScript['pen_set_pen_color_to'] = function(block) {
 
 Blockly.JavaScript['pen_change_pen_shade_by'] = function(block) {
   var code = "";
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     code = "// FunctionHeaderForRemovingExcess\nvar changeShade = " + S(changeShade).toString() + ";\n";
   }
   else {
@@ -93,7 +93,7 @@ Blockly.JavaScript['pen_change_pen_shade_by'] = function(block) {
 
 Blockly.JavaScript['pen_set_pen_shade_to'] = function(block) {
   var code = "";
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     code = "// FunctionHeaderForRemovingExcess\nvar setShade = " + S(setShade).toString() + ";\n";
   }
   else {
@@ -106,7 +106,7 @@ Blockly.JavaScript['pen_set_pen_shade_to'] = function(block) {
 
 Blockly.JavaScript['pen_change_pen_size_by'] = function(block) {
   var code = "";
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     code = "// FunctionHeaderForRemovingExcess\nvar changeSize = " + S(changeSize).toString() + ";\n";
   }
   else {
@@ -119,7 +119,7 @@ Blockly.JavaScript['pen_change_pen_size_by'] = function(block) {
 
 Blockly.JavaScript['pen_set_pen_size_to'] = function(block) {
   var code = "";
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     code = "// FunctionHeaderForRemovingExcess\nvar setSize = " + S(setSize).toString() + ";\n";
   }
   else {
@@ -131,7 +131,7 @@ Blockly.JavaScript['pen_set_pen_size_to'] = function(block) {
 };
 Blockly.JavaScript['pen_set_color'] = function(block) {
   var code = "";
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     code = "// FunctionHeaderForRemovingExcess\nvar setColorByColor = " + S(setColorByColor).toString() + ";\n";
   }
   else {

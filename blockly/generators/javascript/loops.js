@@ -30,7 +30,7 @@ goog.require('Blockly.JavaScript');
 
 
 Blockly.JavaScript['control_repeat_ext'] = function(block) {
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     // Repeat n times.
     if (block.getField('TIMES')) {
       // Internal number.
@@ -65,7 +65,7 @@ Blockly.JavaScript['control_repeat'] =
 
 Blockly.JavaScript['control_whileUntil'] = function(block) {
   // Do while/until loop.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var until = block.getFieldValue('MODE') == 'UNTIL';
     var argument0 = Blockly.JavaScript.valueToCode(block, 'BOOL',
         until ? Blockly.JavaScript.ORDER_LOGICAL_NOT :
@@ -82,7 +82,7 @@ Blockly.JavaScript['control_whileUntil'] = function(block) {
 
 Blockly.JavaScript['control_for'] = function(block) {
   // For loop.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var variable0 = Blockly.JavaScript.variableDB_.getName(
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     var argument0 = Blockly.JavaScript.valueToCode(block, 'FROM',
@@ -150,7 +150,7 @@ Blockly.JavaScript['control_for'] = function(block) {
 
 Blockly.JavaScript['control_forEach'] = function(block) {
   // For each loop.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var variable0 = Blockly.JavaScript.variableDB_.getName(
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     var argument0 = Blockly.JavaScript.valueToCode(block, 'LIST',
@@ -177,7 +177,7 @@ Blockly.JavaScript['control_forEach'] = function(block) {
 
 Blockly.JavaScript['control_flow_statements'] = function(block) {
   // Flow statements: continue, break.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     switch (block.getFieldValue('FLOW')) {
       case 'BREAK':
         return 'break;\n';
@@ -190,7 +190,7 @@ Blockly.JavaScript['control_flow_statements'] = function(block) {
 };
 
 Blockly.JavaScript['control_repeat_forever'] = function(block) {
-  if(!downloadingCode){
+  if(!Blockspace.Blockspace.downloadingCode){
       var statements_statement = Blockly.JavaScript.statementToCode(block, 'STATEMENT');
       var code = '// forever loop\nwhile (true) {\n ' + statements_statement + '} //end loop\n';
       return code;

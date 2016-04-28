@@ -1,9 +1,10 @@
-var workspace = (function(){
+var interpreter;
+
+var Blockspace = (function(){
   var blocklyArea;
   var blocklyDiv;
   var workspace;
   var highlightPause = false;
-  var interpreter;
   var time = 1;
   var mouseX;
   var mouseY;
@@ -39,7 +40,7 @@ var workspace = (function(){
 
     //Local storage set up
     window.setTimeout(BlocklyStorage.restoreBlocks, 0);
-    BlocklyStorage.backupOnUnload();
+    BlocklyStorage.backupOnUnload(workspace);
     //Some block initialization including setting the highlight block prefix
     //and creating the hat curve
     Blockly.BlockSvg.START_HAT = true;
@@ -153,7 +154,7 @@ var workspace = (function(){
   	//Parses the text into an array clean of comment values used as markers
   	var values = cleanValues(codeToParse);
   	var code = 'var queue = [];\n';
-  	code = "var sprite = '" + mySquare.attr("id") + "';\n" + code; // TODO remove this and make dynamic
+  	code = "var sprite = '" + SVGAreas.mySquare.attr("id") + "';\n" + code; // TODO remove this and make dynamic
 
   	// Gets all global values
   	if(S(values[0]).contains('var'))
@@ -205,69 +206,58 @@ var workspace = (function(){
 
   	return values;
   };
+
+
   /* Method that allows their user to step through their code */
   var stepCode = function () {
-  	if(interpreter == null)
-  	{
-  		var code = generateInterpreterCode(Blockly.JavaScript.workspaceToCode(workspace));
-  		interpreter = new Interpreter(code, initApi);
-  		workspace.traceOn(true);
-  		highlightPause = false;
-  	}
-  	try {
-  		var ok = interpreter.step();
-  	} finally {
-  		if (!ok) {
-  			// Program complete, no more code to execute.
-  			interpreter = null;
-  			return;
-  		}
-  	}
-  	if (highlightPause) {
-  		// A block has been highlighted.  Pause execution here.
-  		highlightPause = false;
-  	} else {
-  		// Keep executing until a highlight statement is reached.
-  		stepCode();
-  	}
+    if(interpreter == null)
+    {
+      var code = generateInterpreterCode(Blockly.JavaScript.workspaceToCode(workspace));
+      interpreter = new Interpreter(code, initApi);
+      workspace.traceOn(true);
+      highlightPause = false;
+    }
+    try {
+      var ok = interpreter.step();
+    } finally {
+      if (!ok) {
+        // Program complete, no more code to execute.
+        interpreter = null;
+        return;
+      }
+    }
+    if (highlightPause) {
+      // A block has been highlighted.  Pause execution here.
+      highlightPause = false;
+    } else {
+      // Keep executing until a highlight statement is reached.
+      stepCode();
+    }
 
   };
   /* Method to step through the interpreter */
   function nextStep() {
-  	if (interpreter.step()) {
-  		window.setTimeout(nextStep, 0);
-  	}
-  	else
-  	{
-  		interpreter = null;
-  	}
+    if (interpreter.step()) {
+      window.setTimeout(nextStep,0);
+    }
+    else
+    {
+      interpreter = null;
+    }
   };
   /* Method to stop code execution */
   var stopCode = function() {
-  	workspace.highlightBlock(null);
-  	interpreter = null;
+    interpreter = null;
   };
   /* Method to run the blockly code as javascript on the page by injecting it into the intpreter */
   var runCode = function() {
-  	Blockly.JavaScript.STATEMENT_PREFIX = null;
+    Blockly.JavaScript.STATEMENT_PREFIX = null;
 
-  	var code = generateInterpreterCode(Blockly.JavaScript.workspaceToCode(workspace));
-  	interpreter = new Interpreter(code, initApi);
-  	nextStep();
-  	Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+    var code = generateInterpreterCode(Blockly.JavaScript.workspaceToCode(workspace));
+    interpreter = new Interpreter(code, initApi);
+    nextStep();
+    Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
   };
-
-  /*Method to add event listeners to the buttons on the page */
-  var registerButtons = function() {
-  	document.getElementById('xmlFile').addEventListener('change', openImportFile, false);
-  	document.getElementById('btnRun').addEventListener('click', runCode, false);
-  	document.getElementById('btnStep').addEventListener('click', stepCode, false);
-  	document.getElementById('btnStop').addEventListener('click', stopCode, false);
-  	document.getElementById('btnCode').addEventListener('click', downloadCode, false);
-  	document.getElementById('btnExportXML').addEventListener('click', exportXML, false);
-    document.getElementById('svgFile').addEventListener('change', openImportFile, false);
-  };
-
   /*<button id="btnRun" class="btn btn-success">Run</button>
   <button id="btnStep" class="btn btn-warning">Step</button>
   <button id="btnStop" class="btn btn-danger">Stop</button>
@@ -277,22 +267,39 @@ var workspace = (function(){
   <a id="btnImportSVG" class="btn btn-info">Upload SVG: <input type="file" style="display:inline" style="visibility: hidden" id="svgFile" name="files[]"></a>*/
   var createRunButton = function(divID) {
     $('#' + divID)
-    .append('<button id="btnRun" class="btn btn-success">Run</button>')
-    .button()
-    .click(runCode)
+    .append('<button id="btnRun" class="btn btn-success" >Run</button> ');
+    	document.getElementById('btnRun').addEventListener('click', runCode, false);
   };
   var createStepButton = function(divID) {
     $('#' + divID)
-    .append('<button id="btnStep" class="btn btn-warning">Step</button>')
-    .button()
-    .click(stepCode)
-  };
+    .append('<button id="btnStep" class="btn btn-warning">Step</button> ');
+    document.getElementById('btnStep').addEventListener('click', stepCode, false);
+  }
   var createStopButton = function(divID) {
     $('#' + divID)
-    .append('<button id="btnStop" class="btn btn-danger">Stop</button>')
-    .button()
-    .click(stopCode)
+    .append('<button id="btnStop" class="btn btn-danger">Stop</button> ');
+    document.getElementById('btnStop').addEventListener('click', stopCode, false);
+
   };
+  var createDownloadCodeButton = function(divID) {
+    $('#' + divID)
+    .append('<a id="btnCode" href="" class="btn btn-info" download="code.js">Download Code</a> ');
+    document.getElementById('btnCode').addEventListener('click', downloadCode, false);
+  };
+  var createExportXMLButton = function(divID) {
+    $('#' + divID)
+    .append('<a id="btnExportXML" href="" class="btn btn-info" download="blocks.xml">Download XML</a> ');
+      document.getElementById('btnExportXML').addEventListener('click', exportXML, false);
+  };
+  var createImportXMLButton = function(divID) {
+    $('#' + divID)
+    .append('<a id="btnImportXML" class="btn btn-info">Upload XML: <input type="file" style="display:inline" style="visibility: hidden" id="xmlFile" name="files[]"></a>');
+      document.getElementById('xmlFile').addEventListener('change', openImportFile, false);
+  };
+
+
+
+  //document.getElementById('svgFile').addEventListener('change', openImportFile, false);
   /**
    * Created by Dominik on 11/2/2015.
    * Originally in d3 by Joshua Weese (weeser@ksu.edu)
@@ -358,6 +365,9 @@ var workspace = (function(){
     createRunButton: createRunButton,
     createStepButton: createStepButton,
     createStopButton: createStopButton,
+    createDownloadCodeButton: createDownloadCodeButton,
+    createExportXMLButton: createExportXMLButton,
+    createImportXMLButton: createImportXMLButton,
     injectBlockly: injectBlockly,
     loadAllBlocks: loadAllBlocks,
     downloadingCode: downloadingCode

@@ -31,7 +31,7 @@ goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['control_if'] = function(block) {
   // If/elseif/else condition.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var n = 0;
     var argument = Blockly.JavaScript.valueToCode(block, 'IF' + n,
         Blockly.JavaScript.ORDER_NONE) || 'false';
@@ -54,7 +54,7 @@ Blockly.JavaScript['control_if'] = function(block) {
 
 Blockly.JavaScript['logic_compare'] = function(block) {
   // Comparison operator.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var OPERATORS = {
       'EQ': '==',
       'NEQ': '!=',
@@ -76,7 +76,7 @@ Blockly.JavaScript['logic_compare'] = function(block) {
 
 Blockly.JavaScript['logic_operation'] = function(block) {
   // Operations 'and', 'or'.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var operator = (block.getFieldValue('OP') == 'AND') ? '&&' : '||';
     var order = (operator == '&&') ? Blockly.JavaScript.ORDER_LOGICAL_AND :
         Blockly.JavaScript.ORDER_LOGICAL_OR;
@@ -104,7 +104,7 @@ Blockly.JavaScript['logic_operation'] = function(block) {
 
 Blockly.JavaScript['logic_negate'] = function(block) {
   // Negation.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var order = Blockly.JavaScript.ORDER_LOGICAL_NOT;
     var argument0 = Blockly.JavaScript.valueToCode(block, 'BOOL', order) ||
         'true';
@@ -116,7 +116,7 @@ Blockly.JavaScript['logic_negate'] = function(block) {
 
 Blockly.JavaScript['logic_boolean'] = function(block) {
   // Boolean values true and false.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var code = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
   }
@@ -125,7 +125,7 @@ Blockly.JavaScript['logic_boolean'] = function(block) {
 
 Blockly.JavaScript['logic_null'] = function(block) {
   // Null data type.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     return ['null', Blockly.JavaScript.ORDER_ATOMIC];
   }
   return "";
@@ -133,7 +133,7 @@ Blockly.JavaScript['logic_null'] = function(block) {
 
 Blockly.JavaScript['logic_ternary'] = function(block) {
   // Ternary operator.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var value_if = Blockly.JavaScript.valueToCode(block, 'IF',
         Blockly.JavaScript.ORDER_CONDITIONAL) || 'false';
     var value_then = Blockly.JavaScript.valueToCode(block, 'THEN',
