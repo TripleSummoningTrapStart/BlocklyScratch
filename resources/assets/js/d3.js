@@ -73,7 +73,7 @@ var SVGAreas = (function() {
     obj.attr("transform", "rotate(" + rotationDegree +"," + objX + "," + objY +")");
   };
 
-  var drawSquare = function(obj, changeX, changeY){
+  var draw = function(obj, changeX, changeY){
       var boundingBox = obj.node().getBBox();
       var lineY = parseInt(boundingBox.y) + parseInt(boundingBox.height/2);
       var xAdj = parseInt(boundingBox.width/2);
@@ -228,7 +228,7 @@ var SVGAreas = (function() {
       createTabSVGConsole : createTabSVGConsole,
       createSVGSprite : createSVGSprite,
       createConsole : createConsole,
-      drawSquare : drawSquare
+      draw : draw
   }
 
 }) ();
