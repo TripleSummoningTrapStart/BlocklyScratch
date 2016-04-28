@@ -73,6 +73,23 @@ var SVGAreas = (function() {
     obj.attr("transform", "rotate(" + rotationDegree +"," + objX + "," + objY +")");
   };
 
+  var drawSquare = function(obj, changeX, changeY){
+      var boundingBox = obj.node().getBBox();
+      var lineY = parseInt(boundingBox.y) + parseInt(boundingBox.height/2);
+      var xAdj = parseInt(boundingBox.width/2);
+      var lineX = parseInt(boundingBox.x) + parseInt(boundingBox.width/2);
+      var yAdj = parseInt(boundingBox.height/2);
+      var l = stage.append("line")
+                    .attr("id", "draw")
+                    .attr("x1", lineX)
+                    .attr("y1", lineY)
+                    .attr("x2", lineX + changeX)
+                    .attr("y2", lineY + changeY)
+                    .attr("stroke",  obj.attr('strokePen'))
+                    .attr("stroke-width", obj.attr('strokeSize'));
+        obj.moveToFront();
+  };
+
   var createImportSVGButton = function(divID) {
    $('#' + divID)
    .append('<button id="btnImportSVG" class="btn btn-success">Upload SVG:</button>')
@@ -176,12 +193,21 @@ var SVGAreas = (function() {
    fillSprite();
  };
 
- var createSVGSmall = function(divID) {
-
+ var createSVGSprite = function(divID) {
+   $('#' + divID)
+   .append('<svg id="svgSprite" style = "outline: 1px solid black"  class="row" viewBox ="0 0 100 100">' +
+         '<pattern id="pattern" patternUnits="userSpaceOnUse" x="0" y="0" width ="10" height = "10" viewbox="0 0 10 10">' +
+           '<path d="M-5,0,10,15m0-5,15,10" stroke="white" stroke-width="2"/>' +
+         '</pattern>' +
+       '</svg>');
+   sprite = d3.select("#svgSprite");
+   fillSprite();
  };
 
  var createConsole = function(divID) {
-
+   $('#' + divID)
+   .append('<textarea rows="21" cols="105" id="textArea" readonly></textArea>' +
+            '<textarea rows="1" cols="105" id="consoleInput" style="display:none" onkeydown="if(event.keyCode==13){ submit(); return false;}">Enter text here...</textArea>');
  };
 
   return {
@@ -194,7 +220,10 @@ var SVGAreas = (function() {
       myCircle : myCircle,
       createImportSVGButton : createImportSVGButton,
       createSVGStage : createSVGStage,
-      createTabSVGConsole : createTabSVGConsole
+      createTabSVGConsole : createTabSVGConsole,
+      createSVGSprite : createSVGSprite,
+      createConsole : createConsole,
+      drawSquare : drawSquare
   }
 
 }) ();

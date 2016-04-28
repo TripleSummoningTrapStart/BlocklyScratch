@@ -33,7 +33,7 @@ var moveStep = function(id, steps) {
 	var oppSide = steps * Math.sin(dir); // y diff
 	var adjSide = steps * Math.cos(dir); // x diff
 	if(obj.attr('penDown') == "true")
-			drawSquare(obj, adjSide, oppSide *-1);
+			SVGAreas.drawSquare(obj, adjSide, oppSide *-1);
 	obj.attr('transform', '');
 	obj.attr({'x': objX + adjSide, 'y':  objY - oppSide});
 		rotateWithoutAnimation(obj);
@@ -91,7 +91,7 @@ var setX = function (id, newVal) {
 	if(newX > maxX)
 		newX = maxX;
 	if(obj.attr('penDown') == 'true')
-		drawSquare(obj, newX-objX, 0);
+		SVGAreas.drawSquare(obj, newX-objX, 0);
 	obj.attr('transform', '');
 	obj.attr({'x': newX});
   rotateWithoutAnimation(obj);
@@ -110,7 +110,7 @@ var setY = function (id, newVal) {
 	if(newY > maxY)
 		newY = maxY
 	if(obj.attr('penDown') == 'true')
-		drawSquare(obj, 0, newY - objY);
+		SVGAreas.drawSquare(obj, 0, newY - objY);
   obj.attr('transform', '');
 	obj.attr({'y': newY});
   rotateWithoutAnimation(obj);
@@ -129,7 +129,7 @@ var changeX = function (id, changeVal) {
 		if(newX > maxX)
 			newX = maxX;
 		if(obj.attr('penDown') == 'true')
-			drawSquare(obj, changeVal, 0);
+			SVGAreas.drawSquare(obj, changeVal, 0);
 	  obj.attr('transform', '');
 		obj.attr({'x': newX});
 	  rotateWithoutAnimation(obj);
@@ -148,7 +148,7 @@ var changeY = function (id, changeVal) {
 	if(newY > maxY)
 		newY = maxY;
 	if(obj.attr('penDown') == 'true')
-			drawSquare(obj, 0, changeVal);
+			SVGAreas.drawSquare(obj, 0, changeVal);
 	obj.attr('transform', '');
 	obj.attr({'y': newY});
 	rotateWithoutAnimation(obj);
@@ -172,7 +172,7 @@ var gotoXY = function (id, xVal, yVal) {
 	if(newY > maxY)
 		newY = maxY;
 	if(obj.attr('penDown') == 'true')
-		drawSquare(obj, newX - objX, newY - objY);
+		SVGAreas.drawSquare(obj, newX - objX, newY - objY);
 	//if(obj.attr('transform') != null)	{
 		obj.attr('transform', '');
 		obj.attr({'x': newX, 'y': newY});
@@ -212,7 +212,7 @@ var gotoMouse = function(id){
 		newY = 0;
 	console.log("x: " + newX + ", y:" + newY);
 	if(obj.attr('penDown') == 'true')
-		drawSquare(obj, newX - objX, newY - objY);
+		SVGAreas.drawSquare(obj, newX - objX, newY - objY);
 	obj.attr('transform', '');
 	obj.attr({'x': newX, 'y': newY});
 	rotateWithoutAnimation(obj);
@@ -585,4 +585,12 @@ var clearPenLines = function(){
 var clearConsole = function(){
   var textarea = document.getElementById("textArea");
   textarea.innerHTML = "";
+};
+
+var submit = function(){
+  textSubmitted = true;
+};
+
+var setInAnim = function(obj, inAnim){
+  obj.attr("inAnim", inAnim)
 };
