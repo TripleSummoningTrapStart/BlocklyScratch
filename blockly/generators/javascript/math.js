@@ -31,7 +31,7 @@ goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['math_number'] = function(block) {
   // Numeric value.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var code = parseFloat(block.getFieldValue('NUM'));
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
   }
@@ -40,7 +40,7 @@ Blockly.JavaScript['math_number'] = function(block) {
 
 Blockly.JavaScript['math_arithmetic'] = function(block) {
   // Basic arithmetic operators, and power.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var OPERATORS = {
       'ADD': [' + ', Blockly.JavaScript.ORDER_ADDITION],
       'MINUS': [' - ', Blockly.JavaScript.ORDER_SUBTRACTION],
@@ -67,7 +67,7 @@ Blockly.JavaScript['math_arithmetic'] = function(block) {
 
 Blockly.JavaScript['math_single'] = function(block) {
   // Math operators with single operand.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var operator = block.getFieldValue('OP');
     var code;
     var arg;
@@ -154,7 +154,7 @@ Blockly.JavaScript['math_single'] = function(block) {
 
 Blockly.JavaScript['math_constant'] = function(block) {
   // Constants: PI, E, the Golden Ratio, sqrt(2), 1/sqrt(2), INFINITY.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var CONSTANTS = {
       'PI': ['Math.PI', Blockly.JavaScript.ORDER_MEMBER],
       'E': ['Math.E', Blockly.JavaScript.ORDER_MEMBER],
@@ -172,7 +172,7 @@ Blockly.JavaScript['math_constant'] = function(block) {
 Blockly.JavaScript['math_number_property'] = function(block) {
   // Check if a number is even, odd, prime, whole, positive, or negative
   // or if it is divisible by certain number. Returns true or false.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var number_to_check = Blockly.JavaScript.valueToCode(block, 'NUMBER_TO_CHECK',
         Blockly.JavaScript.ORDER_MODULUS) || '0';
     var dropdown_property = block.getFieldValue('PROPERTY');
@@ -232,7 +232,7 @@ Blockly.JavaScript['math_number_property'] = function(block) {
 
 Blockly.JavaScript['math_change'] = function(block) {
   // Add to a variable in place.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var argument0 = Blockly.JavaScript.valueToCode(block, 'DELTA',
         Blockly.JavaScript.ORDER_ADDITION) || '0';
     var varName = Blockly.JavaScript.variableDB_.getName(
@@ -250,7 +250,7 @@ Blockly.JavaScript['math_trig'] = Blockly.JavaScript['math_single'];
 
 Blockly.JavaScript['math_on_list'] = function(block) {
   // Math functions for lists.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var func = block.getFieldValue('OP');
     var list, code;
     switch (func) {
@@ -383,7 +383,7 @@ Blockly.JavaScript['math_on_list'] = function(block) {
 
 Blockly.JavaScript['math_modulo'] = function(block) {
   // Remainder computation.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var argument0 = Blockly.JavaScript.valueToCode(block, 'DIVIDEND',
         Blockly.JavaScript.ORDER_MODULUS) || '0';
     var argument1 = Blockly.JavaScript.valueToCode(block, 'DIVISOR',
@@ -396,7 +396,7 @@ Blockly.JavaScript['math_modulo'] = function(block) {
 
 Blockly.JavaScript['math_constrain'] = function(block) {
   // Constrain a number between two limits.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
         Blockly.JavaScript.ORDER_COMMA) || '0';
     var argument1 = Blockly.JavaScript.valueToCode(block, 'LOW',
@@ -412,7 +412,7 @@ Blockly.JavaScript['math_constrain'] = function(block) {
 
 Blockly.JavaScript['math_random_int'] = function(block) {
   // Random integer between [X] and [Y].
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var argument0 = Blockly.JavaScript.valueToCode(block, 'FROM',
         Blockly.JavaScript.ORDER_COMMA) || '0';
     var argument1 = Blockly.JavaScript.valueToCode(block, 'TO',
@@ -437,7 +437,7 @@ Blockly.JavaScript['math_random_int'] = function(block) {
 
 Blockly.JavaScript['math_random_float'] = function(block) {
   // Random fraction between 0 and 1.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     return ['Math.random()', Blockly.JavaScript.ORDER_FUNCTION_CALL];
   }
   return "";

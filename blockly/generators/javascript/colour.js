@@ -31,7 +31,7 @@ goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['colour_picker'] = function(block) {
   // Colour picker.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var code = '\'' + block.getFieldValue('COLOUR') + '\'';
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
   }
@@ -40,7 +40,7 @@ Blockly.JavaScript['colour_picker'] = function(block) {
 
 Blockly.JavaScript['colour_random'] = function(block) {
   // Generate a random colour.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var functionName = Blockly.JavaScript.provideFunction_(
         'colour_random',
         [ 'function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '() {',
@@ -55,7 +55,7 @@ Blockly.JavaScript['colour_random'] = function(block) {
 
 Blockly.JavaScript['colour_rgb'] = function(block) {
   // Compose a colour from RGB components expressed as percentages.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var red = Blockly.JavaScript.valueToCode(block, 'RED',
         Blockly.JavaScript.ORDER_COMMA) || 0;
     var green = Blockly.JavaScript.valueToCode(block, 'GREEN',
@@ -82,7 +82,7 @@ Blockly.JavaScript['colour_rgb'] = function(block) {
 
 Blockly.JavaScript['colour_blend'] = function(block) {
   // Blend two colours together.
-  if (!downloadingCode){
+  if (!Blockspace.downloadingCode){
     var c1 = Blockly.JavaScript.valueToCode(block, 'COLOUR1',
         Blockly.JavaScript.ORDER_COMMA) || '\'#000000\'';
     var c2 = Blockly.JavaScript.valueToCode(block, 'COLOUR2',

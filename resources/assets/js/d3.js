@@ -97,6 +97,10 @@ var SVGAreas = (function() {
    //.click(importSVG)
  };
 
+ var setInAnim = function(obj, inAnim){
+   obj.attr("inAnim", inAnim)
+ };
+
  var createSVGStage = function(divID){
    $('#' + divID)
    .append('<svg id="svgStage" style = "outline: 5px solid black"  class="row" viewBox ="0 0 480 360">' +
@@ -219,6 +223,7 @@ var SVGAreas = (function() {
       mySquare : mySquare,
       myCircle : myCircle,
       createImportSVGButton : createImportSVGButton,
+      setInAnim: setInAnim,
       createSVGStage : createSVGStage,
       createTabSVGConsole : createTabSVGConsole,
       createSVGSprite : createSVGSprite,

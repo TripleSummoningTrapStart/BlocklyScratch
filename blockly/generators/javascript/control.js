@@ -28,7 +28,7 @@ Blockly.JavaScript['control_wait'] = function(block) {
 Blockly.JavaScript['control_wait_until'] = function(block) {
     var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
     var code = "";
-    if(!downloadingCode){
+    if(!Blockspace.downloadingCode){
       code = 'while (!' + value_condition + ') {};\n';
     }
     return code;

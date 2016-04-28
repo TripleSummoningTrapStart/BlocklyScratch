@@ -46,7 +46,7 @@ var moveStep = function(id, steps) {
 var rotate = function(id, rotateVal) {
 		//TODO Should probably change to take Radians, maybe not
 
-	var obj = stage.select('#'+id);
+	var obj = SVGAreas.stage.select('#'+id);
 	var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
 	var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
 	var rotationStyle = obj.attr('rotationStyle');
@@ -67,8 +67,7 @@ var rotate = function(id, rotateVal) {
 		obj.transition()
 			.ease("linear")
 			.attrTween("transform", tween)
-			.duration(100)
-			.each("end", setInAnim(obj, 'false'));
+			.each("end", SVGAreas.setInAnim(obj, 'false'));
 
 		function tween(d, i, a) {
 			return d3.interpolateString("rotate(" + rotationDegree +"," + objX + "," + objY +")",

@@ -31,7 +31,7 @@ goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['lists_create_empty'] = function(block) {
   // Create an empty list.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
       return ['[]', Blockly.JavaScript.ORDER_ATOMIC];
   }
   return "";
@@ -39,7 +39,7 @@ Blockly.JavaScript['lists_create_empty'] = function(block) {
 
 Blockly.JavaScript['lists_create_with'] = function(block) {
   // Create a list with any number of elements of any type.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var code = new Array(block.itemCount_);
     for (var n = 0; n < block.itemCount_; n++) {
       code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
@@ -53,7 +53,7 @@ Blockly.JavaScript['lists_create_with'] = function(block) {
 
 Blockly.JavaScript['lists_repeat'] = function(block) {
   // Create a list with one element repeated.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var functionName = Blockly.JavaScript.provideFunction_(
         'lists_repeat',
         [ 'function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
@@ -76,7 +76,7 @@ Blockly.JavaScript['lists_repeat'] = function(block) {
 
 Blockly.JavaScript['lists_length'] = function(block) {
   // List length.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
         Blockly.JavaScript.ORDER_FUNCTION_CALL) || '[]';
     return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];
@@ -85,7 +85,7 @@ Blockly.JavaScript['lists_length'] = function(block) {
 
 Blockly.JavaScript['lists_isEmpty'] = function(block) {
   // Is the list empty?
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
         Blockly.JavaScript.ORDER_MEMBER) || '[]';
     return ['!' + argument0 + '.length', Blockly.JavaScript.ORDER_LOGICAL_NOT];
@@ -95,7 +95,7 @@ Blockly.JavaScript['lists_isEmpty'] = function(block) {
 
 Blockly.JavaScript['lists_indexOf'] = function(block) {
   // Find an item in the list.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var operator = block.getFieldValue('END') == 'FIRST' ?
         'indexOf' : 'lastIndexOf';
     var argument0 = Blockly.JavaScript.valueToCode(block, 'FIND',
@@ -111,7 +111,7 @@ Blockly.JavaScript['lists_indexOf'] = function(block) {
 Blockly.JavaScript['lists_getIndex'] = function(block) {
   // Get element at index.
   // Note: Until January 2013 this block did not have MODE or WHERE inputs.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var mode = block.getFieldValue('MODE') || 'GET';
     var where = block.getFieldValue('WHERE') || 'FROM_START';
     var at = Blockly.JavaScript.valueToCode(block, 'AT',
@@ -203,7 +203,7 @@ Blockly.JavaScript['lists_getIndex'] = function(block) {
 Blockly.JavaScript['lists_setIndex'] = function(block) {
   // Set element at index.
   // Note: Until February 2013 this block did not have MODE or WHERE inputs.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var list = Blockly.JavaScript.valueToCode(block, 'LIST',
         Blockly.JavaScript.ORDER_MEMBER) || '[]';
     var mode = block.getFieldValue('MODE') || 'GET';
@@ -283,7 +283,7 @@ Blockly.JavaScript['lists_setIndex'] = function(block) {
 
 Blockly.JavaScript['lists_getSublist'] = function(block) {
   // Get sublist.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var list = Blockly.JavaScript.valueToCode(block, 'LIST',
         Blockly.JavaScript.ORDER_MEMBER) || '[]';
     var where1 = block.getFieldValue('WHERE1');
@@ -327,7 +327,7 @@ Blockly.JavaScript['lists_getSublist'] = function(block) {
 
 Blockly.JavaScript['lists_split'] = function(block) {
   // Block for splitting text into a list, or joining a list into text.
-  if(!downloadingCode){
+  if(!Blockspace.downloadingCode){
     var value_input = Blockly.JavaScript.valueToCode(block, 'INPUT',
         Blockly.JavaScript.ORDER_MEMBER);
     var value_delim = Blockly.JavaScript.valueToCode(block, 'DELIM',
