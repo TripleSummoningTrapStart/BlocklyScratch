@@ -25,6 +25,7 @@ var SVGAreas = (function() {
     });
   };
 
+  // Switches the workspace to the sprite given
   var switchSprite = function(sprite)
   {
   	focused.attr({blockxml: Blockly.Xml.domToText( Blockly.Xml.workspaceToDom(workspace))})
@@ -61,6 +62,7 @@ var SVGAreas = (function() {
     obj.attr({'cx': d3.event.x, 'cy': d3.event.y});
   }
 
+  // Function that roates the given object without any animations
   var rotateWithoutAnimation = function(obj) {
     var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
     var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
@@ -73,6 +75,7 @@ var SVGAreas = (function() {
     obj.attr("transform", "rotate(" + rotationDegree +"," + objX + "," + objY +")");
   };
 
+  // Function to draw a line following the given object
   var draw = function(obj, changeX, changeY){
       var boundingBox = obj.node().getBBox();
       var lineY = parseInt(boundingBox.y) + parseInt(boundingBox.height/2);
@@ -90,6 +93,8 @@ var SVGAreas = (function() {
         obj.moveToFront();
   };
 
+  // Function that inserts an import SVG button in the given div tag
+  // @param div tag id
   var createImportSVGButton = function(divID) {
    $('#' + divID)
    .append('<button id="btnImportSVG" class="btn btn-success">Upload SVG:</button>')
@@ -101,6 +106,8 @@ var SVGAreas = (function() {
    obj.attr("inAnim", inAnim)
  };
 
+ // Function that inserts and fills the SVG stage within the given div tag
+ // @param div tag id
  var createSVGStage = function(divID){
    $('#' + divID)
    .append('<svg id="svgStage" style = "outline: 5px solid black"  class="row" viewBox ="0 0 480 360">' +
@@ -113,6 +120,7 @@ var SVGAreas = (function() {
   fillStage();
  }
 
+ // Function that fills the stage with the default SVG objects
  var fillStage = function() {
    SVGAreas.mySquare  = SVGAreas.stage.append("rect")
      .attr("x", 240)
@@ -150,6 +158,7 @@ var SVGAreas = (function() {
      .call(dragCircle);
  };
 
+ // Function that fills the SVG sprite area with the default small sprites
  var fillSprite = function(){
     SVGAreas.miniSquare = SVGAreas.sprite.append("rect")
      .attr("x", -25)
@@ -174,6 +183,9 @@ var SVGAreas = (function() {
      .on("click", function(){ switchSprite(miniCircle); });
  };
 
+ // Function that inserts the console and SVG sprite area into the given div tag
+ // then fills the SVG sprite area with the default small sprites
+ // @param div tag id
  var createTabSVGConsole = function(divID) {
    $('#' + divID)
    .append('<ul class="nav nav-tabs" role="tablist">' +
@@ -197,6 +209,8 @@ var SVGAreas = (function() {
    fillSprite();
  };
 
+ // Function that creates and fills the SVG sprite area within the given div tag
+ // @param div tag id
  var createSVGSprite = function(divID) {
    $('#' + divID)
    .append('<svg id="svgSprite" style = "outline: 1px solid black"  class="row" viewBox ="0 0 100 100">' +
@@ -208,12 +222,15 @@ var SVGAreas = (function() {
    fillSprite();
  };
 
+ // Function that creates the console within the given div tag area
+ // @param div tag id
  var createConsole = function(divID) {
    $('#' + divID)
    .append('<textarea rows="21" cols="105" id="textArea" readonly></textArea>' +
             '<textarea rows="1" cols="105" id="consoleInput" style="display:none" onkeydown="if(event.keyCode==13){ submit(); return false;}">Enter text here...</textArea>');
  };
 
+  // Public variables and functions
   return {
       switchSprite : switchSprite,
       stage : stage,

@@ -79,19 +79,20 @@
 
 	</body>
 	<script src="resources/assets/js/d3.js"></script>
-	<script> /* JQuery method to track the position of the mouse */
+	<script>
 	window.onload = function(){
 		Blockspace.createRunButton("toolboxDiv");
 		Blockspace.createStepButton("toolboxDiv")
 		Blockspace.createStopButton("toolboxDiv");
 		Blockspace.createDownloadCodeButton("toolboxDiv");
-		Blockspace.createExportXMLButton("toolboxDiv")
+		Blockspace.createExportXMLButton("toolboxDiv");
 		Blockspace.createImportXMLButton("toolboxDiv");
 		Blockspace.loadAllBlocks();
 		Blockspace.injectBlockly();
 		SVGAreas.createSVGStage("stage");
 		SVGAreas.createTabSVGConsole("stage");
 	}
+	/* JQuery method to track the position of the mouse */
 	$("#svgStage").mousemove(function(event) {
 	  mouseX= event.pageX;
 	  mouseY = event.pageY;
