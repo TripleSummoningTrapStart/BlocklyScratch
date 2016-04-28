@@ -79,19 +79,34 @@
 
 	</body>
 	<script src="resources/assets/js/d3.js"></script>
-	<script> /* JQuery method to track the position of the mouse */
+	<script>
 	window.onload = function(){
 		Blockspace.createRunButton("toolboxDiv");
 		Blockspace.createStepButton("toolboxDiv")
 		Blockspace.createStopButton("toolboxDiv");
 		Blockspace.createDownloadCodeButton("toolboxDiv");
-		Blockspace.createExportXMLButton("toolboxDiv")
+		Blockspace.createExportXMLButton("toolboxDiv");
 		Blockspace.createImportXMLButton("toolboxDiv");
 		Blockspace.loadAllBlocks();
 		Blockspace.injectBlockly();
 		SVGAreas.createSVGStage("stage");
 		SVGAreas.createTabSVGConsole("stage");
 	}
-
+	/* JQuery method to track the position of the mouse */
+	$("#svgStage").mousemove(function(event) {
+	  mouseX= event.pageX;
+	  mouseY = event.pageY;
+		//console.log("X:" + mouseX + " Y:" + mouseY);
+	});
+	$(window).resize(function() {
+		SVGAreas.stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
+		SVGAreas.maxX = $("#svgStage").height();
+		SVGAreas.maxY = $("#svgStage").width();
+	});
+	$("#svgStage").load(function() {
+		SVGAreas.stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
+		SVGAreas.maxX = $("#svgStage").height();
+		SVGAreas.maxY = $("#svgStage").width();
+	});
 	</script>
 </html>

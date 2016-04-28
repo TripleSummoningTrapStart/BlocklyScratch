@@ -173,21 +173,10 @@ var gotoXY = function (id, xVal, yVal) {
 		newY = maxY;
 	if(obj.attr('penDown') == 'true')
 		SVGAreas.drawSquare(obj, newX - objX, newY - objY);
-	//if(obj.attr('transform') != null)	{
 		obj.attr('transform', '');
 		  obj.node().nodeName == 'circle' ? obj.attr({'cx': newX, 'cy':newY}): obj.attr({'x': newX, 'y': newY});
 		rotateWithoutAnimation(obj);
-	//}
-	/*else
-		{
-			obj.transition().attrTween('x', tweenX).attrTween('y', tweenY);
-			function tweenX(d, i, a) {
-				return d3.interpolateString(objX, newX);
-			}
-			function tweenY(d, i, a) {
-				return d3.interpolateString(objY, newY);
-			}
-	}*/
+
 
 };
 
@@ -573,17 +562,6 @@ var stamp = function(id)
 
 
 	}
-	/*stage.append("rect")
-	.attr("x", attr['x'].value)
-	.attr("y", attr['y'].value)
-	.attr("width", attr['width'].value)
-	.attr("height", attr['height'].value)
-	.attr('fill', attr['fill'].value)
-	.attr('stroke', attr['stroke'].value)
-	.attr('stroke-width', attr['stroke-width'].value)
-	.attr('rotationDegree', attr['rotationDegree'].value)
-	.attr('id', "clone" + cloneCount);
-	rotateWithoutAnimation(SVGAreas.stage.select('#clone' + cloneCount));*/
 	selection.moveToFront();
 }
 
