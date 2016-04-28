@@ -114,7 +114,7 @@ var SVGAreas = (function() {
  }
 
  var fillStage = function() {
-   SVGAreas.mySquare  = stage.append("rect")
+   SVGAreas.mySquare  = SVGAreas.stage.append("rect")
      .attr("x", 240)
      .attr("y", 140)
      .attr("width",30)
@@ -135,7 +135,7 @@ var SVGAreas = (function() {
      .attr('stroke', 'black')
      .attr('stroke-width', 5)
      .call(dragSquare);
-   SVGAreas.myCircle = stage.append("circle")
+   SVGAreas.myCircle = SVGAreas.stage.append("circle")
      .attr("cx", 100)
      .attr("cy", 70)
      .attr("r", 20)
@@ -151,7 +151,7 @@ var SVGAreas = (function() {
  };
 
  var fillSprite = function(){
-    SVGAreas.miniSquare = sprite.append("rect")
+    SVGAreas.miniSquare = SVGAreas.sprite.append("rect")
      .attr("x", -25)
      .attr("y", 5)
      .attr("width",10)
@@ -162,7 +162,7 @@ var SVGAreas = (function() {
      .attr('stroke', 'black')
      .attr('stroke-width', 1)
      .on("click", function(){ switchSprite(miniSquare); });
-    SVGAreas.miniCircle = sprite.append("circle")
+    SVGAreas.miniCircle = SVGAreas.sprite.append("circle")
      .attr("cx", 0)
      .attr("cy",10)
      .attr("r",5)
