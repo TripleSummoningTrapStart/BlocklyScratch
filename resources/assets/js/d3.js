@@ -107,14 +107,14 @@ var SVGAreas = (function() {
             '<pattern id="pattern" patternUnits="userSpaceOnUse" x="0" y="0" width ="10" height = "10" viewbox="0 0 10 10">' +
             '<path d="M-5,0,10,15m0-5,15,10" stroke="white" stroke-width="5"/>' +
             '</pattern></svg>');
-  stage = d3.select("#svgStage");
-  maxX = stage.attr('viewBox').split(' ')[2]//parseInt(stage.style("width")); //TODO reset on resize
-  maxY = stage.attr('viewBox').split(' ')[3]//parseInt(stage.style("height"));
+  SVGAreas.stage = d3.select("#svgStage");
+  SVGAreas.maxX = SVGAreas.stage.attr('viewBox').split(' ')[2]//parseInt(stage.style("width")); //TODO reset on resize
+  SVGAreas.maxY = SVGAreas.stage.attr('viewBox').split(' ')[3]//parseInt(stage.style("height"));
   fillStage();
  }
 
  var fillStage = function() {
-   mySquare  = stage.append("rect")
+   SVGAreas.mySquare  = stage.append("rect")
      .attr("x", 240)
      .attr("y", 140)
      .attr("width",30)
@@ -135,7 +135,7 @@ var SVGAreas = (function() {
      .attr('stroke', 'black')
      .attr('stroke-width', 5)
      .call(dragSquare);
-   myCircle = stage.append("circle")
+   SVGAreas.myCircle = stage.append("circle")
      .attr("cx", 100)
      .attr("cy", 70)
      .attr("r", 20)
@@ -151,7 +151,7 @@ var SVGAreas = (function() {
  };
 
  var fillSprite = function(){
-    miniSquare = sprite.append("rect")
+    SVGAreas.miniSquare = sprite.append("rect")
      .attr("x", -25)
      .attr("y", 5)
      .attr("width",10)
@@ -162,7 +162,7 @@ var SVGAreas = (function() {
      .attr('stroke', 'black')
      .attr('stroke-width', 1)
      .on("click", function(){ switchSprite(miniSquare); });
-    miniCircle = sprite.append("circle")
+    SVGAreas.miniCircle = sprite.append("circle")
      .attr("cx", 0)
      .attr("cy",10)
      .attr("r",5)
@@ -193,7 +193,7 @@ var SVGAreas = (function() {
                '</svg>' +
              '</div>' +
      '</div>');
-   sprite = d3.select("#svgSprite");
+   SVGAreas.sprite = d3.select("#svgSprite");
    fillSprite();
  };
 
@@ -204,7 +204,7 @@ var SVGAreas = (function() {
            '<path d="M-5,0,10,15m0-5,15,10" stroke="white" stroke-width="2"/>' +
          '</pattern>' +
        '</svg>');
-   sprite = d3.select("#svgSprite");
+   SVGAreas.sprite = d3.select("#svgSprite");
    fillSprite();
  };
 
