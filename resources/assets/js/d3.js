@@ -231,4 +231,4 @@ var SVGAreas = (function() {
       draw : draw
   }
 
-}) ();
+}) (); // End of module
