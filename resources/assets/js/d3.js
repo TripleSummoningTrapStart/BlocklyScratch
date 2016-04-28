@@ -62,8 +62,9 @@ var SVGAreas = (function() {
   }
 
   var rotateWithoutAnimation = function(obj) {
-    var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
-    var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
+  	var boundingBox = obj.node().getBBox();
+  	var objX = parseInt(boundingBox.x) + parseInt(boundingBox.width/2);
+  	var objY = parseInt(boundingBox.y) + parseInt(boundingBox.height/2);
     var rotationStyle = obj.attr('rotationStyle');
     var rotationDegree = parseInt(obj.attr('rotationDegree'));
     if(rotationStyle == 'NONE')
@@ -91,13 +92,14 @@ var SVGAreas = (function() {
             '<path d="M-5,0,10,15m0-5,15,10" stroke="white" stroke-width="5"/>' +
             '</pattern></svg>');
   stage = d3.select("#svgStage");
-  maxX = stage.attr('viewBox').split(' ')[2]//parseInt(stage.style("width")); //TODO reset on resize
-  maxY = stage.attr('viewBox').split(' ')[3]//parseInt(stage.style("height"));
+  SVGAreas.maxX = stage.attr('viewBox').split(' ')[2]//parseInt(stage.style("width")); //TODO reset on resize
+  SVGAreas.maxY = stage.attr('viewBox').split(' ')[3]//parseInt(stage.style("height"));
+  SVGAreas.stage = stage;
   fillStage();
  }
 
  var fillStage = function() {
-   mySquare  = stage.append("rect")
+   SVGAreas.mySquare  = stage.append("rect")
      .attr("x", 240)
      .attr("y", 140)
      .attr("width",30)
@@ -113,12 +115,11 @@ var SVGAreas = (function() {
    	.attr("strokeSize", 2)
      .attr("inAnim", 'false')
      .attr("pointDir", 0)
-     .attr("pointDir", 0)
      .attr('fill', 'purple')
      .attr('stroke', 'black')
      .attr('stroke-width', 5)
      .call(dragSquare);
-   myCircle = stage.append("circle")
+   SVGAreas.myCircle = stage.append("circle")
      .attr("cx", 100)
      .attr("cy", 70)
      .attr("r", 20)
@@ -126,6 +127,11 @@ var SVGAreas = (function() {
      .attr("rotationDegree", 0)
      .attr("penDown", 'false')
      .attr("rotationStyle", "all")
+     .attr("colorDirection", 1)
+     .attr("shadeDirection", 1)
+     .attr("strokePen", d3.rgb("#00ADEF"))
+     .attr("strokeSize", 2)
+     .attr("inAnim", 'false')
      .attr("pointDir", 0)
      .attr('fill', 'purple')
      .attr('stroke', 'black')
@@ -187,7 +193,23 @@ var SVGAreas = (function() {
  var createConsole = function(divID) {
 
  };
+ var draw = function(obj, changeX, changeY){
 
+     var boundingBox = obj.node().getBBox();
+     var lineY = parseInt(boundingBox.y) + parseInt(boundingBox.height/2);
+     var xAdj = parseInt(boundingBox.width/2);
+     var lineX = parseInt(boundingBox.x) + parseInt(boundingBox.width/2);
+     var yAdj = parseInt(boundingBox.height/2);
+     var l = stage.append("line")
+                   .attr("id", "draw")
+                   .attr("x1", lineX)
+                   .attr("y1", lineY)
+                   .attr("x2", lineX + changeX)
+                   .attr("y2", lineY + changeY)
+                   .attr("stroke",  obj.attr('strokePen'))
+                   .attr("stroke-width", obj.attr('strokeSize'));
+       obj.moveToFront();
+ }
   return {
       switchSprite : switchSprite,
       stage : stage,
@@ -199,7 +221,9 @@ var SVGAreas = (function() {
       createImportSVGButton : createImportSVGButton,
       setInAnim: setInAnim,
       createSVGStage : createSVGStage,
-      createTabSVGConsole : createTabSVGConsole
+      createTabSVGConsole : createTabSVGConsole,
+      rotateWithoutAnimation: rotateWithoutAnimation,
+      draw: draw
   }
 
 }) ();

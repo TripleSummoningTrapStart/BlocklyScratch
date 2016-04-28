@@ -190,7 +190,7 @@ Blockly.JavaScript['control_flow_statements'] = function(block) {
 };
 
 Blockly.JavaScript['control_repeat_forever'] = function(block) {
-  if(!Blockspace.Blockspace.downloadingCode){
+  if(!Blockspace.downloadingCode){
       var statements_statement = Blockly.JavaScript.statementToCode(block, 'STATEMENT');
       var code = '// forever loop\nwhile (true) {\n ' + statements_statement + '} //end loop\n';
       return code;

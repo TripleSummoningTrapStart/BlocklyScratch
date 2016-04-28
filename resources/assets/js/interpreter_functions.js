@@ -25,17 +25,17 @@ var highlightBlock = function(id) {
 	@param: the number of pixels to move the sprite */
 
 var moveStep = function(id, steps) {
-	var obj = stage.select('#' + id);
+	var obj = SVGAreas.stage.select('#' + id);
 	while(getInAnim(id)){};
-	var objX = parseInt(obj.attr('x'));
-	var objY = parseInt(obj.attr('y'));
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	var dir = convertToRadians(parseFloat(obj.attr("rotationDegree"))) * -1
 	var oppSide = steps * Math.sin(dir); // y diff
 	var adjSide = steps * Math.cos(dir); // x diff
 	if(obj.attr('penDown') == "true")
-			drawSquare(obj, adjSide, oppSide *-1);
+			SVGAreas.drawSquare(obj, adjSide, oppSide *-1);
 	obj.attr('transform', '');
-	obj.attr({'x': objX + adjSide, 'y':  objY - oppSide});
+	obj.node().nodeName == 'circle' ? obj.attr({'cx': objX + adjSide, 'cy':  objY - oppSide}) : obj.attr({'x': objX + adjSide, 'y':  objY - oppSide});
 		rotateWithoutAnimation(obj);
 };
 
@@ -47,8 +47,9 @@ var rotate = function(id, rotateVal) {
 		//TODO Should probably change to take Radians, maybe not
 
 	var obj = SVGAreas.stage.select('#'+id);
-	var objX = parseInt(obj.attr('x')) + parseInt(obj.attr('width')/2);
-	var objY = parseInt(obj.attr('y')) + parseInt(obj.attr('height')/2);
+	var boundingBox = obj.node().getBBox();
+	var objX = parseInt(boundingBox.x) + parseInt(boundingBox.width/2);
+	var objY = parseInt(boundingBox.y) + parseInt(boundingBox.height/2);
 	var rotationStyle = obj.attr('rotationStyle');
 	var rotationDegree = parseInt(obj.attr('rotationDegree'));
 		if(rotationStyle == 'LtoR'){
@@ -82,18 +83,18 @@ var rotate = function(id, rotateVal) {
 	@param: the id of the sprite
 	@param: the new X value */
 var setX = function (id, newVal) {
-	var obj = stage.select('#'+id);
-	var objX = parseInt(obj.attr('x'));
+	var obj = SVGAreas.stage.select('#'+id);
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
 	var newX = adjX + newVal;
 	if(newX == objX)
 		return;
 	if(newX > maxX)
 		newX = maxX;
 	if(obj.attr('penDown') == 'true')
-		drawSquare(obj, newX-objX, 0);
+		SVGAreas.draw(obj, newX-objX, 0);
 	obj.attr('transform', '');
-	obj.attr({'x': newX});
-  rotateWithoutAnimation(obj);
+	obj.node().nodeName == 'circle' ? obj.attr({'cx': newX}) : obj.attr({'x': newX});
+  SVGAreas.rotateWithoutAnimation(obj);
 };
 
 /* this function is called by the setX block to set the Y value of the specified sprite
@@ -101,18 +102,18 @@ var setX = function (id, newVal) {
 	@param: the id of the sprite
 	@param: the new Y value */
 var setY = function (id, newVal) {
-	var obj = stage.select('#'+id);
-	var objY = parseInt(obj.attr('y'));
+	var obj = SVGAreas.stage.select('#'+id);
+	var objY = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	var newY = adjY + (newVal * -1);
 	if(newY == objY)
 		return;
-	if(newY > maxY)
+	if(newY > SVGAreas.maxY)
 		newY = maxY
 	if(obj.attr('penDown') == 'true')
-		drawSquare(obj, 0, newY - objY);
+		SVGAreas.draw(obj, 0, newY - objY);
   obj.attr('transform', '');
-	obj.attr({'y': newY});
-  rotateWithoutAnimation(obj);
+	obj.node().nodeName == 'circle' ? obj.attr({'cy': newY}) : obj.attr({'y': newY});
+  SVGAreas.rotateWithoutAnimation(obj);
 };
 
 /* this function is called by the changeX block to change the X value of the specified sprite
@@ -120,17 +121,17 @@ var setY = function (id, newVal) {
 	@param: the id of the sprite
 	@param: the value to change X by */
 var changeX = function (id, changeVal) {
-	var obj = stage.select('#'+id);
-	var objX = parseInt(obj.attr('x'));
+	var obj = SVGAreas.stage.select('#'+id);
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
 	var newX = changeVal + objX;
 		if(newX == objX)
 			return;
 		if(newX > maxX)
 			newX = maxX;
 		if(obj.attr('penDown') == 'true')
-			drawSquare(obj, changeVal, 0);
+			SVGAreas.drawSquare(obj, changeVal, 0);
 	  obj.attr('transform', '');
-		obj.attr({'x': newX});
+	  obj.node().nodeName == 'circle' ? obj.attr({'cx': newX}) : obj.attr({'x': newX});
 	  rotateWithoutAnimation(obj);
 };
 
@@ -139,17 +140,17 @@ var changeX = function (id, changeVal) {
 	@param: the id of the sprite
 	@param: the value to change Y by */
 var changeY = function (id, changeVal) {
-	var obj = stage.select('#'+id);
-	var objY = parseInt(obj.attr('y'));
+	var obj = SVGAreas.stage.select('#'+id);
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	var newY = (changeVal * -1) + objY;
 	if(newY == objY)
 		return;
 	if(newY > maxY)
 		newY = maxY;
 	if(obj.attr('penDown') == 'true')
-			drawSquare(obj, 0, changeVal);
+			SVGAreas.drawSquare(obj, 0, changeVal);
 	obj.attr('transform', '');
-	obj.attr({'y': newY});
+  obj.node().nodeName == 'circle' ? obj.attr({'cy': newY}) : obj.attr({'y': newY});
 	rotateWithoutAnimation(obj);
 };
 
@@ -159,9 +160,9 @@ var changeY = function (id, changeVal) {
 	@param: the value to change X to
 	@param: the value to change Y to*/
 var gotoXY = function (id, xVal, yVal) {
-	var obj = stage.select('#'+id);
-	var objX = parseInt(obj.attr('x'));
-	var objY = parseInt(obj.attr('y'));
+	var obj = SVGAreas.stage.select('#'+id);
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	var newX = adjX + xVal;
 	var newY = adjY + (yVal*-1);
 	if(newX == objX && newY == objY)
@@ -171,10 +172,10 @@ var gotoXY = function (id, xVal, yVal) {
 	if(newY > maxY)
 		newY = maxY;
 	if(obj.attr('penDown') == 'true')
-		drawSquare(obj, newX - objX, newY - objY);
+		SVGAreas.drawSquare(obj, newX - objX, newY - objY);
 	//if(obj.attr('transform') != null)	{
 		obj.attr('transform', '');
-		obj.attr({'x': newX, 'y': newY});
+		  obj.node().nodeName == 'circle' ? obj.attr({'cx': newX, 'cy':newY}): obj.attr({'x': newX, 'y': newY});
 		rotateWithoutAnimation(obj);
 	//}
 	/*else
@@ -195,9 +196,9 @@ var gotoXY = function (id, xVal, yVal) {
    the specified block to the current location of the mouse
 	@param: the id of the sprite*/
 var gotoMouse = function(id){
-	var obj = stage.select('#' + id);
-	var objX = parseInt(obj.attr('x'));
-	var objY = parseInt(obj.attr('y'));
+	var obj = SVGAreas.stage.select('#' + id);
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	var box = obj.node().getBBox();
 	var newX = mouseX - 5;
 	var newY = mouseY - 184;
@@ -211,9 +212,9 @@ var gotoMouse = function(id){
 		newY = 0;
 	console.log("x: " + newX + ", y:" + newY);
 	if(obj.attr('penDown') == 'true')
-		drawSquare(obj, newX - objX, newY - objY);
+		SVGAreas.drawSquare(obj, newX - objX, newY - objY);
 	obj.attr('transform', '');
-	obj.attr({'x': newX, 'y': newY});
+	  obj.node().nodeName == 'circle' ? obj.attr({'cx': newX, 'cy':newY}): obj.attr({'x': newX, 'y': newY});
 	rotateWithoutAnimation(obj);
 };
 
@@ -225,9 +226,9 @@ var gotoMouse = function(id){
 	@param: the value to change Y to */
 var glideTo = function(id, time, x, y) {
 
-	var obj = stage.select('#'+id);
-	var objX = parseInt(obj.attr('x'));
-	var objY = parseInt(obj.attr('y'));
+	var obj = SVGAreas.stage.select('#'+id);
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	var newX = adjX + x;
 	var newY = adjY + y;
 	if(newX == objX && newY == objY)
@@ -242,16 +243,16 @@ var glideTo = function(id, time, x, y) {
 	{
 		newY = maxY;
 	}
-	obj.transition().attr("x", newX).attr("y", newY).duration(time*1000);
+	  obj.node().nodeName == 'circle' ? obj.transition().attr("cx", newX).attr("cy", newY).duration(time*1000) : obj.transition().attr("x", newX).attr("y", newY).duration(time*1000);
 }
 
 /* this function is called by the If on Edge Bounce block to change the direction
    the specified sprite is facing if it is touching the edge.
 	@param: the id of the sprite */
 var edgeBounce = function(id){
-	var obj = stage.select('#'+id);
-	var objX = parseInt(obj.attr('x'));
-	var objY = parseInt(obj.attr('y'));
+	var obj = SVGAreas.stage.select('#'+id);
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
+	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	if(maxX <= objX || maxY <= objY)
 	{
 		pointIn(id, obj.pointIn + 180, true);
@@ -265,7 +266,7 @@ var edgeBounce = function(id){
 	@param: direction to point the sprite
 	@param: boolean specifying whether the direction is being set */
 var pointIn = function (id, dir, setDirection) {
-	var obj = stage.select("#" + id);
+	var obj = SVGAreas.stage.select("#" + id);
 	if(obj != null)
 	{
 		var dirRad = convertToRadians(dir);
@@ -287,7 +288,7 @@ var pointIn = function (id, dir, setDirection) {
 	 in the direction of the mouse
 	 @param: the id of the sprite */
 var pointTowardsMouse = function(spriteID){
-	var spr = stage.select("#" + spriteID);
+	var spr = SVGAreas.stage.select("#" + spriteID);
 	var points = calculateSpriteWindowPosition(spr); // Should return a tuple
 	var xDif = (points.x - mouseX);
 	var yDif = (points.y - mouseY - 100);
@@ -337,7 +338,7 @@ var pointTowardsMouse = function(spriteID){
 	@param: the id of the sprite
 	@param: the specific rotation style given by the list in the block */
 var setRotationStyle = function(id, rotateStyle) {
-	var obj = stage.select("#"  + id);
+	var obj = SVGAreas.stage.select("#"  + id);
 	if(obj != null){
 		obj.attr({'rotateStyle': rotateStyle});
 	}
@@ -347,13 +348,13 @@ var setRotationStyle = function(id, rotateStyle) {
 /*this function sets the value of penDown to be true for a given sprite, when a pen down block is present
 	@param: the id of the sprite that is activate*/
 var penDown = function(id) {
-	var obj = stage.select("#"+id);
+	var obj = SVGAreas.stage.select("#"+id);
 		obj.attr({'penDown': 'true'});
 }
 /*this function sets the value of penDown to be false for a given sprite, when a pen up block is present
 	@param: the id of the sprite that is activate*/
 var penUp = function(id) {
-	var obj = stage.select("#"+id);
+	var obj = SVGAreas.stage.select("#"+id);
 		obj.attr({'penDown': 'false'});
 }
 
@@ -361,7 +362,7 @@ var penUp = function(id) {
 	@param: the id of the sprite that is active
 	@param: the size to set the color of the pen to be */
 var setColorByNumber = function(id, x) {
-	var obj = stage.select('#'+id);
+	var obj = SVGAreas.stage.select('#'+id);
 	var color = obj.attr('strokePen');
 	var hsv = RGBtoHSV(color);
 	var H = parseInt(hsv[0]);
@@ -392,7 +393,7 @@ var setColorByNumber = function(id, x) {
 	@param: the id of the sprite that is active
 	@param: the size to set the color of the pen to be */
 var setColorByColor = function(id, h, s, v) {
-	var obj = stage.select('#'+id);
+	var obj = SVGAreas.stage.select('#'+id);
 	//obj.attr({strokePen: x});
 	var hsv = [h, s, v];
 	var rgb = HSVtoRGB(hsv);
@@ -408,7 +409,7 @@ var setColorByColor = function(id, h, s, v) {
 	@param the amount to change the pen color by
 */
 var changeColor = function(id, dx) {
-	var obj = stage.select('#' + id);
+	var obj = SVGAreas.stage.select('#' + id);
 	var color = obj.attr('strokePen');
 	var hsv = RGBtoHSV(color);
 	var H = parseInt(hsv[0]);
@@ -449,7 +450,7 @@ var changeColor = function(id, dx) {
 	@param: the id of the sprite that is active
 	@param: the size to set the shade of the pen to be */
 var setShade = function(id, x) {
-	var obj = stage.select('#'+id);
+	var obj = SVGAreas.stage.select('#'+id);
 	var color = obj.attr('strokePen');
 	var hsv = RGBtoHSV(color);
 	var H = parseInt(hsv[0]);
@@ -482,7 +483,7 @@ it switches the direction that the shade is changing by.  0 is for close to blac
 	@param: the id of the sprite that is active
 	@param: the size to set the shade of the pen to be */
 var changeShade = function(id, dx) {
-	var obj = stage.select('#' + id);
+	var obj = SVGAreas.stage.select('#' + id);
 	var color = obj.attr('strokePen');
 	var hsv = RGBtoHSV(color);
 	var H = hsv[0];
@@ -516,14 +517,14 @@ var changeShade = function(id, dx) {
 	@param: the id of the sprite that is active
 	@param: the size to set the pen to be */
 var setSize = function(id, x) {
-	var obj = stage.select('#' + id);
+	var obj = SVGAreas.stage.select('#' + id);
 	obj.attr("strokeSize", x);
 };
 /* This functions changes the size of the pen by a set amount
 	@param: the id of the sprite that is active
 	@param: the amount to change the size by */
 var changeSize = function(id, dx) {
-	var obj = stage.select('#' + id);
+	var obj = SVGAreas.stage.select('#' + id);
 	x = obj.attr('strokeSize');
 	obj.attr("strokeSize", parseInt(x)+dx);
 };
@@ -531,7 +532,7 @@ var changeSize = function(id, dx) {
 /* This function prompts the user for input
 */
 var inputPrompt = function(id, msg) {
-	var obj = stage.select("#" + id);
+	var obj = SVGAreas.stage.select("#" + id);
 	var consoleIn = document.getElementById('consoleInput');
 	consoleIn.style.display='';
 	addConsoleText(msg);
@@ -547,7 +548,7 @@ var resetTextSubmitted = function(){
 	textSubmitted = false;
 }
 var getInAnim = function(id){
-	return stage.select("#" + id).attr("inAnim") == "true";
+	return SVGAreas.stage.select("#" + id).attr("inAnim") == "true";
 }
 var submitAndResetTextArea = function(){
 	var consoleIn = document.getElementById('consoleInput');
@@ -557,13 +558,22 @@ var submitAndResetTextArea = function(){
 
 var stamp = function(id)
 {
-	var selection = stage.select('#'+id);
-	//var obj = stage.select('#' + id).clone();
-	var attr = selection.node().attributes;
+	var selection = SVGAreas.stage.select('#'+id);
+	//var obj = SVGAreas.stage.select('#' + id).clone();
+	var attributes = selection.node().attributes;
 	cloneCount = cloneCount + 1
 	//var stage2 = Snap("#svgStage");
 	//var obj = stage2.rect(attr[0].value, attr[1].value, attr[2].value, attr[3].value);
-	stage.append("rect")
+	 var item = SVGAreas.stage.append(selection.node().nodeName);
+	for(var i = 0; i < attributes.length; i++) {
+		if(attributes[i].name == "id")
+			item.attr({'id': 'clone' + cloneCount});
+		else
+			item.attr(attributes[i].name, attributes[i].value);
+
+
+	}
+	/*stage.append("rect")
 	.attr("x", attr['x'].value)
 	.attr("y", attr['y'].value)
 	.attr("width", attr['width'].value)
@@ -573,12 +583,14 @@ var stamp = function(id)
 	.attr('stroke-width', attr['stroke-width'].value)
 	.attr('rotationDegree', attr['rotationDegree'].value)
 	.attr('id', "clone" + cloneCount);
-	rotateWithoutAnimation(stage.select('#clone' + cloneCount));
+	rotateWithoutAnimation(SVGAreas.stage.select('#clone' + cloneCount));*/
 	selection.moveToFront();
 }
 
 var clearPenLines = function(){
-	stage.selectAll("#draw").remove()
+	SVGAreas.stage.selectAll("#draw").remove();
+	for(var i = 0; i <= cloneCount; i++)
+		SVGAreas.stage.selectAll("#clone" + i).remove();
 }
 
 var clearConsole = function(){

@@ -154,7 +154,7 @@ var Blockspace = (function(){
   	//Parses the text into an array clean of comment values used as markers
   	var values = cleanValues(codeToParse);
   	var code = 'var queue = [];\n';
-  	code = "var sprite = '" + SVGAreas.mySquare.attr("id") + "';\n" + code; // TODO remove this and make dynamic
+  	code = "var sprite = '" + SVGAreas.myCircle.attr("id") + "';\n" + code; // TODO remove this and make dynamic
 
   	// Gets all global values
   	if(S(values[0]).contains('var'))
