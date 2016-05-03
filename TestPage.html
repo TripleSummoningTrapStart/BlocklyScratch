@@ -6,11 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>"ScratchLookAlike"</title>
-		 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		 <link href="dependencies/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		 <link href="resources/assets/css/testpage.css" rel="stylesheet">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script src="bootstrap/js/bootstrap.min.js"></script>
-		<script src="d3/d3.min.js"></script>
+		<!--jquery is in the dpendencies folder, however for bootstrap to work we need to import it from the webpage-->
+ 	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="dependencies/bootstrap/js/bootstrap.min.js"></script>
+		<script src="dependencies/d3/d3.js"></script>
 
 		<script src="blockly/blockly_uncompressed.js"></script>
 		<script src="blockly/blocks/logic.js"></script>
@@ -42,8 +43,8 @@
 		<script src="blockly/generators/javascript/pen.js"></script>
 		<script src="blockly/appengine/storage.js"></script>
 
-		<script src="JS-Interpreter/acorn_interpreter.js"></script>
-		<script src="https://cdn.rawgit.com/jprichardson/string.js/master/dist/string.min.js"></script>
+		<script src="dependencies/JS-Interpreter/acorn_interpreter.js"></script>
+		<script src="dependencies/string.min.js"></script>
 		<script src="resources/assets/js/loop_functions.js"></script>
 		<script src="resources/assets/js/workspace.js"></script>
 		<script src="resources/assets/js/interpreter_init.js"></script>
