@@ -76,6 +76,10 @@ var SVGAreas = (function() {
     obj.attr("transform", "rotate(" + rotationDegree +"," + objX + "," + objY +")");
   };
 
+ var setInAnim = function(obj, inAnim){
+   obj.attr("inAnim", inAnim)
+ };
+
   // Function to draw a line following the given object
   var draw = function(obj, changeX, changeY){
       var boundingBox = obj.node().getBBox();
