@@ -1,2 +1,2 @@
 # BlocklyScratch
-A remake of MIT's scratch using Google Blockly
+A remake of MIT's Scratch using Google Blockly
