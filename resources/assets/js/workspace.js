@@ -11,7 +11,10 @@ var Blockspace = (function(){
   var mouseY;
   var textSubmitted = false;
   var downloadingCode = false; // Check for generating functions as strings for downloading code
-
+  var invalid = ["logic_ternary", "control_repeat", "control_for", "control_forEach", "texts_prompt",
+    "texts_create_join_container", "texts_create_join_item", "lists_create_with_container", "lists_create_with_item",
+    "control_if_if", "control_if_elseif", "control_if_else", "procedures_mutatorcontainer", "procedures_mutatorarg",
+    "procedures_callnoreturn", "procedures_callreturn"];
 
   /* Method called when a change is detected in the page to resize the blockly area */
   var resizeBlockly = function(e) {
@@ -310,7 +313,7 @@ var Blockspace = (function(){
   function loadAllBlocks() {
       var blocks = [];
       var cats = {};
-  	var invalid = ["logic_ternary", "control_repeat", "control_for", "control_forEach", "texts_prompt", "texts_create_join_container", "texts_create_join_item", "lists_create_with_container", "lists_create_with_item", "control_if_if", "control_if_elseif", "control_if_else", "procedures_mutatorcontainer", "procedures_mutatorarg","procedures_callnoreturn", "procedures_callreturn"];
+
       for (var block in Blockly.Blocks) {
 
         /* Gathers all blocks and categories */
@@ -362,6 +365,34 @@ var Blockspace = (function(){
       }
   }
 
+  /*Function to remove a block from the toolbox
+  returns true if block is removed
+  returns false if block is not removed
+  Does not check to see if block name is valid
+  */
+  function removeBlockFromToolbox(blockName){
+    if (invalid.indexOf(blockName) == -1) {
+      invalid.push(blockName);
+      return true
+    }
+    return false
+  }
+
+  /*Function to remove a block from the invalid block list
+  essentially adding it back to the toolbox
+  returns true if block is removed from list
+  returns false if block is not removed from list
+  Does not check to see if block name is valid
+  */
+  function removeBlockFromInvalid(blockName){
+    var index = invalid.indexOf(blockName);
+    if(index != -1){
+      invalid.splice(index,1);
+      return true
+    }
+    return false
+  }
+
   return{
     createRunButton: createRunButton,
     createStepButton: createStepButton,
@@ -371,6 +402,8 @@ var Blockspace = (function(){
     createImportXMLButton: createImportXMLButton,
     injectBlockly: injectBlockly,
     loadAllBlocks: loadAllBlocks,
-    downloadingCode: downloadingCode
+    downloadingCode: downloadingCode,
+    removeBlockFromInvalid: removeBlockFromInvalid,
+    removeBlockFromToolbox: removeBlockFromToolbox
   };
 })();
