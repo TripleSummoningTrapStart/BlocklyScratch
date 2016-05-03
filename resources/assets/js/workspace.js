@@ -1,11 +1,12 @@
-var interpreter;
+
 
 var Blockspace = (function(){
+
   var blocklyArea;
   var blocklyDiv;
   var workspace;
   var highlightPause = false;
-  var time = 1;
+  var interpreter;
   var mouseX;
   var mouseY;
   var textSubmitted = false;

@@ -2,7 +2,7 @@ var adjX = 200; // the adjusted X value of the sprite to support a cartesian coo
 var adjY = 140; // the adjusted Y value of the sprite to support a cartesian coordinate plane
 var cloneCount = 0
 
-/*This fu nction takes in a text input from the print block to add to the text area
+/*This function takes in a text input from the print block to add to the text area
  located in the console tab
  @param: the text to add */
 var addConsoleText = function(text) {
@@ -548,20 +548,16 @@ var submitAndResetTextArea = function(){
 var stamp = function(id)
 {
 	var selection = SVGAreas.stage.select('#'+id);
-	//var obj = SVGAreas.stage.select('#' + id).clone();
 	var attributes = selection.node().attributes;
 	cloneCount = cloneCount + 1
-	//var stage2 = Snap("#svgStage");
-	//var obj = stage2.rect(attr[0].value, attr[1].value, attr[2].value, attr[3].value);
-	 var item = SVGAreas.stage.append(selection.node().nodeName);
+	var item = SVGAreas.stage.append(selection.node().nodeName);
 	for(var i = 0; i < attributes.length; i++) {
 		if(attributes[i].name == "id")
 			item.attr({'id': 'clone' + cloneCount});
 		else
 			item.attr(attributes[i].name, attributes[i].value);
-
-
 	}
+	SVGAreas.rotateWithoutAnimation(SVGAreas.stage.select('#clone' + cloneCount));
 	selection.moveToFront();
 }
 
