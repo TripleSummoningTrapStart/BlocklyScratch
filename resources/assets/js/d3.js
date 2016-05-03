@@ -249,6 +249,7 @@ var SVGAreas = (function() {
                    .attr("stroke-width", obj.attr('strokeSize'));
        obj.moveToFront();
  }
+
   // Public variables and functions
   return {
       switchSprite : switchSprite,

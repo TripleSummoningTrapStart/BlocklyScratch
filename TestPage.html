@@ -44,8 +44,8 @@
 
 		<script src="JS-Interpreter/acorn_interpreter.js"></script>
 		<script src="https://cdn.rawgit.com/jprichardson/string.js/master/dist/string.min.js"></script>
-		<script src="resources/assets/js/loop_functions.js"></script>
-		<script src="resources/assets/js/general_functions.js"></script>
+		<!--<script src="resources/assets/js/loop_functions.js"></script> -->
+		<script src="resources/assets/js/workspace.js"></script>
 		<script src="resources/assets/js/injectBlocks.js"></script>
 		<script src="resources/assets/js/interpreter_init.js"></script>
 		<script src="resources/assets/js/interpreter_functions.js"></script>
@@ -92,21 +92,5 @@
 		SVGAreas.createSVGStage("stage");
 		SVGAreas.createTabSVGConsole("stage");
 	}
-	/* JQuery method to track the position of the mouse */
-	$("#svgStage").mousemove(function(event) {
-	  mouseX= event.pageX;
-	  mouseY = event.pageY;
-		//console.log("X:" + mouseX + " Y:" + mouseY);
-	});
-	$(window).resize(function() {
-		SVGAreas.stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
-		SVGAreas.maxX = $("#svgStage").height();
-		SVGAreas.maxY = $("#svgStage").width();
-	});
-	$("#svgStage").load(function() {
-		SVGAreas.stage.attr('viewBox', "0 0 " + $("#svgStage").width() + " " + $("#svgStage").height());
-		SVGAreas.maxX = $("#svgStage").height();
-		SVGAreas.maxY = $("#svgStage").width();
-	});
 	</script>
 </html>

@@ -1,3 +1,5 @@
+
+
 //code that will eventually be passed into the intepreter
 var funcCode = '';
 
@@ -11,7 +13,7 @@ var parseWhileLoop = function (lines, loopCount, remaining, numRecursion) {
 	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);//lookForLoop(lines, loopCount, numRecursion + 1);
 
 	funcCode += 'queue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
-			
+
 	if(remaining){
 		funcCode += 'else{\nqueue.push(remainingCodeForLoop' + loopCount + ');\n}\n';
 	}
@@ -38,7 +40,7 @@ var parseRepeatLoop = function (lines, loopCount, remaining, numRecursion) {
 
 	funcCode +=   S(forLoopParts[2]).trim().s
 				+ ';\nqueue.push(functionLoop' + (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n}\n';
-			
+
 	if(remaining){
 		funcCode += 'else{\nqueue.push(remainingCodeForLoop' + loopCount + ');\n'
 		+ S(forLoopParts[2]).trim().replace('++', ' = 0;').s + '\n}\n';
@@ -57,12 +59,12 @@ var parseRepeatLoop = function (lines, loopCount, remaining, numRecursion) {
 /* Method to parse forever loops into a function based forever loop */
 var parseForeverLoop = function (lines, loopCount) {
 	trimAndGetLoopGuard(lines);
-	
+
 	funcCode += getLoopFunctionHeaderString(loopCount);
 	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);
 	funcCode += 'queue.push(functionLoop'
 			+ (hasInnerLoop ? (loopCount + 1) : loopCount) + ');\n};\n';
-			
+
 	if(hasInnerLoop)
 	{
 		lookForLoop(lines, loopCount, 1);
@@ -74,9 +76,9 @@ var parseRemaining = function(lines, loopCount, numRecursion) {
 	funcCode += 'var remainingCodeForLoop' + loopCount + ' = function() {\n';
 
 	var hasInnerLoop = (getBeforeStartOfLoop(lines) > -1);
-	
+
 	//funcCode += lines.join("\n") + '\n';
-	
+
 	// if LoopCount == 0, don't call outer loop.
 	if(numRecursion > 0) {
 		funcCode += 'queue.push(functionLoop' + (loopCount - 1) + ');\n';
@@ -85,7 +87,7 @@ var parseRemaining = function(lines, loopCount, numRecursion) {
 		lookForLoop(lines, loopCount, numRecursion);
 		funcCode += 'queue.push(functionLoop' + (loopCount + 1) + ');\n';
 	}
-	
+
 	funcCode += '};\n';
 };
 
@@ -110,7 +112,7 @@ var getBeforeStartOfLoop = function (lines) {
 		funcCode += lines.join('\n') + '\n';
 	}
 	return start
-		
+
 };
 /* Method to find where a loop starts based on comment flag */
 var findStartOfLoop = function(lines) {
@@ -132,7 +134,7 @@ var determineLoop = function (lines, loopType, loopCount, start, numRecursion) {
 	{
 		parseRemaining(lines,loopCount,numRecursion);
 	}
-	
+
 	switch (loopType)
 	{
 		case '// repeat loop':
@@ -152,7 +154,7 @@ var getInnerLoopArray = function (lines, start) {
 	var numLoopStarts = 0; //parsed out first hat when method is called, starts at one to prevent break case;
 	var numLoopEnd = 0;
 	var loopEndPosition = 0;
-	
+
 	for(var i = start; i < lines.length; i++)
 	{
 		if(!S(lines[i]).contains('}') && S(lines[i]).contains('//') && S(lines[i]).contains('loop'))

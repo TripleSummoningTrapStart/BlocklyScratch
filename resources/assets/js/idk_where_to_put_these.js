@@ -208,3 +208,24 @@ var HSVtoRGB = function(hsv)
 	}
 	return [r1, g1, b1];
 };
+
+var draw = function(obj, changeX, changeY){
+
+    var boundingBox = obj.node().getBBox();
+    var lineY = parseInt(boundingBox.y) + parseInt(boundingBox.height/2);
+    var xAdj = parseInt(boundingBox.width/2);
+    var lineX = parseInt(boundingBox.x) + parseInt(boundingBox.width/2);
+    var yAdj = parseInt(boundingBox.height/2);
+    var l = stage.append("line")
+                  .attr("id", "draw")
+                  .attr("x1", lineX)
+                  .attr("y1", lineY)
+                  .attr("x2", lineX + changeX)
+                  .attr("y2", lineY + changeY)
+                  .attr("stroke",  obj.attr('strokePen'))
+                  .attr("stroke-width", obj.attr('strokeSize'));
+      obj.moveToFront();
+}
+var submit = function(){
+  textSubmitted = true;
+}
