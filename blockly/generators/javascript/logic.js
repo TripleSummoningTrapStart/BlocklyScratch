@@ -31,7 +31,18 @@ goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['control_if'] = function(block) {
   // If/elseif/else condition.
-  if(!Blockspace.downloadingCode){
+  if(downloadingCode){
+    var n = 0;
+    code = "";
+    for (; n <= block.elseifCount_; n++) {
+      code += Blockly.JavaScript.statementToCode(block, 'DO' + n);
+    }
+    if (block.elseCount_) {
+      code += Blockly.JavaScript.statementToCode(block, 'ELSE');
+    }
+    return code;
+  }
+  else {
     var n = 0;
     var argument = Blockly.JavaScript.valueToCode(block, 'IF' + n,
         Blockly.JavaScript.ORDER_NONE) || 'false';
