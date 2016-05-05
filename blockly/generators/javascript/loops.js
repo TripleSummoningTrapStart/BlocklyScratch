@@ -30,7 +30,7 @@ goog.require('Blockly.JavaScript');
 
 
 Blockly.JavaScript['control_repeat_ext'] = function(block) {
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     return Blockly.JavaScript.statementToCode(block, 'DO');
   }
   else {
@@ -68,7 +68,7 @@ Blockly.JavaScript['control_repeat'] =
 
 Blockly.JavaScript['control_whileUntil'] = function(block) {
   // Do while/until loop.
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     return Blockly.JavaScript.statementToCode(block, 'DO');
   }
   else {
@@ -88,7 +88,7 @@ Blockly.JavaScript['control_whileUntil'] = function(block) {
 
 Blockly.JavaScript['control_for'] = function(block) {
   // For loop.
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     return Blockly.JavaScript.statementToCode(block, 'DO');
   }
   else {
@@ -159,7 +159,7 @@ Blockly.JavaScript['control_for'] = function(block) {
 
 Blockly.JavaScript['control_forEach'] = function(block) {
   // For each loop.
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     return Blockly.JavaScript.statementToCode(block, 'DO');
   }
   else {
@@ -202,7 +202,7 @@ Blockly.JavaScript['control_flow_statements'] = function(block) {
 };
 
 Blockly.JavaScript['control_repeat_forever'] = function(block) {
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     return Blockly.JavaScript.statementToCode(block, 'STATEMENT');
   }
   else {

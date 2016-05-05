@@ -31,7 +31,7 @@ goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['control_if'] = function(block) {
   // If/elseif/else condition.
-  if(downloadingCode){
+  if(Blockspace.downloadingCode){
     var n = 0;
     code = "";
     for (; n <= block.elseifCount_; n++) {

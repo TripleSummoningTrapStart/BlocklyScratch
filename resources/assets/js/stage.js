@@ -271,7 +271,6 @@ var SVGAreas = (function() {
       createSVGSprite : createSVGSprite,
       createConsole : createConsole,
       draw : draw
-
   }
 
 }) (); // End of module

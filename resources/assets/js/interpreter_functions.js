@@ -1,6 +1,7 @@
 var adjX = 200; // the adjusted X value of the sprite to support a cartesian coordinate plane
 var adjY = 140; // the adjusted Y value of the sprite to support a cartesian coordinate plane
 var cloneCount = 0
+var textSubmitted = false;
 
 /*This function takes in a text input from the print block to add to the text area
  located in the console tab
@@ -88,8 +89,8 @@ var setX = function (id, newVal) {
 	var newX = adjX + newVal;
 	if(newX == objX)
 		return;
-	if(newX > maxX)
-		newX = maxX;
+	if(newX > SVGAreas.maxX)
+		newX = SVGAreas.maxX;
 	if(obj.attr('penDown') == 'true')
 		SVGAreas.draw(obj, newX-objX, 0);
 	obj.attr('transform', '');
@@ -108,7 +109,7 @@ var setY = function (id, newVal) {
 	if(newY == objY)
 		return;
 	if(newY > SVGAreas.maxY)
-		newY = maxY
+		newY = SVGAreas.maxY
 	if(obj.attr('penDown') == 'true')
 		SVGAreas.draw(obj, 0, newY - objY);
   obj.attr('transform', '');
@@ -126,8 +127,8 @@ var changeX = function (id, changeVal) {
 	var newX = changeVal + objX;
 		if(newX == objX)
 			return;
-		if(newX > maxX)
-			newX = maxX;
+		if(newX > SVGAreas.maxX)
+			newX = SVGAreas.maxX;
 		if(obj.attr('penDown') == 'true')
 			SVGAreas.drawSquare(obj, changeVal, 0);
 	  obj.attr('transform', '');
@@ -145,8 +146,8 @@ var changeY = function (id, changeVal) {
 	var newY = (changeVal * -1) + objY;
 	if(newY == objY)
 		return;
-	if(newY > maxY)
-		newY = maxY;
+	if(newY > SVGAreas.maxY)
+		newY = SVGAreas.maxY;
 	if(obj.attr('penDown') == 'true')
 			SVGAreas.drawSquare(obj, 0, changeVal);
 	obj.attr('transform', '');
@@ -167,17 +168,15 @@ var gotoXY = function (id, xVal, yVal) {
 	var newY = adjY + (yVal*-1);
 	if(newX == objX && newY == objY)
 		return;
-	if(newX > maxX)
-		newX = maxX;
-	if(newY > maxY)
-		newY = maxY;
+	if(newX > SVGAreas.maxX)
+		newX = SVGAreas.maxX;
+	if(newY > SVGAreas.maxY)
+		newY = SVGAreas.maxY;
 	if(obj.attr('penDown') == 'true')
 		SVGAreas.drawSquare(obj, newX - objX, newY - objY);
 		obj.attr('transform', '');
 		  obj.node().nodeName == 'circle' ? obj.attr({'cx': newX, 'cy':newY}): obj.attr({'x': newX, 'y': newY});
-		rotateWithoutAnimation(obj);
-
-
+		SVGAreas.rotateWithoutAnimation(obj);
 };
 
 
@@ -191,12 +190,12 @@ var gotoMouse = function(id){
 	var box = obj.node().getBBox();
 	var newX = mouseX - 5;
 	var newY = mouseY - 184;
-	if(newX > maxX)
-		newX = maxX;
+	if(newX > SVGAreas.maxX)
+		newX = SVGAreas.maxX;
 	else if (newX < 0)
 		newX = 0;
-	if(newY > maxY)
-		newY = maxY;
+	if(newY > SVGAreas.maxY)
+		newY = SVGAreas.maxY;
 	else if(newY < 0)
 		newY = 0;
 	console.log("x: " + newX + ", y:" + newY);
@@ -224,13 +223,13 @@ var glideTo = function(id, time, x, y) {
 	{
 		return;
 	}
-	if(newX > maxX)
+	if(newX > SVGAreas.maxX)
 	{
-		newX = maxX;
+		newX = SVGAreas.maxX;
 	}
-	if(newY > maxY)
+	if(newY > SVGAreas.maxY)
 	{
-		newY = maxY;
+		newY = SVGAreas.maxY;
 	}
 	  obj.node().nodeName == 'circle' ? obj.transition().attr("cx", newX).attr("cy", newY).duration(time*1000) : obj.transition().attr("x", newX).attr("y", newY).duration(time*1000);
 }
@@ -242,7 +241,7 @@ var edgeBounce = function(id){
 	var obj = SVGAreas.stage.select('#'+id);
 	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
 	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
-	if(maxX <= objX || maxY <= objY)
+	if(SVGAreas.maxX <= objX || SVGAreas.maxY <= objY)
 	{
 		pointIn(id, obj.pointIn + 180, true);
 	}
@@ -530,12 +529,18 @@ var inputPrompt = function(id, msg) {
  	//return consoleIn.value;
 	//addConsoleText(v);
 };
+
 var getTextSubmitted = function(){
 	return textSubmitted;
-}
+};
+
 var resetTextSubmitted = function(){
 	textSubmitted = false;
-}
+};
+
+var submit = function(){
+	textSubmitted = true;
+};
 var getInAnim = function(id){
 	return SVGAreas.stage.select("#" + id).attr("inAnim") == "true";
 }
