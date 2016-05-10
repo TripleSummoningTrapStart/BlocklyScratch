@@ -29,12 +29,12 @@ var moveStep = function(id, steps) {
 	var obj = SVGAreas.stage.select('#' + id);
 	while(getInAnim(id)){};
 	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
-	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
+	var objY = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	var dir = convertToRadians(parseFloat(obj.attr("rotationDegree"))) * -1
 	var oppSide = steps * Math.sin(dir); // y diff
 	var adjSide = steps * Math.cos(dir); // x diff
 	if(obj.attr('penDown') == "true")
-			SVGAreas.drawSquare(obj, adjSide, oppSide *-1);
+			SVGAreas.draw(obj, adjSide, oppSide *-1);
 	obj.attr('transform', '');
 	obj.node().nodeName == 'circle' ? obj.attr({'cx': objX + adjSide, 'cy':  objY - oppSide}) : obj.attr({'x': objX + adjSide, 'y':  objY - oppSide});
 		rotateWithoutAnimation(obj);
@@ -130,7 +130,7 @@ var changeX = function (id, changeVal) {
 		if(newX > SVGAreas.maxX)
 			newX = SVGAreas.maxX;
 		if(obj.attr('penDown') == 'true')
-			SVGAreas.drawSquare(obj, changeVal, 0);
+			SVGAreas.draw(obj, changeVal, 0);
 	  obj.attr('transform', '');
 	  obj.node().nodeName == 'circle' ? obj.attr({'cx': newX}) : obj.attr({'x': newX});
 	  rotateWithoutAnimation(obj);
@@ -142,14 +142,14 @@ var changeX = function (id, changeVal) {
 	@param: the value to change Y by */
 var changeY = function (id, changeVal) {
 	var obj = SVGAreas.stage.select('#'+id);
-	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
+	var objY = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	var newY = (changeVal * -1) + objY;
 	if(newY == objY)
 		return;
 	if(newY > SVGAreas.maxY)
 		newY = SVGAreas.maxY;
 	if(obj.attr('penDown') == 'true')
-			SVGAreas.drawSquare(obj, 0, changeVal);
+			SVGAreas.draw(obj, 0, changeVal);
 	obj.attr('transform', '');
   obj.node().nodeName == 'circle' ? obj.attr({'cy': newY}) : obj.attr({'y': newY});
 	rotateWithoutAnimation(obj);
@@ -163,7 +163,7 @@ var changeY = function (id, changeVal) {
 var gotoXY = function (id, xVal, yVal) {
 	var obj = SVGAreas.stage.select('#'+id);
 	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
-	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
+	var objY = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	var newX = adjX + xVal;
 	var newY = adjY + (yVal*-1);
 	if(newX == objX && newY == objY)
@@ -173,7 +173,7 @@ var gotoXY = function (id, xVal, yVal) {
 	if(newY > SVGAreas.maxY)
 		newY = SVGAreas.maxY;
 	if(obj.attr('penDown') == 'true')
-		SVGAreas.drawSquare(obj, newX - objX, newY - objY);
+		SVGAreas.draw(obj, newX - objX, newY - objY);
 		obj.attr('transform', '');
 		  obj.node().nodeName == 'circle' ? obj.attr({'cx': newX, 'cy':newY}): obj.attr({'x': newX, 'y': newY});
 		SVGAreas.rotateWithoutAnimation(obj);
@@ -186,7 +186,7 @@ var gotoXY = function (id, xVal, yVal) {
 var gotoMouse = function(id){
 	var obj = SVGAreas.stage.select('#' + id);
 	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
-	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
+	var objY = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	var box = obj.node().getBBox();
 	var newX = mouseX - 5;
 	var newY = mouseY - 184;
@@ -200,7 +200,7 @@ var gotoMouse = function(id){
 		newY = 0;
 	console.log("x: " + newX + ", y:" + newY);
 	if(obj.attr('penDown') == 'true')
-		SVGAreas.drawSquare(obj, newX - objX, newY - objY);
+		SVGAreas.draw(obj, newX - objX, newY - objY);
 	obj.attr('transform', '');
 	  obj.node().nodeName == 'circle' ? obj.attr({'cx': newX, 'cy':newY}): obj.attr({'x': newX, 'y': newY});
 	rotateWithoutAnimation(obj);
@@ -216,9 +216,9 @@ var glideTo = function(id, time, x, y) {
 
 	var obj = SVGAreas.stage.select('#'+id);
 	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
-	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
+	var objY = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	var newX = adjX + x;
-	var newY = adjY + y;
+	var newY = adjY + y * -1;
 	if(newX == objX && newY == objY)
 	{
 		return;
@@ -240,7 +240,7 @@ var glideTo = function(id, time, x, y) {
 var edgeBounce = function(id){
 	var obj = SVGAreas.stage.select('#'+id);
 	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cx')) : parseInt(obj.attr('x'));
-	var objX = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
+	var objY = obj.node().nodeName == 'circle' ? parseInt(obj.attr('cy')) : parseInt(obj.attr('y'));
 	if(SVGAreas.maxX <= objX || SVGAreas.maxY <= objY)
 	{
 		pointIn(id, obj.pointIn + 180, true);
@@ -399,7 +399,7 @@ var setColorByColor = function(id, h, s, v) {
 var changeColor = function(id, dx) {
 	var obj = SVGAreas.stage.select('#' + id);
 	var color = obj.attr('strokePen');
-	var hsv = RGBtoHSV(color);
+	var hsv = SVGAreas.RGBtoHSV(color);
 	var H = parseInt(hsv[0]);
 	var S = parseFloat(hsv[1]);
 	var V = parseFloat(hsv[2]);
@@ -425,7 +425,7 @@ var changeColor = function(id, dx) {
 		H = H - (H%360);
 	}
 	hsv = [H, S, V];
-	var rgb = HSVtoRGB(hsv);
+	var rgb = SVGAreas.HSVtoRGB(hsv);
 	var r1 = rgb[0];
 	var g1 = rgb[1];
 	var b1 = rgb[2];
@@ -440,7 +440,7 @@ var changeColor = function(id, dx) {
 var setShade = function(id, x) {
 	var obj = SVGAreas.stage.select('#'+id);
 	var color = obj.attr('strokePen');
-	var hsv = RGBtoHSV(color);
+	var hsv = SVGAreas.RGBtoHSV(color);
 	var H = parseInt(hsv[0]);
 	var S = parseFloat(hsv[1]);
 	var V = parseFloat(hsv[2]);
@@ -458,7 +458,7 @@ var setShade = function(id, x) {
 		V = x/100;
 	}
 	hsv = [H, S, V];
-	var rgb = HSVtoRGB(hsv);
+	var rgb = SVGAreas.HSVtoRGB(hsv);
 	var r1 = rgb[0];
 	var g1 = rgb[1];
 	var b1 = rgb[2];
@@ -473,7 +473,7 @@ it switches the direction that the shade is changing by.  0 is for close to blac
 var changeShade = function(id, dx) {
 	var obj = SVGAreas.stage.select('#' + id);
 	var color = obj.attr('strokePen');
-	var hsv = RGBtoHSV(color);
+	var hsv = SVGAreas.RGBtoHSV(color);
 	var H = hsv[0];
 	var S = hsv[1];
 	var V = parseFloat(hsv[2]);
@@ -493,7 +493,7 @@ var changeShade = function(id, dx) {
 		obj.attr({shadeDirection: -1});
 	}
 	hsv = [H, S, V];
-	var rgb = HSVtoRGB(hsv);
+	var rgb = SVGAreas.HSVtoRGB(hsv);
 	var r1 = rgb[0];
 	var g1 = rgb[1];
 	var b1 = rgb[2];
